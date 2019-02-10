@@ -1,0 +1,101 @@
+* {
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body, html {
+    height: 100%;
+}
+
+button, input {
+    border-radius: 0px !important;
+    border-width: 1.5px !important;
+}
+
+h2 {
+    font-size: 50px;
+    font-weight: 100;
+}
+
+p {
+    font-size: 20px;
+}
+.background {
+    background-image:url("login_background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+input[type=text], input[type=password] {
+    color:#999999;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    color: #ffffff;
+}
+
+input[type=text],input[type=password], input[type=text]:focus, input[type=password]:focus {
+    font-weight: 500;
+    border-color: #7b7676;
+    background-color: #111;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #111;
+    transition: 0.70s;
+}
+
+.button-red {
+    border-color: #e50914;
+    color: #e50914;
+    border-style: solid;
+    margin-bottom: 10px;
+}
+
+.button-grey {
+    border-color: #7b7676;
+    color: #7b7676;
+}
+
+::placeholder {
+    color: #7b7676;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.button-red:hover {
+    background-color: #e50914;
+    color: #ffffff;
+}
+
+.button-grey:hover {
+    background-color: #7b7676;
+    color: #ffffff;
+}
+
+.logo {
+    height: 70px;
+}
+
+.test-border {
+    border: 2px solid red;
+}
+
+.title-user {
+    height: 100px;
+    width: 100px;
+    border: 2px solid red;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}

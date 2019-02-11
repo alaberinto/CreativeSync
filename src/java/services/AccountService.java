@@ -1,6 +1,9 @@
 package services;
 
+import dataaccess.DBException;
 import dataaccess.UserBroker;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,16 +30,22 @@ public class AccountService {
      * @param password The password entered by the user.
      * @return Returns True if the two hashes match. Else returns false.
      */
-    public boolean validate(String email, String password) {
+    public boolean validate(String email, String password){
         HashingService hs = new HashingService();
         
         //Retrieve users existing hash
-        String oldHash = ab.getUserHash(email);
+        String oldHash;
+        
+        try {
+            oldHash = ab.getUserHash(email);
+            
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
         
         //Create new hash based on email, password
         String newHash = hs.generateHash(password);
-        
-        System.out.println(oldHash);
         
         //Compare hashes. I dont understand why the IDE is making a big deal about this.
         if(oldHash.equals(newHash))

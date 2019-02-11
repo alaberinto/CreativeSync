@@ -13,10 +13,10 @@ import services.HashingService;
  * @author Mason
  */
 public class UserBroker {
-    
+
     /**
      * Gets the user based on their registered email.
-     * 
+     *
      * @param email the email associated with the user.
      * @return a User object containing information about the User.
      */
@@ -30,11 +30,11 @@ public class UserBroker {
             throw new DBException("Error getting user.");
         }
     }
-    
+
     /**
-     * Gets all the Users from the database. 
-     * 
-     * @return a Collection of all Users in the table. 
+     * Gets all the Users from the database.
+     *
+     * @return a Collection of all Users in the table.
      */
     public Collection<User> getAllUsers() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -46,26 +46,24 @@ public class UserBroker {
             throw new DBException("Error getting users.");
         }
     }
-    
+
     /**
      * Gets all the Users associated with a Title
-     * 
-     * @return a Collection of Users working on a specific Title. 
+     *
+     * @return a Collection of Users working on a specific Title.
      */
     public Collection<User> getUsersByTitle() {
         return null;
     }
-    
+
     /**
      * Takes in the entered email and retrieves that emails hash from the DB.
-     * @param email 
+     *
+     * @param email
      * @return a String value containing the hashed password input.
      */
-    public String getUserHash(String email) {
-        
-        //Placeholder code for testing because DB is not setup yet.
-        HashingService hs = new HashingService();
-        
-        return hs.generateHash("assword");
+    public String getUserHash(String email) throws DBException {
+        User user = getUserByEmail(email);
+        return user.getPassword();
     }
 }

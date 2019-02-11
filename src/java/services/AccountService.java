@@ -4,6 +4,9 @@ import dataaccess.DBException;
 import dataaccess.UserBroker;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Account;
+
+
 
 /**
  *
@@ -37,9 +40,10 @@ public class AccountService {
         String oldHash;
         
         try {
-            oldHash = ab.getUserHash(email);
+            oldHash = getUserHash(email);
             
         } catch (DBException ex) {
+            
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
@@ -51,5 +55,16 @@ public class AccountService {
         if(oldHash.equals(newHash))
             return true;
         return false;
+    }
+    
+    /**
+     * Takes in the entered email and retrieves that emails hash from the DB.
+     *
+     * @param email
+     * @return a String value containing the hashed password input.
+     */
+    public String getUserHash(String email) throws DBException {
+        Account user = ab.getUserByEmail(email);
+        return user.getPassword();
     }
 }

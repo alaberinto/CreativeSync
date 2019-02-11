@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "title")
@@ -65,6 +65,7 @@ public class Title implements Serializable {
     @Basic(optional = false)
     @Column(name = "priority")
     private short priority;
+    @Basic(optional = false)
     @Column(name = "design_info")
     private String designInfo;
     @ManyToMany(mappedBy = "titleCollection")
@@ -73,8 +74,8 @@ public class Title implements Serializable {
         @JoinColumn(name = "title_id", referencedColumnName = "title_id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
     @ManyToMany
-    private Collection<User> userCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleId")
+    private Collection<Account> accountCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
     private Collection<Artwork> artworkCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleId")
     private Collection<Asset> assetCollection;
@@ -86,13 +87,14 @@ public class Title implements Serializable {
         this.titleId = titleId;
     }
 
-    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority) {
+    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo) {
         this.titleId = titleId;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
         this.priority = priority;
+        this.designInfo = designInfo;
     }
 
     public Integer getTitleId() {
@@ -161,12 +163,12 @@ public class Title implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @XmlTransient

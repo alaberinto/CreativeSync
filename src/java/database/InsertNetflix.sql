@@ -18,29 +18,29 @@ values (13,'Coordinator');
 
 --5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8 == password
 --USER
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (12,10,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','admin','admin','testadmin@email.com','Canada',10,'www.test.com',LOAD_FILE('C:\db_test\1.png'),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (12,10,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','admin','admin','testadmin@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (13,12,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Alex','Jones','testlead@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (13,12,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Alex','Jones','testlead@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (14,13,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','toor','rot','testcoor@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (14,13,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','toor','rot','testcoor@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (15,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free1','Hill','testfree1@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (15,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free1','Hill','testfree1@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (16,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free2','Butt','testfree2@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (16,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free2','Butt','testfree2@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (17,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free3','Vasiliou','testfree3@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (17,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free3','Vasiliou','testfree3@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (18,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free4','Low','testfree4@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (18,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free4','Low','testfree4@email.com','Canada',10,'www.test.com',1,'no');
 
-insert into user (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,profile_picture,isactive)
-values (19,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free5','Kadarov','testfree5@email.com','Canada',10,'www.test.com',LOAD_FILE(''),1);
+insert into account (user_id,position_id,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (19,11,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','free5','Kadarov','testfree5@email.com','Canada',10,'www.test.com',1,'no');
 
 
 
@@ -297,13 +297,29 @@ values (3,'Backup 3',sysdate());
 
 --LANGUAGE
 insert into user_language (user_id,language_id)
-values(13,1);
+values(12,1);
 
 insert into user_language (user_id,language_id)
-values(12,2);
+values(13,2);
 
 insert into user_language (user_id,language_id)
-values(12,3);
+values(14,3);
+
+insert into user_language (user_id,language_id)
+values(15,3);
+
+insert into user_language (user_id,language_id)
+values(16,3);
+
+insert into user_language (user_id,language_id)
+values(17,3);
+
+insert into user_language (user_id,language_id)
+values(18,3);
+
+insert into user_language (user_id,language_id)
+values(19,3);
+
 
 
 

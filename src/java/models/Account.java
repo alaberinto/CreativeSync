@@ -10,10 +10,9 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,29 +24,29 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
-@Table(name = "user")
+@Table(name = "account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname")
-    , @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
-    , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")
-    , @NamedQuery(name = "User.findByLocation", query = "SELECT u FROM User u WHERE u.location = :location")
-    , @NamedQuery(name = "User.findByRate", query = "SELECT u FROM User u WHERE u.rate = :rate")
-    , @NamedQuery(name = "User.findByPortfolio", query = "SELECT u FROM User u WHERE u.portfolio = :portfolio")
-    , @NamedQuery(name = "User.findByIsactive", query = "SELECT u FROM User u WHERE u.isactive = :isactive")})
-public class User implements Serializable {
+    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.accountPK.userId = :userId")
+    , @NamedQuery(name = "Account.findByPositionId", query = "SELECT a FROM Account a WHERE a.accountPK.positionId = :positionId")
+    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
+    , @NamedQuery(name = "Account.findByFirstname", query = "SELECT a FROM Account a WHERE a.firstname = :firstname")
+    , @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname")
+    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+    , @NamedQuery(name = "Account.findByLocation", query = "SELECT a FROM Account a WHERE a.location = :location")
+    , @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate")
+    , @NamedQuery(name = "Account.findByPortfolio", query = "SELECT a FROM Account a WHERE a.portfolio = :portfolio")
+    , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")
+    , @NamedQuery(name = "Account.findByImagePath", query = "SELECT a FROM Account a WHERE a.imagePath = :imagePath")})
+public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "user_id")
-    private Integer userId;
+    @EmbeddedId
+    protected AccountPK accountPK;
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
@@ -63,53 +62,62 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "location")
     private String location;
+    @Basic(optional = false)
     @Column(name = "rate")
-    private Integer rate;
+    private int rate;
+    @Basic(optional = false)
     @Column(name = "portfolio")
     private String portfolio;
-    @Lob
-    @Column(name = "profile_picture")
-    private byte[] profilePicture;
     @Basic(optional = false)
     @Column(name = "isactive")
     private short isactive;
-    @ManyToMany(mappedBy = "userCollection")
+    @Basic(optional = false)
+    @Column(name = "image_path")
+    private String imagePath;
+    @ManyToMany(mappedBy = "accountCollection")
     private Collection<MessageGroup> messageGroupCollection;
-    @ManyToMany(mappedBy = "userCollection")
+    @ManyToMany(mappedBy = "accountCollection")
     private Collection<Skillset> skillsetCollection;
-    @ManyToMany(mappedBy = "userCollection")
+    @ManyToMany(mappedBy = "accountCollection")
     private Collection<Title> titleCollection;
-    @ManyToMany(mappedBy = "userCollection")
+    @ManyToMany(mappedBy = "accountCollection")
     private Collection<Language> languageCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     private Report report;
-    @JoinColumn(name = "position_id", referencedColumnName = "position_id")
+    @JoinColumn(name = "position_id", referencedColumnName = "position_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Position positionId;
+    private Position position;
 
-    public User() {
+    public Account() {
     }
 
-    public User(Integer userId) {
-        this.userId = userId;
+    public Account(AccountPK accountPK) {
+        this.accountPK = accountPK;
     }
 
-    public User(Integer userId, String password, String firstname, String lastname, String email, String location, short isactive) {
-        this.userId = userId;
+    public Account(AccountPK accountPK, String password, String firstname, String lastname, String email, String location, int rate, String portfolio, short isactive, String imagePath) {
+        this.accountPK = accountPK;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.location = location;
+        this.rate = rate;
+        this.portfolio = portfolio;
         this.isactive = isactive;
+        this.imagePath = imagePath;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Account(int userId, int positionId) {
+        this.accountPK = new AccountPK(userId, positionId);
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public AccountPK getAccountPK() {
+        return accountPK;
+    }
+
+    public void setAccountPK(AccountPK accountPK) {
+        this.accountPK = accountPK;
     }
 
     public String getPassword() {
@@ -152,11 +160,11 @@ public class User implements Serializable {
         this.location = location;
     }
 
-    public Integer getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 
@@ -168,20 +176,20 @@ public class User implements Serializable {
         this.portfolio = portfolio;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public short getIsactive() {
         return isactive;
     }
 
     public void setIsactive(short isactive) {
         this.isactive = isactive;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @XmlTransient
@@ -228,29 +236,29 @@ public class User implements Serializable {
         this.report = report;
     }
 
-    public Position getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPositionId(Position positionId) {
-        this.positionId = positionId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userId != null ? userId.hashCode() : 0);
+        hash += (accountPK != null ? accountPK.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Account)) {
             return false;
         }
-        User other = (User) object;
-        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
+        Account other = (Account) object;
+        if ((this.accountPK == null && other.accountPK != null) || (this.accountPK != null && !this.accountPK.equals(other.accountPK))) {
             return false;
         }
         return true;
@@ -258,7 +266,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "models.User[ userId=" + userId + " ]";
+        return "models.Account[ accountPK=" + accountPK + " ]";
     }
     
 }

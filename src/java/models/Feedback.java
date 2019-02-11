@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "feedback")
@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Feedback.findByFeedbackId", query = "SELECT f FROM Feedback f WHERE f.feedbackId = :feedbackId")
     , @NamedQuery(name = "Feedback.findByFeedbackDesc", query = "SELECT f FROM Feedback f WHERE f.feedbackDesc = :feedbackDesc")
     , @NamedQuery(name = "Feedback.findByFeedbackDate", query = "SELECT f FROM Feedback f WHERE f.feedbackDate = :feedbackDate")
-    , @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate")})
+    , @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate")
+    , @NamedQuery(name = "Feedback.findByIsread", query = "SELECT f FROM Feedback f WHERE f.isread = :isread")})
 public class Feedback implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,7 +49,10 @@ public class Feedback implements Serializable {
     private Date feedbackDate;
     @Basic(optional = false)
     @Column(name = "isread_date")
-    private short isreadDate;
+    @Temporal(TemporalType.DATE)
+    private Date isreadDate;
+    @Column(name = "isread")
+    private Short isread;
     @JoinColumn(name = "artwork_id", referencedColumnName = "artwork_id")
     @ManyToOne(optional = false)
     private Artwork artworkId;
@@ -60,7 +64,7 @@ public class Feedback implements Serializable {
         this.feedbackId = feedbackId;
     }
 
-    public Feedback(Integer feedbackId, String feedbackDesc, short isreadDate) {
+    public Feedback(Integer feedbackId, String feedbackDesc, Date isreadDate) {
         this.feedbackId = feedbackId;
         this.feedbackDesc = feedbackDesc;
         this.isreadDate = isreadDate;
@@ -90,12 +94,20 @@ public class Feedback implements Serializable {
         this.feedbackDate = feedbackDate;
     }
 
-    public short getIsreadDate() {
+    public Date getIsreadDate() {
         return isreadDate;
     }
 
-    public void setIsreadDate(short isreadDate) {
+    public void setIsreadDate(Date isreadDate) {
         this.isreadDate = isreadDate;
+    }
+
+    public Short getIsread() {
+        return isread;
+    }
+
+    public void setIsread(Short isread) {
+        this.isread = isread;
     }
 
     public Artwork getArtworkId() {

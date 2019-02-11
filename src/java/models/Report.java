@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "report")
@@ -48,7 +48,7 @@ public class Report implements Serializable {
     private Date creationDate;
     @JoinColumn(name = "report_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
-    private User user;
+    private Account account;
 
     public Report() {
     }
@@ -87,12 +87,12 @@ public class Report implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public User getUser() {
-        return user;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

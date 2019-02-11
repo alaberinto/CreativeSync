@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "asset_type")
@@ -37,6 +37,7 @@ public class AssetType implements Serializable {
     @Basic(optional = false)
     @Column(name = "type_id")
     private Integer typeId;
+    @Basic(optional = false)
     @Column(name = "type_desc")
     private String typeDesc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeId")
@@ -47,6 +48,11 @@ public class AssetType implements Serializable {
 
     public AssetType(Integer typeId) {
         this.typeId = typeId;
+    }
+
+    public AssetType(Integer typeId, String typeDesc) {
+        this.typeId = typeId;
+        this.typeDesc = typeDesc;
     }
 
     public Integer getTypeId() {

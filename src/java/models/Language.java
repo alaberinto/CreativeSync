@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "language")
@@ -42,10 +42,10 @@ public class Language implements Serializable {
     @Column(name = "language_name")
     private String languageName;
     @JoinTable(name = "user_language", joinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "language_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "language_id", referencedColumnName = "language_id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
     @ManyToMany
-    private Collection<User> userCollection;
+    private Collection<Account> accountCollection;
 
     public Language() {
     }
@@ -76,12 +76,12 @@ public class Language implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @Override

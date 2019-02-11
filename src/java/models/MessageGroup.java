@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 697467
  */
 @Entity
 @Table(name = "message_group")
@@ -38,19 +38,25 @@ public class MessageGroup implements Serializable {
     @Basic(optional = false)
     @Column(name = "message_group_id")
     private Integer messageGroupId;
+    @Basic(optional = false)
     @Column(name = "chatlog_ref")
     private String chatlogRef;
     @JoinTable(name = "user_message_group", joinColumns = {
         @JoinColumn(name = "message_group_id", referencedColumnName = "message_group_id")}, inverseJoinColumns = {
         @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
     @ManyToMany
-    private Collection<User> userCollection;
+    private Collection<Account> accountCollection;
 
     public MessageGroup() {
     }
 
     public MessageGroup(Integer messageGroupId) {
         this.messageGroupId = messageGroupId;
+    }
+
+    public MessageGroup(Integer messageGroupId, String chatlogRef) {
+        this.messageGroupId = messageGroupId;
+        this.chatlogRef = chatlogRef;
     }
 
     public Integer getMessageGroupId() {
@@ -70,12 +76,12 @@ public class MessageGroup implements Serializable {
     }
 
     @XmlTransient
-    public Collection<User> getUserCollection() {
-        return userCollection;
+    public Collection<Account> getAccountCollection() {
+        return accountCollection;
     }
 
-    public void setUserCollection(Collection<User> userCollection) {
-        this.userCollection = userCollection;
+    public void setAccountCollection(Collection<Account> accountCollection) {
+        this.accountCollection = accountCollection;
     }
 
     @Override

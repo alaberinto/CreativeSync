@@ -6,8 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
 
-
-
 /**
  *
  * @author Mason

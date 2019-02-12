@@ -2,9 +2,11 @@ package dataaccess;
 
 //Remove this import after DB is setup
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import models.Account;
 
 
@@ -23,8 +25,11 @@ public class UserBroker {
     public Account getUserByEmail(String email) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Account user = (Account) em.createNamedQuery("Account.findByEmail",Account.class);
-            return user;
+            Query query = em.createNamedQuery("Account.findByEmail", Account.class);
+            query.setParameter("email", email);
+            
+            List<Account> users = query.getResultList();
+            return users.get(0);
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read user", ex);
             throw new DBException("Error getting user.");
@@ -37,6 +42,7 @@ public class UserBroker {
      * Gets all the Users from the database.
      *
      * @return a Collection of all Users in the table.
+     * @throws dataaccess.DBException
      */
     public Collection<Account> getAllUsers() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();

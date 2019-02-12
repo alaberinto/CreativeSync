@@ -15,13 +15,20 @@ public class TitlesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
+        
+        
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
     }
 
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
+        TitleBroker = new TitleBroker();
+        
+        String title_id = request.getParameter("title_id");
+        tb.getTitleById(title_id)
+                
     }
 }

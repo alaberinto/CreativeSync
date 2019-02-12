@@ -99,3 +99,26 @@ button {
     margin-right: auto;
     margin-bottom: 5px;
 }
+
+.titles-item {
+    width: 300px;
+    height: 450px;
+    margin-right: 10px;
+    border: 2px solid black;
+    text-align: center;
+    padding: 0px !important;
+}
+
+.titles-item-image {
+    padding: 0px;
+    width: 94%;
+    height: 400px;
+    margin-left: 3%;
+    border: 2px solid black;
+    margin-top: 5%;
+}
+
+.hidden-button {
+    background-color: #ffffff;
+    border: 0px solid white;
+}

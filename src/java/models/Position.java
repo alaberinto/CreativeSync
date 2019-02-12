@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "position")
@@ -40,7 +40,7 @@ public class Position implements Serializable {
     @Basic(optional = false)
     @Column(name = "position_desc")
     private String positionDesc;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "positionId")
     private Collection<Account> accountCollection;
 
     public Position() {

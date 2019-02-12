@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "genre")
@@ -41,9 +41,9 @@ public class Genre implements Serializable {
     @Basic(optional = false)
     @Column(name = "genre_desc")
     private String genreDesc;
-    @JoinTable(name = "title_genre", joinColumns = {
-        @JoinColumn(name = "genre_id", referencedColumnName = "genre_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "title_id", referencedColumnName = "title_id")})
+    @JoinTable(name = "genre_has_title", joinColumns = {
+        @JoinColumn(name = "GENRE_genre_id", referencedColumnName = "genre_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "TITLE_title_id", referencedColumnName = "title_id")})
     @ManyToMany
     private Collection<Title> titleCollection;
 

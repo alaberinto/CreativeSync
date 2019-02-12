@@ -13,8 +13,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "title")
@@ -69,15 +67,12 @@ public class Title implements Serializable {
     @Column(name = "design_info")
     private String designInfo;
     @ManyToMany(mappedBy = "titleCollection")
-    private Collection<Genre> genreCollection;
-    @JoinTable(name = "user_title", joinColumns = {
-        @JoinColumn(name = "title_id", referencedColumnName = "title_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
-    @ManyToMany
     private Collection<Account> accountCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
-    private Collection<Artwork> artworkCollection;
+    @ManyToMany(mappedBy = "titleCollection")
+    private Collection<Genre> genreCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleId")
+    private Collection<Artwork> artworkCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
     private Collection<Asset> assetCollection;
 
     public Title() {
@@ -154,21 +149,21 @@ public class Title implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Genre> getGenreCollection() {
-        return genreCollection;
-    }
-
-    public void setGenreCollection(Collection<Genre> genreCollection) {
-        this.genreCollection = genreCollection;
-    }
-
-    @XmlTransient
     public Collection<Account> getAccountCollection() {
         return accountCollection;
     }
 
     public void setAccountCollection(Collection<Account> accountCollection) {
         this.accountCollection = accountCollection;
+    }
+
+    @XmlTransient
+    public Collection<Genre> getGenreCollection() {
+        return genreCollection;
+    }
+
+    public void setGenreCollection(Collection<Genre> genreCollection) {
+        this.genreCollection = genreCollection;
     }
 
     @XmlTransient

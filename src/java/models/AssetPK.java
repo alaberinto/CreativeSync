@@ -12,32 +12,36 @@ import javax.persistence.Embeddable;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Embeddable
-public class ArtworkPK implements Serializable {
+public class AssetPK implements Serializable {
 
     @Basic(optional = false)
-    @Column(name = "artwork_id")
-    private int artworkId;
+    @Column(name = "type_id")
+    private int typeId;
     @Basic(optional = false)
     @Column(name = "title_id")
     private int titleId;
+    @Basic(optional = false)
+    @Column(name = "asset_id")
+    private int assetId;
 
-    public ArtworkPK() {
+    public AssetPK() {
     }
 
-    public ArtworkPK(int artworkId, int titleId) {
-        this.artworkId = artworkId;
+    public AssetPK(int typeId, int titleId, int assetId) {
+        this.typeId = typeId;
         this.titleId = titleId;
+        this.assetId = assetId;
     }
 
-    public int getArtworkId() {
-        return artworkId;
+    public int getTypeId() {
+        return typeId;
     }
 
-    public void setArtworkId(int artworkId) {
-        this.artworkId = artworkId;
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 
     public int getTitleId() {
@@ -48,25 +52,37 @@ public class ArtworkPK implements Serializable {
         this.titleId = titleId;
     }
 
+    public int getAssetId() {
+        return assetId;
+    }
+
+    public void setAssetId(int assetId) {
+        this.assetId = assetId;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) artworkId;
+        hash += (int) typeId;
         hash += (int) titleId;
+        hash += (int) assetId;
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ArtworkPK)) {
+        if (!(object instanceof AssetPK)) {
             return false;
         }
-        ArtworkPK other = (ArtworkPK) object;
-        if (this.artworkId != other.artworkId) {
+        AssetPK other = (AssetPK) object;
+        if (this.typeId != other.typeId) {
             return false;
         }
         if (this.titleId != other.titleId) {
+            return false;
+        }
+        if (this.assetId != other.assetId) {
             return false;
         }
         return true;
@@ -74,7 +90,7 @@ public class ArtworkPK implements Serializable {
 
     @Override
     public String toString() {
-        return "models.ArtworkPK[ artworkId=" + artworkId + ", titleId=" + titleId + " ]";
+        return "models.AssetPK[ typeId=" + typeId + ", titleId=" + titleId + ", assetId=" + assetId + " ]";
     }
     
 }

@@ -8,8 +8,8 @@ package models;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -19,50 +19,54 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "asset")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Asset.findAll", query = "SELECT a FROM Asset a")
-    , @NamedQuery(name = "Asset.findByAssetId", query = "SELECT a FROM Asset a WHERE a.assetId = :assetId")
+    , @NamedQuery(name = "Asset.findByTypeId", query = "SELECT a FROM Asset a WHERE a.assetPK.typeId = :typeId")
+    , @NamedQuery(name = "Asset.findByTitleId", query = "SELECT a FROM Asset a WHERE a.assetPK.titleId = :titleId")
+    , @NamedQuery(name = "Asset.findByAssetId", query = "SELECT a FROM Asset a WHERE a.assetPK.assetId = :assetId")
     , @NamedQuery(name = "Asset.findByTypeRef", query = "SELECT a FROM Asset a WHERE a.typeRef = :typeRef")})
 public class Asset implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "asset_id")
-    private Integer assetId;
+    @EmbeddedId
+    protected AssetPK assetPK;
     @Basic(optional = false)
     @Column(name = "type_ref")
     private String typeRef;
-    @JoinColumn(name = "type_id", referencedColumnName = "type_id")
+    @JoinColumn(name = "type_id", referencedColumnName = "type_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private AssetType typeId;
-    @JoinColumn(name = "title_id", referencedColumnName = "title_id")
+    private AssetType assetType;
+    @JoinColumn(name = "title_id", referencedColumnName = "title_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Title titleId;
+    private Title title;
 
     public Asset() {
     }
 
-    public Asset(Integer assetId) {
-        this.assetId = assetId;
+    public Asset(AssetPK assetPK) {
+        this.assetPK = assetPK;
     }
 
-    public Asset(Integer assetId, String typeRef) {
-        this.assetId = assetId;
+    public Asset(AssetPK assetPK, String typeRef) {
+        this.assetPK = assetPK;
         this.typeRef = typeRef;
     }
 
-    public Integer getAssetId() {
-        return assetId;
+    public Asset(int typeId, int titleId, int assetId) {
+        this.assetPK = new AssetPK(typeId, titleId, assetId);
     }
 
-    public void setAssetId(Integer assetId) {
-        this.assetId = assetId;
+    public AssetPK getAssetPK() {
+        return assetPK;
+    }
+
+    public void setAssetPK(AssetPK assetPK) {
+        this.assetPK = assetPK;
     }
 
     public String getTypeRef() {
@@ -73,26 +77,26 @@ public class Asset implements Serializable {
         this.typeRef = typeRef;
     }
 
-    public AssetType getTypeId() {
-        return typeId;
+    public AssetType getAssetType() {
+        return assetType;
     }
 
-    public void setTypeId(AssetType typeId) {
-        this.typeId = typeId;
+    public void setAssetType(AssetType assetType) {
+        this.assetType = assetType;
     }
 
-    public Title getTitleId() {
-        return titleId;
+    public Title getTitle() {
+        return title;
     }
 
-    public void setTitleId(Title titleId) {
-        this.titleId = titleId;
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (assetId != null ? assetId.hashCode() : 0);
+        hash += (assetPK != null ? assetPK.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +107,7 @@ public class Asset implements Serializable {
             return false;
         }
         Asset other = (Asset) object;
-        if ((this.assetId == null && other.assetId != null) || (this.assetId != null && !this.assetId.equals(other.assetId))) {
+        if ((this.assetPK == null && other.assetPK != null) || (this.assetPK != null && !this.assetPK.equals(other.assetPK))) {
             return false;
         }
         return true;
@@ -111,7 +115,7 @@ public class Asset implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Asset[ assetId=" + assetId + " ]";
+        return "models.Asset[ assetPK=" + assetPK + " ]";
     }
     
 }

@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,7 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "skillset")
@@ -41,10 +39,7 @@ public class Skillset implements Serializable {
     @Basic(optional = false)
     @Column(name = "skillset_desc")
     private String skillsetDesc;
-    @JoinTable(name = "user_skillset", joinColumns = {
-        @JoinColumn(name = "skillset_id", referencedColumnName = "skillset_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id", referencedColumnName = "user_id")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "skillsetCollection")
     private Collection<Account> accountCollection;
 
     public Skillset() {

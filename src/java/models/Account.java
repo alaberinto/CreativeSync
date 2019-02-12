@@ -10,9 +10,10 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -24,15 +25,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "account")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
-    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.accountPK.userId = :userId")
-    , @NamedQuery(name = "Account.findByPositionId", query = "SELECT a FROM Account a WHERE a.accountPK.positionId = :positionId")
+    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId")
     , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
     , @NamedQuery(name = "Account.findByFirstname", query = "SELECT a FROM Account a WHERE a.firstname = :firstname")
     , @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname")
@@ -45,8 +45,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected AccountPK accountPK;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "user_id")
+    private Integer userId;
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
@@ -74,29 +76,41 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @Column(name = "image_path")
     private String imagePath;
-    @ManyToMany(mappedBy = "accountCollection")
+    @JoinTable(name = "account_has_message_group", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "MESSAGE_GROUP_message_group_id", referencedColumnName = "message_group_id")})
+    @ManyToMany
     private Collection<MessageGroup> messageGroupCollection;
-    @ManyToMany(mappedBy = "accountCollection")
-    private Collection<Skillset> skillsetCollection;
-    @ManyToMany(mappedBy = "accountCollection")
+    @JoinTable(name = "title_has_account", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "TITLE_title_id", referencedColumnName = "title_id")})
+    @ManyToMany
     private Collection<Title> titleCollection;
-    @ManyToMany(mappedBy = "accountCollection")
+    @JoinTable(name = "account_has_skillset", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "SKILLSET_skillset_id", referencedColumnName = "skillset_id")})
+    @ManyToMany
+    private Collection<Skillset> skillsetCollection;
+    @JoinTable(name = "account_has_language", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "LANGUAGE_language_id", referencedColumnName = "language_id")})
+    @ManyToMany
     private Collection<Language> languageCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
     private Report report;
-    @JoinColumn(name = "position_id", referencedColumnName = "position_id", insertable = false, updatable = false)
+    @JoinColumn(name = "position_id", referencedColumnName = "position_id")
     @ManyToOne(optional = false)
-    private Position position;
+    private Position positionId;
 
     public Account() {
     }
 
-    public Account(AccountPK accountPK) {
-        this.accountPK = accountPK;
+    public Account(Integer userId) {
+        this.userId = userId;
     }
 
-    public Account(AccountPK accountPK, String password, String firstname, String lastname, String email, String location, int rate, String portfolio, short isactive, String imagePath) {
-        this.accountPK = accountPK;
+    public Account(Integer userId, String password, String firstname, String lastname, String email, String location, int rate, String portfolio, short isactive, String imagePath) {
+        this.userId = userId;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -108,16 +122,12 @@ public class Account implements Serializable {
         this.imagePath = imagePath;
     }
 
-    public Account(int userId, int positionId) {
-        this.accountPK = new AccountPK(userId, positionId);
+    public Integer getUserId() {
+        return userId;
     }
 
-    public AccountPK getAccountPK() {
-        return accountPK;
-    }
-
-    public void setAccountPK(AccountPK accountPK) {
-        this.accountPK = accountPK;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPassword() {
@@ -202,21 +212,21 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Skillset> getSkillsetCollection() {
-        return skillsetCollection;
-    }
-
-    public void setSkillsetCollection(Collection<Skillset> skillsetCollection) {
-        this.skillsetCollection = skillsetCollection;
-    }
-
-    @XmlTransient
     public Collection<Title> getTitleCollection() {
         return titleCollection;
     }
 
     public void setTitleCollection(Collection<Title> titleCollection) {
         this.titleCollection = titleCollection;
+    }
+
+    @XmlTransient
+    public Collection<Skillset> getSkillsetCollection() {
+        return skillsetCollection;
+    }
+
+    public void setSkillsetCollection(Collection<Skillset> skillsetCollection) {
+        this.skillsetCollection = skillsetCollection;
     }
 
     @XmlTransient
@@ -236,18 +246,18 @@ public class Account implements Serializable {
         this.report = report;
     }
 
-    public Position getPosition() {
-        return position;
+    public Position getPositionId() {
+        return positionId;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setPositionId(Position positionId) {
+        this.positionId = positionId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (accountPK != null ? accountPK.hashCode() : 0);
+        hash += (userId != null ? userId.hashCode() : 0);
         return hash;
     }
 
@@ -258,7 +268,7 @@ public class Account implements Serializable {
             return false;
         }
         Account other = (Account) object;
-        if ((this.accountPK == null && other.accountPK != null) || (this.accountPK != null && !this.accountPK.equals(other.accountPK))) {
+        if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
         return true;
@@ -266,7 +276,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Account[ accountPK=" + accountPK + " ]";
+        return "models.Account[ userId=" + userId + " ]";
     }
     
 }

@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -22,14 +22,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 697467
+ * @author 731866
  */
 @Entity
 @Table(name = "feedback")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f")
-    , @NamedQuery(name = "Feedback.findByFeedbackId", query = "SELECT f FROM Feedback f WHERE f.feedbackId = :feedbackId")
+    , @NamedQuery(name = "Feedback.findByFeedbackId", query = "SELECT f FROM Feedback f WHERE f.feedbackPK.feedbackId = :feedbackId")
+    , @NamedQuery(name = "Feedback.findByArtworkId", query = "SELECT f FROM Feedback f WHERE f.feedbackPK.artworkId = :artworkId")
     , @NamedQuery(name = "Feedback.findByFeedbackDesc", query = "SELECT f FROM Feedback f WHERE f.feedbackDesc = :feedbackDesc")
     , @NamedQuery(name = "Feedback.findByFeedbackDate", query = "SELECT f FROM Feedback f WHERE f.feedbackDate = :feedbackDate")
     , @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate")
@@ -37,13 +38,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Feedback implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "feedback_id")
-    private Integer feedbackId;
+    @EmbeddedId
+    protected FeedbackPK feedbackPK;
     @Basic(optional = false)
     @Column(name = "feedback_desc")
     private String feedbackDesc;
+    @Basic(optional = false)
     @Column(name = "feedback_date")
     @Temporal(TemporalType.DATE)
     private Date feedbackDate;
@@ -51,31 +51,38 @@ public class Feedback implements Serializable {
     @Column(name = "isread_date")
     @Temporal(TemporalType.DATE)
     private Date isreadDate;
+    @Basic(optional = false)
     @Column(name = "isread")
-    private Short isread;
-    @JoinColumn(name = "artwork_id", referencedColumnName = "artwork_id")
+    private short isread;
+    @JoinColumn(name = "artwork_id", referencedColumnName = "artwork_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Artwork artworkId;
+    private Artwork artwork;
 
     public Feedback() {
     }
 
-    public Feedback(Integer feedbackId) {
-        this.feedbackId = feedbackId;
+    public Feedback(FeedbackPK feedbackPK) {
+        this.feedbackPK = feedbackPK;
     }
 
-    public Feedback(Integer feedbackId, String feedbackDesc, Date isreadDate) {
-        this.feedbackId = feedbackId;
+    public Feedback(FeedbackPK feedbackPK, String feedbackDesc, Date feedbackDate, Date isreadDate, short isread) {
+        this.feedbackPK = feedbackPK;
         this.feedbackDesc = feedbackDesc;
+        this.feedbackDate = feedbackDate;
         this.isreadDate = isreadDate;
+        this.isread = isread;
     }
 
-    public Integer getFeedbackId() {
-        return feedbackId;
+    public Feedback(int feedbackId, int artworkId) {
+        this.feedbackPK = new FeedbackPK(feedbackId, artworkId);
     }
 
-    public void setFeedbackId(Integer feedbackId) {
-        this.feedbackId = feedbackId;
+    public FeedbackPK getFeedbackPK() {
+        return feedbackPK;
+    }
+
+    public void setFeedbackPK(FeedbackPK feedbackPK) {
+        this.feedbackPK = feedbackPK;
     }
 
     public String getFeedbackDesc() {
@@ -102,26 +109,26 @@ public class Feedback implements Serializable {
         this.isreadDate = isreadDate;
     }
 
-    public Short getIsread() {
+    public short getIsread() {
         return isread;
     }
 
-    public void setIsread(Short isread) {
+    public void setIsread(short isread) {
         this.isread = isread;
     }
 
-    public Artwork getArtworkId() {
-        return artworkId;
+    public Artwork getArtwork() {
+        return artwork;
     }
 
-    public void setArtworkId(Artwork artworkId) {
-        this.artworkId = artworkId;
+    public void setArtwork(Artwork artwork) {
+        this.artwork = artwork;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (feedbackId != null ? feedbackId.hashCode() : 0);
+        hash += (feedbackPK != null ? feedbackPK.hashCode() : 0);
         return hash;
     }
 
@@ -132,7 +139,7 @@ public class Feedback implements Serializable {
             return false;
         }
         Feedback other = (Feedback) object;
-        if ((this.feedbackId == null && other.feedbackId != null) || (this.feedbackId != null && !this.feedbackId.equals(other.feedbackId))) {
+        if ((this.feedbackPK == null && other.feedbackPK != null) || (this.feedbackPK != null && !this.feedbackPK.equals(other.feedbackPK))) {
             return false;
         }
         return true;
@@ -140,7 +147,7 @@ public class Feedback implements Serializable {
 
     @Override
     public String toString() {
-        return "models.Feedback[ feedbackId=" + feedbackId + " ]";
+        return "models.Feedback[ feedbackPK=" + feedbackPK + " ]";
     }
     
 }

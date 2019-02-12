@@ -19,6 +19,11 @@
     <class>models.Skillset</class>
     <class>models.Auser</class>
     <class>models.Account</class>
+    <class>models.UserLanguage</class>
+    <class>models.UserSkillset</class>
+    <class>models.UserMessageGroup</class>
+    <class>models.UserTitle</class>
+    <class>models.TitleGenre</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/NetflixDB"/>

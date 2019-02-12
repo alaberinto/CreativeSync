@@ -158,7 +158,7 @@ values (3,'Drama');
 
 -- --TITLE
 insert into title (title_id,name,start_date,end_date,is_active,priority,design_info)
-values (1,'Devilman Crybaby',sysdate(),sysdate(),1,1,'Design info.');
+values (1,'Devilman Crybaby',CURDATE() - INTERVAL 5 DAY,CURDATE() + INTERVAL 1 DAY,1,1,'Design info.');
 
 insert into title (title_id,name,start_date,end_date,is_active,priority,design_info)
 values (2,'Superman',sysdate(),sysdate(),1,1,'Design info.');

@@ -5,6 +5,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.Account;
 import services.AccountService;
 
 /**
@@ -42,6 +44,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
         AccountService as = new AccountService();
 
         String action = request.getParameter("action");
@@ -51,14 +54,17 @@ public class LoginServlet extends HttpServlet {
         if(action.equals("login")) {
             String email = request.getParameter("username");
             String password = request.getParameter("password");
+            Account user = as.validate(email, password);
             
             //If valid then forward to Titles. Otherwise create feedback message.
-            if(as.validate(email, password)) {
+            if(user != null) {
+                
                 //Add user info to session.
+                session.setAttribute("user", user);
                 getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
             }
             else
-                //Set email field.
+                //Set feedback field.
                 feedback = "Invalid login";
         }
         //When "forgot Password" is selected.

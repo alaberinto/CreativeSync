@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,24 +16,26 @@
     </head>
     <body>
         <sync:navbar></sync:navbar>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h1 class="text-center">Title Name</h1>
-                    <div class="progress">
-                        <div class="progress-bar bg-danger" style="width:35%;"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-center mt-5 mb-4">${titlename}</h1>
+                    <div class="progress ml-5 mr-5">
+                        <div class="progress-bar bg-danger" style="width:${datepercentage}%;"></div>
                     </div>
                 </div>
             </div>
-            <div class="row border-bottom border-danger">
+            <div class="row border-danger">
                 <div class="col-6">
-                    <h3 class="text-left">Start: Date</h3>
+                    <p>Start: <fmt:formatDate type = "date" 
+                                                   value = "${startdate}" /></p>
                 </div>
-                <div class="col-6">
-                    <h3 class="text-right">End: Date</h3>
+                <div class="col-6 text-right" >
+                    <p>Start: <fmt:formatDate type = "date" 
+                                                   value = "${enddate}" /></p>
                 </div>
             </div>
-            <div class="row test-border">
+            <div class="row test-border mt-5">
                 <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6">
                     <div class="row">
                         <div class="col-6 text-center test-border">

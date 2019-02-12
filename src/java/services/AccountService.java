@@ -31,7 +31,7 @@ public class AccountService {
      * @param password The password entered by the user.
      * @return Returns True if the two hashes match. Else returns false.
      */
-    public boolean validate(String email, String password){
+    public Account validate(String email, String password){
         HashingService hs = new HashingService();
         
         //Retrieve users existing hash
@@ -43,7 +43,7 @@ public class AccountService {
         } catch (DBException ex) {
             
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+            return null;
         }
         
         //Create new hash based on email, password
@@ -51,8 +51,12 @@ public class AccountService {
         
         //Compare hashes. I dont understand why the IDE is making a big deal about this.
         if(oldHash.equals(newHash))
-            return true;
-        return false;
+            try {
+                return ab.getUserByEmail(email);
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     /**

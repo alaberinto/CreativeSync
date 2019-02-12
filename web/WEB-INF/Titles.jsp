@@ -24,7 +24,7 @@
 
         <div class="ml-3 d-flex align-items-stretch row-hl">
             <div class="p-4 item-hl titles-item">
-                <form method="post" action="TitleDetailed">
+                <form method="post" action="Titles">
                     <button class="hidden-button" name="title_id" value="1">Devilman Crybaby</button>
                 </form>
 

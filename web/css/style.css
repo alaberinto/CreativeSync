@@ -83,8 +83,8 @@ button {
     color: #ffffff;
 }
 
-.logo {
-    height: 70px;
+ .logo {
+    height: 65px;
 }
 
 .test-border {
@@ -121,4 +121,13 @@ button {
 .hidden-button {
     background-color: #ffffff;
     border: 0px solid white;
+}
+
+a.nav-link {
+    font-size: 20px;
+}
+
+.navbar {
+    background-color: black;
+    opacity: 1;
 }

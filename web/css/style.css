@@ -91,15 +91,6 @@ button {
     border: 2px solid red;
 }
 
-.title-user {
-    height: 100px;
-    width: 100px;
-    border: 2px solid red;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 5px;
-}
-
 .titles-item {
     width: 300px;
     height: 450px;
@@ -130,4 +121,44 @@ a.nav-link {
 .navbar {
     background-color: black;
     opacity: 1;
+}
+
+.prof {
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+}
+
+.title-user {
+    height: 140px;
+    width: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.title-asset {
+    width: 200px;
+    height: 275px;
+    border: 2px solid black;
+    position: relative;
+}
+
+.asset {
+    width:100%;
+    height: 80%;
+    transition: 0.4s;
+}
+
+.asset-img-buttons {
+    z-index: 10;
+}
+
+.asset-image, .asset-img-buttons {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 0px;
 }

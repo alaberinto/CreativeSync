@@ -28,52 +28,135 @@
             <div class="row border-danger">
                 <div class="col-6">
                     <p>Start: <fmt:formatDate type = "date" 
-                                                   value = "${startdate}" /></p>
+                                    value = "${startdate}" /></p>
                 </div>
                 <div class="col-6 text-right" >
                     <p>Start: <fmt:formatDate type = "date" 
-                                                   value = "${enddate}" /></p>
+                                    value = "${enddate}" /></p>
                 </div>
             </div>
-            <div class="row test-border mt-5">
-                <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6">
-                    <div class="row">
-                        <div class="col-6 text-center test-border">
-                            <h3>Lead</h3>
-                            <a href="#">
-                                <div class="title-user">
-                                    Mason
-                                </div>
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <a href="#collapse1" data-parent="#accordion" data-toggle="collapse">
+                                Users
                             </a>
-                        </div>
-                        <div class="col-6 text-center test-border">
-                            <h3>Coordinators</h3>
-                            <a href="#">
-                                <div class="title-user">
-                                    Cooper
+                        </h5>
+                    </div>
+
+                    <div id="collapse1" class="collapse show">
+                        <div class="card-body">
+                            <div class="row mt-5">
+                                <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+                                            <h3>Lead</h3>
+                                            <a href="%">
+                                                <div class="title-user">
+                                                    <img class="prof" src="css/images/User/male1084427996429.jpg" alt="IMAGE"/>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <h3>Coordinators</h3>
+                                            <a href="#">
+                                                <div class="title-user">
+                                                    <img class="prof" src="css/images/User/male20161086537831756.jpg" alt=""/>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
+                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
+                                    <h3>Designers</h3>
+                                    <div class="d-flex flex-wrap row-hl">
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/male20161086693679535.jpg" alt=""/>
+                                        </div>
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/female1021755931884.jpg" alt=""/>
+                                        </div>
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/male20171084101124939.jpg" alt=""/>
+                                        </div>
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/female1022890589508.jpg" alt=""/>
+                                        </div>
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/female20091023302387177.jpg" alt=""/>
+                                        </div>
+                                        <div class="p-2 item-hl title-user">
+                                            <img class="prof" src="css/images/User/female20151024302703033.jpg" alt=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center test-border">
-                    <h3>Designers</h3>
-                    <div class="d-flex flex-wrap row-hl">
-                        <div class="p-2 item-hl test-border">Flex item</div>
-                        <div class="p-2 item-hl test-border">Flex item</div>
-                        <div class="p-2 item-hl test-border">Flex items</div>
-                        <div class="p-2 item-hl test-border">Flex item</div>
-                        <div class="p-2 item-hl test-border">Flex item</div>
-                        <div class="p-2 item-hl test-border">Flex item</div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <a href="#collapse2" data-parent="#accordion" data-toggle="collapse">
+                                Assets
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="collapse2" class="collapse">
+                        <div class="card-body">
+                            <form method="post" action="TitleDetailed" enctype="multipart/form-data">
+                                <input type="file" name="file" placeholder="Select Asset">
+                                <input type="submit" value="Upload">
+                            </form>
+                            <div class="d-flex flex-wrap row-hl">
+                                <c:forEach items="${assetFiles}" var="file">
+                                    <div class="title-asset m-2">
+                                        <div class="asset-img-buttons">
+                                            <button class="bg-primary" value="${file}" name="fileNameView">View</button>
+                                            <button class="bg-danger" value="${file}" name="fileNameDelete">Delete</button>
+                                        </div>
+                                        <div class="asset-image">
+                                            <img class="asset item-h1" src="css/images/Title/${titlename}/asset/${file}" alt="ASSET IMAGE">
+                                        </div>
+
+                                        <p class="text-center pt-2">${file}</p>
+
+                                    </div>
+                                </c:forEach>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5>
+                            <a href="#collapse3" data-parent="#accordion" data-toggle="collapse">
+                                Artwork
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="collapse3" class="collapse">
+                        <div class="card-body">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis ea iste a doloremque, cumque, debitis eum vel ipsum architecto
+                            aut, recusandae totam ullam aperiam. Nesciunt expedita officiis animi quam corporis optio inventore facilis sint
+                            et nulla in, repellat debitis dolor at nisi quo, unde temporibus. Quos nisi nostrum officia, illo.
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+crossorigin="anonymous"></script>
 </html>

@@ -95,7 +95,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-header">
                         <h5>
@@ -104,26 +103,26 @@
                             </a>
                         </h5>
                     </div>
-
                     <div id="collapse2" class="collapse">
                         <div class="card-body">
                             <form method="post" action="TitleDetailed" enctype="multipart/form-data">
                                 <input type="file" name="file" placeholder="Select Asset">
-                                <input type="submit" value="Upload">
+                                <button type="submit" name="action" value="upload">Upload</button>
                             </form>
                             <div class="d-flex flex-wrap row-hl">
                                 <c:forEach items="${assetFiles}" var="file">
                                     <div class="title-asset m-2">
-                                        <div class="asset-img-buttons">
-                                            <button class="bg-primary" value="${file}" name="fileNameView">View</button>
-                                            <button class="bg-danger" value="${file}" name="fileNameDelete">Delete</button>
-                                        </div>
                                         <div class="asset-image">
                                             <img class="asset item-h1" src="css/images/Title/${titlename}/asset/${file}" alt="ASSET IMAGE">
                                         </div>
+                                        <div class="asset-image-buttons">
+                                            <form method="post" action="TitleDetailed">
+                                                <button class="bg-primary asset-image-btn" value="viewAsset" name="action" type="submit">View</button>
+                                                <button class="bg-danger asset-image-btn" value="deleteAsset" name="action" type="submit">Delete</button>
+                                                <input type="hidden" name="assetName" value="${file}">
+                                            </form>
 
-                                        <p class="text-center pt-2">${file}</p>
-
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>

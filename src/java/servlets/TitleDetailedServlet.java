@@ -42,29 +42,39 @@ public class TitleDetailedServlet extends HttpServlet {
 
         request.setAttribute("assetFiles", fs.getAssets(title.getName()));
 
+//        response.sendRedirect("TitleDetailed.jsp");
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        String action = request.getParameter("action");
         FileService fs = new FileService();
-         HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
 
-        //Get File From JSP
-        if (ServletFileUpload.isMultipartContent(request)) {
-            try {
-                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                fs.handleUpload(multiparts, title.getName());
+        if (action == null) {
+            //Get File From JSP
+            if (ServletFileUpload.isMultipartContent(request)) {
+                try {
+                    List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                    fs.handleUpload(multiparts, title.getName());
 
-            } catch (FileUploadException ex) {
-                Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileUploadException ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } else if (action.equals("viewAsset")) {
+            
 
-            request.setAttribute("assetFiles", fs.getAssets(title.getName()));
+        } else if (action.equals("deleteAsset")) {
+            fs.deleteAsset(title.getName(), request.getParameter("assetName"));
+
         }
-        getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);
+
+        doGet(request, response);
     }
 
     public static int getPercentageLeft(Date start, Date end) {

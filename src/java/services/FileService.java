@@ -36,6 +36,7 @@ public class FileService {
                     item.write(new File("C:\\Users\\Mason\\Documents\\NetBeansProjects\\sync0210\\web\\css\\images\\Title\\" + titleName + "\\asset" + File.separator + name));
                 }
             }
+            
         } catch (Exception ex) {
             Logger.getLogger(FileService.class.getName()).log(Level.SEVERE, null, ex);
         }

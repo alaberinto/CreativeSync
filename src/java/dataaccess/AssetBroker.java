@@ -25,7 +25,7 @@ public class AssetBroker {
 
     public ArrayList<String> getAssetByTitle(String titleName) {
 
-        File folder = new File("C:\\Users\\Mason\\Documents\\NetBeansProjects\\sync0210\\web\\css\\images\\Title\\" + titleName + "\\asset");
+        File folder = new File("C:\\Users\\697467\\Desktop\\Netbeans\\sync0210DEMO\\web\\css\\images\\Title\\" + titleName + "\\asset");
         File[] listOfFiles = folder.listFiles();
 
         ArrayList<String> fileNames = new ArrayList<String>();

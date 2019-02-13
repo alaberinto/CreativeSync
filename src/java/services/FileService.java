@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import dataaccess.AssetBroker;
@@ -33,7 +28,7 @@ public class FileService {
             for (FileItem item : multiparts) {
                 if (!item.isFormField()) {
                     String name = new File(item.getName()).getName();
-                    item.write(new File("C:\\Users\\Mason\\Documents\\NetBeansProjects\\sync0210\\web\\css\\images\\Title\\" + titleName + "\\asset" + File.separator + name));
+                    item.write(new File("C:\\Users\\697467\\Desktop\\Netbeans\\sync0210DEMO\\web\\css\\images\\Title\\" + titleName + "\\asset" + File.separator + name));
                 }
             }
             
@@ -56,7 +51,7 @@ public class FileService {
     }
     
     public void deleteAsset(String titleName, String name) {
-        File file = new File("C:\\Users\\Mason\\Documents\\NetBeansProjects\\sync0210\\web\\css\\images\\Title\\" + titleName + "\\asset" + File.separator + name);
+        File file = new File("C:\\Users\\697467\\Desktop\\Netbeans\\sync0210DEMO\\web\\css\\images\\Title\\" + titleName + "\\asset" + File.separator + name);
         file.delete();
     }
 }

@@ -33,7 +33,7 @@
                                     value = "${startdate}" /></p>
                 </div>
                 <div class="col-6 text-right" >
-                    <p>Start: <fmt:formatDate type = "date" 
+                    <p>End: <fmt:formatDate type = "date" 
                                     value = "${enddate}" /></p>
                 </div>
             </div>

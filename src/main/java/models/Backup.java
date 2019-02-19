@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 587568
+ * @author 731866, 587568
  */
 @Entity
 @Table(name = "backup")

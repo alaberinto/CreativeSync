@@ -1,0 +1,251 @@
+* {
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body, html {
+    height: 100%;
+}
+
+button, input {
+    border-radius: 0px !important;
+    border-width: 1.5px !important;
+}
+
+h2 {
+    font-size: 50px;
+    font-weight: 100;
+}
+
+.thicc {
+    font-weight: 900;
+}
+
+p {
+    font-size: 20px;
+}
+.background {
+    background-image:url("login_background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.background-plain {
+    background-color: rgb(245, 245, 241);
+}
+
+.background-white {
+    background-color: white;
+}
+
+input[type=text], input[type=password] {
+    color:#999999;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    color: #ffffff;
+}
+
+input[type=text],input[type=password], input[type=text]:focus, input[type=password]:focus {
+    font-weight: 500;
+    border-color: #7b7676;
+    background-color: #111;
+    margin-bottom: 10px;
+}
+
+
+.button-red {
+    background-color: #111;
+    transition: 0.70s;
+    border-color: #e50914;
+    color: #e50914;
+    border-style: solid;
+    margin-bottom: 10px;
+}
+
+.button-grey {
+    background-color: #111;
+    transition: 0.70s;
+    border-color: #7b7676;
+    color: #7b7676;
+}
+
+.button-acc {
+    border-style:none;
+}
+
+::placeholder {
+    color: #7b7676;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.button-red:hover {
+    background-color: #e50914;
+    color: #ffffff;
+}
+
+.button-grey:hover {
+    background-color: #7b7676;
+    color: #ffffff;
+}
+
+.logo {
+    height: 65px;
+}
+
+.test-border {
+    border: 2px solid red;
+}
+
+.titles-item {
+    width: 300px;
+    height: 450px;
+    margin-right: 10px;
+    border: 2px solid black;
+    text-align: center;
+    padding: 0px !important;
+}
+
+.titles-item-image {
+    padding: 0px;
+    width: 94%;
+    height: 400px;
+    margin-left: 3%;
+    border: 2px solid black;
+    margin-top: 5%;
+}
+
+.hidden-button {
+    background-color: #ffffff;
+    border: 0px solid white;
+}
+
+a.nav-link {
+    font-size: 20px;
+}
+
+.navbar {
+    background-color: black;
+    opacity: 1;
+}
+
+.prof {
+    width:100%;
+    height:100%;
+    border-radius: 50%;
+}
+
+.title-user {
+    height: 140px;
+    width: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+
+
+.title-asset {
+    width: 250px;
+    height: 250px;
+    border: 3px solid black;
+}
+
+.asset-image-buttons {
+    width: 100%;
+    height: 150px;
+}
+
+.asset-image-btn {
+    height: 100%;
+    width: 100%;
+    border-style: none;
+    background-color: rgb(245, 245, 241);
+    font-size: 20px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+ 
+}
+
+.asset-image{
+    width: 100%;
+    height: 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.asset {
+    width: 100%;
+    height: 100%;
+}
+
+.progress {
+    height: 30px;
+}
+
+.progress-bar {
+    background-color: #e50914 !important;
+}
+
+
+.lead {
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(230, 230, 230);
+}
+
+
+.des {
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(230, 230, 230);
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+@media (max-width: 992px) {
+    .lead {
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-right-color: rgb(230, 230, 230);
+    }
+
+    .coor {
+        border-left-width: 1px;
+        border-left-style: solid;
+        border-left-color: rgb(230, 230, 230);
+    }
+
+    .des {
+        border-top-width: 2px;
+        border-top-style: solid;
+        border-top-color: rgb(230, 230, 230);
+        margin-top: 20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.acc-style {
+    color: black;
+    font-weight: bold;
+}
+
+[data-toggle="collapse"] .fa:before {  
+  content: "\f139";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+  content: "\f13a";
+}

@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 587568
+ * @author 587568, 731866
  */
 @Entity
 @Table(name = "feedback")

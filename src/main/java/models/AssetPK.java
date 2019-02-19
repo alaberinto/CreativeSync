@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author 587568
+ * @author 587568, 731866
  */
 @Embeddable
 public class AssetPK implements Serializable {
@@ -28,6 +28,12 @@ public class AssetPK implements Serializable {
     private int titleId;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "type_id")
+    private int typeId;
+    @Basic(optional = false)
+    @Column(name = "title_id")
+    private int titleId;
+    @Basic(optional = false)
     @Column(name = "asset_id")
     private int assetId;
 

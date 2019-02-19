@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/CreativeSync"/>
+<Context path="/CreativeSync">
+    <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" 
+        logAbandoned="true" maxActive="100" maxIdle="30" maxWait="10000" 
+        name="jdbc/NetflixDB" removeAbandoned="true" 
+        removeAbandonedTimeout="60" type="javax.sql.DataSource" 
+        url="jdbc:mysql://localhost:3306/NetflixDB?autoReconnect=true" 
+        username="root" password="password"/>
+</Context>

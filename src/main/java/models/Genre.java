@@ -17,12 +17,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 587568
  */
 @Entity
 @Table(name = "genre")
@@ -36,9 +38,12 @@ public class Genre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "genre_id")
     private Integer genreId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 75)
     @Column(name = "genre_desc")
     private String genreDesc;
     @JoinTable(name = "genre_has_title", joinColumns = {

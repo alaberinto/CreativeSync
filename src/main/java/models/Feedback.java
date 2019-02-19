@@ -18,11 +18,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 731866
+ * @author 587568, 731866
  */
 @Entity
 @Table(name = "feedback")
@@ -41,17 +43,22 @@ public class Feedback implements Serializable {
     @EmbeddedId
     protected FeedbackPK feedbackPK;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 500)
     @Column(name = "feedback_desc")
     private String feedbackDesc;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "feedback_date")
     @Temporal(TemporalType.DATE)
     private Date feedbackDate;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "isread_date")
     @Temporal(TemporalType.DATE)
     private Date isreadDate;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "isread")
     private short isread;
     @JoinColumn(name = "artwork_id", referencedColumnName = "artwork_id", insertable = false, updatable = false)

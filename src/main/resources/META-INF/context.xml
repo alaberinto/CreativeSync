@@ -7,3 +7,4 @@
         url="jdbc:mysql://localhost:3306/NetflixDB?autoReconnect=true" 
         username="root" password="password"/>
 </Context>
+

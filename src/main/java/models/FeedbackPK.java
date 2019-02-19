@@ -9,18 +9,21 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author 731866
+ * @author 587568
  */
 @Embeddable
 public class FeedbackPK implements Serializable {
 
     @Basic(optional = false)
+    @NotNull
     @Column(name = "feedback_id")
     private int feedbackId;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "artwork_id")
     private int artworkId;
 

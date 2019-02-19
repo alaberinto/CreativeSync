@@ -20,12 +20,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 731866, 587568
  */
 @Entity
 @Table(name = "artwork")
@@ -41,15 +43,21 @@ public class Artwork implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "artwork_id")
     private Integer artworkId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "artwork_name")
     private String artworkName;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "artwork_ref")
     private String artworkRef;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "rating")
     private int rating;
     @JoinTable(name = "artwork_has_round_artwork", joinColumns = {

@@ -20,12 +20,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 587568, 731866
  */
 @Entity
 @Table(name = "title")
@@ -44,26 +46,35 @@ public class Title implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "title_id")
     private Integer titleId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "start_date")
     @Temporal(TemporalType.DATE)
     private Date startDate;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "is_active")
     private short isActive;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "priority")
     private short priority;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
     @Column(name = "design_info")
     private String designInfo;
     @ManyToMany(mappedBy = "titleCollection")

@@ -13,7 +13,7 @@ import javax.persistence.Persistence;
  * @author 731866
  */
 public class DBUtil {
-     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("NetflixDB");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("NetflixPU");
 
     public static EntityManagerFactory getEmFactory() {
         return emf;

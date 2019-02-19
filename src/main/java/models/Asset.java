@@ -15,11 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 731866
+ * @author 587568, 731866
  */
 @Entity
 @Table(name = "asset")
@@ -36,6 +38,8 @@ public class Asset implements Serializable {
     @EmbeddedId
     protected AssetPK assetPK;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "type_ref")
     private String typeRef;
     @JoinColumn(name = "type_id", referencedColumnName = "type_id", insertable = false, updatable = false)

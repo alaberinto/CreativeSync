@@ -9,21 +9,25 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author 731866
+ * @author 587568, 731866
  */
 @Embeddable
 public class AssetPK implements Serializable {
 
     @Basic(optional = false)
+    @NotNull
     @Column(name = "type_id")
     private int typeId;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "title_id")
     private int titleId;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "asset_id")
     private int assetId;
 

@@ -16,12 +16,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author 731866
+ * @author 587568, 731866
  */
 @Entity
 @Table(name = "asset_type")
@@ -35,9 +37,12 @@ public class AssetType implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotNull
     @Column(name = "type_id")
     private Integer typeId;
     @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "type_desc")
     private String typeDesc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assetType")

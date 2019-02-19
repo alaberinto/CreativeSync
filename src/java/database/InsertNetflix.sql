@@ -1,6 +1,14 @@
 -- Test Values
 -- Numbers are just placeholders, the real numbers should be like 1000, 2000, 3000, etc. 
 
+CREATE EVENT 
+delete_row
+    ON SCHEDULE 
+      EVERY 30 MINUTE
+        DO 
+delete from RECOVERY_USER 
+WHERE time_stamp < time_stamp +INTERVAL 30 MINUTE;
+
 --POSITION
 insert into position (position_id,position_desc)
 values (10,'Admin');

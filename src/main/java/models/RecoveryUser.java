@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "recovery_user")
@@ -42,10 +42,14 @@ public class RecoveryUser implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "Email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "time_stamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp;
-    @Size(max = 7)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 7)
     @Column(name = "recovery_id")
     private String recoveryId;
 
@@ -54,6 +58,12 @@ public class RecoveryUser implements Serializable {
 
     public RecoveryUser(String email) {
         this.email = email;
+    }
+
+    public RecoveryUser(String email, Date timeStamp, String recoveryId) {
+        this.email = email;
+        this.timeStamp = timeStamp;
+        this.recoveryId = recoveryId;
     }
 
     public String getEmail() {

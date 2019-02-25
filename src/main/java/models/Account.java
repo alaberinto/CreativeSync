@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "account")
@@ -83,7 +83,7 @@ public class Account implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "rate")
-    private int rate;
+    private double rate;
     @Size(max = 150)
     @Column(name = "portfolio")
     private String portfolio;
@@ -127,7 +127,7 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String password, String firstname, String lastname, String email, String location, int rate, short isactive) {
+    public Account(Integer userId, String password, String firstname, String lastname, String email, String location, double rate, short isactive) {
         this.userId = userId;
         this.password = password;
         this.firstname = firstname;
@@ -186,11 +186,11 @@ public class Account implements Serializable {
         this.location = location;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 

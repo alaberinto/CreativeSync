@@ -86,6 +86,23 @@ public class UserBroker {
             throw new DBException("Error getting users.");
         }
     }
+     public int delete(Account account) throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try {
+            trans.begin();
+            em.remove(em.merge(account));
+            trans.commit();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+        return 1;
+    }
 public int insertUser(Account ac) throws DBException {
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

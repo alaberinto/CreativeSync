@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "artwork")
@@ -75,7 +75,7 @@ public class Artwork implements Serializable {
     @JoinColumn(name = "title_id", referencedColumnName = "title_id")
     @ManyToOne(optional = false)
     private Title titleId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artwork")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artworkId")
     private Collection<Feedback> feedbackCollection;
 
     public Artwork() {

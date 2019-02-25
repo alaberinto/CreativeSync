@@ -32,6 +32,12 @@ public class AccountService {
         return ab.insertUser(ac);
          //public Account(Integer userId, String password, String firstname, String lastname, String email, String location, int rate, short isactive) {
     }
+    public int delete(Integer userId,Integer positionId) throws DBException{
+//        Account deleteUser = (ab.getUserById(userId));
+//       ac.
+//               pb.getPosition(positionId);
+return 1;
+    }
     
     public int update(Account ac,String firstname,String lastname,String email,String password,String location) throws DBException{
         ac.setPassword(hs.generateHash(password));

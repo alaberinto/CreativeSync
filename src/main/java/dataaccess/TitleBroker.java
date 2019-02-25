@@ -23,14 +23,39 @@ public class TitleBroker {
         return null;
     }
     
-    public Title updateTitle(int titleId) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        return null;
+    public int updateTitle(Title title) {
+          EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try {
+            trans.begin();
+            em.merge(title);
+            trans.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+        return 1;
     }
     
-    public Title deleteTitle(int titleId) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        return null;
+    public int deleteTitle(Title title) {
+         EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try {
+            trans.begin();
+            em.remove(em.merge(title));
+            trans.commit();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            trans.rollback();
+        } finally {
+            em.close();
+        }
+        return 1;
     }
     public Title insertTitle(Title title){
       EntityManager em = DBUtil.getEmFactory().createEntityManager();

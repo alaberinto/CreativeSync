@@ -53,6 +53,7 @@ public class UserBroker {
             em.close();
         }
     }
+    
      public int update(Account ac) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -92,7 +93,7 @@ public class UserBroker {
         
         try {
             trans.begin();
-            em.remove(em.merge(account));
+            em.remove(account);
             trans.commit();
             
         } catch (Exception e) {

@@ -3,8 +3,10 @@ package services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Address;
@@ -17,6 +19,8 @@ import javax.mail.internet.MimeMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import models.Account;
+
 
 /**
  *
@@ -30,34 +34,52 @@ public class EmailService {
 
     }
 
+    public void recover(String email, String path) {
+        //Get Users
+        Account user = as.getUserByEmail(email);
+
+        if (user != null) {
+            String subject = "Netflix Creative Sync Account Recovery";
+            String template = path + "/emailTemplates/recovery.html";
+            String code = generateCode();
+
+            HashMap<String, String> tags = new HashMap<>();
+            tags.put("firstname", user.getFirstname());
+            tags.put("lastname", user.getLastname());
+            tags.put("code", code);
+            
+            sendMail(email, subject, template, tags);       
+        }
+    }
+    
     public void sendMail(String email, String subject, String template, HashMap<String, String> tags) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(template)));
             String line = br.readLine();
             String body = "";
-
-            while (line != null) {
+            
+            while(line != null) {
                 body += line;
-                line = br.readLine();
+                line= br.readLine();
             }
-
-            for (String tag : tags.keySet()) {
+            
+            for(String tag : tags.keySet()) {
                 body = body.replace("%" + tag + "%", tags.get(tag));
             }
-
+            
             sendMail(email, subject, body, true);
-
-        } catch (Exception ex) {
+            
+        } catch(Exception ex) {
             Logger.getLogger(EmailService.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
     }
-
+    
     public void sendMail(String to, String subject, String body, boolean bodyIsHTML) throws NamingException, MessagingException {
-        Context env = (Context) new InitialContext().lookup("java:comp/env");
-        String username = (String) env.lookup("webmail-username");
-        String password = (String) env.lookup("webmail-password");
-
+        Context env = (Context)new InitialContext().lookup("java:comp/env");
+        String username = (String)env.lookup("webmail-username");
+        String password = (String)env.lookup("webmail-password");
+        
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.gmail.com");
@@ -66,7 +88,7 @@ public class EmailService {
         props.put("mail.smtps.quitwait", "false");
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);
-
+        
         Message message = new MimeMessage(session);
         message.setSubject(subject);
         if (bodyIsHTML) {
@@ -74,12 +96,12 @@ public class EmailService {
         } else {
             message.setText(body);
         }
-
+        
         Address fromAddress = new InternetAddress(username);
         Address toAddress = new InternetAddress(to);
         message.setFrom(fromAddress);
         message.setRecipient(Message.RecipientType.TO, toAddress);
-
+        
         Transport transport = session.getTransport();
         transport.connect(username, password);
         transport.sendMessage(message, message.getAllRecipients());
@@ -87,15 +109,8 @@ public class EmailService {
     }
 
     public String generateCode() {
-        //36 Chars
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
-        StringBuilder sb = new StringBuilder(7);
-
-        for (int i = 0; i < 7; i++) {
-            int index = (int) (chars.length() * Math.random());
-            sb.append(chars.charAt(index));
-        }
-
-        return sb.toString();
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        return new String(array, Charset.forName("UTF-8"));
     }
 }

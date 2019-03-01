@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<<<<<<< HEAD
+    <persistence-unit name="NetflixDB" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>models.Asset</class>
+        <class>models.Title</class>
+        <class>models.User</class>
+        <class>models.Style</class>
+        <class>models.Artwork</class>
+        <class>models.RoundArtwork</class>
+        <class>models.AssetType</class>
+        <class>models.Position</class>
+        <class>models.Genre</class>
+        <class>models.Backup</class>
+        <class>models.Feedback</class>
+        <class>models.Language</class>
+        <class>models.Report</class>
+        <class>models.MessageGroup</class>
+        <class>models.Skillset</class>
+        <class>models.Auser</class>
+        <class>models.Account</class>
+        <class>models.UserLanguage</class>
+        <class>models.UserSkillset</class>
+        <class>models.UserMessageGroup</class>
+        <class>models.UserTitle</class>
+        <class>models.TitleGenre</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/NetflixDB"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="password"/>
+        </properties>
+    </persistence-unit>
+=======
+  <persistence-unit name="NetflixDB" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>models.Asset</class>
+    <class>models.Title</class>
+    <class>models.User</class>
+    <class>models.Style</class>
+    <class>models.Artwork</class>
+    <class>models.RoundArtwork</class>
+    <class>models.AssetType</class>
+    <class>models.Position</class>
+    <class>models.Genre</class>
+    <class>models.Backup</class>
+    <class>models.Feedback</class>
+    <class>models.Language</class>
+    <class>models.Report</class>
+    <class>models.MessageGroup</class>
+    <class>models.Skillset</class>
+    <class>models.Auser</class>
+    <class>models.Account</class>
+    <class>models.UserLanguage</class>
+    <class>models.UserSkillset</class>
+    <class>models.UserMessageGroup</class>
+    <class>models.UserTitle</class>
+    <class>models.TitleGenre</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/NetflixDB"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="password"/>
+    </properties>
+  </persistence-unit>
+>>>>>>> origin/master
+</persistence>

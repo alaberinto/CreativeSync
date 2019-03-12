@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,10 +32,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "genre")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Genre.findAll", query = "SELECT g FROM Genre g"),
-    @NamedQuery(name = "Genre.findByGenreId", query = "SELECT g FROM Genre g WHERE g.genreId = :genreId"),
-    @NamedQuery(name = "Genre.findByGenreDesc", query = "SELECT g FROM Genre g WHERE g.genreDesc = :genreDesc")})
+    @NamedQuery(name = "Genre.findAll", query = "SELECT g FROM Genre g")
+    , @NamedQuery(name = "Genre.findByGenreId", query = "SELECT g FROM Genre g WHERE g.genreId = :genreId")
+    , @NamedQuery(name = "Genre.findByGenreDesc", query = "SELECT g FROM Genre g WHERE g.genreDesc = :genreDesc")})
 public class Genre implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +52,9 @@ public class Genre implements Serializable {
         @JoinColumn(name = "GENRE_genre_id", referencedColumnName = "genre_id")}, inverseJoinColumns = {
         @JoinColumn(name = "TITLE_title_id", referencedColumnName = "title_id")})
     @ManyToMany
-    private Collection<Title> titleCollection;
+    private List<Title> titleList;
+    @ManyToMany(mappedBy = "genreList")
+    private List<Account> accountList;
 
     public Genre() {
     }
@@ -82,12 +85,21 @@ public class Genre implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Title> getTitleCollection() {
-        return titleCollection;
+    public List<Title> getTitleList() {
+        return titleList;
     }
 
-    public void setTitleCollection(Collection<Title> titleCollection) {
-        this.titleCollection = titleCollection;
+    public void setTitleList(List<Title> titleList) {
+        this.titleList = titleList;
+    }
+
+    @XmlTransient
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override

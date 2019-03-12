@@ -53,7 +53,6 @@ input[type=text]:focus, input[type=password]:focus {
 input[type=text],input[type=password], input[type=text]:focus, input[type=password]:focus {
     font-weight: 500;
     border-color: #7b7676;
-    background-color: #111;
     margin-bottom: 10px;
 }
 
@@ -100,7 +99,7 @@ input[type=text],input[type=password], input[type=text]:focus, input[type=passwo
 }
 
 .logo {
-    height: 65px;
+    height: 55px;
 }
 
 .test-border {
@@ -135,8 +134,7 @@ a.nav-link {
 }
 
 .navbar {
-    background-color: black;
-    opacity: 1;
+    background-color: white;
 }
 
 .prof {
@@ -174,7 +172,7 @@ a.nav-link {
     font-size: 20px;
     padding-top: 9px;
     padding-bottom: 9px;
- 
+
 }
 
 .asset-image{
@@ -243,9 +241,145 @@ a.nav-link {
 }
 
 [data-toggle="collapse"] .fa:before {  
-  content: "\f139";
+    content: "\f139";
 }
 
 [data-toggle="collapse"].collapsed .fa:before {
-  content: "\f13a";
+    content: "\f13a";
+}
+
+.searchBarHeader {
+    width: 100%;
+    background-color: black;
+    height: 70px;
+    padding: 10px;
+}
+
+.searchBar {
+    height: 50px;
+    border: none;
+    background-color: white !important;
+    font-size: 25px;
+    color: #7b7676 !important;
+}
+
+.input-container {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    width: 100%;
+}
+
+.icon {
+    height: 100%;
+    width: auto;
+    text-align: center;
+    background-color: white;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.head {
+    color: #e50914;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.no-style {
+    font-size: 100%;
+    font-family: inherit;
+    border: 0;
+    padding: 0;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.fullContainer {
+    height: 83%;
+}
+
+input[type=checkbox] + label{
+    display:block;
+    cursor: pointer; 
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox] + label:before {
+    content: "\2714";
+    border: solid;
+    border-color: #7b7676;
+    border-width: 1px;
+    display:inline-block;
+    width: 22px !important;
+    height: 22px !important;
+    padding-left: 3px;
+    padding-bottom: 0.4em;
+    margin-right: 0.7em;
+    vertical-align: bottom;
+    color: transparent;
+}
+
+input[type=checkbox]:checked + label:before {
+    color: black;
+    background-color: #f2f2f2;
+}
+
+.custom-container {
+    margin-left: 33px;
+    margin-right: 33px;
+}
+
+.list-group-item {
+    border: none;
+    margin-top: 0px;
+    padding: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom:20px !important;
+}
+
+.list-group-item:hover {
+    background-color: #f4f4f4;
+}
+
+.list-item-head {
+    color: #e50914;
+    margin-bottom: 0px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.bold-head {
+    font-size: 20px;
+}
+
+.top-bottom-border {
+    border-top: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    margin-bottom: 10px;
+ 
+}
+
+.button-red-solid {
+    background-color: #e50914;
+    border-color: #e50914;
+    color: white;
+}
+
+.text-light-gray-full {
+    background-color: white;
+    border-color: #999999 !important;
+    border-width: 2px !important;
+    color: black !important;
+    border-radius: 0 !important;
+}
+
+label {
+    font-size: 20px;
 }

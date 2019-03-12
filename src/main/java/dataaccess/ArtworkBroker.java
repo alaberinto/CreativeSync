@@ -41,6 +41,7 @@ public class ArtworkBroker {
             em.close();
         }
     }
+    
     public Collection<Artwork> getAllArtwork() throws DBException{
         EntityManager em= DBUtil.getEmFactory().createEntityManager();
         try{
@@ -101,5 +102,6 @@ public class ArtworkBroker {
         }
         return 1;
     }
+    
     
 }

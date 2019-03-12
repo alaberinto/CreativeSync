@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,10 +30,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "message_group")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MessageGroup.findAll", query = "SELECT m FROM MessageGroup m"),
-    @NamedQuery(name = "MessageGroup.findByMessageGroupId", query = "SELECT m FROM MessageGroup m WHERE m.messageGroupId = :messageGroupId"),
-    @NamedQuery(name = "MessageGroup.findByChatlogRef", query = "SELECT m FROM MessageGroup m WHERE m.chatlogRef = :chatlogRef")})
+    @NamedQuery(name = "MessageGroup.findAll", query = "SELECT m FROM MessageGroup m")
+    , @NamedQuery(name = "MessageGroup.findByMessageGroupId", query = "SELECT m FROM MessageGroup m WHERE m.messageGroupId = :messageGroupId")
+    , @NamedQuery(name = "MessageGroup.findByChatlogRef", query = "SELECT m FROM MessageGroup m WHERE m.chatlogRef = :chatlogRef")})
 public class MessageGroup implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +46,8 @@ public class MessageGroup implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "chatlog_ref")
     private String chatlogRef;
-    @ManyToMany(mappedBy = "messageGroupCollection")
-    private Collection<Account> accountCollection;
+    @ManyToMany(mappedBy = "messageGroupList")
+    private List<Account> accountList;
 
     public MessageGroup() {
     }
@@ -77,12 +78,12 @@ public class MessageGroup implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override

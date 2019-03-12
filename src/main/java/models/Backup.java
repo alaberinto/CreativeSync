@@ -30,11 +30,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "backup")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Backup.findAll", query = "SELECT b FROM Backup b"),
-    @NamedQuery(name = "Backup.findByBackupId", query = "SELECT b FROM Backup b WHERE b.backupId = :backupId"),
-    @NamedQuery(name = "Backup.findByBackupRef", query = "SELECT b FROM Backup b WHERE b.backupRef = :backupRef"),
-    @NamedQuery(name = "Backup.findByBackupDate", query = "SELECT b FROM Backup b WHERE b.backupDate = :backupDate")})
+    @NamedQuery(name = "Backup.findAll", query = "SELECT b FROM Backup b")
+    , @NamedQuery(name = "Backup.findByBackupId", query = "SELECT b FROM Backup b WHERE b.backupId = :backupId")
+    , @NamedQuery(name = "Backup.findByBackupRef", query = "SELECT b FROM Backup b WHERE b.backupRef = :backupRef")
+    , @NamedQuery(name = "Backup.findByBackupDate", query = "SELECT b FROM Backup b WHERE b.backupDate = :backupDate")})
 public class Backup implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

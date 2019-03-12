@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,10 +28,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "style")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Style.findAll", query = "SELECT s FROM Style s"),
-    @NamedQuery(name = "Style.findByStyleId", query = "SELECT s FROM Style s WHERE s.styleId = :styleId"),
-    @NamedQuery(name = "Style.findByStyleDesc", query = "SELECT s FROM Style s WHERE s.styleDesc = :styleDesc")})
+    @NamedQuery(name = "Style.findAll", query = "SELECT s FROM Style s")
+    , @NamedQuery(name = "Style.findByStyleId", query = "SELECT s FROM Style s WHERE s.styleId = :styleId")
+    , @NamedQuery(name = "Style.findByStyleDesc", query = "SELECT s FROM Style s WHERE s.styleDesc = :styleDesc")})
 public class Style implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -43,8 +44,8 @@ public class Style implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "style_desc")
     private String styleDesc;
-    @ManyToMany(mappedBy = "styleCollection")
-    private Collection<Artwork> artworkCollection;
+    @ManyToMany(mappedBy = "styleList")
+    private List<Artwork> artworkList;
 
     public Style() {
     }
@@ -75,12 +76,12 @@ public class Style implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Artwork> getArtworkCollection() {
-        return artworkCollection;
+    public List<Artwork> getArtworkList() {
+        return artworkList;
     }
 
-    public void setArtworkCollection(Collection<Artwork> artworkCollection) {
-        this.artworkCollection = artworkCollection;
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
     }
 
     @Override

@@ -56,8 +56,8 @@
         <servlet-class>servlets.NewUserServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AddTitlesServlet</servlet-name>
-        <servlet-class>servlets.AddTitlesServlet</servlet-class>
+        <servlet-name>AddTitleServlet</servlet-name>
+        <servlet-class>servlets.AddTitleServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -112,8 +112,8 @@
         <url-pattern>/NewUser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddTitlesServlet</servlet-name>
-        <url-pattern>/AddTitles</url-pattern>
+        <servlet-name>AddTitleServlet</servlet-name>
+        <url-pattern>/AddTitle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

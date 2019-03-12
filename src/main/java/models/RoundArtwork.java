@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,11 +30,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "round_artwork")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RoundArtwork.findAll", query = "SELECT r FROM RoundArtwork r"),
-    @NamedQuery(name = "RoundArtwork.findByRoundId", query = "SELECT r FROM RoundArtwork r WHERE r.roundId = :roundId"),
-    @NamedQuery(name = "RoundArtwork.findByRoundNumber", query = "SELECT r FROM RoundArtwork r WHERE r.roundNumber = :roundNumber"),
-    @NamedQuery(name = "RoundArtwork.findByRoundDescription", query = "SELECT r FROM RoundArtwork r WHERE r.roundDescription = :roundDescription")})
+    @NamedQuery(name = "RoundArtwork.findAll", query = "SELECT r FROM RoundArtwork r")
+    , @NamedQuery(name = "RoundArtwork.findByRoundId", query = "SELECT r FROM RoundArtwork r WHERE r.roundId = :roundId")
+    , @NamedQuery(name = "RoundArtwork.findByRoundNumber", query = "SELECT r FROM RoundArtwork r WHERE r.roundNumber = :roundNumber")
+    , @NamedQuery(name = "RoundArtwork.findByRoundDescription", query = "SELECT r FROM RoundArtwork r WHERE r.roundDescription = :roundDescription")})
 public class RoundArtwork implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,8 +51,8 @@ public class RoundArtwork implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "round_description")
     private String roundDescription;
-    @ManyToMany(mappedBy = "roundArtworkCollection")
-    private Collection<Artwork> artworkCollection;
+    @ManyToMany(mappedBy = "roundArtworkList")
+    private List<Artwork> artworkList;
 
     public RoundArtwork() {
     }
@@ -91,12 +92,12 @@ public class RoundArtwork implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Artwork> getArtworkCollection() {
-        return artworkCollection;
+    public List<Artwork> getArtworkList() {
+        return artworkList;
     }
 
-    public void setArtworkCollection(Collection<Artwork> artworkCollection) {
-        this.artworkCollection = artworkCollection;
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
     }
 
     @Override

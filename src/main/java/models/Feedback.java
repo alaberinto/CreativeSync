@@ -32,13 +32,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "feedback")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f"),
-    @NamedQuery(name = "Feedback.findByFeedbackId", query = "SELECT f FROM Feedback f WHERE f.feedbackId = :feedbackId"),
-    @NamedQuery(name = "Feedback.findByFeedbackDesc", query = "SELECT f FROM Feedback f WHERE f.feedbackDesc = :feedbackDesc"),
-    @NamedQuery(name = "Feedback.findByFeedbackDate", query = "SELECT f FROM Feedback f WHERE f.feedbackDate = :feedbackDate"),
-    @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate"),
-    @NamedQuery(name = "Feedback.findByIsread", query = "SELECT f FROM Feedback f WHERE f.isread = :isread")})
+    @NamedQuery(name = "Feedback.findAll", query = "SELECT f FROM Feedback f")
+    , @NamedQuery(name = "Feedback.findByFeedbackId", query = "SELECT f FROM Feedback f WHERE f.feedbackId = :feedbackId")
+    , @NamedQuery(name = "Feedback.findByFeedbackDesc", query = "SELECT f FROM Feedback f WHERE f.feedbackDesc = :feedbackDesc")
+    , @NamedQuery(name = "Feedback.findByFeedbackDate", query = "SELECT f FROM Feedback f WHERE f.feedbackDate = :feedbackDate")
+    , @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate")
+    , @NamedQuery(name = "Feedback.findByIsread", query = "SELECT f FROM Feedback f WHERE f.isread = :isread")})
 public class Feedback implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

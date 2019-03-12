@@ -1,7 +1,6 @@
 package dataaccess;
 
 //Remove this import after DB is setup
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,10 +76,10 @@ public class UserBroker {
      * @return a Collection of all Users in the table.
      * @throws dataaccess.DBException
      */
-    public Collection<Account> getAllUsers() throws DBException {
+    public List<Account> getAllUsers() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Collection<Account> users = em.createNamedQuery("Account.findAll", Account.class).getResultList();
+            List<Account> users = em.createNamedQuery("Account.findAll", Account.class).getResultList();
             return users;
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
@@ -88,7 +87,7 @@ public class UserBroker {
         }
     }
 
-    public int deleteUser(Account ac) throws DBException {
+    public boolean deleteUser(Account ac) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
@@ -97,13 +96,13 @@ public class UserBroker {
             em.remove(em.merge(ac));
             trans.commit();
             } catch (Exception ex) {
-            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-            throw new DBException("Error deleting users.");
+                Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
+                throw new DBException("Error deleting users.");
 
         } finally {
             em.close();
         }
-        return 1;
+        return true;
     }
 
     public int insertUser(Account ac) throws DBException {

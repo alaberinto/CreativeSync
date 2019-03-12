@@ -5,6 +5,7 @@
  */
 package dataaccess;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,5 +73,16 @@ public class PositionBroker {
             em.close();
         }
         return 1;
+    }
+    
+    public ArrayList<Position> getAllPositions() throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            List<Position> pos = em.createNamedQuery("Position.findAll", Position.class).getResultList();
+            return new ArrayList(pos);
+        } catch (Exception ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read positions", ex);
+            throw new DBException("Error getting positions.");
+        }
     }
 }

@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,10 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "asset_type")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AssetType.findAll", query = "SELECT a FROM AssetType a"),
-    @NamedQuery(name = "AssetType.findByTypeId", query = "SELECT a FROM AssetType a WHERE a.typeId = :typeId"),
-    @NamedQuery(name = "AssetType.findByTypeDesc", query = "SELECT a FROM AssetType a WHERE a.typeDesc = :typeDesc")})
+    @NamedQuery(name = "AssetType.findAll", query = "SELECT a FROM AssetType a")
+    , @NamedQuery(name = "AssetType.findByTypeId", query = "SELECT a FROM AssetType a WHERE a.typeId = :typeId")
+    , @NamedQuery(name = "AssetType.findByTypeDesc", query = "SELECT a FROM AssetType a WHERE a.typeDesc = :typeDesc")})
 public class AssetType implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +48,7 @@ public class AssetType implements Serializable {
     @Column(name = "type_desc")
     private String typeDesc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "typeId")
-    private Collection<Asset> assetCollection;
+    private List<Asset> assetList;
 
     public AssetType() {
     }
@@ -78,12 +79,12 @@ public class AssetType implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Asset> getAssetCollection() {
-        return assetCollection;
+    public List<Asset> getAssetList() {
+        return assetList;
     }
 
-    public void setAssetCollection(Collection<Asset> assetCollection) {
-        this.assetCollection = assetCollection;
+    public void setAssetList(List<Asset> assetList) {
+        this.assetList = assetList;
     }
 
     @Override

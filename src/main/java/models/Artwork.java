@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,12 +35,13 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "artwork")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Artwork.findAll", query = "SELECT a FROM Artwork a"),
-    @NamedQuery(name = "Artwork.findByArtworkId", query = "SELECT a FROM Artwork a WHERE a.artworkId = :artworkId"),
-    @NamedQuery(name = "Artwork.findByArtworkName", query = "SELECT a FROM Artwork a WHERE a.artworkName = :artworkName"),
-    @NamedQuery(name = "Artwork.findByArtworkRef", query = "SELECT a FROM Artwork a WHERE a.artworkRef = :artworkRef"),
-    @NamedQuery(name = "Artwork.findByRating", query = "SELECT a FROM Artwork a WHERE a.rating = :rating")})
+    @NamedQuery(name = "Artwork.findAll", query = "SELECT a FROM Artwork a")
+    , @NamedQuery(name = "Artwork.findByArtworkId", query = "SELECT a FROM Artwork a WHERE a.artworkId = :artworkId")
+    , @NamedQuery(name = "Artwork.findByArtworkName", query = "SELECT a FROM Artwork a WHERE a.artworkName = :artworkName")
+    , @NamedQuery(name = "Artwork.findByArtworkRef", query = "SELECT a FROM Artwork a WHERE a.artworkRef = :artworkRef")
+    , @NamedQuery(name = "Artwork.findByRating", query = "SELECT a FROM Artwork a WHERE a.rating = :rating")})
 public class Artwork implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,17 +66,17 @@ public class Artwork implements Serializable {
         @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")}, inverseJoinColumns = {
         @JoinColumn(name = "ROUND_ARTWORK_round_id", referencedColumnName = "round_id")})
     @ManyToMany
-    private Collection<RoundArtwork> roundArtworkCollection;
+    private List<RoundArtwork> roundArtworkList;
     @JoinTable(name = "style_has_artwork", joinColumns = {
         @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")}, inverseJoinColumns = {
         @JoinColumn(name = "STYLE_style_id", referencedColumnName = "style_id")})
     @ManyToMany
-    private Collection<Style> styleCollection;
+    private List<Style> styleList;
     @JoinColumn(name = "title_id", referencedColumnName = "title_id")
     @ManyToOne(optional = false)
     private Title titleId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artworkId")
-    private Collection<Feedback> feedbackCollection;
+    private List<Feedback> feedbackList;
 
     public Artwork() {
     }
@@ -124,21 +125,21 @@ public class Artwork implements Serializable {
     }
 
     @XmlTransient
-    public Collection<RoundArtwork> getRoundArtworkCollection() {
-        return roundArtworkCollection;
+    public List<RoundArtwork> getRoundArtworkList() {
+        return roundArtworkList;
     }
 
-    public void setRoundArtworkCollection(Collection<RoundArtwork> roundArtworkCollection) {
-        this.roundArtworkCollection = roundArtworkCollection;
+    public void setRoundArtworkList(List<RoundArtwork> roundArtworkList) {
+        this.roundArtworkList = roundArtworkList;
     }
 
     @XmlTransient
-    public Collection<Style> getStyleCollection() {
-        return styleCollection;
+    public List<Style> getStyleList() {
+        return styleList;
     }
 
-    public void setStyleCollection(Collection<Style> styleCollection) {
-        this.styleCollection = styleCollection;
+    public void setStyleList(List<Style> styleList) {
+        this.styleList = styleList;
     }
 
     public Title getTitleId() {
@@ -150,12 +151,12 @@ public class Artwork implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Feedback> getFeedbackCollection() {
-        return feedbackCollection;
+    public List<Feedback> getFeedbackList() {
+        return feedbackList;
     }
 
-    public void setFeedbackCollection(Collection<Feedback> feedbackCollection) {
-        this.feedbackCollection = feedbackCollection;
+    public void setFeedbackList(List<Feedback> feedbackList) {
+        this.feedbackList = feedbackList;
     }
 
     @Override

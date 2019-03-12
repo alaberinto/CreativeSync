@@ -16,37 +16,37 @@ import models.Title;
  * @author Alvin
  */
 public class TitleBroker {
-    
-    public TitleBroker(){
-        
+
+    public TitleBroker() {
+
     }
 
-    public Collection <Title> getAllTitles() throws DBException {
+    public Collection<Title> getAllTitles() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try{
-            Collection<Title>titles = em.createNamedQuery("Title.findAll", Title.class).getResultList();
+        try {
+            Collection<Title> titles = em.createNamedQuery("Title.findAll", Title.class).getResultList();
             return titles;
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Logger.getLogger(Title.class.getName()).log(Level.SEVERE, "Cannot read title", ex);
             throw new DBException("Error getting title.");
-        }finally{
+        } finally {
             em.close();
         }
-        
+
     }
 
     public int updateTitle(Title title) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        try{
+        try {
             trans.begin();
             em.persist(title);
             trans.commit();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             if (trans.isActive()) {
                 trans.rollback();
             }
-        }finally{
+        } finally {
             em.close();
         }
         return 1;
@@ -55,36 +55,18 @@ public class TitleBroker {
     public int deleteTitle(Title title) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
-        try{
+        try {
             trans.begin();
             em.remove(em.merge(title));
             trans.commit();
-        }catch(Exception ex){
-            if (trans.isActive()) {
-                trans.rollback();
-            }
-        }finally{
-            em.close();
-        }
-        return 1;
-    }
-
-    public Title insertTitle(Title title) {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        EntityTransaction trans = em.getTransaction();
-
-        try {
-            trans.begin();
-            em.persist(title);
-            trans.commit();
-        } catch (Exception e) {
+        } catch (Exception ex) {
             if (trans.isActive()) {
                 trans.rollback();
             }
         } finally {
             em.close();
         }
-        return title;
+        return 1;
     }
 
     public Title getTitleById(Integer id) throws DBException {
@@ -97,5 +79,40 @@ public class TitleBroker {
         } finally {
             em.close();
         }
+    }
+
+    public List<Title> getActiveTitles() throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            Query query = em.createNamedQuery("Title.findByIsActive", Title.class);
+            query.setParameter("isActive", 1);
+
+            List<Title> titles = query.getResultList();
+            return titles;
+        } catch (Exception ex) {
+            Logger.getLogger(TitleBroker.class.getName()).log(Level.SEVERE, "Cannot read titles", ex);
+            throw new DBException("Error getting titles.");
+        } finally {
+            em.close();
+        }
+    }
+    
+    public String insertTitle(Title title) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+
+        try {
+            trans.begin();
+            em.persist(title);
+            trans.commit();
+        } catch (Exception e) {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            return "Error inserting into table";
+        } finally {
+            em.close();
+        }
+        return null;
     }
 }

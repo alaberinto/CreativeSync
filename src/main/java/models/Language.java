@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,10 +30,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "language")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l"),
-    @NamedQuery(name = "Language.findByLanguageId", query = "SELECT l FROM Language l WHERE l.languageId = :languageId"),
-    @NamedQuery(name = "Language.findByLanguageName", query = "SELECT l FROM Language l WHERE l.languageName = :languageName")})
+    @NamedQuery(name = "Language.findAll", query = "SELECT l FROM Language l")
+    , @NamedQuery(name = "Language.findByLanguageId", query = "SELECT l FROM Language l WHERE l.languageId = :languageId")
+    , @NamedQuery(name = "Language.findByLanguageName", query = "SELECT l FROM Language l WHERE l.languageName = :languageName")})
 public class Language implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,8 +46,8 @@ public class Language implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "language_name")
     private String languageName;
-    @ManyToMany(mappedBy = "languageCollection")
-    private Collection<Account> accountCollection;
+    @ManyToMany(mappedBy = "languageList")
+    private List<Account> accountList;
 
     public Language() {
     }
@@ -77,12 +78,12 @@ public class Language implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override

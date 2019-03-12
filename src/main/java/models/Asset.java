@@ -29,10 +29,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "asset")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Asset.findAll", query = "SELECT a FROM Asset a"),
-    @NamedQuery(name = "Asset.findByAssetId", query = "SELECT a FROM Asset a WHERE a.assetId = :assetId"),
-    @NamedQuery(name = "Asset.findByTypeRef", query = "SELECT a FROM Asset a WHERE a.typeRef = :typeRef")})
+    @NamedQuery(name = "Asset.findAll", query = "SELECT a FROM Asset a")
+    , @NamedQuery(name = "Asset.findByAssetId", query = "SELECT a FROM Asset a WHERE a.assetId = :assetId")
+    , @NamedQuery(name = "Asset.findByTypeRef", query = "SELECT a FROM Asset a WHERE a.typeRef = :typeRef")})
 public class Asset implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

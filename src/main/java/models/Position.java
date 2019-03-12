@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,10 +31,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "position")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p"),
-    @NamedQuery(name = "Position.findByPositionId", query = "SELECT p FROM Position p WHERE p.positionId = :positionId"),
-    @NamedQuery(name = "Position.findByPositionDesc", query = "SELECT p FROM Position p WHERE p.positionDesc = :positionDesc")})
+    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p")
+    , @NamedQuery(name = "Position.findByPositionId", query = "SELECT p FROM Position p WHERE p.positionId = :positionId")
+    , @NamedQuery(name = "Position.findByPositionDesc", query = "SELECT p FROM Position p WHERE p.positionDesc = :positionDesc")})
 public class Position implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +48,7 @@ public class Position implements Serializable {
     @Column(name = "position_desc")
     private String positionDesc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
-    private Collection<Account> accountCollection;
+    private List<Account> accountList;
 
     public Position() {
     }
@@ -78,12 +79,12 @@ public class Position implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public List<Account> getAccountList() {
+        return accountList;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     @Override

@@ -6,8 +6,8 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,15 +35,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "title")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Title.findAll", query = "SELECT t FROM Title t"),
-    @NamedQuery(name = "Title.findByTitleId", query = "SELECT t FROM Title t WHERE t.titleId = :titleId"),
-    @NamedQuery(name = "Title.findByName", query = "SELECT t FROM Title t WHERE t.name = :name"),
-    @NamedQuery(name = "Title.findByStartDate", query = "SELECT t FROM Title t WHERE t.startDate = :startDate"),
-    @NamedQuery(name = "Title.findByEndDate", query = "SELECT t FROM Title t WHERE t.endDate = :endDate"),
-    @NamedQuery(name = "Title.findByIsActive", query = "SELECT t FROM Title t WHERE t.isActive = :isActive"),
-    @NamedQuery(name = "Title.findByPriority", query = "SELECT t FROM Title t WHERE t.priority = :priority"),
-    @NamedQuery(name = "Title.findByDesignInfo", query = "SELECT t FROM Title t WHERE t.designInfo = :designInfo")})
+    @NamedQuery(name = "Title.findAll", query = "SELECT t FROM Title t")
+    , @NamedQuery(name = "Title.findByTitleId", query = "SELECT t FROM Title t WHERE t.titleId = :titleId")
+    , @NamedQuery(name = "Title.findByName", query = "SELECT t FROM Title t WHERE t.name = :name")
+    , @NamedQuery(name = "Title.findByStartDate", query = "SELECT t FROM Title t WHERE t.startDate = :startDate")
+    , @NamedQuery(name = "Title.findByEndDate", query = "SELECT t FROM Title t WHERE t.endDate = :endDate")
+    , @NamedQuery(name = "Title.findByIsActive", query = "SELECT t FROM Title t WHERE t.isActive = :isActive")
+    , @NamedQuery(name = "Title.findByPriority", query = "SELECT t FROM Title t WHERE t.priority = :priority")
+    , @NamedQuery(name = "Title.findByDesignInfo", query = "SELECT t FROM Title t WHERE t.designInfo = :designInfo")
+    , @NamedQuery(name = "Title.findByNumberOfFreelancers", query = "SELECT t FROM Title t WHERE t.numberOfFreelancers = :numberOfFreelancers")
+    , @NamedQuery(name = "Title.findByDesignLeadId", query = "SELECT t FROM Title t WHERE t.designLeadId = :designLeadId")
+    , @NamedQuery(name = "Title.findByCoordinatorId", query = "SELECT t FROM Title t WHERE t.coordinatorId = :coordinatorId")
+    , @NamedQuery(name = "Title.findByMaxNumberOfFreelancers", query = "SELECT t FROM Title t WHERE t.maxNumberOfFreelancers = :maxNumberOfFreelancers")})
 public class Title implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,14 +83,30 @@ public class Title implements Serializable {
     @Size(min = 1, max = 1000)
     @Column(name = "design_info")
     private String designInfo;
-    @ManyToMany(mappedBy = "titleCollection")
-    private Collection<Account> accountCollection;
-    @ManyToMany(mappedBy = "titleCollection")
-    private Collection<Genre> genreCollection;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "number_of_freelancers")
+    private int numberOfFreelancers;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "design_lead_id")
+    private int designLeadId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "coordinator_id")
+    private int coordinatorId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "max_number_of_freelancers")
+    private int maxNumberOfFreelancers;
+    @ManyToMany(mappedBy = "titleList")
+    private List<Genre> genreList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
+    private List<TitleHasAccount> titleHasAccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleId")
-    private Collection<Artwork> artworkCollection;
+    private List<Artwork> artworkList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleId")
-    private Collection<Asset> assetCollection;
+    private List<Asset> assetList;
 
     public Title() {
     }
@@ -94,7 +115,7 @@ public class Title implements Serializable {
         this.titleId = titleId;
     }
 
-    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo) {
+    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers) {
         this.titleId = titleId;
         this.name = name;
         this.startDate = startDate;
@@ -102,6 +123,10 @@ public class Title implements Serializable {
         this.isActive = isActive;
         this.priority = priority;
         this.designInfo = designInfo;
+        this.numberOfFreelancers = numberOfFreelancers;
+        this.designLeadId = designLeadId;
+        this.coordinatorId = coordinatorId;
+        this.maxNumberOfFreelancers = maxNumberOfFreelancers;
     }
 
     public Integer getTitleId() {
@@ -160,40 +185,72 @@ public class Title implements Serializable {
         this.designInfo = designInfo;
     }
 
+    public int getNumberOfFreelancers() {
+        return numberOfFreelancers;
+    }
+
+    public void setNumberOfFreelancers(int numberOfFreelancers) {
+        this.numberOfFreelancers = numberOfFreelancers;
+    }
+
+    public int getDesignLeadId() {
+        return designLeadId;
+    }
+
+    public void setDesignLeadId(int designLeadId) {
+        this.designLeadId = designLeadId;
+    }
+
+    public int getCoordinatorId() {
+        return coordinatorId;
+    }
+
+    public void setCoordinatorId(int coordinatorId) {
+        this.coordinatorId = coordinatorId;
+    }
+
+    public int getMaxNumberOfFreelancers() {
+        return maxNumberOfFreelancers;
+    }
+
+    public void setMaxNumberOfFreelancers(int maxNumberOfFreelancers) {
+        this.maxNumberOfFreelancers = maxNumberOfFreelancers;
+    }
+
     @XmlTransient
-    public Collection<Account> getAccountCollection() {
-        return accountCollection;
+    public List<Genre> getGenreList() {
+        return genreList;
     }
 
-    public void setAccountCollection(Collection<Account> accountCollection) {
-        this.accountCollection = accountCollection;
-    }
-
-    @XmlTransient
-    public Collection<Genre> getGenreCollection() {
-        return genreCollection;
-    }
-
-    public void setGenreCollection(Collection<Genre> genreCollection) {
-        this.genreCollection = genreCollection;
+    public void setGenreList(List<Genre> genreList) {
+        this.genreList = genreList;
     }
 
     @XmlTransient
-    public Collection<Artwork> getArtworkCollection() {
-        return artworkCollection;
+    public List<TitleHasAccount> getTitleHasAccountList() {
+        return titleHasAccountList;
     }
 
-    public void setArtworkCollection(Collection<Artwork> artworkCollection) {
-        this.artworkCollection = artworkCollection;
+    public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
+        this.titleHasAccountList = titleHasAccountList;
     }
 
     @XmlTransient
-    public Collection<Asset> getAssetCollection() {
-        return assetCollection;
+    public List<Artwork> getArtworkList() {
+        return artworkList;
     }
 
-    public void setAssetCollection(Collection<Asset> assetCollection) {
-        this.assetCollection = assetCollection;
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
+    }
+
+    @XmlTransient
+    public List<Asset> getAssetList() {
+        return assetList;
+    }
+
+    public void setAssetList(List<Asset> assetList) {
+        this.assetList = assetList;
     }
 
     @Override

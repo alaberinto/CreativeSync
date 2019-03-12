@@ -4,12 +4,16 @@ import dataaccess.DBException;
 import dataaccess.PositionBroker;
 import dataaccess.RecoveryBroker;
 import dataaccess.UserBroker;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Position;
 import models.RecoveryUser;
+import viewModels.UsersView;
 
 /**
  *
@@ -31,10 +35,61 @@ public class AccountService {
         return ab.getUserById(userId);
 
     }
-    public int delete(Integer userId) throws DBException{
-        Account ac =ab.getUserById(userId);
-        return ab.deleteUser(ac);
+
+    public ArrayList<Account> getAllUsers() throws DBException {
+        return new ArrayList(ab.getAllUsers());
+
     }
+
+    public ArrayList<UsersView> getUsersView(Account user) {
+        ArrayList<UsersView> views = new ArrayList<>();
+        ArrayList<Account> users = null;
+
+        if (!user.getPosition().getPositionDesc().equals("Freelancer")) {
+            try {
+                users = getAllUsers();
+            } catch (DBException ex) {
+                Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                users = getAllDesignleadsCoordinators();
+            } catch (DBException ex) {
+                Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        for (int i = 0; i < users.size(); i++) {
+            views.add(new UsersView(users.get(i), new ArrayList(users.get(i).getTitleHasAccountList())));
+        }
+
+        return views;
+
+    }
+
+    public ArrayList<Account> getAllDesignleadsCoordinators() throws DBException {
+
+        ArrayList<Account> acc = new ArrayList(ab.getAllUsers());
+        ArrayList<Account> cleanArray = new ArrayList<>();
+        
+        for (int i = 0; i < acc.size(); i++) {
+            if (acc.get(i).getPosition().getPositionId() == 3 || acc.get(i).getPosition().getPositionId() == 2)
+                cleanArray.add(acc.get(i));
+        }
+        return cleanArray;
+    }
+
+    public boolean delete(Integer userId, Account accountDeleting) throws DBException {
+        Account accountToDelete = ab.getUserById(userId);
+
+        //If not allowed 1=admin
+        if (accountDeleting.getPosition().getPositionId() >= accountToDelete.getPosition().getPositionId()) {
+            return false;
+        }
+
+        return ab.deleteUser(accountToDelete);
+    }
+
     public int insert(Integer userId, Integer positionId, String password, String firstname, String lastname, String email, String location, double rate, String portfolio, short isactive, String imagePath) throws DBException {
 
         Account ac = new Account(userId, hs.generateHash(password), firstname, lastname, email, location, rate, isactive);
@@ -136,7 +191,7 @@ public class AccountService {
 
                 rb.addRecovery(new RecoveryUser(email, new Date(System.currentTimeMillis()), code));
                 es.sendMail(email, subject, template, tags);
-                
+
             } catch (DBException ex) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -147,32 +202,71 @@ public class AccountService {
         RecoveryBroker rb = new RecoveryBroker();
         try {
             RecoveryUser user = rb.getRecoveryByEmail(email);
-            
-            if(user != null) {
-                if(user.getRecoveryId().equals(rid)) {
+
+            if (user != null) {
+                if (user.getRecoveryId().equals(rid)) {
                     return true;
                 }
             }
         } catch (DBException ex) {
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-        }       
+        }
         return false;
     }
 
     public void updatePassword(String password, String email) {
         try {
             Account user = ab.getUserByEmail(email);
-            
+
             HashingService hs = new HashingService();
             password = hs.generateHash(password);
             user.setPassword(password);
-            
+
             ab.update(user);
+
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public ArrayList<Account> getActiveLeads() {
+        try {
+            ArrayList<Account> acc = new ArrayList<>();
+            ArrayList<Account> cleanArray = new ArrayList<>();
+            
+            acc = getAllUsers();
+            for(int i = 0; i< acc.size();i++) {
+                if(acc.get(i).getPosition().getPositionDesc().equals("Design Lead"))
+                    if(acc.get(i).getIsactive() == 1)
+                        cleanArray.add(acc.get(i));
+            }
+            return cleanArray;
             
         } catch (DBException ex) {
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        return null;
+    }
+    
+    public ArrayList<Account> getActiveCoordinators() {
+        try {
+            ArrayList<Account> acc = new ArrayList<>();
+            ArrayList<Account> cleanArray = new ArrayList<>();
+            acc = getAllUsers();
+            
+            for(int i = 0; i< acc.size();i++) {
+                if(acc.get(i).getPosition().getPositionDesc().equals("Coordinator"))
+                    if (acc.get(i).getIsactive() == 1)
+                        cleanArray.add(acc.get(i));
+            }          
+            return cleanArray;
+            
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        return null;
     }
 }

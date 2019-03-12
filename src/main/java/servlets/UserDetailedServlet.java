@@ -63,8 +63,7 @@ public class UserDetailedServlet extends HttpServlet {
                 }
             }
             if (action.equals("delete")) {
-               int i = 17;
-                as.delete(i);
+
             }
         } catch (DBException ex) {
             Logger.getLogger(UserDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -6,7 +6,7 @@
 package models;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,18 +35,19 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "account")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a"),
-    @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId"),
-    @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password"),
-    @NamedQuery(name = "Account.findByFirstname", query = "SELECT a FROM Account a WHERE a.firstname = :firstname"),
-    @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname"),
-    @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email"),
-    @NamedQuery(name = "Account.findByLocation", query = "SELECT a FROM Account a WHERE a.location = :location"),
-    @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate"),
-    @NamedQuery(name = "Account.findByPortfolio", query = "SELECT a FROM Account a WHERE a.portfolio = :portfolio"),
-    @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive"),
-    @NamedQuery(name = "Account.findByImagePath", query = "SELECT a FROM Account a WHERE a.imagePath = :imagePath")})
+    @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+    , @NamedQuery(name = "Account.findByUserId", query = "SELECT a FROM Account a WHERE a.userId = :userId")
+    , @NamedQuery(name = "Account.findByPassword", query = "SELECT a FROM Account a WHERE a.password = :password")
+    , @NamedQuery(name = "Account.findByFirstname", query = "SELECT a FROM Account a WHERE a.firstname = :firstname")
+    , @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname")
+    , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
+    , @NamedQuery(name = "Account.findByLocation", query = "SELECT a FROM Account a WHERE a.location = :location")
+    , @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate")
+    , @NamedQuery(name = "Account.findByPortfolio", query = "SELECT a FROM Account a WHERE a.portfolio = :portfolio")
+    , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")
+    , @NamedQuery(name = "Account.findByImagePath", query = "SELECT a FROM Account a WHERE a.imagePath = :imagePath")})
 public class Account implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -93,28 +94,25 @@ public class Account implements Serializable {
     @Size(max = 200)
     @Column(name = "image_path")
     private String imagePath;
-    @JoinTable(name = "account_has_message_group", joinColumns = {
-        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "MESSAGE_GROUP_message_group_id", referencedColumnName = "message_group_id")})
-    @ManyToMany
-    private Collection<MessageGroup> messageGroupCollection;
-    @JoinTable(name = "title_has_account", joinColumns = {
-        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "TITLE_title_id", referencedColumnName = "title_id")})
-    @ManyToMany
-    private Collection<Title> titleCollection;
-    @JoinTable(name = "account_has_skillset", joinColumns = {
-        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "SKILLSET_skillset_id", referencedColumnName = "skillset_id")})
-    @ManyToMany
-    private Collection<Skillset> skillsetCollection;
     @JoinTable(name = "account_has_language", joinColumns = {
         @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "LANGUAGE_language_id", referencedColumnName = "language_id")})
     @ManyToMany
-    private Collection<Language> languageCollection;
+    private List<Language> languageList;
+    @JoinTable(name = "account_has_message_group", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "MESSAGE_GROUP_message_group_id", referencedColumnName = "message_group_id")})
+    @ManyToMany
+    private List<MessageGroup> messageGroupList;
+    @JoinTable(name = "genre_has_account", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "GENRE_genre_id", referencedColumnName = "genre_id")})
+    @ManyToMany
+    private List<Genre> genreList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private List<TitleHasAccount> titleHasAccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uId")
-    private Collection<Report> reportCollection;
+    private List<Report> reportList;
     @JoinColumn(name = "position", referencedColumnName = "position_id")
     @ManyToOne(optional = false)
     private Position position;
@@ -218,48 +216,48 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public Collection<MessageGroup> getMessageGroupCollection() {
-        return messageGroupCollection;
+    public List<Language> getLanguageList() {
+        return languageList;
     }
 
-    public void setMessageGroupCollection(Collection<MessageGroup> messageGroupCollection) {
-        this.messageGroupCollection = messageGroupCollection;
-    }
-
-    @XmlTransient
-    public Collection<Title> getTitleCollection() {
-        return titleCollection;
-    }
-
-    public void setTitleCollection(Collection<Title> titleCollection) {
-        this.titleCollection = titleCollection;
+    public void setLanguageList(List<Language> languageList) {
+        this.languageList = languageList;
     }
 
     @XmlTransient
-    public Collection<Skillset> getSkillsetCollection() {
-        return skillsetCollection;
+    public List<MessageGroup> getMessageGroupList() {
+        return messageGroupList;
     }
 
-    public void setSkillsetCollection(Collection<Skillset> skillsetCollection) {
-        this.skillsetCollection = skillsetCollection;
-    }
-
-    @XmlTransient
-    public Collection<Language> getLanguageCollection() {
-        return languageCollection;
-    }
-
-    public void setLanguageCollection(Collection<Language> languageCollection) {
-        this.languageCollection = languageCollection;
+    public void setMessageGroupList(List<MessageGroup> messageGroupList) {
+        this.messageGroupList = messageGroupList;
     }
 
     @XmlTransient
-    public Collection<Report> getReportCollection() {
-        return reportCollection;
+    public List<Genre> getGenreList() {
+        return genreList;
     }
 
-    public void setReportCollection(Collection<Report> reportCollection) {
-        this.reportCollection = reportCollection;
+    public void setGenreList(List<Genre> genreList) {
+        this.genreList = genreList;
+    }
+
+    @XmlTransient
+    public List<TitleHasAccount> getTitleHasAccountList() {
+        return titleHasAccountList;
+    }
+
+    public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
+        this.titleHasAccountList = titleHasAccountList;
+    }
+
+    @XmlTransient
+    public List<Report> getReportList() {
+        return reportList;
+    }
+
+    public void setReportList(List<Report> reportList) {
+        this.reportList = reportList;
     }
 
     public Position getPosition() {

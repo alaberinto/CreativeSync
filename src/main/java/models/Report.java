@@ -32,11 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "report")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r"),
-    @NamedQuery(name = "Report.findByReportId", query = "SELECT r FROM Report r WHERE r.reportId = :reportId"),
-    @NamedQuery(name = "Report.findByReportRef", query = "SELECT r FROM Report r WHERE r.reportRef = :reportRef"),
-    @NamedQuery(name = "Report.findByCreationDate", query = "SELECT r FROM Report r WHERE r.creationDate = :creationDate")})
+    @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r")
+    , @NamedQuery(name = "Report.findByReportId", query = "SELECT r FROM Report r WHERE r.reportId = :reportId")
+    , @NamedQuery(name = "Report.findByReportRef", query = "SELECT r FROM Report r WHERE r.reportRef = :reportRef")
+    , @NamedQuery(name = "Report.findByCreationDate", query = "SELECT r FROM Report r WHERE r.creationDate = :creationDate")})
 public class Report implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

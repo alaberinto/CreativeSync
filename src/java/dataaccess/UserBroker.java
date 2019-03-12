@@ -1,35 +1,12 @@
 package dataaccess;
 
 //Remove this import after DB is setup
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import models.Account;
-
-<<<<<<< HEAD
-/**
- *
- * @author Mason
- */
-public class UserBroker {
-
-    /**
-     * Gets the user based on their registered email.
-     *
-     * @param email the email associated with the user.
-     * @return a User object containing information about the User.
-     */
-    public Account getUserByEmail(String email) throws DBException {
-        EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            Query query = em.createNamedQuery("Account.findByEmail", Account.class);
-            query.setParameter("email", email);
-
-=======
-
 /**
  *
  * @author Mason
@@ -48,7 +25,6 @@ public class UserBroker {
             Query query = em.createNamedQuery("Account.findByEmail", Account.class);
             query.setParameter("email", email);
             
->>>>>>> origin/master
             List<Account> users = query.getResultList();
             return users.get(0);
         } catch (Exception ex) {
@@ -65,10 +41,10 @@ public class UserBroker {
      * @return a Collection of all Users in the table.
      * @throws dataaccess.DBException
      */
-    public Collection<Account> getAllUsers() throws DBException {
+    public List<Account> getAllUsers() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Collection<Account> users = em.createNamedQuery("Account.findAll", Account.class).getResultList();
+            List<Account> users = em.createNamedQuery("Account.findAll", Account.class).getResultList();
             return users;
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
@@ -81,7 +57,7 @@ public class UserBroker {
      *
      * @return a Collection of Users working on a specific Title.
      */
-    public Collection<Account> getUsersByTitle() {
+    public List<Account> getUsersByTitle() {
         return null;
     }
 }

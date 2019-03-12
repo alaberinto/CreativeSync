@@ -28,11 +28,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "recovery_user")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "RecoveryUser.findAll", query = "SELECT r FROM RecoveryUser r"),
-    @NamedQuery(name = "RecoveryUser.findByEmail", query = "SELECT r FROM RecoveryUser r WHERE r.email = :email"),
-    @NamedQuery(name = "RecoveryUser.findByTimeStamp", query = "SELECT r FROM RecoveryUser r WHERE r.timeStamp = :timeStamp"),
-    @NamedQuery(name = "RecoveryUser.findByRecoveryId", query = "SELECT r FROM RecoveryUser r WHERE r.recoveryId = :recoveryId")})
+    @NamedQuery(name = "RecoveryUser.findAll", query = "SELECT r FROM RecoveryUser r")
+    , @NamedQuery(name = "RecoveryUser.findByEmail", query = "SELECT r FROM RecoveryUser r WHERE r.email = :email")
+    , @NamedQuery(name = "RecoveryUser.findByTimeStamp", query = "SELECT r FROM RecoveryUser r WHERE r.timeStamp = :timeStamp")
+    , @NamedQuery(name = "RecoveryUser.findByRecoveryId", query = "SELECT r FROM RecoveryUser r WHERE r.recoveryId = :recoveryId")})
 public class RecoveryUser implements Serializable {
+
     private static final long serialVersionUID = 1L;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Id

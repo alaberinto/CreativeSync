@@ -523,6 +523,8 @@ values (2,1,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','
 insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
 values (100,1,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','DUMMY','DUMMY','DUMMY@email.com','Canada',10,'www.test.com',1,'no');
 
+
+
 --FREE LANCERS
 
 
@@ -556,6 +558,10 @@ values (11,4,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
 insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
 values (12,4,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Charlie','Charlie','charlie@email.com','Canada',10,'www.test.com',1,'no');
 
+insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (110,4,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Andy','Baker','andy123@email.com','Canada',10,'www.test.com',1,'no');
+
+
 -- DESIGN LEADS
 insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
 values (13,3,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','John','Doe','john@email.com','Canada',10,'www.test.com',1,'no');
@@ -571,6 +577,9 @@ values (16,3,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
 
 insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
 values (17,3,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Bishop','Bishop','bishop@email.com','Canada',10,'www.test.com',1,'no');
+
+insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (111,3,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Nicole','Berard','nicole@email.com','Canada',10,'www.test.com',1,'no');
 
 
 
@@ -591,11 +600,11 @@ values (21,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
 insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
 values (22,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Ash','Ashhole','ash@email.com','Canada',10,'www.test.com',1,'no');
 
+insert into account (user_id,position,password,firstname,lastname,email,location,rate,portfolio,isactive,image_path)
+values (112,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Kitty','Wong','kitty@email.com','Canada',10,'www.test.com',1,'no');
 
 
---
 
--- 
 -- 
 -- --LANGUAGE
 insert into language (language_id,language_name)
@@ -844,6 +853,9 @@ values (8,'Shrek 2',sysdate(),sysdate(),1,1,'Design info.',5,14,20,6);
 insert into title (title_id,name,start_date,end_date,is_active,priority,design_info,number_of_freelancers,design_lead_id,coordinator_id,max_number_of_freelancers)
 values (9,'Red Dragon',sysdate(),sysdate(),0,0,'Design info.',2,15,21,3);
 
+insert into title (title_id,name,start_date,end_date,is_active,priority,design_info,number_of_freelancers,design_lead_id,coordinator_id,max_number_of_freelancers)
+values (10,'Capstone: The Suffering Part 2',sysdate(),sysdate() + INTERVAL 16 DAY,0,0,'This show is going to be about hardships and struggle.',2,111,112,2);
+
 
 
 
@@ -1058,6 +1070,36 @@ insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
 values (9,9,1);
 insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
 values (10,9,2);
+
+
+
+insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
+values (110,10,1);
+--COOR USER
+insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
+values (111,10,1);
+
+--FREELANCER
+insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
+values (112,10,1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -66,7 +66,13 @@
                     </ul>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
-                    <h3><b>Job Position</b></h3>
+                    <c:if test="${user.position.positionId != 4}">
+                    <form method="post" action="Users">
+                        <button type="submit" class="btn btn-block button-red-solid" name="action" value="addUser">Add User</button>
+                    </form>
+                    </c:if>
+                    
+                    <h3 class="mt-2"> <b>Job Position</b></h3>
                     <form>
                         <c:forEach items="${positions}" var="pos">
                             <div class="checkbox mt-1">

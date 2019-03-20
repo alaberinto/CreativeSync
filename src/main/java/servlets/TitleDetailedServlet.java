@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import services.FileService;
+import services.TitleService;
 
 /**
  *
@@ -28,9 +29,11 @@ public class TitleDetailedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Title title = (Title) session.getAttribute("title");
-        FileService fs = new FileService();
+        
+        TitleService ts = new TitleService();
+        
+        Title title = ts.getTitleById(10);
+        //FileService fs = new FileService();
 
         Date startDate = title.getStartDate();
         Date endDate = title.getEndDate();
@@ -40,7 +43,7 @@ public class TitleDetailedServlet extends HttpServlet {
         request.setAttribute("enddate", title.getEndDate());
         request.setAttribute("datepercentage", getPercentageLeft(startDate, endDate));
 
-        request.setAttribute("assetFiles", fs.getAssets(title.getName()));
+        //request.setAttribute("assetFiles", fs.getAssets(title.getName()));
 
 //        response.sendRedirect("TitleDetailed.jsp");
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);

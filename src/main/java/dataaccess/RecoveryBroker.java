@@ -1,39 +1,43 @@
 package dataaccess;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+
 import models.RecoveryUser;
 
 /**
- *
+ * RecoveryBroker is a data-access class to retrieve AccountRecovery information from the database.
+ * 
  * @author Mason
+ * @version 1.0
  */
 public class RecoveryBroker {
 
+    /**
+     * Access method to retrieve a single RecoverUser from the database with the matching email.
+     * @param email The email to find.
+     * @return The RecoveryAccount from with matching email, Otherwise null.
+     * @throws DBException  When a database error occurs.
+     */
     public RecoveryUser getRecoveryByEmail(String email) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            Query query = em.createNamedQuery("RecoveryUser.findByEmail", RecoveryUser.class);
-            query.setParameter("email", email);
 
-            List<RecoveryUser> users = query.getResultList();
-            if (users.size() > 0) {
-                return users.get(0);
-            } else {
-                return null;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(RecoveryBroker.class.getName()).log(Level.SEVERE, "Cannot read user", ex);
-            throw new DBException("Error getting user.");
+        try {
+            RecoveryUser rec = em.find(RecoveryUser.class, email);
+            return rec;
+
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Mutator method to insert an RecoveryUser into the database.
+     * @param user The RecoveryUser to insert.
+     * @throws DBException When a database error occurs.
+     */
     public void addRecovery(RecoveryUser user) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -47,14 +51,18 @@ public class RecoveryBroker {
             if (trans.isActive()) {
                 trans.rollback();
             }
-
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot adding " + user.toString(), ex);
-            throw new DBException("Error adding user");
+        
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Mutator method to remove a RecoveryUser from the database.
+     * @param user The User to remove.
+     * @throws DBException When a database error occurs.
+     */
     public void deleteRecovery(RecoveryUser user) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

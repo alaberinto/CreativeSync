@@ -22,26 +22,33 @@ public class RecoverPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/RecoverPassword.jsp").forward(request, response);
+
+        getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
-     
+
         String newPass = request.getParameter("newPassword");
         String newPassConf = request.getParameter("newPasswordConf");
-        
-        if(newPass.equals(newPassConf)) {
+
+        if (newPass.equals(newPassConf)) {
             AccountService as = new AccountService();
-            
-            as.updatePassword(newPass, (String) session.getAttribute("recoverEmail"));
-            getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+
+            if (as.updatePassword(newPass, (String) session.getAttribute("recoverEmail")) == null) {
+                request.setAttribute("goodFeedback", "Password Successfully Reset");
+                getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+            } else {
+                request.setAttribute("badFeedback", "An Error Occured!");
+                getServletContext().getRequestDispatcher("/WEB-INF/RecoverPassword.jsp").forward(request, response);
+            }
+
+        } else {
+            request.setAttribute("badFeedback", "Passwords Do Not Match!");
+            getServletContext().getRequestDispatcher("/WEB-INF/RecoverPassword.jsp").forward(request, response);
         }
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/RecoverPassword.jsp").forward(request, response);
     }
 }

@@ -1,6 +1,6 @@
 package dataaccess;
 
-//Remove this import after DB is setup
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,16 +10,20 @@ import javax.persistence.Query;
 import models.Account;
 
 /**
+ * UserBroker is a data-access class to manage User information.
  *
- * @author Mason
+ * @author Mason Hill
+ * @version 1.0
  */
 public class UserBroker {
 
     /**
-     * Gets the user based on their registered email.
+     * Access method to retrieve an Account by their email.
      *
-     * @param email the email associated with the user.
-     * @return a User object containing information about the User.
+     * @param email The email of the Account to find.
+     * @return The Account with the matching email, null if an error occurs or
+     * user is not found.
+     * @throws DBException When a database error occurs.
      */
     public Account getUserByEmail(String email) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
@@ -31,29 +35,38 @@ public class UserBroker {
             return users.get(0);
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read user", ex);
-            throw new DBException("Error getting user.");
+            return null;
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Access method to retrieve an Account by their ID.
+     *
+     * @param userId The ID of the Account to find.
+     * @return The Account with the matching ID.
+     * @throws DBException When there is an Error getting this Account.
+     */
     public Account getUserById(int userId) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            Query query = em.createNamedQuery("Account.findByUserId", Account.class);
-            query.setParameter("userId", userId);
 
-            List<Account> users = query.getResultList();
-            return users.get(0);
-        } catch (Exception ex) {
-            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read user", ex);
-            throw new DBException("Error getting user.");
+        try {
+            Account user = em.find(Account.class, userId);
+            return user;
+
         } finally {
             em.close();
         }
     }
 
-    public int update(Account ac) throws DBException {
+    /**
+     * Mutator method to persist any changes to a Account in the database.
+     *
+     * @param ac The account to update.
+     * @throws DBException When there is a database error.
+     */
+    public void update(Account ac) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
@@ -62,32 +75,37 @@ public class UserBroker {
             em.merge(ac);
             trans.commit();
         } catch (Exception e) {
-            System.out.println(e);
-            trans.rollback();
+            if (trans.isActive()) {
+                trans.rollback();
+            }
         } finally {
             em.close();
         }
-        return 1;
     }
 
     /**
-     * Gets all the Users from the database.
+     * Access method to retrieve all Accounts from the database.
      *
-     * @return a Collection of all Users in the table.
-     * @throws dataaccess.DBException
+     * @return List of all Users if successful, null if a database error occurs,
      */
-    public List<Account> getAllUsers() throws DBException {
+    public ArrayList<Account> getAllUsers() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
             List<Account> users = em.createNamedQuery("Account.findAll", Account.class).getResultList();
-            return users;
+            return new ArrayList(users);
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-            throw new DBException("Error getting users.");
+            return null;
         }
     }
 
-    public boolean deleteUser(Account ac) throws DBException {
+    /**
+     * Mutator method to remove a specified Account from the database.
+     *
+     * @param ac The Account to remove.
+     * @throws DBException When a database error occurs.
+     */
+    public void deleteUser(Account ac) throws DBException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
@@ -95,17 +113,21 @@ public class UserBroker {
             trans.begin();
             em.remove(em.merge(ac));
             trans.commit();
-            } catch (Exception ex) {
-                Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
-                throw new DBException("Error deleting users.");
+        } catch (Exception ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read users", ex);
 
         } finally {
             em.close();
         }
-        return true;
     }
 
-    public int insertUser(Account ac) throws DBException {
+    /**
+     * Mutator method to insert a specific Account into the database.
+     *
+     * @param ac The account to insert.
+     * @throws DBException When a database error occurs.
+     */
+    public void insertUser(Account ac) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
@@ -120,6 +142,5 @@ public class UserBroker {
         } finally {
             em.close();
         }
-        return 1;
     }
 }

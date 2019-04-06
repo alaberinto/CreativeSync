@@ -28,8 +28,9 @@ public class UsersServlet extends HttpServlet {
                 PositionService ps = new PositionService();
                 
                 Account user = (Account) session.getAttribute("user");
+                String searchBar = request.getParameter("search");
                 
-                ArrayList<UsersView> users = as.getUsersView(user);
+                ArrayList<UsersView> users = as.getUsersView(user, searchBar);
                 ArrayList<Position> positions = ps.getAllPositions();
                 
                 request.setAttribute("positions", positions);

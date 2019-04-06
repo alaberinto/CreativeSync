@@ -32,16 +32,22 @@ public class TitlesServlet extends HttpServlet {
         //Get user from session
         HttpSession session = request.getSession();
         Account user = (Account) session.getAttribute("user");
+        
+        String searchFilter = request.getParameter("searchBar");
 
         //Get titles available to that user
-        ArrayList<TitlesView> titles = ts.getTitlesByUserForTitlesJSP(user);
-        request.setAttribute("titles", titles);
+        ArrayList<TitlesView> assignedTitles = ts.getAssignedTitles(user, searchFilter);
+        request.setAttribute("assignedTitles", assignedTitles);
 
-        //Get titles
+        if(assignedTitles == null || user.getPosition().getPositionId() != 4) {
+            request.setAttribute("unassignedTitles", ts.getUnassignedTitles(user, assignedTitles, searchFilter));
+        }
+
         ArrayList<Genre> genres = gs.getAllGenres();
         request.setAttribute("genres", genres);
 
         //Forward
+        request.setAttribute("searchBar", searchFilter);
         getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
     }
 

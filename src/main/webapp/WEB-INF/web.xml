@@ -12,6 +12,10 @@
         <servlet-class>servlets.RecoverServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>RecoverPasswordServlet</servlet-name>
+        <servlet-class>servlets.RecoverPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>TitlesServlet</servlet-name>
         <servlet-class>servlets.TitlesServlet</servlet-class>
     </servlet>
@@ -70,6 +74,10 @@
     <servlet-mapping>
         <servlet-name>RecoverServlet</servlet-name>
         <url-pattern>/Recover</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecoverPasswordServlet</servlet-name>
+        <url-pattern>/RecoverPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>TitlesServlet</servlet-name>

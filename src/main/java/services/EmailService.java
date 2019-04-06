@@ -76,9 +76,8 @@ public class EmailService {
     }
     
     public void sendMail(String to, String subject, String body, boolean bodyIsHTML) throws NamingException, MessagingException {
-        Context env = (Context)new InitialContext().lookup("java:comp/env");
-        String username = (String)env.lookup("webmail-username");
-        String password = (String)env.lookup("webmail-password");
+        String username = "cprg352@gmail.com";
+        String password = "password$!";
         
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
@@ -109,8 +108,14 @@ public class EmailService {
     }
 
     public String generateCode() {
-        byte[] array = new byte[7]; // length is bounded by 7
-        new Random().nextBytes(array);
-        return new String(array, Charset.forName("UTF-8"));
+        String x = "";
+        String list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        
+        Random ran = new Random();
+        for(int i = 0; i < 7; i++) {
+            x+= list.charAt(ran.nextInt(61));
+        }
+        
+        return x;
     }
 }

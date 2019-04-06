@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import services.AccountService;
-import services.EmailService;
 
 /**
  *
@@ -35,15 +34,19 @@ public class RecoverServlet extends HttpServlet {
             session.invalidate();
             getServletContext().getRequestDispatcher("/WEB-INF/Recover.jsp").forward(request, response);
 
-        } else if (action.equals("recover")) {
+        }else if(action.equals("login")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+        } 
+        else if (action.equals("recover")) {
             String email = request.getParameter("email");
-
+            session.setAttribute("recoverEmail", email);
+            
             if (email != null) {
-                session.setAttribute("recoverEmail", email);
                 as.recover(email, getServletContext().getRealPath("/WEB-INF"));
-                session.setAttribute("sent", "");
-                getServletContext().getRequestDispatcher("/WEB-INF/Recover.jsp").forward(request, response);
             }
+            
+            request.setAttribute("sent", "");
+            getServletContext().getRequestDispatcher("/WEB-INF/Recover.jsp").forward(request, response);
 
         } else if (action.equals("codeRecover")) {
             String rid = request.getParameter("rid");
@@ -52,6 +55,8 @@ public class RecoverServlet extends HttpServlet {
             if (as.checkRecovery(rid, email)) {
                 getServletContext().getRequestDispatcher("/WEB-INF/RecoverPassword.jsp").forward(request, response);
             } else {
+                request.setAttribute("badFeedback", "Invalid Recovery Code!");
+                request.setAttribute("sent", "");
                 getServletContext().getRequestDispatcher("/WEB-INF/Recover.jsp").forward(request, response);
             }
 

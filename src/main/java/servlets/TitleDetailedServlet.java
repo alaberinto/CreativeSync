@@ -1,6 +1,6 @@
 package servlets;
 
-import java.io.File;
+import com.dropbox.core.DbxException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,12 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Title;
+import models.TitleHasAccount;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import services.AccountService;
 import services.FileService;
 import services.TitleService;
+import viewModels.TitlesView;
 
 /**
  *
@@ -31,21 +34,20 @@ public class TitleDetailedServlet extends HttpServlet {
             throws ServletException, IOException {
         
         TitleService ts = new TitleService();
+        AccountService as = new AccountService();
+        String titleName = request.getParameter("name");
+
+        TitlesView title = ts.getTitlesViewByName(titleName);
+        ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
         
-        Title title = ts.getTitleById(10);
-        //FileService fs = new FileService();
+        if(title == null) {
+            request.setAttribute("badFeedback", "Title Not Found!");
+        }
+        else {
+            request.setAttribute("frees", tha);
+            request.setAttribute("view", title);
+        }
 
-        Date startDate = title.getStartDate();
-        Date endDate = title.getEndDate();
-
-        request.setAttribute("titlename", title.getName());
-        request.setAttribute("startdate", title.getStartDate());
-        request.setAttribute("enddate", title.getEndDate());
-        request.setAttribute("datepercentage", getPercentageLeft(startDate, endDate));
-
-        //request.setAttribute("assetFiles", fs.getAssets(title.getName()));
-
-//        response.sendRedirect("TitleDetailed.jsp");
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);
     }
 
@@ -58,22 +60,26 @@ public class TitleDetailedServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
 
-        if (action == null) {
+        if(action == null) {
             //Get File From JSP
             if (ServletFileUpload.isMultipartContent(request)) {
                 try {
                     List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                    fs.handleUpload(multiparts, title.getName());
+                    //fs.handleUpload(multiparts, title.getName());
 
                 } catch (FileUploadException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } else if (action.equals("viewAsset")) {
+        }else if(action.equals("viewAsset")) {
             
 
-        } else if (action.equals("deleteAsset")) {
-            fs.deleteAsset(title.getName(), request.getParameter("assetName"));
+        }else if(action.equals("deleteAsset")) {
+            try {
+                fs.deleteAsset(title.getName(), request.getParameter("assetName"));
+            } catch (DbxException ex) {
+                Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
         }
 

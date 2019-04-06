@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Backup.findAll", query = "SELECT b FROM Backup b")
     , @NamedQuery(name = "Backup.findByBackupId", query = "SELECT b FROM Backup b WHERE b.backupId = :backupId")
-    , @NamedQuery(name = "Backup.findByBackupRef", query = "SELECT b FROM Backup b WHERE b.backupRef = :backupRef")
+    , @NamedQuery(name = "Backup.findByBackupStatus", query = "SELECT b FROM Backup b WHERE b.backupStatus = :backupStatus")
     , @NamedQuery(name = "Backup.findByBackupDate", query = "SELECT b FROM Backup b WHERE b.backupDate = :backupDate")})
 public class Backup implements Serializable {
 
@@ -45,8 +45,8 @@ public class Backup implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "backup_ref")
-    private String backupRef;
+    @Column(name = "backup_status")
+    private String backupStatus;
     @Basic(optional = false)
     @NotNull
     @Column(name = "backup_date")
@@ -60,9 +60,9 @@ public class Backup implements Serializable {
         this.backupId = backupId;
     }
 
-    public Backup(Integer backupId, String backupRef, Date backupDate) {
+    public Backup(Integer backupId, String backupStatus, Date backupDate) {
         this.backupId = backupId;
-        this.backupRef = backupRef;
+        this.backupStatus = backupStatus;
         this.backupDate = backupDate;
     }
 
@@ -74,12 +74,12 @@ public class Backup implements Serializable {
         this.backupId = backupId;
     }
 
-    public String getBackupRef() {
-        return backupRef;
+    public String getBackupStatus() {
+        return backupStatus;
     }
 
-    public void setBackupRef(String backupRef) {
-        this.backupRef = backupRef;
+    public void setBackupStatus(String backupStatus) {
+        this.backupStatus = backupStatus;
     }
 
     public Date getBackupDate() {

@@ -1,41 +1,46 @@
 package dataaccess;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import models.Account;
-import models.Artwork;
 import models.Title;
 
 /**
- *
- * @author Alvin
+ * TitleBroker is a data-access class to manage Title information in database.
+ * 
+ * @author Mason Hill & Alvin Labarinto
+ * @version 1.0
  */
 public class TitleBroker {
 
-    public TitleBroker() {
-
-    }
-
-    public Collection<Title> getAllTitles() throws DBException {
+    /**
+     * Access method to retrieve an ArrayList of all Title objects in the database.
+     * @return A ArrayList of all Titles.
+     * @throws DBException When there is a database error.
+     */
+    public ArrayList<Title> getAllTitles() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Collection<Title> titles = em.createNamedQuery("Title.findAll", Title.class).getResultList();
-            return titles;
+            List<Title> titles = em.createNamedQuery("Title.findAll", Title.class).getResultList();
+            return new ArrayList(titles);
         } catch (Exception ex) {
             Logger.getLogger(Title.class.getName()).log(Level.SEVERE, "Cannot read title", ex);
-            throw new DBException("Error getting title.");
         } finally {
             em.close();
         }
-
+        return null;
     }
 
-    public int updateTitle(Title title) {
+    /**
+     * Mutator method to persist any changes to a Title into the database.
+     * @param title The updated Title to persist.
+     * @throws DBException When a database error occurs.
+     */
+    public void updateTitle(Title title) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
@@ -49,10 +54,14 @@ public class TitleBroker {
         } finally {
             em.close();
         }
-        return 1;
     }
 
-    public int deleteTitle(Title title) {
+    /**
+     * Mutator method to remove a specified Title from the database.
+     * @param title The Title to remove.
+     * @throws DBException When a database error occurs.
+     */
+    public void deleteTitle(Title title) throws DBException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
@@ -63,12 +72,18 @@ public class TitleBroker {
             if (trans.isActive()) {
                 trans.rollback();
             }
+            Logger.getLogger(TitleBroker.class.getName()).log(Level.SEVERE, "Cannot delete title", ex);
         } finally {
             em.close();
         }
-        return 1;
     }
 
+    /**
+     * Access method to retrieve a single Title from the database with a matching ID.
+     * @param id The id of the Title to find.
+     * @return null if the Title is not found, Otherwise the Title with the matching ID.
+     * @throws DBException When there is a database error.
+     */
     public Title getTitleById(Integer id) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
@@ -80,24 +95,51 @@ public class TitleBroker {
             em.close();
         }
     }
+    
+    public Title getTitleByName(String name) throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            Query query = em.createNamedQuery("Title.findByName", Title.class);
+            query.setParameter("name", name);
 
-    public List<Title> getActiveTitles() throws DBException {
+            List<Title> users = query.getResultList();
+            return users.get(0);
+        } catch (Exception ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read title", ex);
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+
+    /**
+     * Access method to retrieve an ArrayList of all active Titles in the database.
+     * @return An ArrayList of active Titles.
+     * @throws DBException When there is a database error.
+     */
+    public ArrayList<Title> getActiveTitles() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
             Query query = em.createNamedQuery("Title.findByIsActive", Title.class);
             query.setParameter("isActive", 1);
 
             List<Title> titles = query.getResultList();
-            return titles;
+            return new ArrayList(titles);
         } catch (Exception ex) {
             Logger.getLogger(TitleBroker.class.getName()).log(Level.SEVERE, "Cannot read titles", ex);
-            throw new DBException("Error getting titles.");
         } finally {
             em.close();
         }
+        return null;
     }
     
-    public String insertTitle(Title title) {
+    /**
+     * Mutator method to persist a Title into the database.
+     * @param title The title to insert.
+     * @throws DBException When a database error occurs.
+     */
+    public void insertTitle(Title title) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 
@@ -109,10 +151,8 @@ public class TitleBroker {
             if (trans.isActive()) {
                 trans.rollback();
             }
-            return "Error inserting into table";
         } finally {
             em.close();
         }
-        return null;
     }
 }

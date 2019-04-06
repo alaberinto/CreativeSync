@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataaccess;
 
 import java.util.ArrayList;
@@ -11,39 +6,40 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import models.Account;
 import models.Position;
 
-
 /**
- *
- * @author 731866
+ * PositionBroker is a data-access class to retrieve Position information from the database.
+ * 
+ * @author Cooper Vasiliou & Mason Hill
+ * @version 1.0
  */
 public class PositionBroker {
 
-    public PositionBroker() {
-
-    }
-
-    public Position getPosition(int position) throws DBException {
+    /**
+     * Access method to retrieve a single Position for the database with the matching ID.
+     * @param positionId The if of the Position to find.
+     * @return null if the Position is not found, Otherwise the Position with the matching ID.
+     * @throws DBException When there is a database error.
+     */
+    public Position getPosition(int positionId) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
-        try {
-            Query query = em.createNamedQuery("Position.findByPositionId", Position.class);
-            query.setParameter("positionId", position);
 
-            List<Position> pos = query.getResultList();
-            return pos.get(0);
-        } catch (Exception ex) {
-            Logger.getLogger(PositionBroker.class.getName()).log(Level.SEVERE, "Cannot read position", ex);
-            throw new DBException("Error getting position.");
+        try {
+            Position pos = em.find(Position.class, positionId);
+            return pos;
+
         } finally {
             em.close();
         }
     }
     
-    
-    public int deletePosition(Position pos) throws DBException{
+    /**
+     * Mutator method to remove a specific Position from the database.
+     * @param pos The Position to remove.
+     * @throws DBException When a database error occurs.
+     */
+    public void deletePosition(Position pos) throws DBException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try{
@@ -51,15 +47,21 @@ public class PositionBroker {
             em.remove(em.merge(pos));
             trans.commit();
         }catch(Exception ex){
-             Logger.getLogger(PositionBroker.class.getName()).log(Level.SEVERE, "Cannot read position", ex);
-            throw new DBException("Error getting position.");
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+            Logger.getLogger(PositionBroker.class.getName()).log(Level.SEVERE, "Cannot delete position", ex);
         }finally{
             em.close();
         }
-        return 1;
     }
     
-    public int insertPosition(Position pos) throws DBException{
+    /**
+     * Mutator method to insert a specific Position into the database.
+     * @param pos The Position to insert.
+     * @throws DBException  When a database error occurs.
+     */
+    public void insertPosition(Position pos) throws DBException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try{
@@ -67,14 +69,17 @@ public class PositionBroker {
            em.persist(pos);
            trans.commit();
         }catch(Exception ex){
-             Logger.getLogger(PositionBroker.class.getName()).log(Level.SEVERE, "Cannot read position", ex);
-            throw new DBException("Error getting position.");
+            Logger.getLogger(PositionBroker.class.getName()).log(Level.SEVERE, "Cannot read position", ex);
         }finally{
             em.close();
         }
-        return 1;
     }
     
+    /**
+     * Access method to retrieve an ArrayList of all Position objects in the database. 
+     * @return An ArrayList of Positions.
+     * @throws DBException When a database error occurs.
+     */
     public ArrayList<Position> getAllPositions() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -82,7 +87,7 @@ public class PositionBroker {
             return new ArrayList(pos);
         } catch (Exception ex) {
             Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read positions", ex);
-            throw new DBException("Error getting positions.");
         }
+        return null;
     }
 }

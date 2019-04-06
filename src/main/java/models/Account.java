@@ -41,7 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findByFirstname", query = "SELECT a FROM Account a WHERE a.firstname = :firstname")
     , @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname")
     , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
-    , @NamedQuery(name = "Account.findByLocation", query = "SELECT a FROM Account a WHERE a.location = :location")
     , @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate")
     , @NamedQuery(name = "Account.findByPortfolio", query = "SELECT a FROM Account a WHERE a.portfolio = :portfolio")
     , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")
@@ -77,11 +76,6 @@ public class Account implements Serializable {
     private String email;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "location")
-    private String location;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "rate")
     private double rate;
     @Size(max = 150)
@@ -99,20 +93,25 @@ public class Account implements Serializable {
         @JoinColumn(name = "LANGUAGE_language_id", referencedColumnName = "language_id")})
     @ManyToMany
     private List<Language> languageList;
-    @JoinTable(name = "account_has_message_group", joinColumns = {
-        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "MESSAGE_GROUP_message_group_id", referencedColumnName = "message_group_id")})
-    @ManyToMany
-    private List<MessageGroup> messageGroupList;
     @JoinTable(name = "genre_has_account", joinColumns = {
         @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "GENRE_genre_id", referencedColumnName = "genre_id")})
     @ManyToMany
     private List<Genre> genreList;
+    @JoinTable(name = "artwork_has_account", joinColumns = {
+        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")})
+    @ManyToMany
+    private List<Artwork> artworkList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private List<AccountHasMessageGroup> accountHasMessageGroupList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<TitleHasAccount> titleHasAccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uId")
     private List<Report> reportList;
+    @JoinColumn(name = "location", referencedColumnName = "location_id")
+    @ManyToOne(optional = false)
+    private Location location;
     @JoinColumn(name = "position", referencedColumnName = "position_id")
     @ManyToOne(optional = false)
     private Position position;
@@ -124,13 +123,12 @@ public class Account implements Serializable {
         this.userId = userId;
     }
 
-    public Account(Integer userId, String password, String firstname, String lastname, String email, String location, double rate, short isactive) {
+    public Account(Integer userId, String password, String firstname, String lastname, String email, double rate, short isactive) {
         this.userId = userId;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.location = location;
         this.rate = rate;
         this.isactive = isactive;
     }
@@ -175,14 +173,6 @@ public class Account implements Serializable {
         this.email = email;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public double getRate() {
         return rate;
     }
@@ -225,21 +215,30 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<MessageGroup> getMessageGroupList() {
-        return messageGroupList;
-    }
-
-    public void setMessageGroupList(List<MessageGroup> messageGroupList) {
-        this.messageGroupList = messageGroupList;
-    }
-
-    @XmlTransient
     public List<Genre> getGenreList() {
         return genreList;
     }
 
     public void setGenreList(List<Genre> genreList) {
         this.genreList = genreList;
+    }
+
+    @XmlTransient
+    public List<Artwork> getArtworkList() {
+        return artworkList;
+    }
+
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
+    }
+
+    @XmlTransient
+    public List<AccountHasMessageGroup> getAccountHasMessageGroupList() {
+        return accountHasMessageGroupList;
+    }
+
+    public void setAccountHasMessageGroupList(List<AccountHasMessageGroup> accountHasMessageGroupList) {
+        this.accountHasMessageGroupList = accountHasMessageGroupList;
     }
 
     @XmlTransient
@@ -258,6 +257,14 @@ public class Account implements Serializable {
 
     public void setReportList(List<Report> reportList) {
         this.reportList = reportList;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public Position getPosition() {

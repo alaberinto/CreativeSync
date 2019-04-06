@@ -30,6 +30,10 @@
     <class>models.TitleHasAccount</class>
     <class>models.Status</class>
     <class>models.DropboxToken</class>
+    <class>models.Country</class>
+    <class>models.Message</class>
+    <class>models.AccountHasMessageGroup</class>
+    <class>models.Location</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

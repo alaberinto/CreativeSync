@@ -9,9 +9,6 @@ import java.util.logging.Logger;
  * See https://crackstation.net/hashing-security.htm for learning hashing. See
  * https://www.baeldung.com/sha-256-hashing-java for where this code came from.
  *
- * Not using salted hashes currently. Can make them salted later if we want
- * after we get Db functional.
- *
  * @author Mason
  */
 public class HashingService {

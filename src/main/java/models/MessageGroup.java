@@ -8,14 +8,15 @@ package models;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -46,8 +47,8 @@ public class MessageGroup implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "chatlog_ref")
     private String chatlogRef;
-    @ManyToMany(mappedBy = "messageGroupList")
-    private List<Account> accountList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "messageGroup")
+    private List<AccountHasMessageGroup> accountHasMessageGroupList;
 
     public MessageGroup() {
     }
@@ -78,12 +79,12 @@ public class MessageGroup implements Serializable {
     }
 
     @XmlTransient
-    public List<Account> getAccountList() {
-        return accountList;
+    public List<AccountHasMessageGroup> getAccountHasMessageGroupList() {
+        return accountHasMessageGroupList;
     }
 
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
+    public void setAccountHasMessageGroupList(List<AccountHasMessageGroup> accountHasMessageGroupList) {
+        this.accountHasMessageGroupList = accountHasMessageGroupList;
     }
 
     @Override

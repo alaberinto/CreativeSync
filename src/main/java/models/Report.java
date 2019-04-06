@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Report.findAll", query = "SELECT r FROM Report r")
     , @NamedQuery(name = "Report.findByReportId", query = "SELECT r FROM Report r WHERE r.reportId = :reportId")
-    , @NamedQuery(name = "Report.findByReportRef", query = "SELECT r FROM Report r WHERE r.reportRef = :reportRef")
+    , @NamedQuery(name = "Report.findByReportStatus", query = "SELECT r FROM Report r WHERE r.reportStatus = :reportStatus")
     , @NamedQuery(name = "Report.findByCreationDate", query = "SELECT r FROM Report r WHERE r.creationDate = :creationDate")})
 public class Report implements Serializable {
 
@@ -46,9 +46,9 @@ public class Report implements Serializable {
     private Integer reportId;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "report_ref")
-    private String reportRef;
+    @Size(min = 1, max = 30)
+    @Column(name = "report_status")
+    private String reportStatus;
     @Basic(optional = false)
     @NotNull
     @Column(name = "creation_date")
@@ -65,9 +65,9 @@ public class Report implements Serializable {
         this.reportId = reportId;
     }
 
-    public Report(Integer reportId, String reportRef, Date creationDate) {
+    public Report(Integer reportId, String reportStatus, Date creationDate) {
         this.reportId = reportId;
-        this.reportRef = reportRef;
+        this.reportStatus = reportStatus;
         this.creationDate = creationDate;
     }
 
@@ -79,12 +79,12 @@ public class Report implements Serializable {
         this.reportId = reportId;
     }
 
-    public String getReportRef() {
-        return reportRef;
+    public String getReportStatus() {
+        return reportStatus;
     }
 
-    public void setReportRef(String reportRef) {
-        this.reportRef = reportRef;
+    public void setReportStatus(String reportStatus) {
+        this.reportStatus = reportStatus;
     }
 
     public Date getCreationDate() {

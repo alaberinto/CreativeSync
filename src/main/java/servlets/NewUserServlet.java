@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.Account;
 
 /**
  *
@@ -38,13 +37,13 @@ public class NewUserServlet extends HttpServlet {
         String position = request.getParameter("position");
         int positionId = Integer.parseInt(position);
 
-        try {
-            //( userId,  password,  firstname, lastname,  email,  location,  rate,  portfolio,  isactive,  imagePath); 
-
-            as.insert(null, positionId, password, fname, lname, email, location, userRate, null, new Short("1"), null);
-        } catch (DBException ex) {
-            Logger.getLogger(NewUserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            //( userId,  password,  firstname, lastname,  email,  location,  rate,  portfolio,  isactive,  imagePath); 
+//
+////            as.insert(null, positionId, password, fname, lname, email, location, userRate, null, new Short("1"), null);
+////        } catch (DBException ex) {
+//            Logger.getLogger(NewUserServlet.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         getServletContext().getRequestDispatcher("/WEB-INF/NewUser.jsp").forward(request, response);
     }
 }

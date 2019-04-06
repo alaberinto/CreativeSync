@@ -1,23 +1,25 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataaccess;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
- *
- * @author 731866
+ * Data-access class creating a static instance of the EntityManagerFactory used as the connection to the database.
+ * 
+ * @author Cooper Vasiliou
  */
 public class DBUtil {
+    
+    /**
+     * Static EntityManagerFactory containing a single instance. 
+     */
      private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("NetflixPU");
 
+     /**
+      * Access method to retrieve the EntityManagerFactory.
+      * @return The EntityManagerFactory.
+      */
     public static EntityManagerFactory getEmFactory() {
         return emf;
-    }
-    
+    } 
 }

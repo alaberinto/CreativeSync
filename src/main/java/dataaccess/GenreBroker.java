@@ -1,36 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dataaccess;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import models.Genre;
+
 /**
- *
- * @author Mason
- */
+* GenreBroker is a data-access class to retrieve Genre information from the database.
+* 
+* @author Mason Hill
+* @version 1.0
+*/
 public class GenreBroker {
     
-    public GenreBroker() {
-        
-    }
-    
-    public Collection<Genre> getAllGenres() throws DBException {
+    /**
+     * Access method to retrieve a Collection of all Genre objects currently in the database.
+     * @return A collection of Genres.
+     */
+    public ArrayList<Genre> getAllGenres() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Collection<Genre> genres = em.createNamedQuery("Genre.findAll", Genre.class).getResultList();
-            return genres;
+            List<Genre> genres = em.createNamedQuery("Genre.findAll", Genre.class).getResultList();
+            return new ArrayList(genres);
         } catch (Exception ex) {
             Logger.getLogger(Genre.class.getName()).log(Level.SEVERE, "Cannot read genres", ex);
-            throw new DBException("Error getting genres.");
         } finally {
             em.close();
         }
-    }
-    
+        return null;
+    } 
 }

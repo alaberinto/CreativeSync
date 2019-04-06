@@ -1,0 +1,73 @@
+/******Core Components******/
+* {
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+body, html {
+    height: 100%;
+}
+
+.background {
+    background-image:url("login_background.png");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.vertical-center {
+    min-height: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+/******Forms******/
+button, input {
+    border-radius: 0px !important;
+    border-width: 1.5px !important;
+}
+
+input {
+    background-color: black;
+}
+
+/******Buttons******/
+.button-red {
+    background-color: #111;
+    transition: 0.70s;
+    border-color: #e50914;
+    color: #e50914;
+    border-style: solid;
+    margin-bottom: 10px;
+}
+
+.button-grey {
+    background-color: #111;
+    transition: 0.50s;
+    border-color: #7b7676;
+    color: #7b7676;
+}
+
+.button-red:hover {
+    background-color: #e50914;
+    color: #ffffff;
+}
+
+.button-grey:hover {
+    background-color: #7b7676;
+    color: #ffffff;
+}
+
+
+
+/******Inputs******/
+input[type=email],input[type=password], input[type=email]:focus, input[type=password]:focus, input[type=text], input[type=text]:focus {
+    font-weight: 500;
+    background-color: black;
+    border: 2px solid #7b7676;
+    color: white;
+    margin-bottom: 10px;
+}

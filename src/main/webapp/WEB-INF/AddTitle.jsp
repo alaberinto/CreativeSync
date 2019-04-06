@@ -20,7 +20,7 @@
         <title>Add Title</title>
     </head>
     <body class="background-plain">
-        <sync:navbar></sync:navbar>
+        <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
 
             <div class="container fullContainer bg-white">
@@ -76,19 +76,20 @@
                         <div class="row">
                             <div class="col-6">
                                 <label for="maxFree"><h3 class="mb-0"># Freelancers</h3></label>
-                                <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" min="1" max="10" placeholder="1">
+                                <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" min="1" max="10" value="1">
                             </div>
                             <div class="col-6">
                                 <label for="p"><h3 class="mb-0">Priority</h3></label><br>
-                                <input class="form-control" type="checkbox" id="p" data-toggle="toggle" data-onstyle="danger">
+                                <input class="form-control" type="checkbox" id="p" data-toggle="toggle" name="priority" data-onstyle="danger">
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
                         <label for="test"><h3 class="mb-0">Freelancers</h3></label>
-                        <select class="selectpicker form-control text-light-gray-full" id="test" multiple data-live-search="true" title="Select Freelancers" data-header="Select Freelancers">
-                            <option value="4">Mason Hill</option>
-                            <option value="6">Cooper Vasiliou</option>
+                        <select name="freelancers" class="selectpicker form-control text-light-gray-full" id="test" multiple data-live-search="true" title="Select Freelancers" data-header="Select Freelancers">
+                            <c:forEach items="${freelancers}" var="free">
+                                <option value="${free.userId}">${free.firstname} ${free.lastname}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>

@@ -10,38 +10,25 @@ import models.Account;
 import services.AccountService;
 
 /**
+ * LoginServlet is a class managing the content displayed on the page Login.JSP.
  *
- * @author Mason
+ * @author Mason Hill
  */
 public class LoginServlet extends HttpServlet {
 
-    /**
-     * TODO everything here
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        if (session.getAttribute("user") != null) {
+            request.setAttribute("goodFeedback", "Successfully Logged Out!");
+        }
+        
+        session.invalidate();
         getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
     }
 
-    /**
-     * Gets action from page. If login button is selected then validate. If
-     * valid then forward to Titles.JSP. Else reload login. If recover is
-     * selected then forward to Recover.JSP
-     *
-     * TODO: Lots xD
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,7 +37,6 @@ public class LoginServlet extends HttpServlet {
         AccountService as = new AccountService();
 
         String action = request.getParameter("action");
-        String feedback = null;
 
         //When login button is selected.
         if (action.equals("login")) {
@@ -60,10 +46,10 @@ public class LoginServlet extends HttpServlet {
 
             //If valid then forward to Titles. Otherwise create feedback message.
             if (user != null) {
-                //Add user info to session.
                 session.setAttribute("user", user);
                 response.sendRedirect("Titles");
             } else {
+                request.setAttribute("badFeedback", "Login Credentials Invalid!");
                 getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
             }
 

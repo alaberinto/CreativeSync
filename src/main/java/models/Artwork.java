@@ -72,6 +72,8 @@ public class Artwork implements Serializable {
         @JoinColumn(name = "STYLE_style_id", referencedColumnName = "style_id")})
     @ManyToMany
     private List<Style> styleList;
+    @ManyToMany(mappedBy = "artworkList")
+    private List<Account> accountList;
     @JoinColumn(name = "title_id", referencedColumnName = "title_id")
     @ManyToOne(optional = false)
     private Title titleId;
@@ -140,6 +142,15 @@ public class Artwork implements Serializable {
 
     public void setStyleList(List<Style> styleList) {
         this.styleList = styleList;
+    }
+
+    @XmlTransient
+    public List<Account> getAccountList() {
+        return accountList;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
     }
 
     public Title getTitleId() {

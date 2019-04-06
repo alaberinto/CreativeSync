@@ -15,64 +15,99 @@
         <title>Titles</title>
     </head>
     <body class="background-plain">
-        <sync:navbar></sync:navbar>
-        <div class="searchBarHeader">
-            <div class="container p-0">
-                <row>
-                    <div class="col-12 p-0">
-                        <form>
-                            <div class="form-group">
-                                <input class="form-control searchBar" type="text" id="search" placeholder="Search Titles By Keyword">
+        <sync:navbar1></sync:navbar1>
+            <div class="searchBarHeader">
+                <div class="container p-0">
+                    <div class="row">
+                        <div class="col-12 p-0">
+                            <form method="get" action="Titles">
+                                <div class="form-group">
+                                    <input class="form-control searchBar" type="text" name="searchBar" value="${searchBar}" placeholder="Search By Name">
+                                <input type="submit"  style="visibility: hidden;">
                             </div>
                         </form>
                     </div>
-                </row>
+                </div>
             </div>
         </div>
         <div class="container fullContainer bg-white">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-4">
-                    <ul class="list-group list-group-flush">
-                        <form method="post" action="Titles">
-                            <c:forEach items="${titles}" var="tit">
-                                <li class="list-group-item">
-                                    <h3 class="list-item-head top-bottom-border">${tit.title.name}</h3>
+                    <c:if test="${assignedTitles != null}">
+                        
+                        <h1 class=" text-center mb-0">Assigned</h1>
+                        <div class="list-group list-n" name="titlesList">
+                            <c:forEach items="${assignedTitles}" var="aTit">
+                                <a href="TitleDetailed?name=${aTit.title.name}" class="list-group-item list-group-item-action">
+                                    <h2 class="list-item-header-n">${aTit.title.name}</h2>
+                                    <div class="row">
+                                        
+                                        <div class="col-6">
+                                            
+                                            <b class="list-item-sub-n ml-2">Status: </b> ${aTit.status.statusDesc}
+                                            <a href="UserDetailed?name=${aTit.lead.firstname} ${aTit.lead.lastname}">
+                                                <b class="ml-2">Proj. Lead:</b>  ${aTit.lead.firstname} ${aTit.lead.lastname}
+                                            </a>  
+                                        </div>
+                                            
+                                        <div class="col-6">
+                                            
+                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${aTit.title.endDate}"/>
+                                            <a href="UserDetailed?name=${aTit.coor.firstname} ${aTit.coor.lastname}">
+                                                <b class="ml-2">Coordinator:</b> ${aTit.coor.firstname}  ${aTit.coor.lastname}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </a>
+                            </c:forEach>
+                        </div>
+
+                    </c:if>
+                    <c:if test="${unassignedTitles != null}">
+                        <h1 class=" text-center mb-0">Unassigned</h1>
+                        <div class="list-group list-n">
+                            <c:forEach items="${unassignedTitles}" var="uTit">
+                                <a href="TitleDetailed?name=${uTit.title.name}" class="list-group-item list-group-item-action">
+                                    <h2 class="list-item-header-n">${uTit.title.name}</h2>
                                     <div class="row">
                                         <div class="col-6">
-                                            <b class="ml-2">Status: </b> ${tit.status.statusDesc}
-                                            <br>
+                                            <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}
                                             <form method="post" action="Titles">
                                                 <input type="hidden" name="leadId" value="tit.lead.userId">
-                                                <button name="action" value="clickLead" type="submit" class="no-style">
-                                                    <b class="ml-2">Proj. Lead:</b> ${tit.lead.firstname}  ${tit.lead.lastname}
+                                                <button name="action" value="clickLead" type="submit">
+                                                    <b class="ml-2">Proj. Lead:</b> ${uTit.lead.firstname}  ${uTit.lead.lastname}
                                                 </button>   
                                             </form>
                                         </div>
                                         <div class="col-6">
                                             <b class="ml-2">End:</b> <fmt:formatDate type = "date" 
-                                                            value="${tit.title.endDate}" />
+                                                            value="${uTit.title.endDate}"/>
                                             <br>
                                             <form method="post" action="Titles">
                                                 <input type="hidden" name="coorId" value="tit.coor.userId">
-                                                <button name="action" value="clickCoor" type="submit" class="no-style">
-                                                    <b class="ml-2">Coordinator:</b> ${tit.coor.firstname}  ${tit.coor.lastname}
+                                                <button name="action" value="clickCoor" type="submit">
+                                                    <b class="ml-2">Coordinator:</b> ${uTit.coor.firstname}  ${uTit.coor.lastname}
                                                 </button>   
                                             </form>
                                         </div>
                                     </div>
-                                </li>
+                                </a>
                             </c:forEach>
-                        </form>
-                        <br>
-                    </ul>
+                        </div>
+                    </c:if>
+                    <c:if test="${unassignedTitles == null && assignedTitles == null}">
+                        <h1>No Titles Found</h1>
+                    </c:if>
+                    </form>
+                    <br> 
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
-                <c:if test="${user.position.positionId != 4}">
-                    <form method="post" action="Titles">
-                        <button type="submit" class="btn btn-block button-red-solid" name="action" value="addTitle">Add Title</button>
-                    </form>
-                </c:if>
-                    
+                    <c:if test="${user.position.positionId != 4 && user.position.positionId != 3}">
+                        <form method="post" action="Titles">
+                            <button type="submit" class="btn btn-block button-red-solid" name="action" value="addTitle">Add Title</button>
+                        </form>
+                    </c:if>
+
                     <h3 class="mt-2"><b>Genres</b></h3>
                     <form>
                         <c:forEach items="${genres}" var="genre">

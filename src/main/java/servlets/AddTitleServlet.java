@@ -29,15 +29,14 @@ public class AddTitleServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
-
-        ArrayList<Account> leads = new ArrayList<>();
-        ArrayList<Account> coors = new ArrayList<>();
         
-        leads = as.getActiveLeads();
-        coors = as.getActiveCoordinators();
+        ArrayList<Account> leads = as.getActiveLeads();
+        ArrayList<Account> coors = as.getActiveCoordinators();
+        ArrayList<Account> frees = as.getActiveFreelancers();
         
         request.setAttribute("leads", leads);
         request.setAttribute("coors", coors);
+        request.setAttribute("freelancers", frees);
         
         getServletContext().getRequestDispatcher("/WEB-INF/AddTitle.jsp").forward(request, response);
     }
@@ -54,10 +53,12 @@ public class AddTitleServlet extends HttpServlet {
         int coordinatorId = Integer.parseInt(request.getParameter("coorId"));
         int leadId = Integer.parseInt(request.getParameter("leadId"));
         String designInfo = request.getParameter("info");
+        String[] freelancerIds = request.getParameterValues("freelancers");
+        
         
         TitleService ts = new TitleService();
         
-        String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers);
+        String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers, freelancerIds);
         
         if(feedback != null) {
             request.setAttribute("badFeedback", feedback);

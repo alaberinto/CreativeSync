@@ -27,11 +27,13 @@
                 <div class="col-3">
                     Prof Pic<br>
                     <form action="UserDetailed" method="post">
-                        <button type="submit" name="action" value="edit">Edit</button>
+                        <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
                         <c:if test="${user.position.positionId == 1}">
                             <button type="submit" name="action" value="delete">Delete</button>
                         </c:if>
-                        <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
+                        <c:if test="${user.position.positionId == 1 || (user.position.positionId == 2 && user.position.positionId < myUser.user.position.positionId) || user.userId == myUser.user.userId}">
+                            <button type="submit" name="action" value="edit">Edit</button>
+                        </c:if>
                     </form>
                 </div>
                 <div class="col-3">

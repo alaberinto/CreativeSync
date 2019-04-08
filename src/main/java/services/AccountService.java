@@ -1,6 +1,7 @@
 package services;
 
 import dataaccess.DBException;
+import dataaccess.GenreBroker;
 import dataaccess.LocationBroker;
 import dataaccess.PositionBroker;
 import dataaccess.RecoveryBroker;
@@ -27,6 +28,10 @@ import viewModels.UsersView;
  */
 public class AccountService {
 
+    /**
+     * Final GenreBroker to handle Genre information in the database.
+     */
+    private final GenreBroker gb;
     /**
      * Final PositionBroker to handle all Position information in the database.
      */
@@ -56,6 +61,7 @@ public class AccountService {
         pb = new PositionBroker();
         hs = new HashingService();
         lb = new LocationBroker();
+        gb = new GenreBroker();
     }
 
     /**
@@ -94,25 +100,12 @@ public class AccountService {
      * @param user The Account information for the user currently logged in.
      * @return ArrayList of UsersView
      */
-    public ArrayList<UsersView> getUsersView(Account user, String searchFilter) {
+    public ArrayList<UsersView> getUsersView(Account user) {
         ArrayList<UsersView> views = new ArrayList<>();
         ArrayList<Account> users = null;
 
         if (!user.getPosition().getPositionDesc().equals("Freelancer")) {
             users = getAllUsers();
-
-            if (users != null) {
-                for (int i = users.size() - 1; i >= 0; i--) {
-                    if (users.get(i).getPosition().getPositionId() == 1) {
-                        users.remove(i);
-                    } else if (searchFilter != null) {
-                        if (!(users.get(i).getFirstname() + " " + users.get(i).getLastname()).toLowerCase().contains(searchFilter.toLowerCase())
-                                && !users.get(i).getPosition().getPositionDesc().toLowerCase().contains(searchFilter.toLowerCase())) {
-                            users.remove(i);
-                        }
-                    }
-                }
-            }
 
         } else {
             users = getAllDesignleadsCoordinators();
@@ -123,16 +116,6 @@ public class AccountService {
         }
 
         return views;
-    }
-
-    public UsersView getUsersViewMyAccount(String username) {
-        Account acc = getUserByName(username);
-
-        if (acc == null) {
-            return null;
-        }
-
-        return new UsersView(acc);
     }
 
     /**
@@ -161,35 +144,22 @@ public class AccountService {
      * @param accountDeleting The Account of the user deleting.
      * @return A feedback message verifying if the delete was successful or not.
      */
-    public String delete(Account loggedInUser, Account accountToDelete) {
-        TitleService ts = new TitleService();
+    public String delete(Integer userId, Account accountDeleting) {
+        Account accountToDelete;
+        try {
+            accountToDelete = ab.getUserById(userId);
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "User could not be found";
+        }
 
         //If not allowed
-        if (loggedInUser.getPosition().getPositionId() != 1) {
-            return "You Do Not Have Privilages To Delete Users!";
+        if (accountDeleting.getPosition().getPositionId() >= accountToDelete.getPosition().getPositionId()) {
+            return "You do not have privilages to delete this user";
         } else {
             try {
-                if (accountToDelete == null) {
-                    return "User Not Found";
-                }
-
-                ArrayList<Title> titlesToUpdate = ts.getTitlesByUser(accountToDelete);
-
-                for (int i = 0; i < titlesToUpdate.size(); i++) {
-                    ArrayList<TitleHasAccount> tha = new ArrayList(titlesToUpdate.get(i).getTitleHasAccountList());
-
-                    for (int j = tha.size() - 1; j >= 0; j--) {
-                        if (tha.get(j).getAccount().getUserId() == accountToDelete.getUserId()) {
-                            titlesToUpdate.get(i).getTitleHasAccountList().remove(j);
-                            break;
-                        }
-                    }
-                }
-
                 ab.deleteUser(accountToDelete);
-                ts.updateTitles(titlesToUpdate);
             } catch (DBException ex) {
-                System.out.println(ex.toString());
                 Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
                 return "An error occured deleting this user";
             }
@@ -209,10 +179,11 @@ public class AccountService {
      * @param locationId The locationId corresponding to the users current
      * country.
      * @param rate The rate that the user is paid in USD. ()
+     * @param genre The genre that the user is assigned to
      * @return Null if the insert was sucessfull. Otherwise an error String is
      * returned.
      */
-    public String insert(String firstname, String lastname, String email, String rate, String password, String locationId, String[] languageIds, String positionId, String[] genreIds) {
+    public String insert(String firstname, String lastname, String email, String rate, String password, String locationId, String[] languageIds, String[] genreIds, String positionId) {
         try {
             if (positionId == null || password == null || firstname == null || lastname == null || email == null || locationId == null || rate == null || genreIds == null) {
                 return "Missing information!";
@@ -236,15 +207,15 @@ public class AccountService {
             ArrayList<Genre> genres = new ArrayList<>();
 
             for (int i = 0; i < genreIds.length; i++) {
-                genres.add(gs.getGenreById(genreIds[i]));
+                //     genres.add(new Genre(gs.getGenreById(genreIds[i])));
             }
 
             //Set languages
-            LanguageService ls = new LanguageService();
+            // LanguageService ls = new LanguageService();
             ArrayList<Language> languages = new ArrayList<>();
 
-            for (int i = 0; i < languageIds.length; i++) {
-                languages.add(ls.getLanguageById(languageIds[i]));
+            for (int i = 0; i < genreIds.length; i++) {
+                //      languages.add(new Language(ls.getLanguageById(languageIds[i])));
             }
 
             ac.setGenreList(genres);
@@ -263,22 +234,43 @@ public class AccountService {
      * Mutator method to update the logged in users account.
      *
      * @param ac The Account of the user logged in.
+     * @param positionId The new position to set.
      * @param firstname The new first name to set.
      * @param lastname The new last name to set.
      * @param password The new password to set.
+     * @param rate The new rate to be set.
+     * @param isActive The state of the user to be set.
      * @param locationId The new locationId to set.
      * @return null if the update was successful. Otherwise an error String.
      */
-    public String updateThisAccount(Account ac, String firstname, String lastname, String password, String locationId) {
-
-        if (password != null) {
-            ac.setPassword(hs.generateHash(password));
-        }
-
-        ac.setFirstname(firstname);
-        ac.setLastname(lastname);
+    public String updateThisAccount(Account ac, String positionId, String firstname, String lastname, String password, String rate, String isActive, String[] genreIds, String[] languageIds, String locationId) {
 
         try {
+            if (password != null) {
+                ac.setPassword(hs.generateHash(password));
+            }
+            Integer posId = Integer.parseInt(positionId);
+            ac.setPosition(pb.getPosition(posId));
+            Double newRate = Double.parseDouble(rate);
+            ac.setRate(newRate);
+            Short active = Short.parseShort(isActive);
+            ac.setIsactive(active);
+            GenreService gs = new GenreService();
+            ArrayList<Genre> genres = new ArrayList<>();
+
+            for (int i = 0; i < genreIds.length; i++) {
+                genres.add(new Genre(gs.getGenreById(genreIds[i])));
+            }
+            LanguageService ls = new LanguageService();
+            ArrayList<Language> languages = new ArrayList<>();
+
+            for (int i = 0; i < genreIds.length; i++) {
+                languages.add(new Language(ls.getLanguageById(languageIds[i])));
+            }
+            ac.setFirstname(firstname);
+            ac.setLastname(lastname);
+            ac.setGenreList(genres);
+            ac.setLanguageList(languages);
             ac.setLocation(lb.getLocation(Integer.parseInt(locationId)));
             ab.update(ac);
         } catch (DBException | NumberFormatException ex) {
@@ -287,6 +279,10 @@ public class AccountService {
         }
 
         return null;
+    }
+    
+    public String editUser(String firstname,String lastname,String rate,String isActive,String [] locations,String [] languages,String position){
+        
     }
 
     /**
@@ -491,58 +487,5 @@ public class AccountService {
         }
         return cleanArray;
 
-    }
-
-    public ArrayList<Account> getActiveFreelancers() {
-        ArrayList<Account> acc = new ArrayList<>();
-        ArrayList<Account> cleanArray = new ArrayList<>();
-        acc = getAllUsers();
-
-        for (int i = 0; i < acc.size(); i++) {
-            if (acc.get(i).getPosition().getPositionDesc().equals("Freelancer")) {
-                if (acc.get(i).getIsactive() == 1) {
-                    cleanArray.add(acc.get(i));
-                }
-            }
-        }
-        return cleanArray;
-    }
-
-    public Account getUserByName(String name) {
-        if (name == null) {
-            return null;
-        }
-
-        String[] names = name.split(" ");
-
-        ArrayList<Account> users = ab.getAllUsers();
-
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getFirstname().toLowerCase().equals(names[0].toLowerCase())
-                    && users.get(i).getLastname().toLowerCase().equals(names[1].toLowerCase())) {
-                return users.get(i);
-
-            }
-        }
-        return null;
-    }
-
-    public ArrayList<TitleHasAccount> getFreelancersByTitle(Title title) {
-        ArrayList<TitleHasAccount> acc = new ArrayList(title.getTitleHasAccountList());
-
-        if (acc != null) {
-            for (int i = acc.size() - 1; i >= 0; i--) {
-                if (acc.get(i).getAccount().getPosition().getPositionId() != 4) {
-                    acc.remove(i);
-                }
-            }
-        }
-
-        return acc;
-    }
-
-    public UsersView getTitlesViewByName(String name) {
-        Account acc = this.getUserByName(name);
-        return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
     }
 }

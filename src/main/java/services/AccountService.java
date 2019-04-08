@@ -161,36 +161,31 @@ public class AccountService {
      * @param accountDeleting The Account of the user deleting.
      * @return A feedback message verifying if the delete was successful or not.
      */
-    public String delete(String name, Account accountDeleting) {
+    public String delete(Account loggedInUser, Account accountToDelete) {
         TitleService ts = new TitleService();
-        Account accountToDelete = getUserByName(name);
-        
 
-        if(accountToDelete == null)
-            return "User Not Found";
-        
-        ArrayList<Title> titlesToUpdate = ts.getTitlesByUser(accountToDelete);
-        
-        //Loop through its titleHasAccount collection
-        //If account id = titleHasAccoutn.accoutnId
-        //remove
-        
-        for(int i = 0; i < titlesToUpdate.size(); i++) {
-            ArrayList<TitleHasAccount> tha = new ArrayList(titlesToUpdate.get(i).getTitleHasAccountList());
-            
-            for(int j = tha.size() - 1; j >= 0; j--) {
-                if(tha.get(j).getAccount().getUserId() == accountToDelete.getUserId()) {
-                    titlesToUpdate.get(i).getTitleHasAccountList().remove(j);
-                    break;
-                }
-            }
-        }
-        
         //If not allowed
-        if (accountDeleting.getPosition().getPositionId() >= accountToDelete.getPosition().getPositionId()) {
-            return "You do not have privilages to delete this user";
+        if (loggedInUser.getPosition().getPositionId() != 1) {
+            return "You Do Not Have Privilages To Delete Users!";
         } else {
             try {
+                if (accountToDelete == null) {
+                    return "User Not Found";
+                }
+
+                ArrayList<Title> titlesToUpdate = ts.getTitlesByUser(accountToDelete);
+
+                for (int i = 0; i < titlesToUpdate.size(); i++) {
+                    ArrayList<TitleHasAccount> tha = new ArrayList(titlesToUpdate.get(i).getTitleHasAccountList());
+
+                    for (int j = tha.size() - 1; j >= 0; j--) {
+                        if (tha.get(j).getAccount().getUserId() == accountToDelete.getUserId()) {
+                            titlesToUpdate.get(i).getTitleHasAccountList().remove(j);
+                            break;
+                        }
+                    }
+                }
+
                 ab.deleteUser(accountToDelete);
                 ts.updateTitles(titlesToUpdate);
             } catch (DBException ex) {

@@ -45,7 +45,7 @@ public class TitleBroker {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            em.persist(title);
+            em.merge(title);
             trans.commit();
         } catch (Exception ex) {
             if (trans.isActive()) {
@@ -162,7 +162,7 @@ public class TitleBroker {
         try {
             trans.begin();
             for(int i = 0; i < titles.size(); i++) {
-                em.persist(titles.get(i));
+                em.merge(titles.get(i));
             }
             trans.commit();
         } catch (Exception ex) {

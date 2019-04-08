@@ -85,7 +85,7 @@ public class AddTitleServlet extends HttpServlet {
         
         else {
             request.setAttribute("goodFeedback", "Title added successfully!");
-            response.sendRedirect("Titles");
+            getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
         }
     }
 }

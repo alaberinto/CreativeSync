@@ -1434,9 +1434,6 @@ insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
 values (10,9,2);
 
 
-insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
-values (10,9,2);
-
 
 
 

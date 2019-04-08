@@ -17,6 +17,7 @@ import models.Genre;
 import models.Status;
 import models.Title;
 import models.TitleHasAccount;
+import models.TitleHasAccountPK;
 import org.apache.commons.lang3.ArrayUtils;
 import viewModels.TitlesView;
 
@@ -43,8 +44,7 @@ public class TitleService {
      * Final TitleHasBroker to handle all TitleHasAccount information in the
      * database.
      */
-    private final TitleHasAccountBroker tha;
-
+    //private final TitleHasAccountBroker tha;
     /**
      * Default constructor to create a new instance of TitleService and
      * construct brokers.
@@ -52,7 +52,7 @@ public class TitleService {
     public TitleService() {
         tb = new TitleBroker();
         ab = new UserBroker();
-        tha = new TitleHasAccountBroker();
+        //tha = new TitleHasAccountBroker();
     }
 
     /**
@@ -277,26 +277,27 @@ public class TitleService {
         try {
             newStartDate = sdf.parse(startDate);
             newEndDate = sdf.parse(endDate);
-            
-            if(newStartDate.after(newEndDate))
+
+            if (newStartDate.after(newEndDate)) {
                 return "Invalid date ranges.";
-            
-            if(newStartDate.before(new Date()))
+            }
+
+            if (newStartDate.before(new Date())) {
                 return "Start date is before today!";
+            }
         } catch (ParseException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
             return "Could not parse dates";
         }
-        
+
         if (existing != null) {
             return "This Title Already Exists!";
         }
-        
-        if( (!ArrayUtils.isEmpty(freelancers)) && freelancers.length > maxFrees) {
+
+        if ((!ArrayUtils.isEmpty(freelancers)) && freelancers.length > maxFrees) {
             return "Cannot Assign This Many Freelancers!";
         }
 
-        
         try {
             if (coordinatorId == -1) {
                 coordinatorId = 300;
@@ -318,17 +319,35 @@ public class TitleService {
             } else {
                 isActive = new Short("0");
             }
-            
+
             //Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers, short completed
             Title title = new Title(null, name, newStartDate, newEndDate, isActive, newPriority, designInfo, maxFrees, designLeadId, coordinatorId, maxFrees, new Short("0"));
             tb.insertTitle(title);
-            
-            tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
-            tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), coordinatorId, 1));
 
-            for (int i = 0; i < freelancers.length; i++) {
-                tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), Integer.parseInt(freelancers[i]), 1));
+                
+            AccountService as = new AccountService();
+            StatusService gs = new StatusService();
+            
+            title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
+//            title.getTitleHasAccountList().get(0).setAccount(as.getUserById(designLeadId));
+//            title.getTitleHasAccountList().get(0).setTitle(title);
+//            title.getTitleHasAccountList().get(0).setStatus(new Status(1));
+
+            title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), coordinatorId, 1));
+//            title.getTitleHasAccountList().get(1).setAccount(as.getUserById(coordinatorId));
+//            title.getTitleHasAccountList().get(1).setTitle(title);
+//            title.getTitleHasAccountList().get(1).setStatus(new Status(1));
+            
+            if (freelancers != null) {
+                for (int i = 0; i < freelancers.length; i++) {
+                    title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), Integer.parseInt(freelancers[i]), 1));
+//                    title.getTitleHasAccountList().get(i + 2).setAccount(as.getUserById(Integer.parseInt(freelancers[i])));
+//                    title.getTitleHasAccountList().get(i + 2).setTitle(title);
+//                    title.getTitleHasAccountList().get(i + 2).setStatus(new Status(1));
+                }
             }
+
+            tb.updateTitle(title);
 
             return null;
         } catch (Exception ex) {
@@ -346,18 +365,18 @@ public class TitleService {
 
         return null;
     }
-    
+
     public ArrayList<Title> getTitlesByUser(Account user) {
         ArrayList<TitleHasAccount> titleHasAccountList = new ArrayList(user.getTitleHasAccountList());
         ArrayList<Title> titles = new ArrayList();
-        
-        for(int i = 0; i < titleHasAccountList.size(); i++) {
+
+        for (int i = 0; i < titleHasAccountList.size(); i++) {
             titles.add(titleHasAccountList.get(i).getTitle());
         }
-        
+
         return titles;
     }
-    
+
     public void updateTitles(ArrayList<Title> titles) {
         tb.updateTitles(titles);
     }

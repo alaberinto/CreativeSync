@@ -24,24 +24,15 @@
         <div class="container fullContainer bg-white">
             <div class="row">
                 <div class="col-12 pt-4 pb-3 mb-2 border-bottom">
-                    <h1 class="text-center">Add User</h1>
+                    <h3 class="text-center">Add User</h3>
                 </div>
             </div>
 
             <form method="post" action="AddUser">
-                <div class="row d-flex justify-content-center">
-                    <div id="image-preview-div text-center" style="width:250px; height: 250px; border: 2px solid black; border-radius: 50%;">
-                        <img id="preview-img" src="noimage" style="width: 100%; height: 100%;">
-                        <input type="file" name="file" id="file">
-                    </div>
-                </div>
-
-
-
                 <div class="row mt-3">
                     <div class="col-6">
                         <div class="form-group mb-0">
-                            <label for="firstName"><h3 class="mb-0">First Name</h3></label>
+                            <label for="firstName"><h1 class="mb-0">First Name</h1></label>
                             <input class="form-control text-light-gray-full mb-0" id="firstName" type="text" name="firstName" required>
                         </div>
                     </div>
@@ -60,60 +51,62 @@
                     </div>
                     <div class="col-6">
                         <label class="" for="pass"><h3 class="mb-0">Password</h3></label>
-                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" required>
+                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" minlength="8" required>
+                    </div>
+                </div>
+                <div class="col-12 pt-4 pb-3 mb-2 ">
+
+                    <div class="row mt-3">
+                        <div class="col-4">
+                            <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
+                            <select class="form-control text-light-gray-full" id="country" name="country" required>
+                                <option value="" selected disabled hidden>Choose Country</option>
+                                <c:forEach items="${locations}" var="location">                            
+                                    <option value="${location.locationId}">${location.locationDesc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="language"><h3 class="mb-0">Language</h3></label>
+                            <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
+                                <c:forEach items="${languages}" var="lang">
+                                    <option value="${lang.languageId}">${lang.languageName}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label for="genres"><h3 class="mb-0">Genres</h3></label>
+                            <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                                <c:forEach items="${genres}" var="gen">
+                                    <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label class="" for="pos"><h3 class="mb-0">Position</h3></label>
+                            <select class="form-control text-light-gray-full" id="pos" name="position" required>
+                                <option value="" selected disabled hidden>Choose Position</option>
+                                <c:forEach items="${positions}" var="pos">
+                                    <option value="${pos.positionId}">${pos.positionDesc}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
+                            <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" min="1" required>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-block button-red-solid" placeholder="Create User">
+                        </div>
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-4">
-                        <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
-                        <select class="form-control text-light-gray-full" id="country" name="country" required>
-                            <option value="" selected disabled hidden>Choose Country</option>
-                            <c:forEach items="${locations}" var="location">                            
-                                <option value="${location.locationId}">${location.locationDesc}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <label for="language"><h3 class="mb-0">Language</h3></label>
-                        <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
-                            <option value="" selected disabled hidden>Choose Language</option>
-                            <c:forEach items="${languages}" var="lang">
-                                <option value="${lang.languageId}">${lang.languageName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-4">
-                        <label for="genres"><h3 class="mb-0">Genres</h3></label>
-                        <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
-                            <c:forEach items="${genres}" var="gen">
-                                <option value="${gen.genreId}">${gen.genreDesc}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <label class="" for="pos"><h3 class="mb-0">Position</h3></label>
-                        <select class="form-control text-light-gray-full" id="pos" name="position" required>
-                            <option value="" selected disabled hidden>Choose Position</option>
-                            <c:forEach items="${positions}" var="pos">
-                                <option value="${pos.positionId}">${pos.positionDesc}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-6">
-                        <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
-                        <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" min="0" required>
-                    </div>
-                </div>
-
-                <div class="row mt-5">
-                    <div class="col-12">
-                        <input type="submit" class="btn btn-block button-red-solid" placeholder="Create User">
-                    </div>
-                </div>
             </form>
             <c:if test="${goodFeedback != null}">
                 <div class="alert alert-success fixed-bottom ml-2 mr-2">

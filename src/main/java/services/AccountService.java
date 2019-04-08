@@ -214,10 +214,11 @@ public class AccountService {
      */
     public String insert(String firstname, String lastname, String email, String rate, String password, String locationId, String[] languageIds, String positionId, String[] genreIds) {
         try {
+
             if (positionId == null || password == null || firstname == null || lastname == null || email == null || locationId == null || rate == null || genreIds == null) {
                 return "Missing information!";
             }
-
+            email = email.toLowerCase();
             if (ab.getUserByEmail(email) != null) {
                 return "Email In Use!";
             }

@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "artwork")
@@ -40,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Artwork.findByArtworkName", query = "SELECT a FROM Artwork a WHERE a.artworkName = :artworkName")
     , @NamedQuery(name = "Artwork.findByArtworkRef", query = "SELECT a FROM Artwork a WHERE a.artworkRef = :artworkRef")
     , @NamedQuery(name = "Artwork.findByRating", query = "SELECT a FROM Artwork a WHERE a.rating = :rating")
-    , @NamedQuery(name = "Artwork.findByArtworkStatus", query = "SELECT a FROM Artwork a WHERE a.artworkStatus = :artworkStatus")})
+    , @NamedQuery(name = "Artwork.findByArtworkStatus", query = "SELECT a FROM Artwork a WHERE a.artworkStatus = :artworkStatus")
+    , @NamedQuery(name = "Artwork.findByRound", query = "SELECT a FROM Artwork a WHERE a.round = :round")})
 public class Artwork implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,20 +67,17 @@ public class Artwork implements Serializable {
     @NotNull
     @Column(name = "artwork_status")
     private short artworkStatus;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "round")
+    private int round;
     @JoinTable(name = "style_has_artwork", joinColumns = {
         @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")}, inverseJoinColumns = {
         @JoinColumn(name = "STYLE_style_id", referencedColumnName = "style_id")})
     @ManyToMany
     private List<Style> styleList;
-    @JoinColumn(name = "account", referencedColumnName = "user_id")
-    @ManyToOne(optional = false)
-    private Account account;
-    @JoinColumn(name = "round", referencedColumnName = "round")
-    @ManyToOne(optional = false)
-    private Round round;
-    @JoinColumn(name = "title_id", referencedColumnName = "title_id")
-    @ManyToOne(optional = false)
-    private Title titleId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aRTWORKartworkid")
+    private List<TitleHasAccount> titleHasAccountList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artworkId")
     private List<Feedback> feedbackList;
 
@@ -91,12 +88,13 @@ public class Artwork implements Serializable {
         this.artworkId = artworkId;
     }
 
-    public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating, short artworkStatus) {
+    public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating, short artworkStatus, int round) {
         this.artworkId = artworkId;
         this.artworkName = artworkName;
         this.artworkRef = artworkRef;
         this.rating = rating;
         this.artworkStatus = artworkStatus;
+        this.round = round;
     }
 
     public Integer getArtworkId() {
@@ -139,6 +137,14 @@ public class Artwork implements Serializable {
         this.artworkStatus = artworkStatus;
     }
 
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
     @XmlTransient
     public List<Style> getStyleList() {
         return styleList;
@@ -148,28 +154,13 @@ public class Artwork implements Serializable {
         this.styleList = styleList;
     }
 
-    public Account getAccount() {
-        return account;
+    @XmlTransient
+    public List<TitleHasAccount> getTitleHasAccountList() {
+        return titleHasAccountList;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Round getRound() {
-        return round;
-    }
-
-    public void setRound(Round round) {
-        this.round = round;
-    }
-
-    public Title getTitleId() {
-        return titleId;
-    }
-
-    public void setTitleId(Title titleId) {
-        this.titleId = titleId;
+    public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
+        this.titleHasAccountList = titleHasAccountList;
     }
 
     @XmlTransient

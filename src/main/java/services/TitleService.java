@@ -17,6 +17,7 @@ import models.Genre;
 import models.Status;
 import models.Title;
 import models.TitleHasAccount;
+import org.apache.commons.lang3.ArrayUtils;
 import viewModels.TitlesView;
 
 /**
@@ -272,22 +273,30 @@ public class TitleService {
         Date newEndDate;
         short newPriority = 1;
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            newStartDate = new SimpleDateFormat("YYYY-MM-DD").parse(startDate);
-            newEndDate = new SimpleDateFormat("YYY-MM-DD").parse(endDate);
+            newStartDate = sdf.parse(startDate);
+            newEndDate = sdf.parse(endDate);
+            
+            if(newStartDate.after(newEndDate))
+                return "Invalid date ranges.";
+            
+            if(newStartDate.before(new Date()))
+                return "Start date is before today!"
         } catch (ParseException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
-            return "Invalid Date Ranges";
+            return "Could not parse dates";
         }
-
+        
         if (existing != null) {
             return "This Title Already Exists!";
         }
         
-        if(freelancers.length > maxFrees) {
+        if( (!ArrayUtils.isEmpty(freelancers)) && freelancers.length > maxFrees) {
             return "Cannot Assign This Many Freelancers!";
         }
 
+        
         try {
             if (coordinatorId == -1) {
                 coordinatorId = 300;
@@ -297,6 +306,7 @@ public class TitleService {
                 designLeadId = 200;
             }
 
+            //priority button is OFF
             if (priority == null) {
                 newPriority = 0;
             }
@@ -308,8 +318,9 @@ public class TitleService {
             } else {
                 isActive = new Short("0");
             }
+            
             //Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers, short completed
-            Title title = new Title(null, name, newStartDate, newEndDate, isActive, newPriority, designInfo, freelancers.length, designLeadId, coordinatorId, maxFrees, new Short("0"));
+            Title title = new Title(null, name, newStartDate, newEndDate, isActive, newPriority, designInfo, maxFrees, designLeadId, coordinatorId, maxFrees, new Short("0"));
             tb.insertTitle(title);
             
             tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
@@ -323,7 +334,7 @@ public class TitleService {
         } catch (Exception ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Error adding user";
+        return "Error adding title";
     }
 
     public Title getTitleByName(String name) {

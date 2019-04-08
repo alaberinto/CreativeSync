@@ -15,8 +15,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -76,8 +78,12 @@ public class Artwork implements Serializable {
         @JoinColumn(name = "STYLE_style_id", referencedColumnName = "style_id")})
     @ManyToMany
     private List<Style> styleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aRTWORKartworkid")
-    private List<TitleHasAccount> titleHasAccountList;
+    @JoinColumns({
+        @JoinColumn(name = "title", referencedColumnName = "TITLE_title_id")
+        , @JoinColumn(name = "account", referencedColumnName = "ACCOUNT_user_id")
+        , @JoinColumn(name = "status", referencedColumnName = "STATUS_status_id")})
+    @ManyToOne(optional = false)
+    private TitleHasAccount titleHasAccount;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artworkId")
     private List<Feedback> feedbackList;
 
@@ -154,13 +160,12 @@ public class Artwork implements Serializable {
         this.styleList = styleList;
     }
 
-    @XmlTransient
-    public List<TitleHasAccount> getTitleHasAccountList() {
-        return titleHasAccountList;
+    public TitleHasAccount getTitleHasAccount() {
+        return titleHasAccount;
     }
 
-    public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
-        this.titleHasAccountList = titleHasAccountList;
+    public void setTitleHasAccount(TitleHasAccount titleHasAccount) {
+        this.titleHasAccount = titleHasAccount;
     }
 
     @XmlTransient

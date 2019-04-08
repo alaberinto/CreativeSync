@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Embeddable
 public class AccountHasMessageGroupPK implements Serializable {

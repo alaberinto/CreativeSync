@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "account")
@@ -42,9 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findByLastname", query = "SELECT a FROM Account a WHERE a.lastname = :lastname")
     , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
     , @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate")
-    , @NamedQuery(name = "Account.findByPortfolio", query = "SELECT a FROM Account a WHERE a.portfolio = :portfolio")
-    , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")
-    , @NamedQuery(name = "Account.findByImagePath", query = "SELECT a FROM Account a WHERE a.imagePath = :imagePath")})
+    , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")})
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,16 +76,10 @@ public class Account implements Serializable {
     @NotNull
     @Column(name = "rate")
     private double rate;
-    @Size(max = 150)
-    @Column(name = "portfolio")
-    private String portfolio;
     @Basic(optional = false)
     @NotNull
     @Column(name = "isactive")
     private short isactive;
-    @Size(max = 200)
-    @Column(name = "image_path")
-    private String imagePath;
     @JoinTable(name = "account_has_language", joinColumns = {
         @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
         @JoinColumn(name = "LANGUAGE_language_id", referencedColumnName = "language_id")})
@@ -102,8 +94,6 @@ public class Account implements Serializable {
     private List<AccountHasMessageGroup> accountHasMessageGroupList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<TitleHasAccount> titleHasAccountList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private List<Artwork> artworkList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uId")
     private List<Report> reportList;
     @JoinColumn(name = "location", referencedColumnName = "location_id")
@@ -178,28 +168,12 @@ public class Account implements Serializable {
         this.rate = rate;
     }
 
-    public String getPortfolio() {
-        return portfolio;
-    }
-
-    public void setPortfolio(String portfolio) {
-        this.portfolio = portfolio;
-    }
-
     public short getIsactive() {
         return isactive;
     }
 
     public void setIsactive(short isactive) {
         this.isactive = isactive;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     @XmlTransient
@@ -236,15 +210,6 @@ public class Account implements Serializable {
 
     public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
         this.titleHasAccountList = titleHasAccountList;
-    }
-
-    @XmlTransient
-    public List<Artwork> getArtworkList() {
-        return artworkList;
-    }
-
-    public void setArtworkList(List<Artwork> artworkList) {
-        this.artworkList = artworkList;
     }
 
     @XmlTransient

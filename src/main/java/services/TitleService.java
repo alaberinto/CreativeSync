@@ -282,7 +282,7 @@ public class TitleService {
                 return "Invalid date ranges.";
             
             if(newStartDate.before(new Date()))
-                return "Start date is before today!"
+                return "Start date is before today!";
         } catch (ParseException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
             return "Could not parse dates";

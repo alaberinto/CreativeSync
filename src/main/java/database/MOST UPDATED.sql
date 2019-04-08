@@ -799,7 +799,7 @@ insert into account (user_id,position,password,firstname,lastname,email,rate,isa
 values (2,1,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','admin2','admin2','admin2@email.com',10,1);
 
 insert into account (user_id,position,password,firstname,lastname,email,rate,isactive)
-values (100,1,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','None','Empty','DUMMY@email.com',10,0);
+values (100,1,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','None','Empty','dummy@email.com',10,0);
 
 --FREE LANCERS
 

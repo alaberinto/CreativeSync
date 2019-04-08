@@ -6,18 +6,22 @@
 package models;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "title_has_account")
@@ -41,6 +45,8 @@ public class TitleHasAccount implements Serializable {
     @JoinColumn(name = "TITLE_title_id", referencedColumnName = "title_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Title title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "titleHasAccount")
+    private List<Artwork> artworkList;
 
     public TitleHasAccount() {
     }
@@ -83,6 +89,15 @@ public class TitleHasAccount implements Serializable {
 
     public void setTitle(Title title) {
         this.title = title;
+    }
+
+    @XmlTransient
+    public List<Artwork> getArtworkList() {
+        return artworkList;
+    }
+
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
     }
 
     @Override

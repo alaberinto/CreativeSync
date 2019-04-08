@@ -304,7 +304,7 @@ public class AccountService {
      * Otherwise returns null.
      */
     public Account validate(String email, String password) {
-
+        String lowerEmail = email.toLowerCase();
         //Retrieve users existing hash
         String oldHash = getUserHash(email);
 

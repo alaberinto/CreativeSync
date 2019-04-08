@@ -50,16 +50,17 @@ public class UserDetailedServlet extends HttpServlet {
         AccountService as = new AccountService();
         
         String action = request.getParameter("action");
-        String user = request.getParameter("thisUser");
+        Account deletingUser = as.getUserByName(request.getParameter("thisUser"));
+        Account loggedInUser = (Account)session.getAttribute("user");
         
         if(action.equals("edit")) {
             getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
         }
         else if(action.equals("delete")) {
-            String feedback = as.delete(user, (Account)session.getAttribute("user"));
+            String feedback = as.delete(loggedInUser, deletingUser);
             
             if(feedback != null) {
-                response.sendRedirect("UserDetailed?name=" + user);
+                response.sendRedirect("UserDetailed?name=" + deletingUser.getFirstname() + " " + deletingUser.getLastname());
             }
             else {
                 request.setAttribute("goodFeedback", "User Deleted Successfully!");
@@ -67,7 +68,7 @@ public class UserDetailedServlet extends HttpServlet {
             }
         }
         else{
-            response.sendRedirect("UserDetailed?name=" + user);
+            response.sendRedirect("UserDetailed?name=" + request.getParameter("thisUser"));
         }
     }
 }

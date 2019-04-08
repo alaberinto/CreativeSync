@@ -28,7 +28,8 @@ import java.util.logging.Logger;
 import org.apache.commons.fileupload.FileItem;
 
 /**
- * Please add JavaDocing. Copy broker class wording.
+ * FileService is a class to connect to Dropbox and download, upload, retrieve images from the
+ * Dropbox.
  * @author Alvin Labarinto
  */
 public class FileService {

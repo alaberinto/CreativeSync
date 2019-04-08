@@ -45,6 +45,9 @@ public class TitlesServlet extends HttpServlet {
 
         ArrayList<Genre> genres = gs.getAllGenres();
         request.setAttribute("genres", genres);
+        
+        request.setAttribute("goodFeedback", session.getAttribute("goodFeedback"));
+        session.setAttribute("goodFeedback", null);
 
         //Forward
         request.setAttribute("searchBar", searchFilter);

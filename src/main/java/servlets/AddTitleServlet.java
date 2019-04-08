@@ -84,7 +84,8 @@ public class AddTitleServlet extends HttpServlet {
         }
         
         else {
-            request.setAttribute("goodFeedback", "Title added successfully!");
+            HttpSession session = request.getSession();
+            session.setAttribute("goodFeedback", "Title added successfully!");
             response.sendRedirect("Titles");
         }
     }

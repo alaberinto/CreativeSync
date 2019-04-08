@@ -155,4 +155,22 @@ public class TitleBroker {
             em.close();
         }
     }
+    
+    public void updateTitles(ArrayList<Title> titles) {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            for(int i = 0; i < titles.size(); i++) {
+                em.persist(titles.get(i));
+            }
+            trans.commit();
+        } catch (Exception ex) {
+            if (trans.isActive()) {
+                trans.rollback();
+            }
+        } finally {
+            em.close();
+        }
+    }
 }

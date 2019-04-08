@@ -98,15 +98,12 @@ public class Account implements Serializable {
         @JoinColumn(name = "GENRE_genre_id", referencedColumnName = "genre_id")})
     @ManyToMany
     private List<Genre> genreList;
-    @JoinTable(name = "artwork_has_account", joinColumns = {
-        @JoinColumn(name = "ACCOUNT_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")})
-    @ManyToMany
-    private List<Artwork> artworkList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<AccountHasMessageGroup> accountHasMessageGroupList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<TitleHasAccount> titleHasAccountList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private List<Artwork> artworkList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "uId")
     private List<Report> reportList;
     @JoinColumn(name = "location", referencedColumnName = "location_id")
@@ -224,15 +221,6 @@ public class Account implements Serializable {
     }
 
     @XmlTransient
-    public List<Artwork> getArtworkList() {
-        return artworkList;
-    }
-
-    public void setArtworkList(List<Artwork> artworkList) {
-        this.artworkList = artworkList;
-    }
-
-    @XmlTransient
     public List<AccountHasMessageGroup> getAccountHasMessageGroupList() {
         return accountHasMessageGroupList;
     }
@@ -248,6 +236,15 @@ public class Account implements Serializable {
 
     public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
         this.titleHasAccountList = titleHasAccountList;
+    }
+
+    @XmlTransient
+    public List<Artwork> getArtworkList() {
+        return artworkList;
+    }
+
+    public void setArtworkList(List<Artwork> artworkList) {
+        this.artworkList = artworkList;
     }
 
     @XmlTransient

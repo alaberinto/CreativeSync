@@ -1,7 +1,10 @@
 package services;
 
+import dataaccess.DBException;
 import dataaccess.GenreBroker;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Genre;
 
 /**
@@ -31,4 +34,14 @@ public class GenreService {
     public ArrayList<Genre> getAllGenres() {
         return new ArrayList(gb.getAllGenres());
     }
+    
+    public Genre getGenreById(String id) {
+        try {
+            return gb.getGenreById(Integer.parseInt(id));
+        } catch (DBException ex) {
+            Logger.getLogger(GenreService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }

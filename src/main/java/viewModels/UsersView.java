@@ -22,6 +22,11 @@ public class UsersView {
         this.titles= titles;
         this.user = user;
     }
+    
+    public UsersView(Account user) {
+        this.user = user;
+        this.titles = new ArrayList(user.getTitleHasAccountList());
+    }
 
     public ArrayList<TitleHasAccount> getTitles() {
         return titles;

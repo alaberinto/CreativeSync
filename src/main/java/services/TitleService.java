@@ -68,7 +68,6 @@ public class TitleService {
             return null;
         }
     }
-   
 
     /**
      * Access method to get an ArrayList of TitlesViews that this user can see
@@ -94,11 +93,11 @@ public class TitleService {
 
         return tv;
     }
-    
+
     public TitlesView getTitlesViewByName(String name) {
         Title title = this.getTitleByName(name);
-        
-        if(title != null) {
+
+        if (title != null) {
             try {
                 return new TitlesView(title, false, null);
             } catch (InvalidTitlesViewException ex) {
@@ -111,8 +110,8 @@ public class TitleService {
     public ArrayList<TitlesView> getAssignedTitles(Account user, String searchFilter) {
         ArrayList<TitleHasAccount> tha = new ArrayList(user.getTitleHasAccountList());
         ArrayList<TitlesView> tv = new ArrayList<>();
-        
-        if(searchFilter != null) {
+
+        if (searchFilter != null) {
             searchFilter = searchFilter.toLowerCase();
         }
 
@@ -161,17 +160,18 @@ public class TitleService {
                     fin.add(tv.get(i));
                 }
             }
-        }
-        else {
-            if(tv.isEmpty())
+        } else {
+            if (tv.isEmpty()) {
                 return null;
-            else
+            } else {
                 return tv;
+            }
         }
 
-        if(fin.isEmpty())
+        if (fin.isEmpty()) {
             return null;
-        
+        }
+
         return fin;
     }
 
@@ -262,70 +262,92 @@ public class TitleService {
      * @param maxNumberOfFreelancers The max number of freelancers assignable.
      * @return null if the creation was successful. Otherwise an error String.
      */
-    public String insert(String name, String startDate, String endDate, String priority, String designInfo, int designLeadId, int coordinatorId, int maxNumberOfFreelancers, String[] freelancers) {
-        Title existing;
-        existing = getTitleByName(name);
-        
-        if(existing != null)
+    public String insert(String name, String startDate, String endDate, String priority, String designInfo, String designId, String coorId, String maxNumberOfFreelancers, String[] freelancers) {
+        Title existing = getTitleByName(name);
+
+        Integer designLeadId = Integer.parseInt(designId);
+        Integer coordinatorId = Integer.parseInt(coorId);
+        Integer maxFrees = Integer.parseInt(maxNumberOfFreelancers);
+        Date newStartDate;
+        Date newEndDate;
+        short newPriority = 1;
+
+        try {
+            newStartDate = new SimpleDateFormat("YYYY-MM-DD").parse(startDate);
+            newEndDate = new SimpleDateFormat("YYY-MM-DD").parse(endDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Invalid Date Ranges";
+        }
+
+        if (existing != null) {
             return "This Title Already Exists!";
+        }
         
+        if(freelancers.length > maxFrees) {
+            return "Cannot Assign This Many Freelancers!";
+        }
+
         try {
             if (coordinatorId == -1) {
-                try {
-                    coordinatorId = ab.getUserById(300).getUserId();
-                } catch (DBException ex) {
-                    Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                coordinatorId = 300;
             }
+
             if (designLeadId == -1) {
-                try {
-                    designLeadId = ab.getUserById(200).getUserId();
-                } catch (DBException ex) {
-                    Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                designLeadId = 200;
             }
-            Date newStartDate = new SimpleDateFormat("YYYY-MM-DD").parse(startDate);
-            Date newEndDate = new SimpleDateFormat("YYY-MM-DD").parse(endDate);
-            short newPriority = 1;
 
             if (priority == null) {
                 newPriority = 0;
             }
 
-            //if(curdate < startdate) then isActive 0; Then if startdate = curdate in db then set to active
-            Short isActive = new Short("1");
+            Short isActive;
 
-            Title title = new Title(null, name, newStartDate, newEndDate, isActive, newPriority, designInfo, 1, designLeadId, coordinatorId, maxNumberOfFreelancers);
-            try {
-                tb.insertTitle(title);
-            } catch (DBException ex) {
-                Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
+            if (newStartDate.after(new Date())) {
+                isActive = new Short("1");
+            } else {
+                isActive = new Short("0");
             }
-
-            TitleHasAccount lead = new TitleHasAccount(title.getTitleId(), designLeadId, 1);
-            TitleHasAccount coor = new TitleHasAccount(title.getTitleId(), coordinatorId, 1);
+            //Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers, short completed
+            Title title = new Title(null, name, newStartDate, newEndDate, isActive, newPriority, designInfo, freelancers.length, designLeadId, coordinatorId, maxFrees, new Short("0"));
+            tb.insertTitle(title);
             
-            for(int i = 0; i < freelancers.length;i++) {
+            tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
+            tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), coordinatorId, 1));
+
+            for (int i = 0; i < freelancers.length; i++) {
                 tha.insertTitleHasAccount(new TitleHasAccount(title.getTitleId(), Integer.parseInt(freelancers[i]), 1));
             }
 
-            tha.insertTitleHasAccount(lead);
-            tha.insertTitleHasAccount(coor);
-
             return null;
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "Error adding user";
     }
-    
-    public Title getTitleByName(String name){
+
+    public Title getTitleByName(String name) {
         try {
             return tb.getTitleByName(name);
         } catch (DBException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return null;
+    }
+    
+    public ArrayList<Title> getTitlesByUser(Account user) {
+        ArrayList<TitleHasAccount> titleHasAccountList = new ArrayList(user.getTitleHasAccountList());
+        ArrayList<Title> titles = new ArrayList();
+        
+        for(int i = 0; i < titleHasAccountList.size(); i++) {
+            titles.add(titleHasAccountList.get(i).getTitle());
+        }
+        
+        return titles;
+    }
+    
+    public void updateTitles(ArrayList<Title> titles) {
+        tb.updateTitles(titles);
     }
 }

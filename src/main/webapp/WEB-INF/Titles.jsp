@@ -34,28 +34,28 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-4">
                     <c:if test="${assignedTitles != null}">
-                        
+
                         <h1 class=" text-center mb-0">Assigned</h1>
                         <div class="list-group list-n" name="titlesList">
                             <c:forEach items="${assignedTitles}" var="aTit">
                                 <a href="TitleDetailed?name=${aTit.title.name}" class="list-group-item list-group-item-action">
                                     <h2 class="list-item-header-n">${aTit.title.name}</h2>
                                     <div class="row">
-                                        
+
                                         <div class="col-6">
-                                            
-                                            <b class="list-item-sub-n ml-2">Status: </b> ${aTit.status.statusDesc}
-                                            <a href="UserDetailed?name=${aTit.lead.firstname} ${aTit.lead.lastname}">
-                                                <b class="ml-2">Proj. Lead:</b>  ${aTit.lead.firstname} ${aTit.lead.lastname}
-                                            </a>  
+                                            <b class="list-item-sub-n ml-2">Status: </b> ${aTit.status.statusDesc}<br>
+                                            <object><a href="UserDetailed?name=${aTit.lead.firstname} ${aTit.lead.lastname}">
+                                                    <b class="ml-2">Proj. Lead:</b>  ${aTit.lead.firstname} ${aTit.lead.lastname}
+                                                </a>
+                                            </object> 
                                         </div>
-                                            
+
                                         <div class="col-6">
-                                            
-                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${aTit.title.endDate}"/>
-                                            <a href="UserDetailed?name=${aTit.coor.firstname} ${aTit.coor.lastname}">
-                                                <b class="ml-2">Coordinator:</b> ${aTit.coor.firstname}  ${aTit.coor.lastname}
-                                            </a>
+                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${aTit.title.endDate}"/><br>
+                                            <object><a href="UserDetailed?name=${aTit.coor.firstname} ${aTit.coor.lastname}">
+                                                    <b class="ml-2">Coordinator:</b> ${aTit.coor.firstname}  ${aTit.coor.lastname}
+                                                </a>
+                                            </object>
                                         </div>
                                     </div>
                                 </a>
@@ -70,25 +70,20 @@
                                 <a href="TitleDetailed?name=${uTit.title.name}" class="list-group-item list-group-item-action">
                                     <h2 class="list-item-header-n">${uTit.title.name}</h2>
                                     <div class="row">
+
                                         <div class="col-6">
-                                            <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}
-                                            <form method="post" action="Titles">
-                                                <input type="hidden" name="leadId" value="tit.lead.userId">
-                                                <button name="action" value="clickLead" type="submit">
-                                                    <b class="ml-2">Proj. Lead:</b> ${uTit.lead.firstname}  ${uTit.lead.lastname}
-                                                </button>   
-                                            </form>
+                                            <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}<br>
+                                            <object><a href="UserDetailed?name=${uTit.lead.firstname} ${uTit.lead.lastname}">
+                                                    <b class="ml-2">Proj. Lead:</b>  ${uTit.lead.firstname} ${uTit.lead.lastname}
+                                                </a>
+                                            </object> 
                                         </div>
                                         <div class="col-6">
-                                            <b class="ml-2">End:</b> <fmt:formatDate type = "date" 
-                                                            value="${uTit.title.endDate}"/>
-                                            <br>
-                                            <form method="post" action="Titles">
-                                                <input type="hidden" name="coorId" value="tit.coor.userId">
-                                                <button name="action" value="clickCoor" type="submit">
+                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${uTit.title.endDate}"/><br>
+                                            <object><a href="UserDetailed?name=${uTit.coor.firstname} ${uTit.coor.lastname}">
                                                     <b class="ml-2">Coordinator:</b> ${uTit.coor.firstname}  ${uTit.coor.lastname}
-                                                </button>   
-                                            </form>
+                                                </a>
+                                            </object>
                                         </div>
                                     </div>
                                 </a>
@@ -119,6 +114,16 @@
                     </form>
                 </div>
             </div>
+            <c:if test="${goodFeedback != null}">
+                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                    <strong>Success</strong> ${goodFeedback}
+                </div>
+            </c:if>
+            <c:if test="${badFeedback != null}">
+                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                    <strong>Error</strong> ${badFeedback}
+                </div>
+            </c:if>
         </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

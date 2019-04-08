@@ -34,6 +34,7 @@
     <class>models.Message</class>
     <class>models.AccountHasMessageGroup</class>
     <class>models.Location</class>
+    <class>models.Round</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
   </persistence-unit>
 </persistence>

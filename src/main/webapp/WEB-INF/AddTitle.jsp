@@ -35,25 +35,24 @@
                         <div class="col-12">
                             <div class="form-group mb-0">
                                 <label for="titleName"><h3 class="mb-0">Name</h3></label>
-                                <input class="form-control text-light-gray-full mb-0" id="titleName" type="text" name="name">
+                                <input class="form-control text-light-gray-full mb-0" id="titleName" type="text" name="name" required>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
                             <label class="" for="startDate"><h3 class="mb-0">Start Date</h3></label>
-                            <input type="date" class="form-control text-light-gray-full" id="startDate" name="startDate">
+                            <input type="date" class="form-control text-light-gray-full" id="startDate" name="startDate" required>
                         </div>
                         <div class="col-6">
                             <label class="" for="endDate"><h3 class="mb-0">End Date</h3></label>
-                            <input type="date" class="form-control text-light-gray-full" id="endDate" name="endDate">
+                            <input type="date" class="form-control text-light-gray-full" id="endDate" name="endDate" required>
                         </div>
                     </div>
                     <div class="row mt-3">
-
-                        <div class="col-6">
+                        <div class="col-3">
                             <label class="" for="coors"><h3 class="mb-0">Coordinator</h3></label>
-                            <select class="form-control text-light-gray-full" id="coors" name="coorId">
+                            <select class="form-control text-light-gray-full" id="coors" name="coorId" required>
                                 <option selected value="-1">None</option>
                             <c:forEach items="${coors}" var="coor">
                                 <option value="${coor.userId}">${coor.firstname} ${coor.lastname}</option>
@@ -61,34 +60,39 @@
                         </select>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-3">
                         <label class="" for="leads"><h3 class="mb-0">Design Lead</h3></label>
-                        <select class="form-control text-light-gray-full" id="leads" name="leadId">
+                        <select class="form-control text-light-gray-full" id="leads" name="leadId" required="">
                             <option selected value="-1">None</option>
                             <c:forEach items="${leads}" var="lead">
                                 <option value="${lead.userId}">${lead.firstname} ${lead.lastname}</option>
                             </c:forEach>
                         </select>
                     </div>
+                    <div class="col-3">
+                        <label for="maxFree"><h3 class="mb-0"># Freelancers</h3></label>
+                        <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" min="1" max="10" value="1" required>
+                    </div>
+                    <div class="col-3">
+                        <label for="p"><h3 class="mb-0">Priority</h3></label><br>
+                        <input class="form-control" type="checkbox" id="p" data-toggle="toggle" name="priority" data-onstyle="danger" required="">
+                    </div>
+
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <div class="row">
-                            <div class="col-6">
-                                <label for="maxFree"><h3 class="mb-0"># Freelancers</h3></label>
-                                <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" min="1" max="10" value="1">
-                            </div>
-                            <div class="col-6">
-                                <label for="p"><h3 class="mb-0">Priority</h3></label><br>
-                                <input class="form-control" type="checkbox" id="p" data-toggle="toggle" name="priority" data-onstyle="danger">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
                         <label for="test"><h3 class="mb-0">Freelancers</h3></label>
-                        <select name="freelancers" class="selectpicker form-control text-light-gray-full" id="test" multiple data-live-search="true" title="Select Freelancers" data-header="Select Freelancers">
+                        <select name="freelancers" class="selectpicker form-control text-light-gray-full" id="test" multiple data-live-search="true" title="Select Freelancers" data-header="Select Freelancers" required>
                             <c:forEach items="${freelancers}" var="free">
                                 <option value="${free.userId}">${free.firstname} ${free.lastname}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label for="genres"><h3 class="mb-0">Genres</h3></label>
+                        <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                            <c:forEach items="${genres}" var="gen">
+                                <option value="${gen.genreId}">${gen.genreDesc}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -97,7 +101,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label for="info"><h3 class="mb-0">Design Info.</h3></label>
-                            <textarea class="form-control" id="info" name="info" rows="6">Enter notes here...</textarea>
+                            <textarea class="form-control" id="info" name="info" rows="6" placeholder="Enter Notes Here"></textarea>
                         </div>
                     </div>
                 </div>
@@ -107,6 +111,16 @@
                     </div>
                 </div>
             </form>
+            <c:if test="${goodFeedback != null}">
+                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                    <strong>Success</strong> ${goodFeedback}
+                </div>
+            </c:if>
+            <c:if test="${badFeedback != null}">
+                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                    <strong>Error</strong> ${badFeedback}
+                </div>
+            </c:if> 
         </div>
     </div>
 </body>

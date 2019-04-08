@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Genre;
 import services.AccountService;
+import services.GenreService;
 import services.TitleService;
 
 /**
@@ -29,11 +31,14 @@ public class AddTitleServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
+        GenreService gs = new GenreService();
         
         ArrayList<Account> leads = as.getActiveLeads();
         ArrayList<Account> coors = as.getActiveCoordinators();
         ArrayList<Account> frees = as.getActiveFreelancers();
+        ArrayList<Genre> genres = gs.getAllGenres();
         
+        request.setAttribute("genres", genres);
         request.setAttribute("leads", leads);
         request.setAttribute("coors", coors);
         request.setAttribute("freelancers", frees);
@@ -49,11 +54,12 @@ public class AddTitleServlet extends HttpServlet {
         String startDate = request.getParameter("startDate");
         String endDate = request.getParameter("endDate");
         String priority = request.getParameter("priority");
-        int maxNumberOfFreelancers = Integer.parseInt(request.getParameter("numberOfFreelancers"));
-        int coordinatorId = Integer.parseInt(request.getParameter("coorId"));
-        int leadId = Integer.parseInt(request.getParameter("leadId"));
+        String maxNumberOfFreelancers = request.getParameter("numberOfFreelancers");
+        String coordinatorId = request.getParameter("coorId");
+        String leadId = request.getParameter("leadId");
         String designInfo = request.getParameter("info");
         String[] freelancerIds = request.getParameterValues("freelancers");
+        String[] genreIds = request.getParameterValues("genres");
         
         
         TitleService ts = new TitleService();
@@ -61,14 +67,25 @@ public class AddTitleServlet extends HttpServlet {
         String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers, freelancerIds);
         
         if(feedback != null) {
-            request.setAttribute("badFeedback", feedback);
+            request.setAttribute("name", titleName);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("endDate", endDate);
+            request.setAttribute("priority", priority);
+            request.setAttribute("numberOfFreelancers", maxNumberOfFreelancers);
+            request.setAttribute("coorId", coordinatorId);
+            request.setAttribute("leadId", leadId);
+            request.setAttribute("info", designInfo);
+            request.setAttribute("freelancers", freelancerIds);
+            request.setAttribute("genres", genreIds);
             
-            //Set back attributes
-            getServletContext().getRequestDispatcher("/WEB-INF/AddTitle.jsp").forward(request, response);
+            
+            request.setAttribute("badFeedback", feedback);
+            doGet(request, response);
         }
         
-        else
-            request.setAttribute("goodFeedback", "Title added successfully");
-            getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
+        else {
+            request.setAttribute("goodFeedback", "Title added successfully!");
+            response.sendRedirect("Titles");
+        }
     }
 }

@@ -38,7 +38,7 @@
             <li class="nav-item ml-auto dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">${user.firstname} ${user.lastname}</a>
                 <div class="dropdown-menu">
-                    <a class="nav-link dropdown-item" href="MyAccount">My Account</a>
+                    <a class="nav-link dropdown-item" href="UserDetailed?name=${user.firstname} ${user.lastname}">My Account</a>
                     <a class="nav-link dropdown-item" href="Login">Logout</a>
                 </div>
             </li>

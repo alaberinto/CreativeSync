@@ -1,6 +1,7 @@
 package viewModels;
 
 import exceptions.InvalidTitlesViewException;
+import java.util.ArrayList;
 import java.util.List;
 import models.Title;
 import models.Account;
@@ -49,6 +50,8 @@ public class TitlesView {
      */
     private Status status;
     
+    private ArrayList<Account> freelancers;
+    
     /**
      * Non-Default constructor to create a new TitleView object for display on Titles.JSP.
      * @param title The Title being listed.
@@ -64,6 +67,8 @@ public class TitlesView {
         int coorId = title.getCoordinatorId();
         int leadId = title.getDesignLeadId();
         
+        this.freelancers = new ArrayList<Account>();
+        
         List<TitleHasAccount> accounts = title.getTitleHasAccountList();
         
         for(int i = 0; i < accounts.size(); i++) {
@@ -75,6 +80,9 @@ public class TitlesView {
             else if(leadId == accounts.get(i).getAccount().getUserId()) {
                 lead = account;
             }
+            
+            if(accounts.get(i).getAccount().getPosition().getPositionId() == 4)
+                freelancers.add(accounts.get(i).getAccount());
         }
         
         if(lead == null || coor == null) {

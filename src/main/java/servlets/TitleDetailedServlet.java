@@ -65,7 +65,7 @@ public class TitleDetailedServlet extends HttpServlet {
             if (ServletFileUpload.isMultipartContent(request)) {
                 try {
                     List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                    //fs.handleUpload(multiparts, title.getName());
+              //s      fs.handleUpload(multiparts, title.getName());
 
                 } catch (FileUploadException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);

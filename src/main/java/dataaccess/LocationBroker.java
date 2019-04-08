@@ -76,16 +76,16 @@ public class LocationBroker {
     
     /**
      * Access method to retrieve an ArrayList of all Location objects in the database. 
-     * @return An ArrayList of Location.
+     * @return An ArrayList of Locations.
      * @throws DBException When a database error occurs.
      */
-    public ArrayList<Location> getAllPositions() throws DBException {
+    public ArrayList<Location> getAllLocations() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            List<Location> loc = em.createNamedQuery("Position.findAll", Location.class).getResultList();
+            List<Location> loc = em.createNamedQuery("Location.findAll", Location.class).getResultList();
             return new ArrayList(loc);
         } catch (Exception ex) {
-            Logger.getLogger(LocationBroker.class.getName()).log(Level.SEVERE, "Cannot read positions", ex);
+            Logger.getLogger(LocationBroker.class.getName()).log(Level.SEVERE, "Cannot read locations", ex);
         }
         
         return null;

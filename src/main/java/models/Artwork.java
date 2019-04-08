@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Artwork.findByArtworkId", query = "SELECT a FROM Artwork a WHERE a.artworkId = :artworkId")
     , @NamedQuery(name = "Artwork.findByArtworkName", query = "SELECT a FROM Artwork a WHERE a.artworkName = :artworkName")
     , @NamedQuery(name = "Artwork.findByArtworkRef", query = "SELECT a FROM Artwork a WHERE a.artworkRef = :artworkRef")
-    , @NamedQuery(name = "Artwork.findByRating", query = "SELECT a FROM Artwork a WHERE a.rating = :rating")})
+    , @NamedQuery(name = "Artwork.findByRating", query = "SELECT a FROM Artwork a WHERE a.rating = :rating")
+    , @NamedQuery(name = "Artwork.findByArtworkStatus", query = "SELECT a FROM Artwork a WHERE a.artworkStatus = :artworkStatus")})
 public class Artwork implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,18 +63,21 @@ public class Artwork implements Serializable {
     @NotNull
     @Column(name = "rating")
     private int rating;
-    @JoinTable(name = "artwork_has_round_artwork", joinColumns = {
-        @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "ROUND_ARTWORK_round_id", referencedColumnName = "round_id")})
-    @ManyToMany
-    private List<RoundArtwork> roundArtworkList;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "artwork_status")
+    private short artworkStatus;
     @JoinTable(name = "style_has_artwork", joinColumns = {
         @JoinColumn(name = "ARTWORK_artwork_id", referencedColumnName = "artwork_id")}, inverseJoinColumns = {
         @JoinColumn(name = "STYLE_style_id", referencedColumnName = "style_id")})
     @ManyToMany
     private List<Style> styleList;
-    @ManyToMany(mappedBy = "artworkList")
-    private List<Account> accountList;
+    @JoinColumn(name = "account", referencedColumnName = "user_id")
+    @ManyToOne(optional = false)
+    private Account account;
+    @JoinColumn(name = "round", referencedColumnName = "round")
+    @ManyToOne(optional = false)
+    private Round round;
     @JoinColumn(name = "title_id", referencedColumnName = "title_id")
     @ManyToOne(optional = false)
     private Title titleId;
@@ -87,11 +91,12 @@ public class Artwork implements Serializable {
         this.artworkId = artworkId;
     }
 
-    public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating) {
+    public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating, short artworkStatus) {
         this.artworkId = artworkId;
         this.artworkName = artworkName;
         this.artworkRef = artworkRef;
         this.rating = rating;
+        this.artworkStatus = artworkStatus;
     }
 
     public Integer getArtworkId() {
@@ -126,13 +131,12 @@ public class Artwork implements Serializable {
         this.rating = rating;
     }
 
-    @XmlTransient
-    public List<RoundArtwork> getRoundArtworkList() {
-        return roundArtworkList;
+    public short getArtworkStatus() {
+        return artworkStatus;
     }
 
-    public void setRoundArtworkList(List<RoundArtwork> roundArtworkList) {
-        this.roundArtworkList = roundArtworkList;
+    public void setArtworkStatus(short artworkStatus) {
+        this.artworkStatus = artworkStatus;
     }
 
     @XmlTransient
@@ -144,13 +148,20 @@ public class Artwork implements Serializable {
         this.styleList = styleList;
     }
 
-    @XmlTransient
-    public List<Account> getAccountList() {
-        return accountList;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountList(List<Account> accountList) {
-        this.accountList = accountList;
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Round getRound() {
+        return round;
+    }
+
+    public void setRound(Round round) {
+        this.round = round;
     }
 
     public Title getTitleId() {

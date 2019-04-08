@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Account;
+import models.Genre;
+import models.Language;
 import models.RecoveryUser;
 import models.Title;
 import models.TitleHasAccount;
@@ -123,6 +125,16 @@ public class AccountService {
         return views;
     }
 
+    public UsersView getUsersViewMyAccount(String username) {
+        Account acc = getUserByName(username);
+
+        if (acc == null) {
+            return null;
+        }
+
+        return new UsersView(acc);
+    }
+
     /**
      * Access method to get a list of all Accounts that are a Design Lead or
      * Coordinator.
@@ -149,22 +161,40 @@ public class AccountService {
      * @param accountDeleting The Account of the user deleting.
      * @return A feedback message verifying if the delete was successful or not.
      */
-    public String delete(Integer userId, Account accountDeleting) {
-        Account accountToDelete;
-        try {
-            accountToDelete = ab.getUserById(userId);
-        } catch (DBException ex) {
-            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
-            return "User could not be found";
-        }
+    public String delete(String name, Account accountDeleting) {
+        TitleService ts = new TitleService();
+        Account accountToDelete = getUserByName(name);
+        
 
+        if(accountToDelete == null)
+            return "User Not Found";
+        
+        ArrayList<Title> titlesToUpdate = ts.getTitlesByUser(accountToDelete);
+        
+        //Loop through its titleHasAccount collection
+        //If account id = titleHasAccoutn.accoutnId
+        //remove
+        
+        for(int i = 0; i < titlesToUpdate.size(); i++) {
+            ArrayList<TitleHasAccount> tha = new ArrayList(titlesToUpdate.get(i).getTitleHasAccountList());
+            
+            for(int j = tha.size() - 1; j >= 0; j--) {
+                if(tha.get(j).getAccount().getUserId() == accountToDelete.getUserId()) {
+                    titlesToUpdate.get(i).getTitleHasAccountList().remove(j);
+                    break;
+                }
+            }
+        }
+        
         //If not allowed
         if (accountDeleting.getPosition().getPositionId() >= accountToDelete.getPosition().getPositionId()) {
             return "You do not have privilages to delete this user";
         } else {
             try {
                 ab.deleteUser(accountToDelete);
+                ts.updateTitles(titlesToUpdate);
             } catch (DBException ex) {
+                System.out.println(ex.toString());
                 Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
                 return "An error occured deleting this user";
             }
@@ -187,17 +217,43 @@ public class AccountService {
      * @return Null if the insert was sucessfull. Otherwise an error String is
      * returned.
      */
-    public String insert(Integer positionId, String password, String firstname, String lastname, String email, Integer locationId, double rate) {
+    public String insert(String firstname, String lastname, String email, String rate, String password, String locationId, String[] languageIds, String positionId, String[] genreIds) {
         try {
-            if (positionId == null || password == null || firstname == null || lastname == null || email == null || locationId == null || rate < 0 || ab.getUserByEmail(email) != null) {
-                return "Invalid information!";
+            if (positionId == null || password == null || firstname == null || lastname == null || email == null || locationId == null || rate == null || genreIds == null) {
+                return "Missing information!";
             }
 
-            Short isActive = 1;
-            Account ac = new Account(null, hs.generateHash(password), firstname, lastname, email, rate, isActive);
-            ac.setPosition(pb.getPosition(positionId));
-            ac.setLocation(lb.getLocation(locationId));
+            if (ab.getUserByEmail(email) != null) {
+                return "Email In Use!";
+            }
 
+            Integer position = Integer.parseInt(positionId);
+            Double userRate = Double.parseDouble(rate);
+            Integer location = Integer.parseInt(locationId);
+            Short isActive = 1;
+
+            Account ac = new Account(null, hs.generateHash(password), firstname, lastname, email, userRate, isActive);
+            ac.setPosition(pb.getPosition(position));
+            ac.setLocation(lb.getLocation(location));
+
+            //Set Genres
+            GenreService gs = new GenreService();
+            ArrayList<Genre> genres = new ArrayList<>();
+
+            for (int i = 0; i < genreIds.length; i++) {
+                genres.add(gs.getGenreById(genreIds[i]));
+            }
+
+            //Set languages
+            LanguageService ls = new LanguageService();
+            ArrayList<Language> languages = new ArrayList<>();
+
+            for (int i = 0; i < languageIds.length; i++) {
+                languages.add(ls.getLanguageById(languageIds[i]));
+            }
+
+            ac.setGenreList(genres);
+            ac.setLanguageList(languages);
             ab.insertUser(ac);
 
         } catch (DBException ex) {
@@ -458,6 +514,10 @@ public class AccountService {
     }
 
     public Account getUserByName(String name) {
+        if (name == null) {
+            return null;
+        }
+
         String[] names = name.split(" ");
 
         ArrayList<Account> users = ab.getAllUsers();
@@ -485,7 +545,7 @@ public class AccountService {
 
         return acc;
     }
-    
+
     public UsersView getTitlesViewByName(String name) {
         Account acc = this.getUserByName(name);
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));

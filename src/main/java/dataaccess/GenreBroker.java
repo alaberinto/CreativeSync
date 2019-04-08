@@ -8,15 +8,18 @@ import javax.persistence.EntityManager;
 import models.Genre;
 
 /**
-* GenreBroker is a data-access class to retrieve Genre information from the database.
-* 
-* @author Mason Hill
-* @version 1.0
-*/
+ * GenreBroker is a data-access class to retrieve Genre information from the
+ * database.
+ *
+ * @author Mason Hill
+ * @version 1.0
+ */
 public class GenreBroker {
-    
+
     /**
-     * Access method to retrieve a Collection of all Genre objects currently in the database.
+     * Access method to retrieve a Collection of all Genre objects currently in
+     * the database.
+     *
      * @return A collection of Genres.
      */
     public ArrayList<Genre> getAllGenres() {
@@ -30,5 +33,18 @@ public class GenreBroker {
             em.close();
         }
         return null;
-    } 
+    }
+
+    public Genre getGenreById(Integer id) throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+
+        try {
+            Genre genre = em.find(Genre.class, id);
+            return genre;
+
+        } finally {
+            em.close();
+        }
+
+    }
 }

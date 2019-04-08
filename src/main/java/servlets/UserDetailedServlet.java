@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import models.Account;
 
 import services.AccountService;
+import viewModels.UsersView;
 
 /**
  *
@@ -21,24 +22,52 @@ public class UserDetailedServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException{
+        
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
 
         String name = request.getParameter("name");
+        UsersView user = as.getUsersViewMyAccount(name);
 
-        if (name == null) {
-            request.setAttribute("badFeedback", "User Not Found!");
-        } else {
-            request.setAttribute("detailUser", as.getTitlesViewByName(name));
-        }
         
-        getServletContext().getRequestDispatcher("/WEB-INF/UserDetailed.jsp").forward(request, response);
+        
+        if (user == null) {
+            request.setAttribute("badFeedback", "User Not Found!");
+            response.sendRedirect("Users");
+            
+        } else {
+            request.setAttribute("myUser", user);
+            getServletContext().getRequestDispatcher("/WEB-INF/UserDetailed.jsp").forward(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
+        AccountService as = new AccountService();
+        
+        String action = request.getParameter("action");
+        String user = request.getParameter("thisUser");
+        
+        if(action.equals("edit")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
+        }
+        else if(action.equals("delete")) {
+            String feedback = as.delete(user, (Account)session.getAttribute("user"));
+            
+            if(feedback != null) {
+                response.sendRedirect("UserDetailed?name=" + user);
+            }
+            else {
+                request.setAttribute("goodFeedback", "User Deleted Successfully!");
+                response.sendRedirect("Users");
+            }
+        }
+        else{
+            response.sendRedirect("UserDetailed?name=" + user);
+        }
     }
 }

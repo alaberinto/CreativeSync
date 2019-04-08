@@ -46,7 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Title.findByNumberOfFreelancers", query = "SELECT t FROM Title t WHERE t.numberOfFreelancers = :numberOfFreelancers")
     , @NamedQuery(name = "Title.findByDesignLeadId", query = "SELECT t FROM Title t WHERE t.designLeadId = :designLeadId")
     , @NamedQuery(name = "Title.findByCoordinatorId", query = "SELECT t FROM Title t WHERE t.coordinatorId = :coordinatorId")
-    , @NamedQuery(name = "Title.findByMaxNumberOfFreelancers", query = "SELECT t FROM Title t WHERE t.maxNumberOfFreelancers = :maxNumberOfFreelancers")})
+    , @NamedQuery(name = "Title.findByMaxNumberOfFreelancers", query = "SELECT t FROM Title t WHERE t.maxNumberOfFreelancers = :maxNumberOfFreelancers")
+    , @NamedQuery(name = "Title.findByCompleted", query = "SELECT t FROM Title t WHERE t.completed = :completed")})
 public class Title implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,6 +100,10 @@ public class Title implements Serializable {
     @NotNull
     @Column(name = "max_number_of_freelancers")
     private int maxNumberOfFreelancers;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "completed")
+    private short completed;
     @ManyToMany(mappedBy = "titleList")
     private List<Genre> genreList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "title")
@@ -115,7 +120,7 @@ public class Title implements Serializable {
         this.titleId = titleId;
     }
 
-    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers) {
+    public Title(Integer titleId, String name, Date startDate, Date endDate, short isActive, short priority, String designInfo, int numberOfFreelancers, int designLeadId, int coordinatorId, int maxNumberOfFreelancers, short completed) {
         this.titleId = titleId;
         this.name = name;
         this.startDate = startDate;
@@ -127,6 +132,7 @@ public class Title implements Serializable {
         this.designLeadId = designLeadId;
         this.coordinatorId = coordinatorId;
         this.maxNumberOfFreelancers = maxNumberOfFreelancers;
+        this.completed = completed;
     }
 
     public Integer getTitleId() {
@@ -215,6 +221,14 @@ public class Title implements Serializable {
 
     public void setMaxNumberOfFreelancers(int maxNumberOfFreelancers) {
         this.maxNumberOfFreelancers = maxNumberOfFreelancers;
+    }
+
+    public short getCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(short completed) {
+        this.completed = completed;
     }
 
     @XmlTransient

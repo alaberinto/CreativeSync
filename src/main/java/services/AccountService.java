@@ -306,7 +306,7 @@ public class AccountService {
     public Account validate(String email, String password) {
         String lowerEmail = email.toLowerCase();
         //Retrieve users existing hash
-        String oldHash = getUserHash(email);
+        String oldHash = getUserHash(lowerEmail);
 
         if (oldHash == null) {
             return null;

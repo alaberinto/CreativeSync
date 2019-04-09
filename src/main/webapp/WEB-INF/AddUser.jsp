@@ -96,7 +96,10 @@
                         </div>
                         <div class="col-6">
                             <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
-                            <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" min="1" required>
+                            <div class="input-icon">    
+                                <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" min="1" required>
+                                <i>$</i>
+                            </div>
                         </div>
                     </div>
 

@@ -229,7 +229,6 @@ public class TitleService {
      * @return An ArrayList of TitleViews.
      */
     private ArrayList<TitlesView> getPrivilagedTitles(Account user) {
-        ArrayList<TitleHasAccount> titles = new ArrayList(user.getTitleHasAccountList());
         ArrayList<TitlesView> tv = new ArrayList<>();
 
         try {

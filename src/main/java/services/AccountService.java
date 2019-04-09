@@ -75,6 +75,17 @@ public class AccountService {
     }
 
     /**
+     *
+     * @param name name of User
+     * @return User with matching name
+     * @throws DBException When a database error occurs
+     */
+    public Account getUserByFirstname(String name) throws DBException {
+        return ab.getUserByFirstname(name);
+
+    }
+
+    /**
      * Access method to retrieve an ArrayList of all Accounts in the database.
      *
      * @return An ArrayList of users.

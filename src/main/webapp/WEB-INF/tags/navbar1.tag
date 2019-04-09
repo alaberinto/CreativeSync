@@ -33,6 +33,11 @@
                     <a class="nav-link" href="Backup">Backups</a>
                 </li>
             </c:if>
+
+            <!--feedback for design lead, freelancer view will be added later-->
+            <li class="nav-item">
+                <a class="nav-link" href="FeedbackSelect">Feedback</a>
+            </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item ml-auto dropdown">

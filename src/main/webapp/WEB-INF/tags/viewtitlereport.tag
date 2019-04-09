@@ -25,6 +25,11 @@
             <th>Estimated Cost</th>
 
         </tr>
+        
+        <tr>
+            <th>Title Name</th>
+            <th>Run Report</th>
+        </tr>
     </thead>
     <tbody>
 

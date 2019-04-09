@@ -1,8 +1,8 @@
 package services;
 
 import dataaccess.DBException;
+import dataaccess.GenreBroker;
 import dataaccess.TitleBroker;
-import dataaccess.TitleHasAccountBroker;
 import dataaccess.UserBroker;
 import exceptions.InvalidTitlesViewException;
 import java.text.ParseException;
@@ -17,7 +17,6 @@ import models.Genre;
 import models.Status;
 import models.Title;
 import models.TitleHasAccount;
-import models.TitleHasAccountPK;
 import org.apache.commons.lang3.ArrayUtils;
 import viewModels.TitlesView;
 
@@ -263,7 +262,7 @@ public class TitleService {
      * @param maxNumberOfFreelancers The max number of freelancers assignable.
      * @return null if the creation was successful. Otherwise an error String.
      */
-    public String insert(String name, String startDate, String endDate, String priority, String designInfo, String designId, String coorId, String maxNumberOfFreelancers, String[] freelancers) {
+    public String insert(String name, String startDate, String endDate, String priority, String designInfo, String designId, String coorId, String maxNumberOfFreelancers, String[] freelancers, String[] genres) {
         Title existing = getTitleByName(name);
 
         Integer designLeadId = Integer.parseInt(designId);
@@ -329,21 +328,29 @@ public class TitleService {
             StatusService gs = new StatusService();
             
             title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
-//            title.getTitleHasAccountList().get(0).setAccount(as.getUserById(designLeadId));
-//            title.getTitleHasAccountList().get(0).setTitle(title);
-//            title.getTitleHasAccountList().get(0).setStatus(new Status(1));
+            title.getTitleHasAccountList().get(0).setAccount(as.getUserById(designLeadId));
+            title.getTitleHasAccountList().get(0).setTitle(title);
+            title.getTitleHasAccountList().get(0).setStatus(new Status(1));
 
             title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), coordinatorId, 1));
-//            title.getTitleHasAccountList().get(1).setAccount(as.getUserById(coordinatorId));
-//            title.getTitleHasAccountList().get(1).setTitle(title);
-//            title.getTitleHasAccountList().get(1).setStatus(new Status(1));
+            title.getTitleHasAccountList().get(1).setAccount(as.getUserById(coordinatorId));
+            title.getTitleHasAccountList().get(1).setTitle(title);
+            title.getTitleHasAccountList().get(1).setStatus(new Status(1));
             
             if (freelancers != null) {
                 for (int i = 0; i < freelancers.length; i++) {
                     title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), Integer.parseInt(freelancers[i]), 1));
-//                    title.getTitleHasAccountList().get(i + 2).setAccount(as.getUserById(Integer.parseInt(freelancers[i])));
-//                    title.getTitleHasAccountList().get(i + 2).setTitle(title);
-//                    title.getTitleHasAccountList().get(i + 2).setStatus(new Status(1));
+                    title.getTitleHasAccountList().get(i + 2).setAccount(as.getUserById(Integer.parseInt(freelancers[i])));
+                    title.getTitleHasAccountList().get(i + 2).setTitle(title);
+                    title.getTitleHasAccountList().get(i + 2).setStatus(new Status(1));
+                }
+            }
+            
+            GenreBroker gb = new GenreBroker();
+            //Set Genres
+            if(genres != null) {
+                for(int i = 0; i < genres.length; i++) {
+                    title.getGenreList().add(gb.getGenreById(Integer.parseInt(genres[i])));
                 }
             }
 

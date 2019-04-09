@@ -26,72 +26,72 @@
         <title>Artwork Detail</title>
     </head>
     <body class="background-plain">
-    <sync:navbar1></sync:navbar1>
-    <div class="container background-white pb-3">
-        <h1 align="center">Feedback</h1>
+        <sync:navbar1></sync:navbar1>
+            <div class="container background-white pb-3">
+                <h1 align="center">Feedback</h1>
 
-        <div class="hdev">
-            <div align="center">
-                <h3>Select a Freelancer to review their artwork</h3>    
+                <div class="hdev">
+                    <div align="center">
+                        <h3>Select a Freelancer to review their artwork</h3>    
 
-                <br>
-                <table border="1" cellspacing="5">                   
-                    <tbody>
-                        <tr>
-                            <td>
-                    <c:forEach var="freelancers" items="${freelancers}">
-                        <form action="FeedbackSelect" method="post">
-                            <div style="width:300px; display:table">
-                                <input type="submit" name="feedback_select" value="${freelancers.firstname}" style="display:table-cell; width:100%">                 
-                            </div>
-                        </form>
-                    </c:forEach>
-                    <a href="TitleSelect">Click here to select a title</a>
-                    </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        <br>
+                        <table border="1" cellspacing="5">                   
+                            <tbody>
+                                <tr>
+                                    <td>
+                                    <c:forEach var="freelancers" items="${freelancers}">
+                                        <form action="FeedbackSelect" method="post">
+                                            <div style="width:300px; display:table">
+                                                <input type="submit" name="feedback_select" value="${freelancers.firstname}" style="display:table-cell; width:100%">                 
+                                            </div>
+                                        </form>
+                                    </c:forEach>
+                                    <a href="TitleSelect">Click here to select a title</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
 
 
-            </div>
+                </div>
 
-            <script>
-                ;
-                (function ($) {
+                <script>
+                    ;
+                    (function ($) {
 
-                    /**
-                     * Store scroll position for and set it after reload
-                     *
-                     * @return {boolean} [loacalStorage is available]
-                     */
-                    $.fn.scrollPosReload = function () {
-                        if (localStorage) {
-                            var posReader = localStorage["posStorage"];
-                            if (posReader) {
-                                $(window).scrollTop(posReader);
-                                localStorage.removeItem("posStorage");
+                        /**
+                         * Store scroll position for and set it after reload
+                         *
+                         * @return {boolean} [loacalStorage is available]
+                         */
+                        $.fn.scrollPosReload = function () {
+                            if (localStorage) {
+                                var posReader = localStorage["posStorage"];
+                                if (posReader) {
+                                    $(window).scrollTop(posReader);
+                                    localStorage.removeItem("posStorage");
+                                }
+                                $(this).click(function (e) {
+                                    localStorage["posStorage"] = $(window).scrollTop();
+                                });
+
+                                return true;
                             }
-                            $(this).click(function (e) {
-                                localStorage["posStorage"] = $(window).scrollTop();
-                            });
 
-                            return true;
+                            return false;
                         }
 
-                        return false;
-                    }
+                        /* ================================================== */
 
-                    /* ================================================== */
+                        $(document).ready(function () {
+                            $('body').scrollPosReload();
+                        });
 
-                    $(document).ready(function () {
-                        $('body').scrollPosReload();
-                    });
+                    }(jQuery));
+                </script>            
 
-                }(jQuery));
-            </script>            
-
+            </div>
         </div>
-    </div>
-</body>
+    </body>
 </html>

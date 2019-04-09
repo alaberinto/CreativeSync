@@ -32,14 +32,15 @@
                 <c:forEach items="${backups}" var="backup">
                     <tr>
                         <td>${backup.backupName}</td>
-                        <td><fmt:formatDate type = "both" value="${backup.backupDate}" />  </td>
-                        <td><form method="post" action="Backups">
+                        <td><fmt:formatDate type = "both" value="${backup.backupDate}" /></td>
+                        <td>
+                            <form method="post" action="Backups">
                                 <input type="hidden" name="backupId" value="${backup.backupId}">
                                 <input type="submit" class="btn btn-danger" value="Restore database">
-                                </tr>
-
                             </form>
-                        </c:forEach>
+                        </td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
         <form method="get" action="Backups">

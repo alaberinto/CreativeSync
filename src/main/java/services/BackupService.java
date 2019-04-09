@@ -5,6 +5,7 @@
  */
 package services;
 
+import com.dropbox.core.DbxException;
 import dataaccess.BackupBroker;
 import dataaccess.DBException;
 import dataaccess.DBUtil;
@@ -12,6 +13,8 @@ import dataaccess.UserBroker;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,7 +71,7 @@ public class BackupService {
 
         try {
             bb.insertBackup(backup);
-            String[] cmd = {"C:\\Users\\731866\\OneDrive - Southern Alberta Institute of Technology\\Desktop\\sql.bat"};
+            String[] cmd = {"C:\\Users\\731866\\OneDrive - Southern Alberta Institute of Technology\\Desktop\\FINAL CAPSTONE\\CreativeSyncCapstoneOOF\\src\\main\\java\\database\\sql.bat"};
             Runtime runtime = Runtime.getRuntime();
             Process p;
 
@@ -96,6 +99,14 @@ public class BackupService {
             }
             sc.close();
             fw4.close();
+            InputStream in = new FileInputStream(file);
+            int data =in.read();
+            while(data!=-1){
+                data= in.read();
+            }
+            FileService fs = new FileService();
+            fs.uploadBackup(filename,in);
+            in.close();
 
         } catch (IOException ex) {
             String s = "Failed";
@@ -103,6 +114,8 @@ public class BackupService {
             System.out.println(ex.getMessage());
             System.out.println(ex.toString());
 
+        } catch (DbxException ex) {
+            Logger.getLogger(BackupService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(BackupService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DBException ex) {

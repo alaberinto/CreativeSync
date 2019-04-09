@@ -327,7 +327,8 @@ public class TitleService {
             StatusService gs = new StatusService();
             
             title.getTitleHasAccountList().add(new TitleHasAccount(title.getTitleId(), designLeadId, 1));
-            title.getTitleHasAccountList().get(0).setAccount(as.getUserById(designLeadId));
+            Account dAcc = as.getUserById(designLeadId);
+            title.getTitleHasAccountList().get(0).setAccount(dAcc);
             title.getTitleHasAccountList().get(0).setTitle(title);
             title.getTitleHasAccountList().get(0).setStatus(new Status(1));
 
@@ -335,6 +336,7 @@ public class TitleService {
             title.getTitleHasAccountList().get(1).setAccount(as.getUserById(coordinatorId));
             title.getTitleHasAccountList().get(1).setTitle(title);
             title.getTitleHasAccountList().get(1).setStatus(new Status(1));
+            
             
             if (freelancers != null) {
                 for (int i = 0; i < freelancers.length; i++) {
@@ -345,14 +347,15 @@ public class TitleService {
                 }
             }
             
-            GenreBroker gb = new GenreBroker();
             //Set Genres
+            GenreBroker gb = new GenreBroker();
+            
             if(genres != null) {
                 for(int i = 0; i < genres.length; i++) {
                     title.getGenreList().add(gb.getGenreById(Integer.parseInt(genres[i])));
                 }
             }
-
+            
             tb.updateTitle(title);
 
             return null;
@@ -385,5 +388,26 @@ public class TitleService {
 
     public void updateTitles(ArrayList<Title> titles) {
         tb.updateTitles(titles);
+    }
+    
+    public ArrayList<TitlesView> getCompleteTitles() {
+        ArrayList<TitlesView> completed = new ArrayList<>();
+        try {
+            ArrayList<Title> titles = tb.getCompleteTitles();
+            
+            if(titles != null) {
+                for(int i = 0; i < titles.size(); i++) {
+                    try {
+                        completed.add(new TitlesView(titles.get(i), false, new Status(4, "Unassigned")));
+                    } catch (InvalidTitlesViewException ex) {
+                        Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } catch (DBException ex) {
+            Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return completed;
     }
 }

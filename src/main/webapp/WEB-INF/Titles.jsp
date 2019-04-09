@@ -33,68 +33,99 @@
         <div class="container fullContainer bg-white">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-4">
-                    <c:if test="${assignedTitles != null}">
-
-                        <h1 class=" text-center mb-0">Assigned</h1>
-                        <div class="list-group list-n" name="titlesList">
-                            <c:forEach items="${assignedTitles}" var="aTit">
-                                <a href="TitleDetailed?name=${aTit.title.name}" class="list-group-item list-group-item-action">
-                                    <h2 class="list-item-header-n">${aTit.title.name}</h2>
+                    TITLES
+                    <c:choose>
+                        <c:when test="${completed != null}">
+                            <h1 class=" text-center mb-0">Completed</h1>
+                            <c:forEach items="${completed}" var="cTit">
+                                <a href="TitleDetailed?name=${cTit.title.name}" class="list-group-item list-group-item-action">
+                                    <h2 class="list-item-header-n">${cTit.title.name}</h2>
                                     <div class="row">
 
                                         <div class="col-6">
-                                            <b class="list-item-sub-n ml-2">Status: </b> ${aTit.status.statusDesc}<br>
-                                            <object><a href="UserDetailed?name=${aTit.lead.firstname} ${aTit.lead.lastname}">
-                                                    <b class="ml-2">Proj. Lead:</b>  ${aTit.lead.firstname} ${aTit.lead.lastname}
+                                            <b class="list-item-sub-n ml-2">Status: </b> ${cTit.status.statusDesc}<br>
+                                            <object><a href="UserDetailed?name=${cTit.lead.firstname} ${cTit.lead.lastname}">
+                                                    <b class="ml-2">Proj. Lead:</b>  ${cTit.lead.firstname} ${cTit.lead.lastname}
                                                 </a>
                                             </object> 
                                         </div>
 
                                         <div class="col-6">
-                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${aTit.title.endDate}"/><br>
-                                            <object><a href="UserDetailed?name=${aTit.coor.firstname} ${aTit.coor.lastname}">
-                                                    <b class="ml-2">Coordinator:</b> ${aTit.coor.firstname}  ${aTit.coor.lastname}
+                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${cTit.title.endDate}"/><br>
+                                            <object><a href="UserDetailed?name=${cTit.coor.firstname} ${cTit.coor.lastname}">
+                                                    <b class="ml-2">Coordinator:</b> ${cTit.coor.firstname}  ${cTit.coor.lastname}
                                                 </a>
                                             </object>
                                         </div>
                                     </div>
                                 </a>
                             </c:forEach>
-                        </div>
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${assignedTitles != null}">
 
-                    </c:if>
-                    <c:if test="${unassignedTitles != null}">
-                        <h1 class=" text-center mb-0">Unassigned</h1>
-                        <div class="list-group list-n">
-                            <c:forEach items="${unassignedTitles}" var="uTit">
-                                <a href="TitleDetailed?name=${uTit.title.name}" class="list-group-item list-group-item-action">
-                                    <h2 class="list-item-header-n">${uTit.title.name}</h2>
-                                    <div class="row">
+                                <h1 class=" text-center mb-0">Assigned</h1>
+                                <div class="list-group list-n" name="titlesList">
+                                    <c:forEach items="${assignedTitles}" var="aTit">
+                                        <a href="TitleDetailed?name=${aTit.title.name}" class="list-group-item list-group-item-action">
+                                            <h2 class="list-item-header-n">${aTit.title.name}</h2>
+                                            <div class="row">
 
-                                        <div class="col-6">
-                                            <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}<br>
-                                            <object><a href="UserDetailed?name=${uTit.lead.firstname} ${uTit.lead.lastname}">
-                                                    <b class="ml-2">Proj. Lead:</b>  ${uTit.lead.firstname} ${uTit.lead.lastname}
-                                                </a>
-                                            </object> 
-                                        </div>
-                                        <div class="col-6">
-                                            <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${uTit.title.endDate}"/><br>
-                                            <object><a href="UserDetailed?name=${uTit.coor.firstname} ${uTit.coor.lastname}">
-                                                    <b class="ml-2">Coordinator:</b> ${uTit.coor.firstname}  ${uTit.coor.lastname}
-                                                </a>
-                                            </object>
-                                        </div>
-                                    </div>
-                                </a>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                    <c:if test="${unassignedTitles == null && assignedTitles == null}">
-                        <h1>No Titles Found</h1>
-                    </c:if>
-                    </form>
-                    <br> 
+                                                <div class="col-6">
+                                                    <b class="list-item-sub-n ml-2">Status: </b> ${aTit.status.statusDesc}<br>
+                                                    <object><a href="UserDetailed?name=${aTit.lead.firstname} ${aTit.lead.lastname}">
+                                                            <b class="ml-2">Proj. Lead:</b>  ${aTit.lead.firstname} ${aTit.lead.lastname}
+                                                        </a>
+                                                    </object> 
+                                                </div>
+
+                                                <div class="col-6">
+                                                    <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${aTit.title.endDate}"/><br>
+                                                    <object><a href="UserDetailed?name=${aTit.coor.firstname} ${aTit.coor.lastname}">
+                                                            <b class="ml-2">Coordinator:</b> ${aTit.coor.firstname}  ${aTit.coor.lastname}
+                                                        </a>
+                                                    </object>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach>
+                                </div>
+
+                            </c:if>
+                            <c:if test="${unassignedTitles != null}">
+                                <h1 class=" text-center mb-0">Unassigned</h1>
+                                <div class="list-group list-n">
+                                    <c:forEach items="${unassignedTitles}" var="uTit">
+                                        <a href="TitleDetailed?name=${uTit.title.name}" class="list-group-item list-group-item-action">
+                                            <h2 class="list-item-header-n">${uTit.title.name}</h2>
+                                            <div class="row">
+
+                                                <div class="col-6">
+                                                    <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}<br>
+                                                    <object><a href="UserDetailed?name=${uTit.lead.firstname} ${uTit.lead.lastname}">
+                                                            <b class="ml-2">Proj. Lead:</b>  ${uTit.lead.firstname} ${uTit.lead.lastname}
+                                                        </a>
+                                                    </object> 
+                                                </div>
+                                                <div class="col-6">
+                                                    <b class="list-item-sub-n ml-2">End:</b> <fmt:formatDate type = "date" value="${uTit.title.endDate}"/><br>
+                                                    <object><a href="UserDetailed?name=${uTit.coor.firstname} ${uTit.coor.lastname}">
+                                                            <b class="ml-2">Coordinator:</b> ${uTit.coor.firstname}  ${uTit.coor.lastname}
+                                                        </a>
+                                                    </object>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach>
+                                </div>
+                            </c:if>
+                            <c:if test="${unassignedTitles == null && assignedTitles == null}">
+                                <h1>No Titles Found</h1>
+                            </c:if>
+                            </form>
+                            <br> 
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
                     <c:if test="${user.position.positionId != 4 && user.position.positionId != 3}">
@@ -102,6 +133,17 @@
                             <button type="submit" class="btn btn-block button-red-solid" name="action" value="addTitle">Add Title</button>
                         </form>
                     </c:if>
+                    <c:if test="${user.position.positionId != 4 && user.position.positionId != 3 && completed == null}">
+                        <form method="post" action="Titles">
+                            <button type="submit" class="btn btn-block button-red-solid" name="action" value="compTitle">View Completed</button>
+                        </form>
+                    </c:if>
+                    <c:if test="${completed != null}">
+                        <form method="get" action="Titles">
+                            <button type="submit" class="btn btn-block button-red-solid">View Ongoing</button>
+                        </form>
+                    </c:if>
+
 
                     <h3 class="mt-2"><b>Genres</b></h3>
                     <form>

@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-3">
                             <label for="maxFree"><h3 class="mb-0"># Freelancers</h3></label>
-                            <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" value="${numberOfFreelancers}" min="1" max="10" value="1"  required>
+                            <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" value="${numberOfFreelancers}" min="1" max="10" required>
                         </div>
                         <div class="col-3">
                             <label for="p"><h3 class="mb-0">Priority</h3></label><br>

@@ -33,12 +33,13 @@
                 <div class="hdev">
                     <div align="center">
                         <h3>Select a Title to review their artwork</h3>    
-
                         <br>
-                        <table border="1" cellspacing="5">                   
-                            <tbody>
-                                <tr>
-                                    <td>
+
+                    <%--<c:if test="${titles_filled == 1}">--%>
+                    <table border="1" cellspacing="5">                   
+                        <tbody>
+                            <tr>
+                                <td>
                                     <c:forEach var="titles" items="${titles}">
                                         <form action="TitleSelect" method="post">
                                             <div style="width:300px; display:table">
@@ -52,6 +53,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <%--</c:if>--%>
+
+
                 </div>
 
                 <script>

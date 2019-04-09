@@ -75,6 +75,17 @@ public class AccountService {
     }
 
     /**
+     *
+     * @param name name of User
+     * @return User with matching name
+     * @throws DBException When a database error occurs
+     */
+    public Account getUserByFirstname(String name) throws DBException {
+        return ab.getUserByFirstname(name);
+
+    }
+
+    /**
      * Access method to retrieve an ArrayList of all Accounts in the database.
      *
      * @return An ArrayList of users.
@@ -289,11 +300,12 @@ public class AccountService {
 
         return null;
     }
-    
-    public String editUser(String firstname,String lastname,String rate,String isActive,String [] locations,String [] languages,String position){
+
+    public String editUser(String firstname, String lastname, String rate, String isActive, String[] locations, String[] languages, String position) {
         return null;
-        
+
     }
+
     /**
      * Validation method to check if the user has the proper credentials to
      * enter the site. Uses SHA-256.

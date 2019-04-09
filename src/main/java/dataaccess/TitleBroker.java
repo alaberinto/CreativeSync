@@ -134,6 +134,22 @@ public class TitleBroker {
         return null;
     }
     
+    public ArrayList<Title> getCompleteTitles() throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            Query query = em.createNamedQuery("Title.findByCompleted", Title.class);
+            query.setParameter("completed", 1);
+
+            List<Title> titles = query.getResultList();
+            return new ArrayList(titles);
+        } catch (Exception ex) {
+            Logger.getLogger(TitleBroker.class.getName()).log(Level.SEVERE, "Cannot read titles", ex);
+        } finally {
+            em.close();
+        }
+        return null;
+    }
+    
     /**
      * Mutator method to persist a Title into the database.
      * @param title The title to insert.

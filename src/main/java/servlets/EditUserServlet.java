@@ -94,14 +94,15 @@ public class EditUserServlet extends HttpServlet {
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
+        String email = request.getParameter("email");
         String rate = request.getParameter("rate");
         String isActive = request.getParameter("isActive");
         String[] genres = request.getParameterValues("genres");
-        String[] locations = request.getParameterValues("locations");
-        String[] languages = request.getParameterValues("languages");
+        String location = request.getParameter("location");
+        String[] languages = request.getParameterValues("language");
         String position = request.getParameter("position");
         try {
-            as.editUser(ac,firstname, lastname, rate, isActive, locations, languages, position);
+            as.editUser(ac,firstname, lastname, email,Double.parseDouble(rate), isActive, genres, location, languages, position);
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error editing user");
             getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);

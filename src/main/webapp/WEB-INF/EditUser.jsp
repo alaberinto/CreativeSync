@@ -35,9 +35,9 @@
                         Last Name:<input type="text" value="${myUser.getLastname()}" name="lastname" required><br>
                         Email: <input type="email" value="${myUser.getEmail()}" name="email" required><br>
                         Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
-                        <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
+                        <label class="location" for="location"><h3 class="mb-0">Country</h3></label>
                         
-                        <select class="form-control text-light-gray-full" id="country" name="country" required>
+                       <select class="form-control text-light-gray-full" id="location" name="location" required>
                             <option value="" selected disabled hidden>Choose Country</option>
                             <c:forEach items="${locations}" var="location">                            
                                 <option value="${location.locationId}">${location.locationDesc}</option>

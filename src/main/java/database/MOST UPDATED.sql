@@ -1213,8 +1213,8 @@ values (7,'Godzilla',sysdate(),sysdate(),1,1,'Design info.',4,13,19,5);
 insert into title (title_id,name,start_date,end_date,is_active,priority,design_info,number_of_freelancers,design_lead_id,coordinator_id,max_number_of_freelancers)
 values (8,'Shrek 2',sysdate(),sysdate(),1,1,'Design info.',5,14,20,6);
 
-insert into title (title_id,name,start_date,end_date,is_active,priority,design_info,number_of_freelancers,design_lead_id,coordinator_id,max_number_of_freelancers)
-values (9,'Red Dragon',sysdate(),sysdate(),0,0,'Design info.',2,15,21,3);
+insert into title (title_id,name,start_date,end_date,is_active,priority,design_info,number_of_freelancers,design_lead_id,coordinator_id,max_number_of_freelancers, completed)
+values (9,'Red Dragon',sysdate(),sysdate(),0,0,'Design info.',2,15,21,3,1);
 
 
 
@@ -1426,7 +1426,7 @@ insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
 values (15,9,1);
 --COOR USER
 insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
-values (21,8,1);
+values (21,9,1);
 
 --FREELANCER
 insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)

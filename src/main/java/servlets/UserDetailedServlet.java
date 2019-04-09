@@ -2,6 +2,7 @@ package servlets;
 
 import dataaccess.DBException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -10,8 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
+import models.Genre;
+import models.Language;
+import models.Location;
+import models.Position;
 
 import services.AccountService;
+import services.GenreService;
+import services.LanguageService;
+import services.LocationService;
+import services.PositionService;
 import viewModels.UsersView;
 
 /**
@@ -24,7 +33,7 @@ public class UserDetailedServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         
-        HttpSession session = request.getSession();
+       /* HttpSession session = request.getSession();
         AccountService as = new AccountService();
 
         String name = request.getParameter("name");
@@ -39,7 +48,39 @@ public class UserDetailedServlet extends HttpServlet {
         } else {
             request.setAttribute("myUser", user);
             getServletContext().getRequestDispatcher("/WEB-INF/UserDetailed.jsp").forward(request, response);
+        } */
+       
+       
+        HttpSession session = request.getSession();
+        AccountService as = new AccountService();
+        GenreService gs = new GenreService();
+        LocationService ls = new LocationService();
+        PositionService ps = new PositionService();
+        LanguageService langs = new LanguageService();
+        String name = request.getParameter("name");
+        request.getSession().setAttribute("username", name);
+        try 
+        {
+           
+            UsersView uv = as.getUsersViewMyAccount(name);
+             Account ac = uv.getUser();
+            request.setAttribute("myUser", ac);
+            ArrayList<Genre> genres = gs.getAllGenres();
+            ArrayList<Location> loc = ls.getAllLocations();
+            ArrayList<Language> lang = langs.getAllLanguages();
+            ArrayList<Position> pos = ps.getCreatablePositions(ac);
+
+            request.setAttribute("genres", genres);
+            request.setAttribute("locations", loc);
+            request.setAttribute("languages", lang);
+            request.setAttribute("positions", pos);
+        } catch (Exception ex) {
+            request.setAttribute("badFeedback", "Error getting user");
+            getServletContext().getRequestDispatcher("/WEB-INF/Users.jsp").forward(request, response);
+
         }
+
+        getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
     }
 
     @Override

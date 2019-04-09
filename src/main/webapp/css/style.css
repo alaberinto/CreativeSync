@@ -126,6 +126,27 @@ input[type=checkbox]:checked + label:before {
     background-color: #f2f2f2;
 }
 
+/******USD Icon******/
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+	padding-right: 0;
+}
+
 .button-red-solid {
     background-color: #e50914;
     border-color: #e50914;

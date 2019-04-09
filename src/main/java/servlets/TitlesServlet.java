@@ -2,8 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Genre;
 import models.Title;
+import services.AccountService;
 import services.GenreService;
 import services.TitleService;
 import viewModels.TitlesView;
@@ -64,12 +63,13 @@ public class TitlesServlet extends HttpServlet {
         String action = (String) request.getParameter("action");
 
         if (action.equals("addTitle")) {
-            //getServletContext().getRequestDispatcher("/WEB-INF/AddTitle.jsp").forward(request, response);
             response.sendRedirect("AddTitle");
-        } else if (false) {
-            //String title_id = request.getParameter("title_id");
-            Title title = ts.getTitleById(1);
-            session.setAttribute("title", title);
+        }
+        else if(action.equals("compTitle")) {
+            ArrayList<TitlesView> completed = ts.getCompleteTitles();
+            
+            request.setAttribute("completed", completed);
+            getServletContext().getRequestDispatcher("/WEB-INF/Titles.jsp").forward(request, response);
         }
     }
 }

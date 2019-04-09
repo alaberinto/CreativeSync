@@ -18,14 +18,18 @@
         </sync:navbar1>
         <div class="searchBarHeader">
             <div class="container">
-
             </div>
         </div>
-
         <div class="container fullContainer bg-white">
             <div class="row">
+                <div class="row d-flex justify-content-center">
+                    <div id="image-preview-div text-center" style="width:250px; height: 250px; border: 2px solid black; border-radius: 50%;">
+                        <img id="preview-img" src="noimage" style="width: 100%; height: 100%;">
+                    </div>
+                </div>
+                Profile Pic 
+                
                 <div class="col-3">
-                    Prof Pic<br>
                     <form action="UserDetailed" method="post">
                         <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
                         <c:if test="${user.position.positionId == 1}">
@@ -36,36 +40,59 @@
                         </c:if>
                     </form>
                 </div>
-                <div class="col-3">
-                    ${myUser.user.firstname} ${myUser.user.lastname}<br>
-                    ${myUser.user.email}
-                    ${myUser.user.rate}
-                    ${myUser.user.location.locationDesc}
-                    ${myUser.user.position.positionDesc}
-                </div>
-                <div class="col-3">
+                <div class="col-6">
+                    Name: ${myUser.user.firstname} ${myUser.user.lastname}<br>
+                    Email: ${myUser.user.email}<br>
+                    Hourly rate: ${myUser.user.rate}<br>
+                    Location: ${myUser.user.location.locationDesc}<br>
+                    Position: ${myUser.user.position.positionDesc}<br>
+                    Language: 
                     <c:forEach items="${myUser.user.languageList}" var="lang">
                         ${lang.languageName}
                     </c:forEach>
-                </div>
-                <div class="col-3">
+                    <br>
+                    Genre:
                     <c:forEach items="${myUser.user.genreList}" var="genre">
                         ${genre.genreDesc}
                     </c:forEach>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-12">
                     <div class="list-group">
-                        <c:forEach items="${myUser.titles}" var="tit">
-                            <c:if test="${empty myUser.titles || myUser.titles == null}">
-                                No Titles Found
-                            </c:if>
 
-                            <a href="TitleDetailed?name=${tit.title.name}" class="list-group-item list-group-item-action">
-                                ${tit.title.name} ${tit.status.statusDesc} ${tit.title.endDate}
-                            </a>
-                        </c:forEach>
+                        <table>
+                            <th colspan="3" scope="colgroup" >Assigned Titles</th>
+                                <c:forEach items="${myUser.titles}" var="tit"  >
+                                    <c:if test="${empty myUser.titles || myUser.titles == null}">
+                                    No Titles Found
+                                </c:if>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>End Date</th>
+                                    <th></th>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        ${tit.title.name}
+                                    </td>
+                                    <td>
+                                        ${tit.status.statusDesc}
+                                    </td>
+                                    <td>
+                                        ${tit.title.endDate}
+                                    </td>
+                                    <td>
+                                        <a href="TitleDetailed?name=${tit.title.name}"class=" list-group-item-action">
+                                            <button class="list-group-item">View </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
                     </div>
                 </div>
             </div>

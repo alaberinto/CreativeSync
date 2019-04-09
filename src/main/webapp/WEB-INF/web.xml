@@ -67,6 +67,18 @@
         <servlet-name>AddUserServlet</servlet-name>
         <servlet-class>servlets.AddUserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUserServlet</servlet-name>
+        <servlet-class>servlets.EditUserServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TitleSelectServlet</servlet-name>
+        <servlet-class>servlets.TitleSelectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FeedbackSelectServlet</servlet-name>
+        <servlet-class>servlets.FeedbackSelectServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -130,6 +142,18 @@
     <servlet-mapping>
         <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/AddUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUserServlet</servlet-name>
+        <url-pattern>/EditUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TitleSelectServlet</servlet-name>
+        <url-pattern>/TitleSelect</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FeedbackSelectServlet</servlet-name>
+        <url-pattern>/FeedbackSelect</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

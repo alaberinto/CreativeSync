@@ -43,7 +43,7 @@ h1 {
 h2 {
     font-size: 50px;
     font-weight: 100;
-    
+
 }
 
 /******Navbar******/
@@ -57,7 +57,7 @@ a.nav-link {
 /******Lists******/
 
 .list-n {
-    
+
 }
 
 .list-item-n {
@@ -78,7 +78,7 @@ a.nav-link {
 }
 
 .list-item-sub-n {
-    
+
 }
 
 
@@ -126,6 +126,27 @@ input[type=checkbox]:checked + label:before {
     background-color: #f2f2f2;
 }
 
+/******USD Icon******/
+.input-icon {
+  position: relative;
+}
+
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
+
+.input-icon > input {
+  padding-left: 25px;
+	padding-right: 0;
+}
+
 .button-red-solid {
     background-color: #e50914;
     border-color: #e50914;
@@ -140,4 +161,56 @@ input[type=checkbox]:checked + label:before {
 
 .dropdown-header:hover {
     border-bottom-color: #e50914; 
+}
+
+/* Artwork Detailed */
+
+.button_approve {
+    background-color: white; 
+    border: 2px solid #4CAF50;
+    /*color: white;*/
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button_deny {
+    background-color: white; /* Green */
+    border: 2px solid #f44336;
+    /*color: white;*/
+    padding: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+a.fancybox img {
+    border: none;
+    box-shadow: 0 1px 7px rgba(0,0,0,0.3);
+    -o-transform: scale(1,1); -ms-transform: scale(1,1); -moz-transform: scale(1,1); -webkit-transform: scale(1,1); transform: scale(1,1); -o-transition: all 0.2s ease-in-out; -ms-transition: all 0.2s ease-in-out; -moz-transition: all 0.2s ease-in-out; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out;
+} 
+
+a.fancybox:hover img {
+    position: relative; z-index: 999; -o-transform: scale(1.03,1.03); -ms-transform: scale(1.03,1.03); -moz-transform: scale(1.03,1.03); -webkit-transform: scale(1.03,1.03); transform: scale(1.03,1.03);
+}
+
+.button_deny:hover {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.button_approve:hover {
+    background-color: #4CAF50; /* Green*/
+    color: white;
 }

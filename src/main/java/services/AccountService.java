@@ -75,6 +75,17 @@ public class AccountService {
     }
 
     /**
+     *
+     * @param name name of User
+     * @return User with matching name
+     * @throws DBException When a database error occurs
+     */
+    public Account getUserByFirstname(String name) throws DBException {
+        return ab.getUserByFirstname(name);
+
+    }
+
+    /**
      * Access method to retrieve an ArrayList of all Accounts in the database.
      *
      * @return An ArrayList of users.
@@ -289,7 +300,8 @@ public class AccountService {
 
         return null;
     }
-
+    
+     
     /**
      * Validation method to check if the user has the proper credentials to
      * enter the site. Uses SHA-256.
@@ -545,5 +557,50 @@ public class AccountService {
     public UsersView getTitlesViewByName(String name) {
         Account acc = this.getUserByName(name);
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
+    }
+
+    public String editUser(Account ac, String firstname, String lastname, String email, double rate, String active, String[] genreIds, String location, String[] languageIds, String position) {
+        
+        try {
+            
+            //Set Genres
+            GenreService gs = new GenreService();
+            ArrayList<Genre> genres = new ArrayList<>();
+
+            for (int i = 0; i < genreIds.length; i++) {
+                genres.add(gs.getGenreById(genreIds[i]));
+            }
+          
+            //Set languages
+            LanguageService ls = new LanguageService();
+            ArrayList<Language> languages = new ArrayList<>();
+
+            for (int i = 0; i < languageIds.length; i++) {
+                languages.add(ls.getLanguageById(languageIds[i]));
+            }
+
+            ac.setGenreList(genres);
+            ac.setLanguageList(languages);
+            
+            ac.setFirstname(firstname);
+            ac.setLastname(lastname);
+            ac.setEmail(email);
+            ac.setRate(rate);
+            ac.setPosition(pb.getPosition(Integer.parseInt(position)));
+            ac.setLocation(lb.getLocation(Integer.parseInt(location)));
+            
+            try {
+                
+                ab.update(ac);
+            } catch (DBException | NumberFormatException ex) {
+                Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+                return "Error updating user";
+            }
+            
+            return "Success";
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Updated success";
     }
 }

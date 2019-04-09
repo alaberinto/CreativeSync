@@ -27,18 +27,17 @@
                 <div class="row">
                     <div class="col-3">
                         Prof Pic<br>
-
                         <button type="submit" name="action" value="edit">Update</button>
-                        <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
+                        <input type="hidden" name="thisUser" value="${requestScope.myUser.getFirstname()} ${requestScope.myUser.getLastname()}">
                     </div>
                     <div class="col-3">
-                        First Name:<input type="text" value="${myUser.user.firstname}" name="firstname" required><br>
-                        Last Name:<input type="text" value="${myUser.user.lastname}" name="lastname" required><br>
-                        Email: <input type="email" value="${myUser.user.email}" name="email" required><br>
-                        Rate: <input type="number" value="${myUser.user.rate}" name="rate" required><br>
-                        <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
+                        First Name:<input type="text" value="${myUser.getFirstname()}" name="firstname" required><br>
+                        Last Name:<input type="text" value="${myUser.getLastname()}" name="lastname" required><br>
+                        Email: <input type="email" value="${myUser.getEmail()}" name="email" required><br>
+                        Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
+                        <label class="location" for="location"><h3 class="mb-0">Country</h3></label>
                         
-                        <select class="form-control text-light-gray-full" id="country" name="country" required>
+                       <select class="form-control text-light-gray-full" id="location" name="location" required>
                             <option value="" selected disabled hidden>Choose Country</option>
                             <c:forEach items="${locations}" var="location">                            
                                 <option value="${location.locationId}">${location.locationDesc}</option>
@@ -90,12 +89,14 @@
             </div>
         </div>
         <c:if test="${goodFeedback != null}">
-            <div class="alert alert-success fixed-bottom ml-2 mr-2">
+            <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Success</strong> ${goodFeedback}
             </div>
         </c:if>
         <c:if test="${badFeedback != null}">
-            <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+            <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <strong>Error</strong> ${badFeedback}
             </div>
         </c:if>   

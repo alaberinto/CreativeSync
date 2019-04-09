@@ -279,7 +279,7 @@ public class TitleService {
             newEndDate = sdf.parse(endDate);
 
             if (newStartDate.after(newEndDate)) {
-                return "Invalid date ranges.";
+                return "End date is before start date.";
             }
 
             if (newStartDate.before(new Date())) {

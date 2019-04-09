@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-3">
                             <label for="p"><h3 class="mb-0">Priority</h3></label><br>
-                            <input class="form-control" type="checkbox" id="p" data-toggle="toggle" name="priority" data-onstyle="danger">
+                            <input class="form-control" type="checkbox" id="p" data-toggle="toggle" name="priority" data-onstyle="danger" ${checked}>
                         </div>
 
                     </div>

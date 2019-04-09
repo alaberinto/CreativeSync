@@ -52,9 +52,10 @@ public class EditUserServlet extends HttpServlet {
         String name = request.getParameter("name");
         try 
         {
-            Account ac = as.getUserByName(name);
-            //UsersView uv = as.getUsersView(ac);
-            //request.setAttribute("myUser", uv.getUser());
+           
+            UsersView uv = as.getUsersViewMyAccount(name);
+             Account ac = uv.getUser();
+            request.setAttribute("myUser", ac);
             ArrayList<Genre> genres = gs.getAllGenres();
             ArrayList<Location> loc = ls.getAllLocations();
             ArrayList<Language> lang = langs.getAllLanguages();
@@ -71,6 +72,7 @@ public class EditUserServlet extends HttpServlet {
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
+        
     }
 
     /**
@@ -86,6 +88,9 @@ public class EditUserServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
+        
+          UsersView uv = as.getUsersViewMyAccount(request.getSession().getAttribute("username").toString());
+           Account ac = uv.getUser();
 
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
@@ -96,7 +101,7 @@ public class EditUserServlet extends HttpServlet {
         String[] languages = request.getParameterValues("languages");
         String position = request.getParameter("position");
         try {
-            as.editUser(firstname, lastname, rate, isActive, locations, languages, position);
+            as.editUser(ac,firstname, lastname, rate, isActive, locations, languages, position);
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error editing user");
             getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);

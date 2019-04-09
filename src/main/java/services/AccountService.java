@@ -290,10 +290,7 @@ public class AccountService {
         return null;
     }
     
-    public String editUser(String firstname,String lastname,String rate,String isActive,String [] locations,String [] languages,String position){
-        return null;
-        
-    }
+     
     /**
      * Validation method to check if the user has the proper credentials to
      * enter the site. Uses SHA-256.
@@ -549,5 +546,22 @@ public class AccountService {
     public UsersView getTitlesViewByName(String name) {
         Account acc = this.getUserByName(name);
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
+    }
+
+    public String editUser(Account ac, String firstname, String lastname, String rate, String active, String[] locations, String[] languages, String position) {
+        
+        
+        ac.setFirstname(firstname);
+        ac.setLastname(lastname);
+
+        try {
+            
+            ab.update(ac);
+        } catch (DBException | NumberFormatException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error updating user";
+        }
+
+        return "Success";
     }
 }

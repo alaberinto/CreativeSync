@@ -27,15 +27,14 @@
                 <div class="row">
                     <div class="col-3">
                         Prof Pic<br>
-
                         <button type="submit" name="action" value="edit">Update</button>
-                        <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
+                        <input type="hidden" name="thisUser" value="${requestScope.myUser.getFirstname()} ${requestScope.myUser.getLastname()}">
                     </div>
                     <div class="col-3">
-                        First Name:<input type="text" value="${myUser.user.firstname}" name="firstname" required><br>
-                        Last Name:<input type="text" value="${myUser.user.lastname}" name="lastname" required><br>
-                        Email: <input type="email" value="${myUser.user.email}" name="email" required><br>
-                        Rate: <input type="number" value="${myUser.user.rate}" name="rate" required><br>
+                        First Name:<input type="text" value="${myUser.getFirstname()}" name="firstname" required><br>
+                        Last Name:<input type="text" value="${myUser.getLastname()}" name="lastname" required><br>
+                        Email: <input type="email" value="${myUser.getEmail()}" name="email" required><br>
+                        Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
                         <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
                         
                         <select class="form-control text-light-gray-full" id="country" name="country" required>

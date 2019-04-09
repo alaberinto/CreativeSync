@@ -33,7 +33,7 @@
                     <div class="col-3">
                         First Name:<input type="text" value="${myUser.getFirstname()}" name="firstname" required><br>
                         Last Name:<input type="text" value="${myUser.getLastname()}" name="lastname" required><br>
-                        Email: <input type="email" value="${myUser.getEmail()}" name="email" required><br>
+                        Email: <input type="email" value="${myUser.getEmail()}" name="email" disabled><br>
                         Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
                         <label class="location" for="location"><h3 class="mb-0">Country</h3></label>
                         

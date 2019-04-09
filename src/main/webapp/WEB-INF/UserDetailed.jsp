@@ -22,14 +22,13 @@
         </div>
         <div class="container fullContainer bg-white">
             <div class="row">
-                <div class="row d-flex justify-content-center">
+               
+                <div class="col-3">
+                     <div class="row d-flex justify-content-center">
                     <div id="image-preview-div text-center" style="width:250px; height: 250px; border: 2px solid black; border-radius: 50%;">
                         <img id="preview-img" src="noimage" style="width: 100%; height: 100%;">
                     </div>
                 </div>
-                Profile Pic 
-                
-                <div class="col-3">
                     <form action="UserDetailed" method="post">
                         <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
                         <c:if test="${user.position.positionId == 1}">

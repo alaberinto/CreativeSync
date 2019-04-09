@@ -17,8 +17,8 @@
         <title>Backups</title>
     </head>
     <body>
-        <h1>Backups</h1>
         <sync:navbar1></sync:navbar1>
+            <h1>Backups</h1>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -28,7 +28,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                 <c:forEach items="${backups}" var="backup">
                     <tr>
                         <td>${backup.backupName}</td>

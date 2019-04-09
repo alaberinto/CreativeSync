@@ -64,7 +64,7 @@ public class AddTitleServlet extends HttpServlet {
         
         TitleService ts = new TitleService();
         
-        String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers, freelancerIds);
+        String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers, freelancerIds, genreIds);
         
         if(feedback != null) {
             request.setAttribute("name", titleName);

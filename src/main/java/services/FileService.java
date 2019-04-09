@@ -357,4 +357,31 @@ public class FileService {
         CreateFolderBatchLaunch folders = client.files().createFolderBatchBuilder(paths).start();
         return folders.isComplete();
     }
+    
+    /**
+     * Uploads the SQL backup to Dropbox.
+     * 
+     * @param uploadName the name of the file to be uploaded.
+     * @param in FileInputStream of the file to be sent to Dropbox.
+     * @return true if successful. otherwise, return false.
+     * @throws DbxException if Dropbox connection does not allow for the upload.
+     * @throws FileNotFoundException if the File being sent to this method is not found.
+     * @throws IOException if the File being sent to this method is not Found.
+     */
+    public boolean uploadBackup(String uploadName, InputStream in) throws DbxException, FileNotFoundException, IOException {
+        FileMetadata metadata = client.files().uploadBuilder("/Backups/" + uploadName)
+                .uploadAndFinish(in);
+        
+        //creates the shared link for access to image retrieval.
+        if (metadata.getSize() != 0) {
+            createShareableBackup(uploadName);
+        }
+        
+        return metadata.getSize() != 0;
+    }
+    
+    private void createShareableBackup(String uploadName) throws DbxException {
+        SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/Backups/" + uploadName);
+        sharedLinkMetadata.getUrl();
+    }
 }

@@ -61,6 +61,28 @@ public class UserBroker {
     }
 
     /**
+     *
+     * @param firstname The first name of the Account to find.
+     * @return The account with the matching ID.
+     * @throws DBException When there is an error getting this Account.
+     */
+    public Account getUserByFirstname(String firstname) throws DBException {
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        try {
+            Query query = em.createNamedQuery("Account.findByFirstname", Account.class);
+            query.setParameter("firstname", firstname);
+
+            List<Account> users = query.getResultList();
+            return users.get(0);
+        } catch (Exception ex) {
+            Logger.getLogger(UserBroker.class.getName()).log(Level.SEVERE, "Cannot read user", ex);
+            throw new DBException("Error getting user.");
+        } finally {
+            em.close();
+        }
+    }
+
+    /**
      * Mutator method to persist any changes to a Account in the database.
      *
      * @param ac The account to update.
@@ -105,7 +127,7 @@ public class UserBroker {
      * @param ac The Account to remove.
      * @throws DBException When a database error occurs.
      */
-    public void deleteUser(Account ac) throws DBException{
+    public void deleteUser(Account ac) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
 

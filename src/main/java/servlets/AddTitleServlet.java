@@ -73,7 +73,13 @@ public class AddTitleServlet extends HttpServlet {
             request.setAttribute("name", titleName);
             request.setAttribute("startDate", startDate);
             request.setAttribute("endDate", endDate);
-            request.setAttribute("priority", priority);
+            
+            if(priority != null) {
+                request.setAttribute("checked", "checked");
+            } else if (priority == null) {
+                request.setAttribute("checked", " ");
+            }
+            
             request.setAttribute("numberOfFreelancers", maxNumberOfFreelancers);
             request.setAttribute("coorId", coordinatorId);
             request.setAttribute("leadId", leadId);

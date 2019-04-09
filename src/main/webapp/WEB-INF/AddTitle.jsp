@@ -33,18 +33,18 @@
                         <div class="col-12">
                             <div class="form-group mb-0">
                                 <label for="titleName"><h3 class="mb-0">Name</h3></label>
-                                <input class="form-control text-light-gray-full mb-0" id="titleName" type="text" name="name" required>
+                                <input class="form-control text-light-gray-full mb-0" id="titleName" type="text" name="name" value="${name}" required>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-6">
                             <label class="" for="startDate"><h3 class="mb-0">Start Date</h3></label>
-                            <input type="date" class="form-control text-light-gray-full" id="startDate" name="startDate" required>
+                            <input type="date" class="form-control text-light-gray-full" id="startDate" name="startDate" value="${startDate}" required>
                         </div>
                         <div class="col-6">
                             <label class="" for="endDate"><h3 class="mb-0">End Date</h3></label>
-                            <input type="date" class="form-control text-light-gray-full" id="endDate" name="endDate" required>
+                            <input type="date" class="form-control text-light-gray-full" id="endDate" name="endDate" value="${endDate}" required>
                         </div>
                     </div>
                     <div class="row mt-3">
@@ -69,7 +69,7 @@
                         </div>
                         <div class="col-3">
                             <label for="maxFree"><h3 class="mb-0"># Freelancers</h3></label>
-                            <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" min="1" max="10" value="1" required>
+                            <input type="number" class="form-control text-light-gray-full" id="maxFree" name="numberOfFreelancers" value="${numberOfFreelancers}" min="1" max="10" value="1"  required>
                         </div>
                         <div class="col-3">
                             <label for="p"><h3 class="mb-0">Priority</h3></label><br>
@@ -99,7 +99,7 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="info"><h3 class="mb-0">Design Info.</h3></label>
-                                <textarea class="form-control" id="info" name="info" rows="6" placeholder="Enter Notes Here"></textarea>
+                                <textarea class="form-control" id="info" name="info" rows="6" placeholder="Enter Notes Here">${info}</textarea>
                             </div>
                         </div>
                     </div>

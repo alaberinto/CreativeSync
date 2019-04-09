@@ -30,63 +30,83 @@
 
                 <div class="hdev">
                     <div align="center">
-                        <h3>${title.name} ---- ${username_fl}</h3>    
+                        <h3>
+                        <c:if test="${rounds_filled == 1}">
+                            ${title.name} - 
+                        </c:if>
+
+                        ${username_fl}</h3>    
                 </div>
                 <h3>Round #</h3>
                 <hr>
                 <br>                
-                <c:forEach var="rounds" items="${rounds}">
-                    <h3>${rounds.getRound()}</h3>
-                    <hr>
-                    <div style="width:100%; background-color: #f4efed;">
-                        <table border="1" cellspacing="5" width="100%">
-                            <tbody>       
-                                <tr>
-                                    <th colspan="2">        
-                                        <div style="padding: 10px;">
-                                            <div align="center" class="img_zoom">    
-                                                <%--<c:forEach var="round_art" items="${rounds.artwork}">--%>                                             
-                                                <img class="fancybox" title="Picture 1" src="https://image.shutterstock.com/z/stock-photo-oil-painting-on-canvas-street-view-of-london-artwork-big-ben-couple-and-red-umbrella-bus-and-667859491.jpg" style="width: 250px; height:205px;" alt="pic1"/>
-                                                <img class="fancybox" title="Picture 2" src="https://image.shutterstock.com/image-photo/artists-living-room-minimal-style-450w-689978848.jpg" style="width: 250px; height:205px;" alt="pic2"/>
-                                                <img class="fancybox" title="Picture 3" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
-                                                <%--</c:forEach>--%> 
-                                            </div>                                                                               
-                                        </div>
-                                    </th>                                    
-                                </tr>                             
 
-                                <tr>
-                                    <td style="width: 70%">
-                                        <div class="form-group">                                                                                 
-                                            <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required style></textarea>                                         
-                                        </div>
-                                    </td>
-                                    <td >
-                                        <c:if test="${approve_deny_val == 0}">
-                                            <div align="center">                         
-                                                <form action="ArtworkDetailed" method="post" id="status_ad">
-                                                    <input type="submit" onclick="confirm_approve()" class="button_approve" name="approve" value="Approve">
-                                                    <input type="submit" onclick="confirm_deny()" class="button_deny" name="deny" value="Deny">       
-                                                </form>
+                <c:if test="${rounds_filled == 1}">
+                    <c:forEach var="rounds" items="${rounds}">
+                        <h3>${rounds.getRound()}</h3>
+                        <hr>
+                        <div style="width:100%; background-color: #f4efed;">
+                            <table border="1" cellspacing="5" width="100%">
+                                <tbody>       
+                                    <tr>
+                                        <th colspan="2">        
+                                            <div style="padding: 10px;">
+                                                <div align="center" class="img_zoom">    
+                                                    <%--<c:forEach var="round_art" items="${rounds.artwork}">--%>                                             
+                                                    <img class="fancybox" title="Picture 1" src="https://image.shutterstock.com/z/stock-photo-oil-painting-on-canvas-street-view-of-london-artwork-big-ben-couple-and-red-umbrella-bus-and-667859491.jpg" style="width: 250px; height:205px;" alt="pic1"/>
+                                                    <img class="fancybox" title="Picture 2" src="https://image.shutterstock.com/image-photo/artists-living-room-minimal-style-450w-689978848.jpg" style="width: 250px; height:205px;" alt="pic2"/>
+                                                    <img class="fancybox" title="Picture 3" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
+                                                    <%--</c:forEach>--%> 
+                                                </div>                                                                               
                                             </div>
-                                        </c:if>
-                                        <c:if test="${approve_deny_val == 1}">
-                                            <div align="center">                         
-                                                <h1 style="color: #4CAF50">APPROVED</h1>
+                                        </th>                                    
+                                    </tr>                             
+
+                                    <tr>
+                                        <td style="width: 70%">
+                                            <div class="form-group">                                                                                 
+                                                <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required style></textarea>                                         
                                             </div>
-                                        </c:if>
-                                        <c:if test="${approve_deny_val == 2}">
-                                            <div align="center">                         
-                                                <h1 style="color: #f44336">DENIED</h1>
-                                            </div>
-                                        </c:if>
-                                    </td>  
-                                </tr>
-                            </tbody>
-                        </table>
+                                        </td>
+                                        <td >
+                                            <c:if test="${approve_deny_val == 0}">
+                                                <div align="center">                         
+                                                    <form action="ArtworkDetailed" method="post" id="status_ad">
+                                                        <input type="submit" onclick="confirm_approve()" class="button_approve" name="approve" value="Approve">
+                                                        <input type="submit" onclick="confirm_deny()" class="button_deny" name="deny" value="Deny">       
+                                                    </form>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${approve_deny_val == 1}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #4CAF50">APPROVED</h1>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${approve_deny_val == 2}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #f44336">DENIED</h1>
+                                                </div>
+                                            </c:if>
+                                        </td>  
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+                    </c:forEach>  
+                </c:if>
+
+                <c:if test="${rounds_filled == 0}">
+                    <div align="center">
+                        <h1>No artwork exists for this title!</h1>
                     </div>
-                    <br>
-                </c:forEach>  
+                </c:if>
+
+                <c:if test="${titles_filled == 0}">
+                    <div align="center">
+                        <h1>No titles exist for this user!</h1>
+                    </div>
+                </c:if>
 
                 ${comment}
 

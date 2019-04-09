@@ -17,6 +17,10 @@ body, html {
 }
 
 .searchBar {
+     background-image:url('nimg.PNG');
+    background-position: bottom right;
+    background-size: 5%;
+    background-repeat:no-repeat;
     height: 50px;
     border: none;
     background-color: white;

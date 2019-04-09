@@ -161,12 +161,14 @@
                 </div>
             </div>
             <c:if test="${goodFeedback != null}">
-                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Success</strong> ${goodFeedback}
                 </div>
             </c:if>
             <c:if test="${badFeedback != null}">
-                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Error</strong> ${badFeedback}
                 </div>
             </c:if>

@@ -69,6 +69,11 @@ public class ArtworkService {
     public List<Artwork> getAllRounds(int id_t) throws DBException {
 
         List<Artwork> arts = getAllArtworkByTitleId(id_t);
+
+        if (arts.isEmpty()) {
+            return arts;
+        }
+
         List<Artwork> arts_specific;
 
         int round_id;

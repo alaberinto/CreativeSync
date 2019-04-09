@@ -33,19 +33,34 @@ public class ArtworkDetailedServlet extends HttpServlet {
             request.setAttribute("title", session.getAttribute("title_select")); //title name            
 
             //title id retrieval
-            String title_select_id_s = (String) session.getAttribute("title_select_id");
-            int title_select_id = Integer.parseInt(title_select_id_s);
+            String title_select_id_s = (String) session.getAttribute("title_select_id"); //null
 
-            //get rounds
-            ArtworkService as = new ArtworkService();
-            List<Artwork> rounds;
-            rounds = as.getAllRounds(title_select_id);
-            request.setAttribute("rounds", rounds);
+            //if there are no titles
+            if (title_select_id_s != null) {
+                int title_select_id = Integer.parseInt(title_select_id_s);
+
+                //get rounds
+                ArtworkService as = new ArtworkService();
+                List<Artwork> rounds;
+                rounds = as.getAllRounds(title_select_id);
+
+                //check if there are any rounds
+                if (rounds.isEmpty() == false) {
+                    request.setAttribute("rounds_filled", 1);
+                    request.setAttribute("rounds", rounds);
+                } else {
+                    request.setAttribute("rounds_filled", 0);
+//                    session.invalidate();
+                }
+            } else {
+                //if there are no titles     
+                request.setAttribute("titles_filled", 0);
+//                session.invalidate();
+            }
 
 //            List<Artwork> round_art;
 //            round_art = as.getAllArtworkByRound(title_select_id, rounds);
 //            request.setAttribute("round_art", round_art);
-
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);

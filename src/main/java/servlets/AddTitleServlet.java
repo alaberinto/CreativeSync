@@ -42,6 +42,9 @@ public class AddTitleServlet extends HttpServlet {
         request.setAttribute("leads", leads);
         request.setAttribute("coors", coors);
         request.setAttribute("freelancers", frees);
+        if(request.getParameter("numberOfFreelancers") == null) {
+            request.setAttribute("numberOfFreelancers", "1");
+        }
         
         getServletContext().getRequestDispatcher("/WEB-INF/AddTitle.jsp").forward(request, response);
     }

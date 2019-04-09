@@ -5,6 +5,7 @@
  */
 package services;
 
+import com.dropbox.core.DbxException;
 import dataaccess.BackupBroker;
 import dataaccess.DBException;
 import dataaccess.DBUtil;
@@ -13,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -112,6 +114,8 @@ public class BackupService {
             System.out.println(ex.getMessage());
             System.out.println(ex.toString());
 
+        } catch (DbxException ex) {
+            Logger.getLogger(BackupService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(BackupService.class.getName()).log(Level.SEVERE, null, ex);
         } catch (DBException ex) {

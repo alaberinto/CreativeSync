@@ -31,9 +31,9 @@ public class UserDetailedServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        
-       /* HttpSession session = request.getSession();
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
         AccountService as = new AccountService();
 
         String name = request.getParameter("name");
@@ -48,39 +48,9 @@ public class UserDetailedServlet extends HttpServlet {
         } else {
             request.setAttribute("myUser", user);
             getServletContext().getRequestDispatcher("/WEB-INF/UserDetailed.jsp").forward(request, response);
-        } */
-       
-       
-        HttpSession session = request.getSession();
-        AccountService as = new AccountService();
-        GenreService gs = new GenreService();
-        LocationService ls = new LocationService();
-        PositionService ps = new PositionService();
-        LanguageService langs = new LanguageService();
-        String name = request.getParameter("name");
-        request.getSession().setAttribute("username", name);
-        try 
-        {
-           
-            UsersView uv = as.getUsersViewMyAccount(name);
-             Account ac = uv.getUser();
-            request.setAttribute("myUser", ac);
-            ArrayList<Genre> genres = gs.getAllGenres();
-            ArrayList<Location> loc = ls.getAllLocations();
-            ArrayList<Language> lang = langs.getAllLanguages();
-            ArrayList<Position> pos = ps.getCreatablePositions(ac);
-
-            request.setAttribute("genres", genres);
-            request.setAttribute("locations", loc);
-            request.setAttribute("languages", lang);
-            request.setAttribute("positions", pos);
-        } catch (Exception ex) {
-            request.setAttribute("badFeedback", "Error getting user");
-            getServletContext().getRequestDispatcher("/WEB-INF/Users.jsp").forward(request, response);
-
-        }
-
-        getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
+        } 
+      
+                
     }
 
     @Override
@@ -89,26 +59,23 @@ public class UserDetailedServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
-        
+
         String action = request.getParameter("action");
         Account deletingUser = as.getUserByName(request.getParameter("thisUser"));
-        Account loggedInUser = (Account)session.getAttribute("user");
-        
-        if(action.equals("edit")) {
+        Account loggedInUser = (Account) session.getAttribute("user");
+
+        if (action.equals("edit")) {
             getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
-        }
-        else if(action.equals("delete")) {
+        } else if (action.equals("delete")) {
             String feedback = as.delete(loggedInUser, deletingUser);
-            
-            if(feedback != null) {
+
+            if (feedback != null) {
                 response.sendRedirect("UserDetailed?name=" + deletingUser.getFirstname() + " " + deletingUser.getLastname());
-            }
-            else {
+            } else {
                 request.setAttribute("goodFeedback", "User Deleted Successfully!");
                 response.sendRedirect("Users");
             }
-        }
-        else{
+        } else {
             response.sendRedirect("UserDetailed?name=" + request.getParameter("thisUser"));
         }
     }

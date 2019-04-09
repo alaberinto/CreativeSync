@@ -11,16 +11,17 @@ import javax.servlet.http.HttpServletResponse;
  * @author Mason
  */
 public class ReportsServlet extends HttpServlet {
-   
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       getServletContext().getRequestDispatcher("/WEB-INF/Reports.jsp").forward(request, response);
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/Reports.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+
     }
 }

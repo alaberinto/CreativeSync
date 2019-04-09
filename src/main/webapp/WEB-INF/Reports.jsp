@@ -1,102 +1,116 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="How to create an image upload form without page refresh using Bootstrap, jQuery AJAX and PHP.">
-    <meta name="author" content="ShinDarth">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" 
+              integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+              crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <title>Reports</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>
 
-    <title>Bootstrap Image Upload Form</title>
+        <script>
 
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-    <style>body { padding-top:50px; }.navbar-inverse .navbar-nav > li > a { color: #DBE4E1; }</style>
+            $(document).ready(function () {
+                var doc = new jsPDF();
 
-    <!--[if IE]>
-      <script src="https://cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
 
-  <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Bootstrap Image Upload Form</a>
-        </div>
+                $('#freelancersreportbutton').click(function () {
 
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Live demo</a></li>
-            <li><a target="_blank" href="https://github.com/ShinDarth/Bootstrap-image-upload-form/blob/master/index.html">index.html</a></li>
-            <li><a target="_blank" href="https://github.com/ShinDarth/Bootstrap-image-upload-form/blob/master/upload-image.js">upload-image.js</a></li>
-            <li><a target="_blank" href="https://github.com/ShinDarth/Bootstrap-image-upload-form/blob/master/upload-image.php">upload-image.php</a></li>
-            <li><a target="_blank" href="https://github.com/ShinDarth/Bootstrap-image-upload-form/archive/master.zip">Download  full source code</a></li>
-          </ul>
-        </div><!--.nav-collapse -->
-      </div>
-    </nav>
+                    doc.autoTable({
+                        html: '#freelancetable',
+                        headStyles: {
 
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-    <div class="container">
+                            fillColor: '#E50914'
+                        }
+                    });
+                    doc.save('freelancer.pdf');
+                });
 
-      <div style="max-width: 650px; margin: auto;">
-        <h1 class="page-header">Bootstrap Image Upload Form</h1>
-        <p class="lead">Select a PNG or JPEG image, having maximum size <span id="max-size"></span> KB.</p>
+                $('#titlesreportbutton').click(function () {
 
-        <form id="upload-image-form" action="" method="post" enctype="multipart/form-data">
-          <div id="image-preview-div" style="display: none">
-            <label for="exampleInputFile">Selected image:</label>
-            <br>
-            <img id="preview-img" src="noimage">
-          </div>
-          <div class="form-group">
-            <input type="file" name="file" id="file" required>
-          </div>
-          <button class="btn btn-lg btn-primary" id="upload-button" type="submit" disabled>Upload image</button>
-        </form>
+                    doc.autoTable({
+                        html: '#titlesreporttable',
+                        headStyles: {
 
-        <br>
-        <div class="alert alert-info" id="loading" style="display: none;" role="alert">
-          Uploading image...
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            fillColor: '#E50914'
+                        }
+                    });
+                    doc.save('titles.pdf');
+                });
+
+            });
+        </script>    </head>
+    <body class="background-plain">
+        <sync:navbar1></sync:navbar1>
+
+            <div id="editor"></div>
+            <h1>Reports</h1>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select Report
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="Reports?name=activeUsers">Active Users Report</a>
+                    <a class="dropdown-item" href="Reports?name=userPosition">Users By Position Report</a>
+                    <a class="dropdown-item" href="Reports?name=specificUsers">Specific User Report</a>
+                    <a class="dropdown-item" href="Reports?name=activeTitles">Active Titles Report</a>
+                    <a class="dropdown-item" href="Reports?name=compTitles">Completed Titles Report</a>
+                    <a class="dropdown-item" href="Reports?name=specificTitles">Specific Titles Report</a>
+                </div>
             </div>
-          </div>
+
+            <div>
+
+            <c:choose>
+                <c:when test="${name == 'activeUsers'}">
+                    <sync:userreport></sync:userreport>
+                </c:when>
+                <c:when test="${name == 'userPosition'}">
+                    <sync:userpositioninput></sync:userpositioninput>
+                </c:when>
+                <c:when test="${name == 'specificUsers'}">
+                    <sync:viewuserinput></sync:viewuserinput>
+                </c:when>
+                <c:when test="${name == 'activeTitles'}">
+                    <sync:activetitlesreport></sync:activetitlesreport>
+                </c:when>
+                <c:when test="${name == 'compTitles'}">
+                    <sync:completedtitlesreport></sync:completedtitlesreport>
+                </c:when>
+                <c:when test="${name == 'specificTitles'}">
+                    <sync:titleinput></sync:titleinput>
+                </c:when>
+            </c:choose>
+
+
         </div>
-        <div id="message"></div>
-      </div>
+        <c:if test='${sessionScope.filteredusers !=null && sessionScope.filteredusers.size() > 0 }'>
 
-      <a target="_blank" href="https://github.com/ShinDarth/Bootstrap-image-upload-form"><img style="position: absolute; top: 50px; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+            <br>
+            <input type="button" id="freelancersreportbutton" value="Download Report " name="download" />
+        </c:if>
 
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="upload-image.js"></script>
-  </body>
+        <c:if test='${ sessionScope.titleReportList !=null && sessionScope.titleReportList.size() > 0 }'>
+
+            <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
+        </c:if>
+
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
 </html>

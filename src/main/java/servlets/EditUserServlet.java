@@ -51,13 +51,14 @@ public class EditUserServlet extends HttpServlet {
         LanguageService langs = new LanguageService();
         String name = request.getParameter("name");
         try 
+        {
             Account ac = as.getUserByName(name);
-            UsersView uv = ac.getUsersView(ac);
-            request.setAttribute("myUser", uv.getUser());
+            //UsersView uv = as.getUsersView(ac);
+            //request.setAttribute("myUser", uv.getUser());
             ArrayList<Genre> genres = gs.getAllGenres();
             ArrayList<Location> loc = ls.getAllLocations();
             ArrayList<Language> lang = langs.getAllLanguages();
-            ArrayList<Position> pos = ps.getCreatablePositions();
+            ArrayList<Position> pos = ps.getCreatablePositions(ac);
 
             request.setAttribute("genres", genres);
             request.setAttribute("locations", loc);

@@ -110,7 +110,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-6">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -118,11 +118,11 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-5">
+                            <div class="col-4">
                                 <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="file" id="file" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <input type="submit" value="Upload Asset" class="btn btn-block button-red-solid mt-1" disabled>
+                                        <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mt-1" disabled>
                                         <input type="hidden" name="action" value="uploadAsset">
                                     </div>
                                 </form>
@@ -151,7 +151,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-8">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -159,8 +159,14 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-block button-red-solid mt-2">Add Artwork</button>
+                            <div class="col-4">
+                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <input type="submit" id="submitArtwork" value="Upload Artwork" class="btn btn-block button-red-solid mt-1" disabled>
+                                        <input type="hidden" name="action" value="uploadArtwork">
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -222,18 +228,13 @@
         $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
     });
 
-    $(document).ready(
-            function () {
-                $('input:file').change(
-                        function () {
-                            if ($(this).val()) {
-                                $('input:submit').attr('disabled', false);
-                                // or, as has been pointed out elsewhere:
-                                // $('input:submit').removeAttr('disabled'); 
-                            }
-                        }
-                );
-            });
+    $('#uploadAsset').on("change", function () {
+        $('#submitAsset').prop('disabled', !$(this).val());
+    });
+    
+    $('#uploadArtwork').on("change", function () {
+        $('#submitArtwork').prop('disabled', !$(this).val());
+    });
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 crossorigin="anonymous"></script>

@@ -35,7 +35,19 @@
                         <td>
                             <form method="post" action="Backups">
                                 <input type="hidden" name="backupId" value="${backup.backupId}">
-                                <input type="submit" class="btn btn-danger" value="Restore database">
+                                <input type="submit" class="btn btn-danger" value="Restore database" onclick="warnUser();">
+                                <script type = "text/javascript">
+                                    function warnUser() {
+                                        var confrimAction = confirm("YOU ARE ABOUT TO RESTORE THE DATABASE! DO YOU WISH TO CONTINTUE?");
+                                        if (confrimAction === false) {
+                                            event.preventDefault();
+                                            return false;
+                                        } else {
+                                            alert("Restoring database");
+                                            return true;
+                                        }
+                                    }
+                                </script>     x
                             </form>
                         </td>
                     </tr>

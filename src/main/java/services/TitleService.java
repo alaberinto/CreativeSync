@@ -68,7 +68,16 @@ public class TitleService {
             return null;
         }
     }
-
+    
+    public ArrayList<Title> getAllTitles(){
+        try {
+            return tb.getAllTitles();
+        } catch (DBException ex) {
+            Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     /**
      * Access method to get an ArrayList of TitlesViews that this user can see
      * on Titles.JSP.
@@ -94,6 +103,7 @@ public class TitleService {
         return tv;
     }
 
+    
     public TitlesView getTitlesViewByName(String name) {
         Title title = this.getTitleByName(name);
 

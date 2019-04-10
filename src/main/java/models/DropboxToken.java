@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package models;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "dropbox_token")
@@ -77,5 +76,5 @@ public class DropboxToken implements Serializable {
     public String toString() {
         return "models.DropboxToken[ tokenId=" + tokenId + " ]";
     }
-
+    
 }

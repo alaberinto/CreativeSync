@@ -19,7 +19,7 @@ import viewModels.TitlesView;
 
 /**
  *
- * @author 739604
+ * @author Matthew
  */
 public class TitleSelectServlet extends HttpServlet {
 
@@ -30,21 +30,19 @@ public class TitleSelectServlet extends HttpServlet {
         //get freelancers to select
         TitleService ts = new TitleService();
         HttpSession session = request.getSession();
-        Account user = (Account) session.getAttribute("feedback_select");
-
-        //get titles for specific user
         ArrayList<TitlesView> titles;
-        titles = ts.getTitlesByUserForTitlesJSP(user);
-        request.setAttribute("titles", titles);
 
-//        //check if there are any titles
-//        if (titles.isEmpty()) {
-//            request.setAttribute("titles_filled", 1);
-//            request.setAttribute("titles", titles);
-//        } else {
-//            request.setAttribute("titles_filled", 0);
-//            session.invalidate();
-//        }
+        //freelancer
+        if (session.getAttribute("status").equals("freelaner")) {
+            Account user_f = (Account) session.getAttribute("user");
+            titles = ts.getTitlesByUserForTitlesJSP(user_f);
+            request.setAttribute("titles", titles);
+        } else {
+            Account user = (Account) session.getAttribute("feedback_select");
+            titles = ts.getTitlesByUserForTitlesJSP(user);
+            request.setAttribute("titles", titles);
+        }
+
         getServletContext().getRequestDispatcher("/WEB-INF/TitleSelect.jsp").forward(request, response);
     }
 

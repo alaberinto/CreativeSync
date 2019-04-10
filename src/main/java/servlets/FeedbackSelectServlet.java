@@ -32,9 +32,24 @@ public class FeedbackSelectServlet extends HttpServlet {
 
         //get freelancers to select
         AccountService as = new AccountService();
+
         List<Account> freelancers;
         freelancers = as.getAllUsers();
         request.setAttribute("freelancers", freelancers);
+
+        HttpSession session = request.getSession();
+        Account user_f = (Account) session.getAttribute("user");
+
+        int pos_p_i = user_f.getPosition().getPositionId();
+
+        // for freelancer view only
+        if (pos_p_i == 4) {
+            getServletContext().getRequestDispatcher("/WEB-INF/TitleSelect.jsp").forward(request, response);
+            session.setAttribute("status", "freelancer");
+        } else {
+            session.setAttribute("status", "designlead");
+        }
+
         getServletContext().getRequestDispatcher("/WEB-INF/FeedbackSelect.jsp").forward(request, response);
     }
 
@@ -45,17 +60,16 @@ public class FeedbackSelectServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             AccountService as = new AccountService();
-            
+
             //selection page
             String feedback_select = request.getParameter("feedback_select");
             Account user = as.getUserByFirstname(feedback_select);
-            
-            
+
             if (feedback_select != null) {
                 session.setAttribute("feedback_select", user);
 //            getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
             }
-            
+
             getServletContext().getRequestDispatcher("/WEB-INF/FeedbackSelect.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(FeedbackSelectServlet.class.getName()).log(Level.SEVERE, null, ex);

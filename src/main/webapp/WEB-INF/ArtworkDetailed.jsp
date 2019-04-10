@@ -31,14 +31,17 @@
                 <div class="hdev">
                     <div align="center">
                         <h3>
-                        <c:if test="${rounds_filled == 1}">
+                        <c:if test="${rounds_filled == 1 || rounds_filled == 0 || titles_filled == 1}">
                             ${title.name} - 
                         </c:if>
-
-                        ${username_fl}</h3>    
+                        ${username_fl}
+                    </h3>    
                 </div>
-                <h3>Round #</h3>
+                <c:if test="${rounds_filled == 1}">
+                    <h3>Round #</h3>
+                </c:if>
                 <hr>
+
                 <br>                
 
                 <c:if test="${rounds_filled == 1}">
@@ -52,11 +55,11 @@
                                         <th colspan="2">        
                                             <div style="padding: 10px;">
                                                 <div align="center" class="img_zoom">    
-                                                    <%--<c:forEach var="round_art" items="${rounds.artwork}">--%>                                             
-                                                    <img class="fancybox" title="Picture 1" src="https://image.shutterstock.com/z/stock-photo-oil-painting-on-canvas-street-view-of-london-artwork-big-ben-couple-and-red-umbrella-bus-and-667859491.jpg" style="width: 250px; height:205px;" alt="pic1"/>
-                                                    <img class="fancybox" title="Picture 2" src="https://image.shutterstock.com/image-photo/artists-living-room-minimal-style-450w-689978848.jpg" style="width: 250px; height:205px;" alt="pic2"/>
-                                                    <img class="fancybox" title="Picture 3" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
-                                                    <%--</c:forEach>--%> 
+                                                    <c:forEach var="round_art" items="${round_art}">                                             
+<!--                                                    <img class="fancybox" title="Picture 1" src="https://image.shutterstock.com/z/stock-photo-oil-painting-on-canvas-street-view-of-london-artwork-big-ben-couple-and-red-umbrella-bus-and-667859491.jpg" style="width: 250px; height:205px;" alt="pic1"/>
+                                                    <img class="fancybox" title="Picture 2" src="https://image.shutterstock.com/image-photo/artists-living-room-minimal-style-450w-689978848.jpg" style="width: 250px; height:205px;" alt="pic2"/>-->
+                                                    <img class="fancybox" title="French Bulldog" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
+                                                    </c:forEach>
                                                 </div>                                                                               
                                             </div>
                                         </th>                                    

@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mason
+ * @author 731866
  */
 @Entity
 @Table(name = "backup")
@@ -50,7 +50,7 @@ public class Backup implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "backup_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date backupDate;
 
     public Backup() {

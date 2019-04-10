@@ -9,5 +9,5 @@
     <input type="checkbox" name="userType" value="2">Project Coordinators<br>
     <input type="checkbox" name="userType" value="1">Admins<br>
 
-    <button type="submit" name="reportInput" value="positions" class="btn btn-block button-red-solid mb-2">
+    <input type="submit" name="reportInput" value="positions" class="btn btn-block button-red-solid mb-2">
 <form>

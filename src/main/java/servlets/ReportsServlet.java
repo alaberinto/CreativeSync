@@ -59,14 +59,11 @@ public class ReportsServlet extends HttpServlet {
                 rs.getAllCompletedTitles();
             } else if (reportType == "specificTitles") {
                 String[] tId = request.getParameterValues("titles");
-             //   rs.viewTitleInformation(tId);
+                //   rs.viewTitleInformation(tId);
             }
         } catch (Exception ex) {
 
         }
 
-        String reportInput = request.getParameter("reportInput");
-        String[] userIds = request.getParameterValues("userIds");
-        rs.viewUserInfo(userIds);
     }
 }

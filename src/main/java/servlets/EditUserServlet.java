@@ -59,21 +59,12 @@ public class EditUserServlet extends HttpServlet {
             ArrayList<Genre> genres = gs.getAllGenres();
             ArrayList<Location> loc = ls.getAllLocations();
             ArrayList<Language> lang = langs.getAllLanguages();
-            
             ArrayList<Position> pos = ps.getCreatablePositions(ac);
-            ArrayList<Integer> selected = new ArrayList();
-                    
-                for(int i = 0;i<pos.size();i++){
-                if(pos.get(i).getPositionId()==uv.getUser().getPosition().getPositionId()){
-                    selected.add(pos.get(i).getPositionId());
-                }
-            }
-            
             request.setAttribute("genres", genres);
             request.setAttribute("locations", loc);
             request.setAttribute("languages", lang);
             request.setAttribute("positions", pos);
-            request.setAttribute("selected",selected);
+        
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error getting user");
             getServletContext().getRequestDispatcher("/WEB-INF/Users.jsp").forward(request, response);

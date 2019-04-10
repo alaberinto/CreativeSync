@@ -14,6 +14,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <title>Title Detailed</title>
     </head>
     <body class="background-plain">
@@ -109,7 +110,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-5">
+                            <div class="col-6">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -117,16 +118,21 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-5">
+                            <div class="col-4">
                                 <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="file" id="file" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <button type="submit" name="action" value="uploadAsset" class="btn btn-block button-red-solid mt-1">Upload Asset</button>
+                                        <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mt-1" disabled>
+                                        <input type="hidden" name="action" value="uploadAsset">
                                     </div>
                                 </form>
                             </div>
                             <div class="col-2">
-                                <button type="submit" name="action" value="downloadAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
+                                <form method="POST" action="TitleDetailed">
+                                    <div class="form-group">
+                                        <button type="submit" name="action" value="downloadAllAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -134,11 +140,11 @@
                     <div id="collapse2" class="collapse">
                         <div class="card-body">
                             <div class="d-flex flex-wrap row-hl">
-                                <c:forEach items="assets" var="asset">
+                                <c:forEach items="${assets}" var="asset">
                                     <div class="title-asset m-2">
                                         <div class="asset-image">
-                                            <img class="asset item-h1" src="${asset}" alt="BROKEN IMAGE"/>
-                                        </div> 
+                                            <img src="${asset}" alt="BROKEN IMAGE"/>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -149,7 +155,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-8">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -157,8 +163,14 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-2">
-                                <button type="submit" class="btn btn-block button-red-solid mt-2">Add Artwork</button>
+                            <div class="col-4">
+                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <input type="submit" id="submitArtwork" value="Upload Artwork" class="btn btn-block button-red-solid mt-1" disabled>
+                                        <input type="hidden" name="action" value="uploadArtwork">
+                                    </div>
+                                </form>
                             </div>
                         </div>
 
@@ -218,6 +230,14 @@
 
     }).on('hidden.bs.collapse', function () {
         $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+    });
+
+    $('#uploadAsset').on("change", function () {
+        $('#submitAsset').prop('disabled', !$(this).val());
+    });
+
+    $('#uploadArtwork').on("change", function () {
+        $('#submitArtwork').prop('disabled', !$(this).val());
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

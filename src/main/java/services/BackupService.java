@@ -62,8 +62,9 @@ public class BackupService {
         DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
         Date newDate = new Date();
         String date = simpleDateFormat.format(newDate);
-
-        String dump = "C:\\Users\\731866\\backupFile.sql";
+        
+        String home = System.getProperty("user.home");
+        String dump = home + "/backupFile.sql";
         String filename = date + "dump.sql";
         Backup backup = new Backup();
         backup.setBackupName(filename);
@@ -84,7 +85,7 @@ public class BackupService {
                 "CREATE SCHEMA IF NOT EXISTS `NetflixDB` DEFAULT CHARACTER SET utf8 ;\n"
                 + "USE `NetflixDB` ;",};
 
-            File file = new File("C:\\Users\\731866\\" + filename);
+            File file = new File(home + filename);
             FileWriter fw4 = new FileWriter(file);
             for (int i = 0; i < append.length; i++) {
                 fw4.write(append[i] + "\n");
@@ -99,13 +100,16 @@ public class BackupService {
             }
             sc.close();
             fw4.close();
+            
             InputStream in = new FileInputStream(file);
-            int data =in.read();
-            while(data!=-1){
-                data= in.read();
-            }
+            
             FileService fs = new FileService();
-            fs.uploadBackup(file,in);
+            fs.uploadBackup(filename, in);
+            
+            int data = in.read();
+            while (data != -1) {
+                data = in.read();
+            }
             in.close();
 
         } catch (IOException ex) {
@@ -123,7 +127,7 @@ public class BackupService {
         }
     }
 
-        public String restoreDatabase(String backupId) {
+    public String restoreDatabase(String backupId) {
         Integer newBackupId = Integer.parseInt(backupId);
         Backup backup = bb.getBackupById(newBackupId);
         String filePath = "C:\\Users\\731866\\";

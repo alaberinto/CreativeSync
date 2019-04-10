@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
          
-<table class="table table-striped">
+<table id="usersreporttable" class="table table-striped">
     <thead>
         <tr>
             <th>First Name</th>
@@ -50,3 +50,7 @@
 </table>
 
 Report generated on: <fmt:formatDate type = "date" value = "${reportgendate}" />
+<br>
+<form>
+    <input type="button" id="usersreportbutton" value="Download Report " name="download" />
+</form>

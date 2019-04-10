@@ -1,5 +1,6 @@
 package services;
 
+import com.dropbox.core.DbxDownloader;
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.NetworkIOException;
@@ -9,6 +10,7 @@ import com.dropbox.core.v2.DbxClientV2;
 import com.dropbox.core.v2.files.CommitInfo;
 import com.dropbox.core.v2.files.CreateFolderBatchLaunch;
 import com.dropbox.core.v2.files.DeleteResult;
+import com.dropbox.core.v2.files.DownloadZipResult;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.files.UploadSessionCursor;
@@ -19,8 +21,10 @@ import com.dropbox.core.v2.sharing.ListSharedLinksResult;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +76,7 @@ public class FileService {
                     if(check)
                         return "File uploaded successfully!";
                     else
-                        return "Could not upload file.";
+                        return null;
                 }
             }
         } catch (Exception ex) {
@@ -375,7 +379,7 @@ public class FileService {
      * @throws FileNotFoundException if the File being sent to this method is not found.
      * @throws IOException if the File being sent to this method is not Found.
      */
-    public boolean uploadBackup(File uploadName, InputStream in) throws DbxException, FileNotFoundException, IOException {
+    public boolean uploadBackup(String uploadName, InputStream in) throws DbxException, FileNotFoundException, IOException {
         FileMetadata metadata = client.files().uploadBuilder("/Backups/" + uploadName)
                 .uploadAndFinish(in);
         
@@ -387,8 +391,24 @@ public class FileService {
         return metadata.getSize() != 0;
     }
     
-    private void createShareableBackup(File uploadName) throws DbxException {
+    private void createShareableBackup(String uploadName) throws DbxException {
         SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/Backups/" + uploadName);
         sharedLinkMetadata.getUrl();
+    }
+    
+    
+    public String downloadAllAssets(String titleName) throws FileNotFoundException, DbxException, IOException {
+        DbxDownloader<DownloadZipResult> downloader = client.files().downloadZip("/Title/" + titleName + "/asset");
+         try {
+            String home = System.getProperty("user.home");
+            File file = new File(home + "/Downloads/" + titleName + "-assets.zip");
+            FileOutputStream out = new FileOutputStream(file);
+            downloader.download(out);
+            out.close();
+        } catch (DbxException ex) {
+            System.out.println(ex.getMessage());
+        }
+         
+         return "Downloaded file. Please check " + System.getProperty("user.home") + "/Downloads/" + titleName + "-assets.zip";
     }
 }

@@ -6,8 +6,8 @@
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 
-<input type='text' name='firstname' placeholder="First Name"><br>
-<input type='text' name='lastname' placeholder="Last Name"><br>
-<input type='text' name='email' placeholder="Email Address"><br>
+<input type="text" name="firstname" placeholder="First Name"><br>
+<input type="text" name="lastname" placeholder="Last Name"><br>
+<input type="text" name="email" placeholder="Email Address"><br>
 
 <input type="submit" value="Create Report">

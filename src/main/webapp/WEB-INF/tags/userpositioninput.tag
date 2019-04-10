@@ -5,11 +5,9 @@
 --%>
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
+<input type="checkbox" name="userType" value="3">Design Leads<br>
+<input type="checkbox" name="userType" value="2">Project Coordinators<br>
+<input type="checkbox" name="userType" value="1">Admins<br>
+<input type="checkbox" name="userType" value="4">Freelancers<br>
 
-        <input type="checkbox" name="allusers" value="allusers">All Users<br>
-        <input type="checkbox" name="designers" value="designers">Designer Leads<br>
-        <input type="checkbox" name="coordinators" value="coordinators">Project Coordinators<br>
-        <input type="checkbox" name="admins" value="admins">Admins<br>
-        <input type="checkbox" name="freelancers" value="freelancers">Freelancers<br>
-    
 <input type="submit" value="Create Report">

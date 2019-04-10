@@ -17,6 +17,7 @@ import com.dropbox.core.v2.files.UploadSessionLookupErrorException;
 import com.dropbox.core.v2.files.WriteMode;
 import com.dropbox.core.v2.sharing.ListSharedLinksResult;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -368,7 +369,7 @@ public class FileService {
      * @throws FileNotFoundException if the File being sent to this method is not found.
      * @throws IOException if the File being sent to this method is not Found.
      */
-    public boolean uploadBackup(String uploadName, InputStream in) throws DbxException, FileNotFoundException, IOException {
+    public boolean uploadBackup(File uploadName, InputStream in) throws DbxException, FileNotFoundException, IOException {
         FileMetadata metadata = client.files().uploadBuilder("/Backups/" + uploadName)
                 .uploadAndFinish(in);
         
@@ -380,7 +381,7 @@ public class FileService {
         return metadata.getSize() != 0;
     }
     
-    private void createShareableBackup(String uploadName) throws DbxException {
+    private void createShareableBackup(File uploadName) throws DbxException {
         SharedLinkMetadata sharedLinkMetadata = client.sharing().createSharedLinkWithSettings("/Backups/" + uploadName);
         sharedLinkMetadata.getUrl();
     }

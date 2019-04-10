@@ -105,7 +105,7 @@ public class BackupService {
                 data= in.read();
             }
             FileService fs = new FileService();
-            fs.uploadBackup(filename,in);
+            fs.uploadBackup(file,in);
             in.close();
 
         } catch (IOException ex) {

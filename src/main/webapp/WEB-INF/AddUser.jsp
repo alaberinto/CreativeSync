@@ -33,13 +33,13 @@
                     <div class="col-6">
                         <div class="form-group mb-0">
                             <label for="firstName"><h1 class="mb-0">First Name</h1></label>
-                            <input class="form-control text-light-gray-full mb-0" id="firstName" type="text" name="firstName" required>
+                            <input class="form-control text-light-gray-full mb-0" id="firstName" type="text" name="firstName" value="${firstName}" required>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group mb-0">
                             <label for="lastName"><h3 class="mb-0">Last Name</h3></label>
-                            <input class="form-control text-light-gray-full mb-0" id="lastName" type="text" name="lastName" required>
+                            <input class="form-control text-light-gray-full mb-0" id="lastName" type="text" name="lastName" value="${lastName}" required>
                         </div>
                     </div>
                 </div>
@@ -112,12 +112,14 @@
 
             </form>
             <c:if test="${goodFeedback != null}">
-                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Success</strong> ${goodFeedback}
                 </div>
             </c:if>
             <c:if test="${badFeedback != null}">
-                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     <strong>Error</strong> ${badFeedback}
                 </div>
             </c:if> 

@@ -2,7 +2,6 @@ package servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import services.AccountService;
 import services.ReportService;
 import services.TitleService;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Account;
-import models.Title;
 import viewModels.TitlesView;
 import viewModels.UsersView;
 

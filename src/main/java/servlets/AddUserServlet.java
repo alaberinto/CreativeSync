@@ -67,7 +67,17 @@ public class AddUserServlet extends HttpServlet {
         
         String feedback = as.insert(fName, lName, email, rate, password, countryId, languageId, positionId, genres);
         if(feedback != null) {
+            request.setAttribute("firstName", fName);
+            request.setAttribute("lastName", lName);
+            request.setAttribute("email", email);
+            request.setAttribute("password", password);
+            request.setAttribute("rate", rate);
+            request.setAttribute("langIds", languageId);
+            request.setAttribute("selectLocation", countryId);
+            request.setAttribute("selectPosition", positionId);
+            request.setAttribute("genreIds", genres);
             request.setAttribute("badFeedback", feedback);
+            
             doGet(request, response);
         }
         else {

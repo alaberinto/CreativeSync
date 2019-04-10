@@ -9,8 +9,6 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <table border="1">
-
-
     <thead>
         <tr><td><h3>VIEW TITLE REPORT</h3></td></tr>
         <tr>
@@ -19,35 +17,22 @@
             <th>End Date</th>
             <th>Coordinator Name</th>
             <th>Design Lead Name</th>
-            <th>Freelancers Names</th>
-            <th>Genre</th>
-            <th>Title Man Hours</th>
-            <th>Estimated Cost</th>
-
-        </tr>
-        
-        <tr>
-            <th>Title Name</th>
-            <th>Run Report</th>
+            <th>Freelancers</th>
+            <th>Genres</th>
         </tr>
     </thead>
     <tbody>
 
-        <c:forEach var="tit" items="${titles}">
-
-
+        <c:forEach var="tit" items="${list}">
             <tr>
-                <td><c:out value="${tit.name}" /></td>
-                <td><fmt:formatDate type = "date" value = "${startdate}" /></td>
-                <td><fmt:formatDate type = "date" value = "${enddate}" /></td>
-                <td><c:out value="${tit.coor}" /></td>
-                <td><c:out value="${tit.lead}" /></td>
-                <td><c:forEach var="free" items="${tit.freelancer}"><c:out value="${free.name}"/></c:forEach></td>
-                <td><c:out value="${tit.genre}" /></td>
-                <td><c:out value="${tit.manhours}" /></td>
-                <td><c:out value="${tit.estcost}" /></td>
+                <td><c:out value="${tit.title.name}" /></td>
+                <td><fmt:formatDate type = "date" value = "${tit.title.startDate}" /></td>
+                <td><fmt:formatDate type = "date" value = "${tit.title.endDate}" /></td>
+                <td><c:out value="${tit.coor.firstname} ${tit.coor.lastname}" /></td>
+                <td><c:out value="${tit.lead.firstname} ${tit.lead.lastname}" /></td>
+                <td><c:forEach var="free" items="${tit.freelancers}"><c:out value="${free.firstname} ${free.lastname}"/></c:forEach></td>
+                <td><c:forEach var="genre" items="${tit.title.genreList}"><c:out value="${genre.genreDesc}"/></c:forEach></td>
             </tr>
-
         </c:forEach>
         <tr><td></tr>
         <tr><td></tr>

@@ -26,16 +26,26 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Account user = (Account) session.getAttribute("feedback_select");
-            String owner_s = user.getFirstname() + " " + user.getLastname();
-            request.setAttribute("username_fl", owner_s);
+
+            if (session.getAttribute("position").equals("freelancer")) { //freelancer
+                Account user_f = (Account) session.getAttribute("user");
+                String owner_s = user_f.getFirstname() + " " + user_f.getLastname();
+                request.setAttribute("username_fl", owner_s);
+                request.setAttribute("position", "0");
+            } else {
+                Account user = (Account) session.getAttribute("feedback_select");
+                String owner_s = user.getFirstname() + " " + user.getLastname();
+                request.setAttribute("username_fl", owner_s);
+                request.setAttribute("position", "1");
+            }
+
             request.setAttribute("approve_deny_val", 0); //0 to see the buttons          
             request.setAttribute("title", session.getAttribute("title_select")); //title name            
 
             //title id retrieval
             String title_select_id_s = (String) session.getAttribute("title_select_id"); //null
 
-            //if there are no titles
+            //if there are titles
             if (title_select_id_s != null) {
                 int title_select_id = Integer.parseInt(title_select_id_s);
 
@@ -44,23 +54,23 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 List<Artwork> rounds;
                 rounds = as.getAllRounds(title_select_id);
 
+                //gets artwork for each round
+                List<Artwork> round_art;
+                round_art = as.getAllArtworkByTitleId(title_select_id);
+                request.setAttribute("round_art", round_art);
+
                 //check if there are any rounds
                 if (rounds.isEmpty() == false) {
                     request.setAttribute("rounds_filled", 1);
                     request.setAttribute("rounds", rounds);
                 } else {
                     request.setAttribute("rounds_filled", 0);
-//                    session.invalidate();
                 }
             } else {
                 //if there are no titles     
                 request.setAttribute("titles_filled", 0);
-//                session.invalidate();
             }
 
-//            List<Artwork> round_art;
-//            round_art = as.getAllArtworkByRound(title_select_id, rounds);
-//            request.setAttribute("round_art", round_art);
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);

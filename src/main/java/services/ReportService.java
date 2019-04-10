@@ -33,19 +33,7 @@ public class ReportService {
     public ArrayList<Account> getAllUsers() {
         return new ArrayList(ab.getAllUsers());
     }
-
-    public ArrayList<Account> getAllActiveUsers() {
-        ArrayList<Account> allUsers = getAllUsers();
-        ArrayList<Account> cleanArray = new ArrayList<>();
-        for (int i = 0; i < allUsers.size(); i++) {
-            if (allUsers.get(i).getIsactive() == 1) {
-                cleanArray.add(allUsers.get(i));
-            }
-        }
-        return cleanArray;
-
-    }
-
+    
     public ArrayList<Account> viewUserByPosition(String[] positionId) {
         ArrayList<Integer> toParse = new ArrayList<>();
         for (int j = 0; j < positionId.length; j++) {
@@ -60,35 +48,36 @@ public class ReportService {
                     cleanArray.add(allAccounts.get(i));
                     break;
                 }
-
             }
         }
         return cleanArray;
-
     }
 
-    public ArrayList<Account> viewUserInfo(String firstname, String lastname, String email) {
-        ArrayList<Account> acc = getAllUsers();
+    public ArrayList<Account> viewUserInfo(String[] userIds) {
+        ArrayList<Integer> acc = new ArrayList();
+        for (int i = 0; i < userIds.length; i++) {
+            Integer.parseInt(userIds[i]);
+        }
         ArrayList<Account> cleanArray = new ArrayList<>();
-        for (int i = 0; i < acc.size(); i++) {
-            if (acc.get(i).getFirstname().equals(firstname) && acc.get(i).getLastname().equals(lastname) && acc.get(i).getEmail().equals(email)) {
-                cleanArray.add(acc.get(i));
+        for (int j = 0; j < acc.size(); j++) {
+            try {
+                cleanArray.add(ab.getUserById(acc.get(j)));
+            } catch (DBException ex) {
+                Logger.getLogger(ReportService.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
         return cleanArray;
-
     }
 
     public ArrayList<Title> getAllActiveTitles() {
         try {
             ArrayList<Title> isActive = tb.getActiveTitles();
             return isActive;
+
         } catch (DBException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-
     }
 
     public ArrayList<Title> getAllCompletedTitles() {
@@ -102,26 +91,25 @@ public class ReportService {
                 }
             }
             return cleanArray;
+
         } catch (DBException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-
     }
 
-    public TitlesView viewTitleInformation(String tId) {
-
-        try {
-
-            Integer titleId = Integer.parseInt(tId);
-            Title title = tb.getTitleById(titleId);
-            TitlesView tv = new TitlesView(title, true, null);
-            return tv;
-
-        } catch (DBException | InvalidTitlesViewException ex) {
-            Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+//    public ArrayList <TitlesView> viewTitleInformation(String [] tId) {
+//        try {
+//            
+//            Integer titleId = Integer.parseInt(tId);
+//            Title title = tb.getTitleById(titleId);
+//            TitlesView tv = new TitlesView(title, true, null);
+//            return null;
+//        } catch (DBException | InvalidTitlesViewException ex) {
+//            Logger.getLogger(TitleService.class
+//                    .getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
 
 }

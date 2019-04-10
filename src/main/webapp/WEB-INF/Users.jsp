@@ -31,84 +31,72 @@
                 </div>
             </div>
         </div>
-        <!--       https://gist.github.com/need4spd/4662423-->
         <div class="container fullContainer bg-white">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-4">
                     <div class="list-group list-n">
-                        <!--  start of page -->
-
-                        <a href="UserDetailed?name=${u.user.firstname} ${u.user.lastname}" class="list-group-item list-group-item-action">
-                            <div class="row">
-                                <div class="col-6">
-                                    <h2 class="list-item-header-n">${u.user.firstname} ${u.user.lastname}</h2>
+                        <c:forEach items="${users}" var="u">
+                            <a href="UserDetailed?name=${u.user.firstname} ${u.user.lastname}" class="list-group-item list-group-item-action">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h2 class="list-item-header-n">${u.user.firstname} ${u.user.lastname}</h2>
+                                    </div>
+                                    <div class="col-6">
+                                        <h2 class="list-item-header-n">${u.user.position.positionDesc}</h2>
+                                    </div>
                                 </div>
-                                <div class="col-6">
-                                    <h2 class="list-item-header-n">${u.user.position.positionDesc}</h2>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <b class="list-item-sub-n ml-2">Title</b><br>
+                                        <c:forEach items="${u.titles}" var="tit">
+                                            <object>
+                                                <a href="TitleDetailed?name=${tit.title.name}">
+                                                    ${tit.title.name}<br>
+                                                </a>
+                                            </object>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="col-6">
+                                        <b class="list-item-sub-n ml-2">Status</b><br>
+                                        <c:forEach items="${u.titles}" var="tit">
+                                            ${tit.status.statusDesc}<br>
+                                        </c:forEach>
+                                    </div>
                                 </div>
-
-                                <c:forEach items="${users}" var="u">
-                                    <a href="UserDetailed?name=${u.user.firstname} ${u.user.lastname}" class="list-group-item list-group-item-action">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <h2 class="list-item-header-n">${u.user.firstname} ${u.user.lastname}</h2>
-
-                                            </div>
-                                            <div class="col-6">
-                                                <h2 class="list-item-header-n">${u.user.position.positionDesc}</h2>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <b class="list-item-sub-n ml-2">Title</b><br>
-                                                    <c:forEach items="${u.titles}" var="tit">
-                                                        <object>
-                                                            <a href="TitleDetailed?name=${tit.title.name}">
-                                                                ${tit.title.name}<br>
-                                                            </a>
-                                                        </object>
-                                                    </c:forEach>
-                                                </div>
-                                                <div class="col-6">
-                                                    <b class="list-item-sub-n ml-2">Status</b><br>
-                                                    <c:forEach items="${u.titles}" var="tit">
-                                                        ${tit.status.statusDesc}<br>
-                                                    </c:forEach>
-                                                </div>
-                                            </div>
-                                    </a>
-                                </c:forEach>
-                            </div>
-                    </div>
-                    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
-                        <c:if test="${user.position.positionId != 4 && user.position.positionId != 3}">
-                            <form method="post" action="Users">
-                                <button type="submit" class="btn btn-block button-red-solid" name="action" value="addUser">Add User</button>
-                            </form>
-                        </c:if>
-
-                        <h3 class="mt-2"> <b>Job Position</b></h3>
-                        <form>
-                            <c:forEach items="${positions}" var="pos">
-                                <div class="checkbox mt-1">
-                                    <input type="checkbox" id="${pos.positionId}" value="${pos.positionId}">
-                                    <label for="${pos.positionId}">${pos.positionDesc}</label>
-                                </div>
-                            </c:forEach>
-                        </form>
+                            </a>
+                        </c:forEach>
                     </div>
                 </div>
-                <c:if test="${goodFeedback != null}">
-                    <div class="alert alert-success fixed-bottom ml-2 mr-2">
-                        <strong>Success</strong> ${goodFeedback}
-                    </div>
-                </c:if>
-                <c:if test="${badFeedback != null}">
-                    <div class="alert alert-danger fixed-bottom ml-2 mr-2">
-                        <strong>Error</strong> ${badFeedback}
-                    </div>
-                </c:if>
+                <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 mt-4">
+                    <c:if test="${user.position.positionId != 4 && user.position.positionId != 3}">
+                        <form method="post" action="Users">
+                            <button type="submit" class="btn btn-block button-red-solid" name="action" value="addUser">Add User</button>
+                        </form>
+                    </c:if>
+
+                    <h3 class="mt-2"> <b>Job Position</b></h3>
+                    <form>
+                        <c:forEach items="${positions}" var="pos">
+                            <div class="checkbox mt-1">
+                                <input type="checkbox" id="${pos.positionId}" value="${pos.positionId}">
+                                <label for="${pos.positionId}">${pos.positionDesc}</label>
+                            </div>
+                        </c:forEach>
+                    </form>
+                </div>
             </div>
+            <c:if test="${goodFeedback != null}">
+                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                    <strong>Success</strong> ${goodFeedback}
+                </div>
+            </c:if>
+            <c:if test="${badFeedback != null}">
+                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                    <strong>Error</strong> ${badFeedback}
+                </div>
+            </c:if>
+        </div>
     </body>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -117,4 +105,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
 </html>
-

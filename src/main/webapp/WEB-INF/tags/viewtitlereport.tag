@@ -32,7 +32,7 @@
                 <td><c:out value="${tit.lead.firstname} ${tit.lead.lastname}" /></td>
                 <td><c:forEach var="free" items="${tit.freelancers}"><c:out value="${free.firstname} ${free.lastname}"/></c:forEach></td>
                 <td><c:forEach var="genre" items="${tit.title.genreList}"><c:out value="${genre.genreDesc}"/></c:forEach></td>
-            </tr>
+                </tr>
         </c:forEach>
         <tr><td></tr>
         <tr><td></tr>
@@ -41,5 +41,7 @@
 
     </tbody>
 </table>
-        <br>
-        
+<form>
+    <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
+</form>
+<br>

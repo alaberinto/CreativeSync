@@ -31,14 +31,14 @@
             </div>
             <div class="row border-danger">
                 <div class="col-4">
-                    <p>Start: <fmt:formatDate type = "date" 
+                    <p>Start: <fmt:formatDate type = "date"
                                     value = "${view.title.startDate}" /></p>
                 </div>
                 <div class="col-4 text-center" >
-                    <p><b>13</b> Days Left!</p>
+                    <p><b>${timeLeft}</b> Days Left!</p>
                 </div>
                 <div class="col-4 text-right" >
-                    <p>End: <fmt:formatDate type = "date" 
+                    <p>End: <fmt:formatDate type = "date"
                                     value = "${view.title.endDate}" /></p>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-5">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -117,8 +117,16 @@
                                     </button>
                                 </h5>
                             </div>
+                            <div class="col-5">
+                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <input type="file" id="file" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <button type="submit" name="action" value="uploadAsset" class="btn btn-block button-red-solid mt-1">Upload Asset</button>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="col-2">
-                                <button type="submit" class="btn btn-block button-red-solid mt-2">Download Asset</button>
+                                <button type="submit" name="action" value="downloadAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
                             </div>
                         </div>
 
@@ -126,11 +134,13 @@
                     <div id="collapse2" class="collapse">
                         <div class="card-body">
                             <div class="d-flex flex-wrap row-hl">
-                                <div class="title-asset m-2">
-                                    <div class="asset-image">
-                                        <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/cry.jpg" alt=""/>
-                                    </div> 
-                                </div>
+                                <c:forEach items="assets" var="asset">
+                                    <div class="title-asset m-2">
+                                        <div class="asset-image">
+                                            <img class="asset item-h1" src="${asset}" alt="BROKEN IMAGE"/>
+                                        </div> 
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -188,6 +198,18 @@
             </div>
         </div>
     </div>
+    <c:if test="${goodFeedback != null}">
+        <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success</strong> ${goodFeedback}
+        </div>
+    </c:if>
+    <c:if test="${badFeedback != null}">
+        <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error</strong> ${badFeedback}
+        </div>
+    </c:if> 
 </body>
 
 <script type="text/javascript">

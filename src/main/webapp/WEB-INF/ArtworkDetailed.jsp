@@ -55,9 +55,12 @@
                                         <th colspan="2">        
                                             <div style="padding: 10px;">
                                                 <div align="center" class="img_zoom">    
-                                                    <c:forEach var="round_art" items="${round_art}">
-                                                        <!--${round_art}-->
-                                                        <img class="fancybox" title="${round_art.artworkId}" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
+                                                    <c:forEach var="round_art" items="${round_art}">                                                       
+                                                        <c:if test = "${round_art.getRound() == rounds.getRound()}">
+                                                            <!--https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg-->
+                                                            <!--<img class="fancybox" title="${round_art.artworkName}" src="${round_art.artworkRef}" style="width: 250px; height:205px;" alt="${round_art.artworkName}"/>-->
+                                                            <img class="fancybox" title="${round_art.artworkName}" src="" style="width: 250px; height:205px;" alt="${round_art.artworkName}"/>
+                                                        </c:if>                                                       
                                                     </c:forEach>
                                                 </div>                                                                               
                                             </div>
@@ -65,32 +68,46 @@
                                     </tr>                             
 
                                     <tr>
-                                        <td style="width: 70%">
-                                            <div class="form-group">                                                                                 
-                                                <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required style></textarea>                                         
-                                            </div>
-                                        </td>
+                                        <c:if test="${position == 1}">
+                                            <td style="width: 70%">
+                                                <div class="form-group">                                                                                 
+                                                    <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                </div>
+                                            </td>
+                                        </c:if>
+                                        <c:if test="${position == 0}">
+                                            <td style="width: 70%">
+                                                <div class="form-group">                                                                                 
+                                                    <textarea readonly rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="feedback_comment" name="feedback_comment" placeholder="HERE IS YOUR FEEDBACK"></textarea>                                         
+                                                </div>
+                                            </td>
+                                        </c:if>
                                         <td>
-                                            <c:if test="${approve_deny_val == 0}">
-                                                <div align="center">                         
-                                                    <form action="ArtworkDetailed" method="post" id="status_ad">
-                                                        <input type="submit" onclick="confirm_approve()" class="button_approve" name="approve" value="Approve">
-                                                        <input type="submit" onclick="confirm_deny()" class="button_deny" name="deny" value="Deny">       
-                                                    </form>
-                                                </div>
+                                            <c:if test="${position == 1}">
+                                                <c:if test="${approve_deny_val == 0}">
+                                                    <div align="center">                         
+                                                        <form action="ArtworkDetailed" method="post" id="status_ad">
+                                                            <input type="submit" onclick="confirm_approve()" class="button_approve" name="approve" value="Approve">
+                                                            <input type="submit" onclick="confirm_deny()" class="button_deny" name="deny" value="Deny">       
+                                                        </form>
+                                                    </div>
+                                                </c:if>
                                             </c:if>
-                                            <c:if test="${approve_deny_val == 1}">
-                                                <div align="center">                         
-                                                    <h1 style="color: #4CAF50">APPROVED</h1>
-                                                </div>
-                                            </c:if>
-                                            <c:if test="${approve_deny_val == 2}">
-                                                <div align="center">                         
-                                                    <h1 style="color: #f44336">DENIED</h1>
-                                                </div>
+                                            <c:if test="${position == 0 || position == 1}">
+                                                <c:if test="${approve_deny_val == 1}">
+                                                    <div align="center">                         
+                                                        <h1 style="color: #4CAF50">APPROVED</h1>
+                                                    </div>
+                                                </c:if>
+                                                <c:if test="${approve_deny_val == 2}">
+                                                    <div align="center">                         
+                                                        <h1 style="color: #f44336">DENIED</h1>
+                                                    </div>
+                                                </c:if>
                                             </c:if>
                                         </td>  
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>

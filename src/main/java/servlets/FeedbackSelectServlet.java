@@ -44,10 +44,10 @@ public class FeedbackSelectServlet extends HttpServlet {
 
         // for freelancer view only
         if (pos_p_i == 4) {
+            session.setAttribute("position", "freelancer");
             getServletContext().getRequestDispatcher("/WEB-INF/TitleSelect.jsp").forward(request, response);
-            session.setAttribute("status", "freelancer");
         } else {
-            session.setAttribute("status", "designlead");
+            session.setAttribute("position", "designlead");
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/FeedbackSelect.jsp").forward(request, response);

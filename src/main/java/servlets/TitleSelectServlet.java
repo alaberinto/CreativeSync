@@ -33,9 +33,10 @@ public class TitleSelectServlet extends HttpServlet {
         ArrayList<TitlesView> titles;
 
         //freelancer
-        if (session.getAttribute("status").equals("freelaner")) {
+        if (session.getAttribute("position").equals("freelancer")) {
             Account user_f = (Account) session.getAttribute("user");
             titles = ts.getTitlesByUserForTitlesJSP(user_f);
+//            titles = ts.getFreelancersTitles(user_f);
             request.setAttribute("titles", titles);
         } else {
             Account user = (Account) session.getAttribute("feedback_select");

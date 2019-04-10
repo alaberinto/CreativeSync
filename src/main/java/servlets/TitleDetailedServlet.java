@@ -60,9 +60,7 @@ public class TitleDetailedServlet extends HttpServlet {
             }
             
             try {
-                ArrayList<String> assets = fs.getAssets(titleName);
-                request.setAttribute("assets", assets);
-//                request.setAttribute("assets", fs.getAssets(titleName));
+                request.setAttribute("assets", fs.getAssets(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

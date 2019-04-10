@@ -141,7 +141,11 @@
                         <div class="card-body">
                             <div class="d-flex flex-wrap row-hl">
                                 <c:forEach items="${assets}" var="asset">
-                                    <img src="${asset}" alt="BROKEN IMAGE"/>
+                                    <div class="title-asset m-2">
+                                        <div class="asset-image">
+                                            <img src="${asset}" alt="BROKEN IMAGE"/>
+                                        </div>
+                                    </div>
                                 </c:forEach>
                             </div>
                         </div>
@@ -231,7 +235,7 @@
     $('#uploadAsset').on("change", function () {
         $('#submitAsset').prop('disabled', !$(this).val());
     });
-    
+
     $('#uploadArtwork').on("change", function () {
         $('#submitArtwork').prop('disabled', !$(this).val());
     });

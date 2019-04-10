@@ -53,15 +53,14 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 rounds = as.getAllRounds(title_select_id);
 
                 //get round artwork
-                List<Artwork> round_art = null;
                 int max_round = as.findMaxRound(title_select_id);
 
                 for (int i = max_round; i > 0; i--) {
-                    round_art = as.getAllArtworkByRound(title_select_id, i);                    
-                }         
+                    List<Artwork> round_art;
+                    round_art = as.getAllArtworkByRound(title_select_id, i);
+                    request.setAttribute("round_art", round_art);
+                }
 
-                request.setAttribute("round_art", round_art);
-                
                 //check if there are any rounds
                 if (rounds.isEmpty() == false) {
                     request.setAttribute("rounds_filled", 1);

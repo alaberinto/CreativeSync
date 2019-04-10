@@ -97,7 +97,14 @@
                         <label for="genres"><h3 class="mb-0">Genres</h3></label>
                         <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
                             <c:forEach items="${genres}" var="gen">
-                                <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                <c:if test="${genreIds != null}">
+                                    <c:forEach items="${genreIds}" var="genreId">
+                                        <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected' : ''}>${gen.genreDesc}</option>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${genreIds == null}">
+                                    <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>

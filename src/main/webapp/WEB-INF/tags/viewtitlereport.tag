@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<table border="1">
+<table id="titlesreporttable" border="1">
     <thead>
         <tr><td><h3>VIEW TITLE REPORT</h3></td></tr>
         <tr>
@@ -41,3 +41,5 @@
 
     </tbody>
 </table>
+        <br>
+        

@@ -7,4 +7,32 @@
     <name>navbar1</name>
     <path>/WEB-INF/tags/navbar1.tag</path>
   </tag-file>
+  <tag-file>
+    <name>viewtitlereport</name>
+    <path>/WEB-INF/tags/viewtitlereport.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>viewuserinput</name>
+    <path>/WEB-INF/tags/viewuserinput.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>userreport</name>
+    <path>/WEB-INF/tags/userreport.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>userpositioninput</name>
+    <path>/WEB-INF/tags/userpositioninput.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>titleinput</name>
+    <path>/WEB-INF/tags/titleinput.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>completedtitlesreport</name>
+    <path>/WEB-INF/tags/completedtitlesreport.tag</path>
+  </tag-file>
+  <tag-file>
+    <name>activetitlesreport</name>
+    <path>/WEB-INF/tags/activetitlesreport.tag</path>
+  </tag-file>
 </taglib>

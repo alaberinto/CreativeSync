@@ -34,7 +34,7 @@ public class BackupsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BackupService bs = new BackupService();
-        String backupId = request.getParameter("backupId");
+            String backupId = request.getParameter("backupId");
         try {
             bs.restoreDatabase(backupId);
             ArrayList<Backup> backups = bs.getAllBackups();

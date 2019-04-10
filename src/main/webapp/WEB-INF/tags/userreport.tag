@@ -10,9 +10,6 @@
 
 <%-- any content can be specified here e.g.: --%>
 <table border="1">
-
-
-
     <thead>
 
         <tr><td><h3>USER REPORT</h3></td></tr>
@@ -23,9 +20,9 @@
             <th>Rate</th>
             <th>Location</th>
             <th>Language</th>
-            <th>Portfolio</th>
             <th>Position</th>
             <th>Genres</th>
+            <th>Titles</th>
 
 
 
@@ -33,21 +30,28 @@
     </thead>
     <tbody>
 
-        <c:forEach var="acc" items="${filteredusers}">
-
-
+        <c:forEach var="acc" items="${list}">
             <tr>
                 <td><c:out value="${acc.user.firstname}" /></td>
                 <td><c:out value="${acc.user.lastname}" /></td>
                 <td><c:out value="${acc.user.email}" /></td>
                 <td><c:out value="${acc.user.rate}" /></td>
-                <td><c:out value="${acc.user.location}" /></td>
-                <td><c:forEach var="lang" items="${acc.languageList}"><c:out value="${acc.user.language}"/></c:forEach></td>
-                <td><c:out value="${acc.user.portfolio}" /></td>
-                <td><c:out value="${acc.user.position}" /></td>
-                <td><c:forEach var="lang" items="${acc.genreList}"><c:out value="${acc.user.genre}" /></c:forEach></td>
-            </tr>
+                <td><c:out value="${acc.user.location.locationDesc}" /></td>
 
+                <td><c:forEach var="lang" items="${acc.user.languageList}">
+                        <c:out value="${lang.languageName}"/>
+                    </c:forEach></td>
+
+                <td><c:out value="${acc.user.position.positionDesc}" /></td>
+
+                <td><c:forEach var="genre" items="${acc.user.genreList}">
+                        <c:out value="${genre.genreDesc}"/>
+                    </c:forEach></td>
+
+                <td><c:forEach items="${acc.titles}" var="title">
+                        <c:out value="${title.title.name}"/>
+                    </c:forEach></td>
+            </tr>
         </c:forEach>
         <tr><td></tr>
         <tr><td></tr>

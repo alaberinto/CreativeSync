@@ -10,8 +10,8 @@
 
 <table id="titlesreporttable" border="1">
     <thead>
-        <tr><td><h3>VIEW TITLE REPORT</h3></td></tr>
-        <tr>
+        <h2 class="text-center">Viewing Titles Information</h2>
+        <tr class="table-danger">
             <th>Title Name</th>
             <th>Start Date</th>
             <th>End Date</th>

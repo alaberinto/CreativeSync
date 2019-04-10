@@ -10,7 +10,11 @@
          
 <table id="usersreporttable" class="table table-striped">
     <thead>
-        <tr>
+    <div class="text-center w-100">
+        <h2 class="text-center">Viewing Users Information</h2>
+    </div>
+        
+        <tr class="table-danger">
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>

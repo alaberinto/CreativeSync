@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -48,22 +48,23 @@ public class EditUserServlet extends HttpServlet {
         LocationService ls = new LocationService();
         PositionService ps = new PositionService();
         LanguageService langs = new LanguageService();
-        String name = request.getParameter("name");
+        
+        String acc = request.getParameter("name");
         try 
         {
            
-            UsersView uv = as.getUsersViewMyAccount(name);
+            UsersView uv = as.getUsersViewMyAccount(acc);
              Account ac = uv.getUser();
             request.setAttribute("myUser", ac);
             ArrayList<Genre> genres = gs.getAllGenres();
             ArrayList<Location> loc = ls.getAllLocations();
             ArrayList<Language> lang = langs.getAllLanguages();
             ArrayList<Position> pos = ps.getCreatablePositions(ac);
-
             request.setAttribute("genres", genres);
             request.setAttribute("locations", loc);
             request.setAttribute("languages", lang);
             request.setAttribute("positions", pos);
+        
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error getting user");
             getServletContext().getRequestDispatcher("/WEB-INF/Users.jsp").forward(request, response);

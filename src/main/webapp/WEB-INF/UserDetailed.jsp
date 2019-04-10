@@ -35,7 +35,7 @@
                             <button type="submit" name="action" value="delete">Delete</button>
                         </c:if>
                         <c:if test="${user.position.positionId == 1 || (user.position.positionId == 2 && user.position.positionId < myUser.user.position.positionId) || user.userId == myUser.user.userId}">
-                            <button type="submit" name="action" value="edit">Edit</button>
+                             <a href="EditUser?name=${myUser.user.firstname} ${myUser.user.lastname}"<button type="submit" name="action" value="edit">Edit</button></a>
                         </c:if>
                     </form>
                 </div>

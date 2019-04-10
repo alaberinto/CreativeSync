@@ -80,6 +80,7 @@ public class TitleDetailedServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
         List<FileItem> multiparts = null;
+       
 
         //Check if its a file upload.
         if (ServletFileUpload.isMultipartContent(request)) {

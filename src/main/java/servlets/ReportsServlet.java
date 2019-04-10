@@ -59,7 +59,7 @@ public class ReportsServlet extends HttpServlet {
 
         try {
             if (reportType.equals("activeUsers")) {
-                ArrayList<UsersView> users = ac.getAllActiveUsers();
+                    ArrayList<UsersView> users = ac.getAllActiveUsers();
                 request.setAttribute("list", users);
                 request.setAttribute("reportgendate", date);
 

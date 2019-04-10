@@ -1,6 +1,7 @@
 package servlets;
 
 import com.dropbox.core.DbxException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,15 +52,20 @@ public class TitleDetailedServlet extends HttpServlet {
             double timeLeft = title.getTitle().getEndDate().getTime() - new Date().getTime();
             timeLeft = timeLeft / (1000 * 60 * 60 * 24);
             timeLeft = Math.rint(timeLeft);
-            request.setAttribute("timeLeft", timeLeft);
+
+            if (timeLeft >= 0) {
+                request.setAttribute("timeLeft", timeLeft);
+            } else {
+                request.setAttribute("timeLeft", "0");
+            }
             
-            ArrayList<String> assets = null;
             try {
-                assets = fs.getAssets(titleName);
+                ArrayList<String> assets = fs.getAssets(titleName);
+                request.setAttribute("assets", assets);
+//                request.setAttribute("assets", fs.getAssets(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.setAttribute("assets", assets);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);
@@ -67,7 +73,7 @@ public class TitleDetailedServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, FileNotFoundException {
 
         String action = null;
         FileService fs = new FileService();
@@ -100,8 +106,15 @@ public class TitleDetailedServlet extends HttpServlet {
                 uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
                 session.setAttribute("uploaded", uploaded);
                 break;
-            case "viewAsset":
-                break;
+            case "downloadAllAssets": {
+                try {
+                    uploaded = fs.downloadAllAssets(title.getName());
+                    session.setAttribute("goodFeedback", uploaded);
+                } catch (DbxException ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
             case "deleteAsset":
                 try {
                     fs.deleteAsset(title.getName(), request.getParameter("assetName"));

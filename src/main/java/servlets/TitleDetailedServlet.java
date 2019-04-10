@@ -99,12 +99,22 @@ public class TitleDetailedServlet extends HttpServlet {
         switch (action) {
             case "uploadAsset":
                 uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
-                session.setAttribute("uploaded", uploaded);
+                
+                if(uploaded != null)
+                    session.setAttribute("goodFeedback", uploaded);
+                else
+                    session.setAttribute("badFeedback", "Could not upload asset.");
+                
                 break;
             case "uploadArtwork":
                 //Get File From JSP
                 uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
-                session.setAttribute("uploaded", uploaded);
+                
+                if(uploaded != null)
+                    session.setAttribute("goodFeedback", uploaded);
+                else
+                    session.setAttribute("badFeedback", "Could not upload artwork.");
+                
                 break;
             case "downloadAllAssets": {
                 try {

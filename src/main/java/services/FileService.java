@@ -76,7 +76,7 @@ public class FileService {
                     if(check)
                         return "File uploaded successfully!";
                     else
-                        return "Could not upload file.";
+                        return null;
                 }
             }
         } catch (Exception ex) {

@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
-<table border="1">
+<table id="titlesreporttable" border="1">
     <thead>
         <tr><td><h3>VIEW TITLE REPORT</h3></td></tr>
         <tr>
@@ -32,7 +32,7 @@
                 <td><c:out value="${tit.lead.firstname} ${tit.lead.lastname}" /></td>
                 <td><c:forEach var="free" items="${tit.freelancers}"><c:out value="${free.firstname} ${free.lastname}"/></c:forEach></td>
                 <td><c:forEach var="genre" items="${tit.title.genreList}"><c:out value="${genre.genreDesc}"/></c:forEach></td>
-            </tr>
+                </tr>
         </c:forEach>
         <tr><td></tr>
         <tr><td></tr>
@@ -41,3 +41,7 @@
 
     </tbody>
 </table>
+<form>
+    <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
+</form>
+<br>

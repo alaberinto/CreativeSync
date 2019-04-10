@@ -14,6 +14,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>
+
         <title>Reports</title>
         <script>
 
@@ -21,16 +25,16 @@
                 var doc = new jsPDF();
 
 
-                $('#freelancersreportbutton').click(function () {
+                $('#usersreportbutton').click(function () {
 
                     doc.autoTable({
-                        html: '#freelancetable',
+                        html: '#usersreporttable',
                         headStyles: {
 
                             fillColor: '#E50914'
                         }
                     });
-                    doc.save('freelancer.pdf');
+                    doc.save('userreport.pdf');
                 });
 
                 $('#titlesreportbutton').click(function () {
@@ -42,7 +46,7 @@
                             fillColor: '#E50914'
                         }
                     });
-                    doc.save('titles.pdf');
+                    doc.save('titlesreport.pdf');
                 });
 
             });
@@ -144,7 +148,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>
     <script src="upload-image.js"></script>
 </html>

@@ -35,22 +35,31 @@ public class TitleDetailedServlet extends HttpServlet {
         HttpSession session = request.getSession();
         TitleService ts = new TitleService();
         AccountService as = new AccountService();
+        FileService fs = new FileService();
         String titleName = request.getParameter("name");
 
         TitlesView title = ts.getTitlesViewByName(titleName);
         ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
         session.setAttribute("title", title.getTitle());
-        
+
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
         } else {
             request.setAttribute("frees", tha);
             request.setAttribute("view", title);
+
             double timeLeft = title.getTitle().getEndDate().getTime() - new Date().getTime();
             timeLeft = timeLeft / (1000 * 60 * 60 * 24);
             timeLeft = Math.rint(timeLeft);
             request.setAttribute("timeLeft", timeLeft);
-
+            
+            ArrayList<String> assets = null;
+            try {
+                assets = fs.getAssets(titleName);
+            } catch (DbxException ex) {
+                Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            request.setAttribute("assets", assets);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);

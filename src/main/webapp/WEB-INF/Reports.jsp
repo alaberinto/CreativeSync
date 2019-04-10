@@ -77,7 +77,7 @@
                                 <button type="submit" name="reportInput" value="activeUsers" class="btn btn-block button-red-solid mb-2">
                             </form>
                         </c:when>
-                        <c:when test="${name == 'userPosition'}">
+                        <c:when test="${name eq 'userPosition'}">
                             <sync:userpositioninput></sync:userpositioninput>
                         </c:when>
                         <c:when test="${name == 'specificUsers'}">
@@ -85,7 +85,7 @@
                                 <label for="users"><h3 class="mb-0">Users</h3></label>
                                 <select class="selectpicker form-control" name="users" id="users" multiple data-live-search="true" title="Select Users" id="y" data-header="Select Users" required>
                                     <c:forEach items="${allUsers}" var="user">
-                                        <option value="${user.userId}">${user.firstname + ' ' + user.lastname}</option>
+                                        <option value="${user.userId}">${user.firstname} ${user.lastname}</option>
                                     </c:forEach>
                                 </select>
                                 <button type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">
@@ -115,28 +115,13 @@
                         </c:when>
                     </c:choose>
                 </div>
-            </div>
-            <div>
+                <div class="row">
                 <c:choose>
-                    <c:when test="${name == 'activeUsers'}">
+                    <c:when test="${reportType == 'activeUsers'}">
                         <sync:userreport></sync:userreport>
                     </c:when>
-                    <c:when test="${name == 'userPosition'}">
-                        <sync:userpositioninput></sync:userpositioninput>
-                    </c:when>
-                    <c:when test="${name == 'specificUsers'}">
-                        <sync:viewuserinput></sync:viewuserinput>
-                    </c:when>
-                    <c:when test="${name == 'activeTitles'}">
-                        <sync:activetitlesreport></sync:activetitlesreport>
-                    </c:when>
-                    <c:when test="${name == 'compTitles'}">
-                        <sync:completedtitlesreport></sync:completedtitlesreport>
-                    </c:when>
-                    <c:when test="${name == 'specificTitles'}">
-                        <sync:titleinput></sync:titleinput>
-                    </c:when>
                 </c:choose>
+                </div>
             </div>
         </div>
     </body>
@@ -146,4 +131,9 @@
     crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="upload-image.js"></script>
 </html>

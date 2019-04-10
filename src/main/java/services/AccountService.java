@@ -145,6 +145,19 @@ public class AccountService {
 
         return new UsersView(acc);
     }
+    
+    
+       public ArrayList<Account> getAllActiveUsers() {
+        ArrayList<Account> allUsers = getAllUsers();
+        ArrayList<Account> cleanArray = new ArrayList<>();
+        for (int i = 0; i < allUsers.size(); i++) {
+            if (allUsers.get(i).getIsactive() == 1) {
+                cleanArray.add(allUsers.get(i));
+            }
+        }
+        return cleanArray;
+    }       
+    
 
     /**
      * Access method to get a list of all Accounts that are a Design Lead or

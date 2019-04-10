@@ -145,9 +145,8 @@ public class AccountService {
 
         return new UsersView(acc);
     }
-    
-    
-       public ArrayList<Account> getAllActiveUsers() {
+
+    public ArrayList<UsersView> getAllActiveUsers() {
         ArrayList<Account> allUsers = getAllUsers();
         ArrayList<Account> cleanArray = new ArrayList<>();
         for (int i = 0; i < allUsers.size(); i++) {
@@ -155,9 +154,13 @@ public class AccountService {
                 cleanArray.add(allUsers.get(i));
             }
         }
-        return cleanArray;
-    }       
-    
+        ArrayList<UsersView> usersView = new ArrayList<UsersView>();
+
+        for (int i = 0; i < cleanArray.size(); i++) {
+            usersView.add(new UsersView(cleanArray.get(i)));
+        }
+        return usersView;
+    }
 
     /**
      * Access method to get a list of all Accounts that are a Design Lead or
@@ -281,7 +284,6 @@ public class AccountService {
             return "An error occured!";
         }
 
-        
         return null;
     }
 
@@ -314,8 +316,7 @@ public class AccountService {
 
         return null;
     }
-    
-     
+
     /**
      * Validation method to check if the user has the proper credentials to
      * enter the site. Uses SHA-256.
@@ -574,9 +575,9 @@ public class AccountService {
     }
 
     public String editUser(Account ac, String firstname, String lastname, String email, double rate, String active, String[] genreIds, String location, String[] languageIds, String position) {
-        
+
         try {
-            
+
             //Set Genres
             GenreService gs = new GenreService();
             ArrayList<Genre> genres = new ArrayList<>();
@@ -584,7 +585,7 @@ public class AccountService {
             for (int i = 0; i < genreIds.length; i++) {
                 genres.add(gs.getGenreById(genreIds[i]));
             }
-          
+
             //Set languages
             LanguageService ls = new LanguageService();
             ArrayList<Language> languages = new ArrayList<>();
@@ -595,22 +596,22 @@ public class AccountService {
 
             ac.setGenreList(genres);
             ac.setLanguageList(languages);
-            
+
             ac.setFirstname(firstname);
             ac.setLastname(lastname);
             ac.setEmail(email);
             ac.setRate(rate);
             ac.setPosition(pb.getPosition(Integer.parseInt(position)));
             ac.setLocation(lb.getLocation(Integer.parseInt(location)));
-            
+
             try {
-                
+
                 ab.update(ac);
             } catch (DBException | NumberFormatException ex) {
                 Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
                 return "Error updating user";
             }
-            
+
             return "Success";
         } catch (DBException ex) {
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);

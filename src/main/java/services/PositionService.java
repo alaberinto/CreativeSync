@@ -15,7 +15,7 @@ import models.Position;
 
 /**
  *
- * @author Mason
+ * @author Mason, Matthew
  */
 public class PositionService {
 
@@ -35,6 +35,16 @@ public class PositionService {
         return null;
     }
 
+    public Position getPosition(int id) {
+        try {
+            return pb.getPosition(id);
+        } catch (DBException ex) {
+            Logger.getLogger(PositionService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public ArrayList<Position> getCreatablePositions(Account user) {
         ArrayList<Position> pos;
         try {
@@ -43,15 +53,14 @@ public class PositionService {
             Logger.getLogger(PositionService.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-        
-        if(user.getPosition().getPositionId() == 1) {
+
+        if (user.getPosition().getPositionId() == 1) {
+            pos.remove(0);
+        } else {
+            pos.remove(0);
             pos.remove(0);
         }
-        else {
-            pos.remove(0);
-            pos.remove(0);
-        }
-        
+
         return pos;
     }
 }

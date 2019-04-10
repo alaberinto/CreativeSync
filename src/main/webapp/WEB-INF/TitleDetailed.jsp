@@ -140,7 +140,7 @@
                     <div id="collapse2" class="collapse">
                         <div class="card-body">
                             <div class="d-flex flex-wrap row-hl">
-                                <c:forEach items="assets" var="asset">
+                                <c:forEach items="${assets}" var="asset">
                                     <img src="${asset}" alt="BROKEN IMAGE"/>
                                 </c:forEach>
                             </div>

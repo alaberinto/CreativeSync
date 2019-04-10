@@ -14,9 +14,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.1.0/jspdf.plugin.autotable.js"></script>
 
         <title>Reports</title>
         <script>
@@ -55,27 +55,26 @@
     <body class="background-plain">
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
-            <div class="container fullContainer bg-white" >
-                REPORTS
+            <div class="container custom-container bg-white" >
+                <div class="page-header border-bottom">REPORTS</div>
                 <div class="row">
                     <div class="col-3">
-                        <div class="row">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select Report
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users</a>
-                                    <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Find User By Position</a>
-                                    <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Find Users</a>
+                        <div class="dropdown mt-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Select Report
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users</a>
+                                <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Find User By Position</a>
+                                <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Find Users</a>
 
-                                    <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles</a>
-                                    <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles</a>
-                                    <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Find Titles</a>
-                                </div>
+                                <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles</a>
+                                <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles</a>
+                                <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Find Titles</a>
                             </div>
                         </div>
                         <div class="row">
+
                         <c:choose>
                             <c:when test="${name == 'activeUsers'}">
                                 <form method="post" action="Reports">

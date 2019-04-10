@@ -47,11 +47,11 @@
                 <div class="row mt-3">
                     <div class="col-6">
                         <label class="" for="email"><h3 class="mb-0">Email</h3></label>
-                        <input type="email" class="form-control text-light-gray-full" id="email" name="email" required>
+                        <input type="email" class="form-control text-light-gray-full" id="email" name="email" value="${email}" required>
                     </div>
                     <div class="col-6">
                         <label class="" for="pass"><h3 class="mb-0">Password</h3></label>
-                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" minlength="8" required>
+                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
                     </div>
                 </div>
                 <div class="col-12 pt-4 pb-3 mb-2 ">
@@ -62,7 +62,7 @@
                             <select class="form-control text-light-gray-full" id="country" name="country" required>
                                 <option value="" selected disabled hidden>Choose Country</option>
                                 <c:forEach items="${locations}" var="location">                            
-                                    <option value="${location.locationId}">${location.locationDesc}</option>
+                                    <option value="${location.locationId}" ${location.locationId == selectLocation ? 'selected':''}>${location.locationDesc}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -70,7 +70,14 @@
                             <label for="language"><h3 class="mb-0">Language</h3></label>
                             <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
                                 <c:forEach items="${languages}" var="lang">
-                                    <option value="${lang.languageId}">${lang.languageName}</option>
+                                    <c:if test="${langIds != null}">
+                                        <c:forEach items="${langIds}" var="langId">
+                                            <option value="${lang.languageId}" ${lang.languageId == langId ? 'selected' : ''}>${lang.languageName}</option>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${langIds == null}">
+                                        <option value="${lang.languageId}">${lang.languageName}</option>
+                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
@@ -78,7 +85,14 @@
                             <label for="genres"><h3 class="mb-0">Genres</h3></label>
                             <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
                                 <c:forEach items="${genres}" var="gen">
-                                    <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                    <c:if test="${genreIds != null}">
+                                        <c:forEach items="${genreIds}" var="genreId">
+                                            <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected' : ''}>${gen.genreDesc}</option>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${genreIds == null}">
+                                        <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
@@ -90,14 +104,14 @@
                             <select class="form-control text-light-gray-full" id="pos" name="position" required>
                                 <option value="" selected disabled hidden>Choose Position</option>
                                 <c:forEach items="${positions}" var="pos">
-                                    <option value="${pos.positionId}">${pos.positionDesc}</option>
+                                    <option value="${pos.positionId}" ${pos.positionId == selectPosition ? 'selected':''}>${pos.positionDesc}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="col-6">
                             <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
                             <div class="input-icon">    
-                                <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" min="1" required>
+                                <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" value="${rate}" min="1" required>
                                 <i>$</i>
                             </div>
                         </div>

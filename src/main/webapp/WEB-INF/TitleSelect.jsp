@@ -48,7 +48,7 @@
                                             </div>
                                         </form>
                                     </c:forEach>
-                                    <!--<a href="ArtworkDetailed">Click here to provide a freelancer feedback</a>-->
+                                    <a href="ArtworkDetailed">Click here to provide a freelancer feedback</a>
                                 </td>
                             </tr>
                         </tbody>

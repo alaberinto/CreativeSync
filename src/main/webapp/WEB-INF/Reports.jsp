@@ -60,12 +60,13 @@
                     Select Report
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users Report</a>
-                    <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Users By Position Report</a>
-                    <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Specific User Report</a>
-                    <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles Report</a>
-                    <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles Report</a>
-                    <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Specific Titles Report</a>
+                    <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users</a>
+                    <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Find User</a>
+                    <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Find User By Position</a>
+                    
+                    <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles</a>
+                    <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles</a>
+                    <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Find Title</a>
                 </div>
             </div>
 

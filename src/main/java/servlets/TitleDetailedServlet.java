@@ -32,14 +32,15 @@ public class TitleDetailedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
         TitleService ts = new TitleService();
         AccountService as = new AccountService();
         String titleName = request.getParameter("name");
 
         TitlesView title = ts.getTitlesViewByName(titleName);
         ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
-
+        session.setAttribute("title", title.getTitle());
+        
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
         } else {
@@ -49,6 +50,7 @@ public class TitleDetailedServlet extends HttpServlet {
             timeLeft = timeLeft / (1000 * 60 * 60 * 24);
             timeLeft = Math.rint(timeLeft);
             request.setAttribute("timeLeft", timeLeft);
+
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);
@@ -78,7 +80,7 @@ public class TitleDetailedServlet extends HttpServlet {
             action = request.getParameter("action");
         }
 
-        boolean uploaded = false; //if false, show failure message, hasn't been implemented for notifications yet
+        String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
         switch (action) {
             case "uploadAsset":
                 uploaded = fs.handleUpload(multiparts, title.getName(), "asset");

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,8 +10,10 @@
               integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
               crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/css/bootstrap4-toggle.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+        <link rel="stylesheet" href="css/style.css" type="text/css">
         <title>My Account</title>
     </head>
     <body class="background-plain">
@@ -36,8 +39,8 @@
                         Email: <input type="email" value="${myUser.getEmail()}" name="email" disabled><br>
                         Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
                         <label class="location" for="location"><h3 class="mb-0">Country</h3></label>
-                        
-                       <select class="form-control text-light-gray-full" id="location" name="location" required>
+
+                        <select class="form-control text-light-gray-full" id="location" name="location" required>
                             <option value="" selected disabled hidden>Choose Country</option>
                             <c:forEach items="${locations}" var="location">                            
                                 <option value="${location.locationId}">${location.locationDesc}</option>
@@ -51,7 +54,7 @@
                                 <option value="${pos.positionId}">${pos.positionDesc}</option>
                             </c:forEach>
                         </select>
-                        
+
                     </div>
                     <div class="col-3">
                         <label for="language"><h3 class="mb-0">Language</h3></label>
@@ -62,11 +65,16 @@
                             </c:forEach>
                         </select>
                     </div>
+                        
                     <div class="col-3">
-                        <label for="genres"><h3 class="mb-0">Genres</h3></label>
-                        <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                        <label for="gens"><h3 class="mb-0">Genres</h3></label>
+                        <select class="selectpicker form-control" name="gens" id="gens" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                            <option value="" selected disabled hidden>Choose Genres</option>
+                            <c:forEach items="${userGenres}" var="gen">
+                                <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected':''}>${gen.genreDesc}</option>
+                            </c:forEach>
                             <c:forEach items="${genres}" var="gen">
-                                <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected':''}>${gen.genreDesc}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -108,4 +116,10 @@
     crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.4.0/js/bootstrap4-toggle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="upload-image.js"></script>
 </html>

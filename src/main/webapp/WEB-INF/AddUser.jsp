@@ -84,6 +84,7 @@
                         <div class="col-4">
                             <label for="genres"><h3 class="mb-0">Genres</h3></label>
                             <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                                <option value="" selected disabled hidden>Choose Genres</option>
                                 <c:forEach items="${genres}" var="gen">
                                     <c:if test="${genreIds != null}">
                                         <c:forEach items="${genreIds}" var="genreId">

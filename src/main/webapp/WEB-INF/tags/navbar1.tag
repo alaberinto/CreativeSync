@@ -30,7 +30,7 @@
 
             <c:if test="${user.position.positionId == 1}">
                 <li class="nav-item">
-                    <a class="nav-link" href="Backup">Backups</a>
+                    <a class="nav-link" href="Backups">Backups</a>
                 </li>
             </c:if>
 

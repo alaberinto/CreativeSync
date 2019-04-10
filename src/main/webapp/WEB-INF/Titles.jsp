@@ -105,7 +105,6 @@
                                         <a href="TitleDetailed?name=${uTit.title.name}" class="list-group-item list-group-item-action list-item-n">
                                             <h2 class="list-item-header-n">${uTit.title.name}</h2>
                                             <div class="row">
-
                                                 <div class="col-6">
                                                     <b class="list-item-sub-n ml-2">Status: </b> ${uTit.status.statusDesc}<br>
                                                     <object><a href="UserDetailed?name=${uTit.lead.firstname} ${uTit.lead.lastname}">

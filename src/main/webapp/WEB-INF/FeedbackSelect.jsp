@@ -35,14 +35,14 @@
                         <h3>Select a Freelancer to review their artwork</h3>    
 
                         <br>
-                        <table border="1" cellspacing="5">                   
+                        <table border="0" cellspacing="5">                   
                             <tbody>
                                 <tr>
                                     <td>
                                     <c:forEach var="freelancers" items="${freelancers}">
                                         <form action="FeedbackSelect" method="post">
                                             <div style="width:300px; display:table">
-                                                <input type="submit" name="feedback_select" value="${freelancers.firstname}" style="display:table-cell; width:100%">                 
+                                                <button type="submit" class="button_deny" name="feedback_select" value="${freelancers.firstname}" style="display:table-cell; width:100%">${freelancers.firstname}</button>              
                                             </div>
                                         </form>
                                     </c:forEach>

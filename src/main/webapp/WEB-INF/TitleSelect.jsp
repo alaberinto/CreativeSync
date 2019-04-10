@@ -32,18 +32,18 @@
 
                 <div class="hdev">
                     <div align="center">
-                        <h3>Select a Title to review their artwork</h3>    
+                        <h3>Select a Title to review its artwork</h3>    
                         <br>
 
                     <%--<c:if test="${titles_filled == 1}">--%>
-                    <table border="1" cellspacing="5">                   
+                    <table border="0" cellspacing="5">                   
                         <tbody>
                             <tr>
                                 <td>
                                     <c:forEach var="titles" items="${titles}">
                                         <form action="TitleSelect" method="post">
                                             <div style="width:300px; display:table">
-                                                <input type="submit" name="title_select" value="${titles.title.name}" style="display:table-cell; width:100%">                 
+                                                <button type="submit" class="button_deny" name="title_select" value="${titles.title.name}" style="display:table-cell; width:100%">${titles.title.name}</button>             
                                                 <input type="hidden" name="title_select_id" value="${titles.title.titleId}">
                                             </div>
                                         </form>

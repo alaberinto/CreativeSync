@@ -19,6 +19,7 @@ import com.dropbox.core.v2.files.UploadSessionLookupErrorException;
 import com.dropbox.core.v2.files.WriteMode;
 import com.dropbox.core.v2.sharing.ListSharedLinksResult;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
+import dataaccess.ArtworkBroker;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,6 +31,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import models.Artwork;
 import org.apache.commons.fileupload.FileItem;
 
 /**
@@ -44,8 +46,10 @@ public class FileService {
     private DbxClientV2 client;
     private final long CHUNKED_UPLOAD_CHUNK_SIZE = 8L << 20; // 8 MiB
     private final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
+    private ArtworkBroker ab;
 
     public FileService() {
+        ab = new ArtworkBroker();
         config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         client = new DbxClientV2(config, ACCESS_TOKEN);
     }
@@ -73,16 +77,24 @@ public class FileService {
                         check = uploadLarge(uploadName, titleName, in, size, inputType);
                     }
                     
-                    if(check)
-                        return "File uploaded successfully!";
-                    else
+                    if(check) {
+                        String refName = "/Title/" + titleName + "/" + inputType + "/" + uploadName;
+                        Artwork artwork = new Artwork(null, refName, refName, 75, (short) 1, 1);
+                        int rows = ab.insertArtwork(artwork);
+                        
+                        if(rows != 0)
+                            return "File uploaded successfully!";
+                        else
+                            return null;
+                    } else {
                         return null;
+                    }
                 }
             }
         } catch (Exception ex) {
             Logger.getLogger(FileService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Could not upload file.";
+        return null;
     }
 
     /**

@@ -53,7 +53,7 @@ public class FileService {
      * @param inputType whether an asset or an artwork.
      * @return true if uploaded successful. otherwise, return false.
      */
-    public boolean handleUpload(List<FileItem> multiparts, String titleName, String inputType) {
+    public String handleUpload(List<FileItem> multiparts, String titleName, String inputType) {
         try {
             for (FileItem item : multiparts) {
                 if (!item.isFormField()) {
@@ -61,17 +61,23 @@ public class FileService {
                     long size = item.getSize();
                     InputStream in = item.getInputStream();
 
+                    boolean check;
                     if (size < CHUNKED_UPLOAD_CHUNK_SIZE) {
-                        return uploadSmall(uploadName, titleName, in, inputType);
+                        check = uploadSmall(uploadName, titleName, in, inputType);
                     } else {
-                        return uploadLarge(uploadName, titleName, in, size, inputType);
+                        check = uploadLarge(uploadName, titleName, in, size, inputType);
                     }
+                    
+                    if(check)
+                        return "File uploaded successfully!";
+                    else
+                        return "Could not upload file.";
                 }
             }
         } catch (Exception ex) {
             Logger.getLogger(FileService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return "Could not upload file.";
     }
 
     /**

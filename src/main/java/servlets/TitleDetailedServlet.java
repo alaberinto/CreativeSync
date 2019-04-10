@@ -61,7 +61,8 @@ public class TitleDetailedServlet extends HttpServlet {
             
             try {
                 ArrayList<String> assets = fs.getAssets(titleName);
-                request.setAttribute("assets", fs.getAssets(titleName));
+                request.setAttribute("assets", assets);
+//                request.setAttribute("assets", fs.getAssets(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -108,7 +109,7 @@ public class TitleDetailedServlet extends HttpServlet {
             case "downloadAllAssets": {
                 try {
                     uploaded = fs.downloadAllAssets(title.getName());
-                    session.setAttribute("uploaded", uploaded);
+                    session.setAttribute("goodFeedback", uploaded);
                 } catch (DbxException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }

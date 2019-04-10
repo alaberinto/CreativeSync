@@ -39,18 +39,15 @@ public class UserDetailedServlet extends HttpServlet {
         String name = request.getParameter("name");
         UsersView user = as.getUsersViewMyAccount(name);
 
-        
-        
         if (user == null) {
             request.setAttribute("badFeedback", "User Not Found!");
             response.sendRedirect("Users");
-            
+
         } else {
             request.setAttribute("myUser", user);
             getServletContext().getRequestDispatcher("/WEB-INF/UserDetailed.jsp").forward(request, response);
-        } 
-      
-                
+        }
+
     }
 
     @Override
@@ -59,12 +56,13 @@ public class UserDetailedServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
-
+        Account account = (Account) request.getAttribute("myUser");
         String action = request.getParameter("action");
         Account deletingUser = as.getUserByName(request.getParameter("thisUser"));
         Account loggedInUser = (Account) session.getAttribute("user");
 
         if (action.equals("edit")) {
+            request.setAttribute("myUser", account);
             getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
         } else if (action.equals("delete")) {
             String feedback = as.delete(loggedInUser, deletingUser);

@@ -36,8 +36,8 @@
                         Email: <input type="email" value="${myUser.getEmail()}" name="email" disabled><br>
                         Rate: <input type="number" value="${myUser.getRate()}" name="rate" required><br>
                         <label class="location" for="location"><h3 class="mb-0">Country</h3></label>
-                        
-                       <select class="form-control text-light-gray-full" id="location" name="location" required>
+
+                        <select class="form-control text-light-gray-full" id="location" name="location" required>
                             <option value="" selected disabled hidden>Choose Country</option>
                             <c:forEach items="${locations}" var="location">                            
                                 <option value="${location.locationId}">${location.locationDesc}</option>
@@ -48,10 +48,13 @@
                         <select class="form-control text-light-gray-full" id="pos" name="position" required>
                             <option value="" selected disabled hidden>Choose Position</option>
                             <c:forEach items="${positions}" var="pos">
+                                <c:if test="${pos.positionId == selected}">
+                                    <option value="${pos.positionId}"selected="${selected}">${pos.positionDesc}</option>
+                                </c:if>
                                 <option value="${pos.positionId}">${pos.positionDesc}</option>
                             </c:forEach>
                         </select>
-                        
+
                     </div>
                     <div class="col-3">
                         <label for="language"><h3 class="mb-0">Language</h3></label>

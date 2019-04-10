@@ -7,12 +7,9 @@
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
-<%-- any content can be specified here e.g.: --%>
-<table border="1">
+         
+<table class="table table-striped">
     <thead>
-
-        <tr><td><h3>USER REPORT</h3></td></tr>
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
@@ -23,26 +20,22 @@
             <th>Position</th>
             <th>Genres</th>
             <th>Titles</th>
-
-
-
         </tr>
     </thead>
     <tbody>
-
         <c:forEach var="acc" items="${list}">
             <tr>
-                <td><c:out value="${acc.user.firstname}" /></td>
-                <td><c:out value="${acc.user.lastname}" /></td>
-                <td><c:out value="${acc.user.email}" /></td>
-                <td><c:out value="${acc.user.rate}" /></td>
-                <td><c:out value="${acc.user.location.locationDesc}" /></td>
+                <td><c:out value="${acc.user.firstname}"/></td>
+                <td><c:out value="${acc.user.lastname}"/></td>
+                <td><c:out value="${acc.user.email}"/></td>
+                <td><c:out value="${acc.user.rate}"/></td>
+                <td><c:out value="${acc.user.location.locationDesc}"/></td>
 
                 <td><c:forEach var="lang" items="${acc.user.languageList}">
                         <c:out value="${lang.languageName}"/>
                     </c:forEach></td>
 
-                <td><c:out value="${acc.user.position.positionDesc}" /></td>
+                <td><c:out value="${acc.user.position.positionDesc}"/></td>
 
                 <td><c:forEach var="genre" items="${acc.user.genreList}">
                         <c:out value="${genre.genreDesc}"/>
@@ -53,9 +46,7 @@
                     </c:forEach></td>
             </tr>
         </c:forEach>
-        <tr><td></tr>
-        <tr><td></tr>
-        <tr><td></tr>
-        <tr><td>Report generated on: <fmt:formatDate type = "date" value = "${reportgendate}" /></td></tr>
     </tbody>
 </table>
+
+Report generated on: <fmt:formatDate type = "date" value = "${reportgendate}" />

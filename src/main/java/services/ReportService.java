@@ -105,8 +105,9 @@ public class ReportService {
         ArrayList<Title> cleanArray = new ArrayList();
         try {
             allTitles = new ArrayList(tb.getAllTitles());
+            
             for (int i = 0; i < allTitles.size(); i++) {
-                if (allTitles.get(i).getCompleted() == 0) {
+                if (allTitles.get(i).getCompleted() == 1) {
                     cleanArray.add(allTitles.get(i));
                 }
             }

@@ -2,7 +2,7 @@
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +53,7 @@
                         <select class="form-control text-light-gray-full" id="coors" name="coorId" required>
                             <option value="-1">None</option>
                             <c:forEach items="${coors}" var="coor">
-                                    <option value="${coor.userId}" ${coor.userId == coorId ? 'selected':''}>${coor.firstname} ${coor.lastname}</option>
+                                <option value="${coor.userId}" ${coor.userId == coorId ? 'selected':''}>${coor.firstname} ${coor.lastname}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -82,7 +82,14 @@
                         <label for="test"><h3 class="mb-0">Freelancers</h3></label>
                         <select name="freelancers" class="selectpicker form-control text-light-gray-full" id="test" multiple data-live-search="true" title="Select Freelancers" data-header="Select Freelancers">
                             <c:forEach items="${freelancers}" var="free">
-                                <option value="${free.userId}">${free.firstname} ${free.lastname}</option>
+                                <c:if test="${freeIds != null}">
+                                    <c:forEach items="${freeIds}" var="freeId">
+                                        <option value="${free.userId}" ${free.userId == freeId ? 'selected' : ''}>${free.firstname} ${free.lastname}</option>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${freeIds == null}">
+                                    <option value="${free.userId}">${free.firstname} ${free.lastname}</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>
@@ -90,7 +97,14 @@
                         <label for="genres"><h3 class="mb-0">Genres</h3></label>
                         <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
                             <c:forEach items="${genres}" var="gen">
-                                <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                <c:if test="${genreIds != null}">
+                                    <c:forEach items="${genreIds}" var="genreId">
+                                        <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected' : ''}>${gen.genreDesc}</option>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${genreIds == null}">
+                                    <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                </c:if>
                             </c:forEach>
                         </select>
                     </div>

@@ -86,7 +86,8 @@ public class AddTitleServlet extends HttpServlet {
             request.setAttribute("leadId", leadId);
             
             request.setAttribute("info", designInfo);
-            request.setAttribute("freelancers", freelancerIds);
+            
+            request.setAttribute("freeIds", freelancerIds);
             request.setAttribute("genres", genreIds);
             
             

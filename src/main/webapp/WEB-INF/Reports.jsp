@@ -60,25 +60,48 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="dropdown mt-2">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Select Report
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users</a>
-                                <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Find User By Position</a>
-                                <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Find Users</a>
+                            <button class="btn btn-secondary dropdown-toggle btn-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <c:choose>
+                                <c:when test="${name == 'activeUsers'}">
+                                    Active Users
+                                </c:when>
+                                <c:when test="${name eq 'userPosition'}">
+                                    Find User By Position
+                                </c:when>
+                                <c:when test="${name == 'specificUsers'}">
+                                    Find Users
+                                </c:when>
+                                <c:when test="${name == 'activeTitles'}">
+                                    Active Titles
+                                </c:when>
+                                <c:when test="${name == 'compTitles'}">
+                                    Completed Titles
+                                </c:when>
+                                <c:when test="${name == 'specificTitles'}">
+                                    Find Titles
+                                </c:when>
+                                <c:otherwise>
+                                    Select A Report
+                                </c:otherwise>
 
-                                <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles</a>
-                                <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles</a>
-                                <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Find Titles</a>
-                            </div>
+                            </c:choose>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a name="activeUsers" class="dropdown-item" href="Reports?name=activeUsers">Active Users</a>
+                            <a name="usersPosition" class="dropdown-item" href="Reports?name=userPosition">Find User By Position</a>
+                            <a name="specificUsers" class="dropdown-item" href="Reports?name=specificUsers">Find Users</a>
+
+                            <a name="activeTitles" class="dropdown-item" href="Reports?name=activeTitles">Active Titles</a>
+                            <a name="compTitles" class="dropdown-item" href="Reports?name=compTitles">Completed Titles</a>
+                            <a name="specificTitles" class="dropdown-item" href="Reports?name=specificTitles">Find Titles</a>
                         </div>
-                        <div class="row">
+                    </div>
 
+                    <div>
                         <c:choose>
                             <c:when test="${name == 'activeUsers'}">
                                 <form method="post" action="Reports">
-                                    <button type="submit" name="reportInput" value="activeUsers" class="btn btn-block button-red-solid mb-2">Generate</button>
+                                    <button type="submit" name="reportInput" value="activeUsers" class="btn btn-block button-red-solid">Generate</button>
                                 </form>
                             </c:when>
                             <c:when test="${name eq 'userPosition'}">
@@ -86,41 +109,42 @@
                             </c:when>
                             <c:when test="${name == 'specificUsers'}">
                                 <form method="post" action="Reports">
-                                    <label for="users"><h3 class="mb-0">Users</h3></label>
                                     <select class="selectpicker form-control" name="users" id="users" multiple data-live-search="true" title="Select Users" id="y" data-header="Select Users" required>
                                         <c:forEach items="${allUsers}" var="user">
                                             <option value="${user.userId}">${user.firstname} ${user.lastname}</option>
                                         </c:forEach>
                                     </select>
-                                    <input type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">
+                                    <button type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">Generate</button>
                                 </form>
                             </c:when>
 
                             <c:when test="${name == 'activeTitles'}">
                                 <form method="post" action="Reports">
-                                    <input type="submit" name="reportInput" value="activeTitles" class="btn btn-block button-red-solid mb-2">
+                                    <button type="submit" name="reportInput" value="activeTitles" class="btn btn-block button-red-solid mb-2">Generate</button>
                                 </form>
                             </c:when>
                             <c:when test="${name == 'compTitles'}">
                                 <form method="post" action="Reports">
-                                    <input type="submit" name="reportInput" value="compTitles" class="btn btn-block button-red-solid mb-2">
+                                    <button type="submit" name="reportInput" value="compTitles" class="btn btn-block button-red-solid mb-2">Generate</button>
                                 </form>
                             </c:when>
                             <c:when test="${name == 'specificTitles'}">
                                 <form method="post" action="Reports">
-                                    <label for="titles"><h3 class="mb-0">Titles</h3></label>
                                     <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
                                         <c:forEach items="${allTitles}" var="title">
                                             <option value="${title.titleId}">${title.name}</option>
                                         </c:forEach>
                                     </select>
-                                    <input type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">
+                                    <button type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">Generate</button>
                                 </form>
                             </c:when>
                         </c:choose>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-1">
+
+                </div>
+                <div class="col-8">
                     <div class="row">
                         <c:choose>
                             <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
@@ -130,6 +154,9 @@
                             <c:when test="${reportType == 'activeTitles' || reportType == 'compTitles' || reportType == 'specificTitles'}">
                                 <sync:viewtitlereport></sync:viewtitlereport>
                             </c:when>
+                            <c:otherwise>
+                                <h2 class="text-right">Select A Report To Continue</h2>
+                            </c:otherwise>
                         </c:choose>
                     </div>
                 </div>

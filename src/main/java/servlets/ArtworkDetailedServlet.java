@@ -27,14 +27,16 @@ public class ArtworkDetailedServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            if (session.getAttribute("status").equals("freelancer")) { //freelancer
+            if (session.getAttribute("position").equals("freelancer")) { //freelancer
                 Account user_f = (Account) session.getAttribute("user");
                 String owner_s = user_f.getFirstname() + " " + user_f.getLastname();
                 request.setAttribute("username_fl", owner_s);
+                request.setAttribute("position", "0");
             } else {
                 Account user = (Account) session.getAttribute("feedback_select");
                 String owner_s = user.getFirstname() + " " + user.getLastname();
                 request.setAttribute("username_fl", owner_s);
+                request.setAttribute("position", "1");
             }
 
             request.setAttribute("approve_deny_val", 0); //0 to see the buttons          
@@ -52,14 +54,10 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 List<Artwork> rounds;
                 rounds = as.getAllRounds(title_select_id);
 
-                //get round artwork
-                int max_round = as.findMaxRound(title_select_id);
-
-                for (int i = max_round; i > 0; i--) {
-                    List<Artwork> round_art;
-                    round_art = as.getAllArtworkByRound(title_select_id, i);
-                    request.setAttribute("round_art", round_art);
-                }
+                //gets artwork for each round
+                List<Artwork> round_art;
+                round_art = as.getAllArtworkByTitleId(title_select_id);
+                request.setAttribute("round_art", round_art);
 
                 //check if there are any rounds
                 if (rounds.isEmpty() == false) {

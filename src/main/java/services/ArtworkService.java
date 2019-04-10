@@ -133,11 +133,11 @@ public class ArtworkService {
         round_id_specific = arts_specific.get(0).getRound();
 
         //add lower rounds artwork to new sorted list, when there is more than one artwork in the round
-        for (int i = max_round; i > 0; i--) {
+        for (int i = max_round-1; i > 0; i--) {
 
             round_id = arts.get(i).getRound();
 
-            if (round_id == (round_id_specific - 1)) {
+            if (round_id == i) {
                 arts_specific.add(arts.get(i));
             }
         }

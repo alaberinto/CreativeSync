@@ -55,10 +55,9 @@
                                         <th colspan="2">        
                                             <div style="padding: 10px;">
                                                 <div align="center" class="img_zoom">    
-                                                    <c:forEach var="round_art" items="${round_art}">                                             
-<!--                                                    <img class="fancybox" title="Picture 1" src="https://image.shutterstock.com/z/stock-photo-oil-painting-on-canvas-street-view-of-london-artwork-big-ben-couple-and-red-umbrella-bus-and-667859491.jpg" style="width: 250px; height:205px;" alt="pic1"/>
-                                                    <img class="fancybox" title="Picture 2" src="https://image.shutterstock.com/image-photo/artists-living-room-minimal-style-450w-689978848.jpg" style="width: 250px; height:205px;" alt="pic2"/>-->
-                                                    <img class="fancybox" title="French Bulldog" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
+                                                    <c:forEach var="round_art" items="${round_art}">
+                                                        <!--${round_art}-->
+                                                        <img class="fancybox" title="${round_art.artworkId}" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="pic3"/>
                                                     </c:forEach>
                                                 </div>                                                                               
                                             </div>
@@ -71,7 +70,7 @@
                                                 <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required style></textarea>                                         
                                             </div>
                                         </td>
-                                        <td >
+                                        <td>
                                             <c:if test="${approve_deny_val == 0}">
                                                 <div align="center">                         
                                                     <form action="ArtworkDetailed" method="post" id="status_ad">

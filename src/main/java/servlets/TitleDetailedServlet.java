@@ -46,6 +46,10 @@ public class TitleDetailedServlet extends HttpServlet {
         else {
             request.setAttribute("frees", tha);
             request.setAttribute("view", title);
+            double timeLeft = title.getTitle().getEndDate().getTime() - new Date().getTime();
+            timeLeft = timeLeft / (1000 * 60 * 60 * 24);
+            timeLeft = Math.rint(timeLeft);
+            request.setAttribute("timeLeft", timeLeft);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/TitleDetailed.jsp").forward(request, response);

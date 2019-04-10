@@ -31,14 +31,14 @@
             </div>
             <div class="row border-danger">
                 <div class="col-4">
-                    <p>Start: <fmt:formatDate type = "date" 
+                    <p>Start: <fmt:formatDate type = "date"
                                     value = "${view.title.startDate}" /></p>
                 </div>
                 <div class="col-4 text-center" >
-                    <p><b>13</b> Days Left!</p>
+                    <p><b>${timeLeft}</b> Days Left!</p>
                 </div>
                 <div class="col-4 text-right" >
-                    <p>End: <fmt:formatDate type = "date" 
+                    <p>End: <fmt:formatDate type = "date"
                                     value = "${view.title.endDate}" /></p>
                 </div>
             </div>

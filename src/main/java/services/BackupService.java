@@ -61,7 +61,7 @@ public class BackupService {
                 "CREATE SCHEMA IF NOT EXISTS `NetflixDB` DEFAULT CHARACTER SET utf8 ;\n"
                 + "USE `NetflixDB` ;",};
 
-            File file = new File(home + filename);
+            File file = new File(home + "/" + filename);
             FileWriter fw4 = new FileWriter(file);
             for (int i = 0; i < append.length; i++) {
                 fw4.write(append[i] + "\n");

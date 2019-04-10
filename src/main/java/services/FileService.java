@@ -82,7 +82,7 @@ public class FileService {
         } catch (Exception ex) {
             Logger.getLogger(FileService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Could not upload file.";
+        return null;
     }
 
     /**

@@ -120,7 +120,9 @@ public class TitleDetailedServlet extends HttpServlet {
                 break;
         }
 
-        doGet(request, response);
+        response.sendRedirect("TitleDetailed?name=" + title.getName());
+        //request.setAttribute("name", title.getName());
+        //doGet(request, response);
     }
 
     public static int getPercentageLeft(Date start, Date end) {

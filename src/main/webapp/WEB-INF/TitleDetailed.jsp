@@ -177,31 +177,13 @@
                         <div id="collapse3" class="collapse ">
                             <div class="card-body">
                                 <div class="d-flex flex-wrap row-hl">
+                                    <c:forEach items="${artworks}" var="artwork">
                                     <div class="title-asset m-2">
                                         <div class="asset-image">
-                                            <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/erd.jpg" alt=""/>
-                                        </div> 
+                                            <img src="${artwork}" alt="BROKEN IMAGE"/>
+                                        </div>
                                     </div>
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/homwork.png" alt=""/>
-                                        </div> 
-                                    </div>
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/pain.jpg" alt=""/>
-                                        </div> 
-                                    </div>
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/tear-drop-2.jpg" alt=""/>
-                                        </div> 
-                                    </div>
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <img class="asset item-h1" src="css/images/Title/Devilman Crybaby/artwork/Capstone-Logo.png" alt=""/>
-                                        </div> 
-                                    </div>
+                                </c:forEach>
                                 </div>
                             </div>
                         </div>

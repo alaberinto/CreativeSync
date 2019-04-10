@@ -61,6 +61,8 @@ public class TitleDetailedServlet extends HttpServlet {
             
             try {
                 request.setAttribute("assets", fs.getAssets(titleName));
+                ArrayList<String> artworks = fs.getArtworks(titleName);
+                request.setAttribute("artworks", fs.getArtworks(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -142,8 +144,6 @@ public class TitleDetailedServlet extends HttpServlet {
         }
 
         response.sendRedirect("TitleDetailed?name=" + title.getName());
-        //request.setAttribute("name", title.getName());
-        //doGet(request, response);
     }
 
     public static int getPercentageLeft(Date start, Date end) {

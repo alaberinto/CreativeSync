@@ -65,10 +65,11 @@
                 </div>
             </div>
         </div>
+        <!--       https://gist.github.com/need4spd/4662423-->
         <div class="container fullContainer bg-white">
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 mt-4">
-                    
+
                     <c:set var='PAGEBLOCK' value="6" />
                     <fmt:formatNumber var="totalPage"  value="${((users.size() - 1) / PAGEBLOCK)}" maxFractionDigits="0" pattern="######"/>
                     <c:set var="totalPage" value="${totalPage -(totalPage % 1) }" />
@@ -86,8 +87,8 @@
                         <script> var lastPage =${lastPage};</script>
                     </c:if>
                     <div class="list-group list-n">
-                        
-                        
+
+
                         <c:set var="start" value="${1}" /> 
                         <c:set var="page" value="${1}" /> 
                         <c:set var="end" value="${start + 6 }"/> 
@@ -133,10 +134,10 @@
                                 <c:set var="start" value="${start +1}" /> 
                             </c:forEach>
                         </div>
-                        
+
                         <c:if test="${lastPage gt 1}"> 
                             <ul class="pagination">
-                                <form method="post" action="Titles">
+                                <form method="post" action="AddUser">
                                     <li><a href="javascript:goPrev();">Previous</a></li> <!--The Previous Button-->
                                     <!--Here is the loop to display buttons for every page-->
 

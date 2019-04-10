@@ -46,13 +46,21 @@ public class ReportService {
 
     }
 
-    public ArrayList<Account> viewUserByPosition(String positionId) {
-        Integer posId = Integer.parseInt(positionId);
+    public ArrayList<Account> viewUserByPosition(String[] positionId) {
+        ArrayList<Integer> toParse = new ArrayList<>();
+        for (int j = 0; j < positionId.length; j++) {
+            toParse.add(Integer.parseInt(positionId[j]));
+        }
         ArrayList<Account> allAccounts = getAllUsers();
         ArrayList<Account> cleanArray = new ArrayList<>();
+
         for (int i = 0; i < allAccounts.size(); i++) {
-            if (allAccounts.get(i).getPosition().getPositionId() == posId) {
-                cleanArray.add(allAccounts.get(i));
+            for (int k = 0; k < toParse.size(); k++) {
+                if (allAccounts.get(i).getPosition().getPositionId() == toParse.get(k)) {
+                    cleanArray.add(allAccounts.get(i));
+                    break;
+                }
+
             }
         }
         return cleanArray;
@@ -71,7 +79,8 @@ public class ReportService {
         return cleanArray;
 
     }
-        public ArrayList<Title> getAllActiveTitles() {
+
+    public ArrayList<Title> getAllActiveTitles() {
         try {
             ArrayList<Title> isActive = tb.getActiveTitles();
             return isActive;
@@ -103,12 +112,12 @@ public class ReportService {
     public TitlesView viewTitleInformation(String tId) {
 
         try {
-           
+
             Integer titleId = Integer.parseInt(tId);
             Title title = tb.getTitleById(titleId);
-            TitlesView tv = new TitlesView(title,true,null);
+            TitlesView tv = new TitlesView(title, true, null);
             return tv;
-            
+
         } catch (DBException | InvalidTitlesViewException ex) {
             Logger.getLogger(TitleService.class.getName()).log(Level.SEVERE, null, ex);
         }

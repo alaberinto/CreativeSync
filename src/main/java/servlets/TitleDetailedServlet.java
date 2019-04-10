@@ -65,6 +65,7 @@ public class TitleDetailedServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
         List<FileItem> multiparts = null;
+       
 
         //Check if its a file upload.
         if (ServletFileUpload.isMultipartContent(request)) {
@@ -83,12 +84,12 @@ public class TitleDetailedServlet extends HttpServlet {
         String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
         switch (action) {
             case "uploadAsset":
-                uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
+               // uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
                 session.setAttribute("uploaded", uploaded);
                 break;
             case "uploadArtwork":
                 //Get File From JSP
-                uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
+               // uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
                 session.setAttribute("uploaded", uploaded);
                 break;
             case "viewAsset":

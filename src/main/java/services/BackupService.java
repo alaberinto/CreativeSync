@@ -64,6 +64,7 @@ public class BackupService {
                 "CREATE SCHEMA IF NOT EXISTS `NetflixDB` DEFAULT CHARACTER SET utf8 ;\n"
                 + "USE `NetflixDB` ;",};
 
+            //Creates a file in user directory + dump.sql
             File file = new File(home + "/" + filename);
             FileWriter fw4 = new FileWriter(file);
             for (int i = 0; i < append.length; i++) {
@@ -71,6 +72,7 @@ public class BackupService {
             }
             fw4.flush();
 
+            //backupFile.sql
             File toLoop = new File(dump);
             Scanner sc = new Scanner(toLoop);
             while (sc.hasNextLine()) {
@@ -81,7 +83,7 @@ public class BackupService {
             fw4.close();
             
             InputStream in = new FileInputStream(file);
-            
+            //write to Dropbox
             FileService fs = new FileService();
             fs.uploadBackup(filename, in);
             
@@ -106,23 +108,27 @@ public class BackupService {
         }
     }
 
-    public String restoreDatabase(String backupId) {
+    public String restoreDatabase(String backupId) throws DbxException, IOException {
         Integer newBackupId = Integer.parseInt(backupId);
         Backup backup = bb.getBackupById(newBackupId);
         String home = System.getProperty("user.home");
+        
+        FileService fs = new FileService();
+        File file = fs.getBackup(backup.getBackupName());
+        
         FileWriter fw = null;
         try {
             String[] restoreBat = {"@echo off",
                 "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin",
-                "mysql.exe -u root -ppassword -h localhost netflixdb < " + home + backup.getBackupName()};
-            File bat = new File(home + "restoreDB.bat");
+                "mysql.exe -u root -ppassword -h localhost netflixdb < " + file.getAbsolutePath()};
+            String fileBat = home + "/" + "restoreDB.bat";
+            File bat = new File(fileBat);
             fw = new FileWriter(bat);
             for (int i = 0; i < restoreBat.length; i++) {
                 fw.write(restoreBat[i] + "\r\n");
             }
             fw.close();
 
-            String fileBat = home + "restoreDB.bat";
             Runtime runtime = Runtime.getRuntime();
             Process p;
             //removes entry

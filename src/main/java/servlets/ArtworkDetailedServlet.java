@@ -27,48 +27,42 @@ public class ArtworkDetailedServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            if (session.getAttribute("position").equals("freelancer")) { //freelancer
-                Account user_f = (Account) session.getAttribute("user");
-                String owner_s = user_f.getFirstname() + " " + user_f.getLastname();
-                request.setAttribute("username_fl", owner_s);
+            /*
+            1 = admin
+            2 = coordinator
+            3 = design lead
+            4 = freelancer
+             */
+            Account user = (Account) session.getAttribute("user");
+            int position = user.getPosition().getPositionId();
+
+            if (position == 4) { //freelancer       
                 request.setAttribute("position", "0");
             } else {
-                Account user = (Account) session.getAttribute("feedback_select");
-                String owner_s = user.getFirstname() + " " + user.getLastname();
-                request.setAttribute("username_fl", owner_s);
                 request.setAttribute("position", "1");
             }
 
-            request.setAttribute("approve_deny_val", 0); //0 to see the buttons          
-            request.setAttribute("title", session.getAttribute("title_select")); //title name            
+            request.setAttribute("status", 0); //0 to see the buttons    
 
-            //title id retrieval
-            String title_select_id_s = (String) session.getAttribute("title_select_id"); //null
+            //title id retrieval            
+            int titleId = (int) session.getAttribute("titleId");
 
-            //if there are titles
-            if (title_select_id_s != null) {
-                int title_select_id = Integer.parseInt(title_select_id_s);
+            //get rounds
+            ArtworkService as = new ArtworkService();
+            List<Artwork> rounds;
+            rounds = as.getAllRounds(titleId);
 
-                //get rounds
-                ArtworkService as = new ArtworkService();
-                List<Artwork> rounds;
-                rounds = as.getAllRounds(title_select_id);
+            //gets artwork for each round
+            List<Artwork> roundArt;
+            roundArt = as.getAllArtworkByTitleId(titleId);
+            request.setAttribute("roundArt", roundArt);
 
-                //gets artwork for each round
-                List<Artwork> round_art;
-                round_art = as.getAllArtworkByTitleId(title_select_id);
-                request.setAttribute("round_art", round_art);
-
-                //check if there are any rounds
-                if (rounds.isEmpty() == false) {
-                    request.setAttribute("rounds_filled", 1);
-                    request.setAttribute("rounds", rounds);
-                } else {
-                    request.setAttribute("rounds_filled", 0);
-                }
+            //check if there are any rounds & artwork
+            if (rounds.isEmpty() == false) {
+                request.setAttribute("roundsFilled", 1);
+                request.setAttribute("rounds", rounds);
             } else {
-                //if there are no titles     
-                request.setAttribute("titles_filled", 0);
+                request.setAttribute("roundsFilled", 0);
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
@@ -83,23 +77,18 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Account user = (Account) session.getAttribute("feedback_select");
-            String owner_s = user.getFirstname() + " " + user.getLastname();
-            request.setAttribute("username_fl", owner_s); // may not be needed, or changed
-            request.setAttribute("title", session.getAttribute("title_select"));
 
             //get comments
             String comment = request.getParameter("comment");
             request.setAttribute("comment", comment);
 
             //title id retrieval
-            String title_select_id_s = (String) session.getAttribute("title_select_id");
-            int title_select_id = Integer.parseInt(title_select_id_s);
+            int titleId = (int) session.getAttribute("titleId");
 
             //get rounds
             ArtworkService as = new ArtworkService();
             List<Artwork> rounds;
-            rounds = as.getAllRounds(title_select_id);
+            rounds = as.getAllRounds(titleId);
             request.setAttribute("rounds", rounds);
 
             //changes the approve/deny message when the form is posted
@@ -107,11 +96,11 @@ public class ArtworkDetailedServlet extends HttpServlet {
             String deny = request.getParameter("deny");
 
             if (approved != null) {
-                request.setAttribute("approve_deny_val", 1); //1 if round is approved
+                request.setAttribute("status", 1); //1 if round is approved
             }
 
             if (deny != null) {
-                request.setAttribute("approve_deny_val", 2); //2 if round is denied
+                request.setAttribute("status", 2); //2 if round is denied
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);

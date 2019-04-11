@@ -42,6 +42,7 @@ public class TitleDetailedServlet extends HttpServlet {
         TitlesView title = ts.getTitlesViewByName(titleName);
         ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
         session.setAttribute("title", title.getTitle());
+        session.setAttribute("titleId", title.getTitle().getTitleId());
 
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
@@ -58,7 +59,7 @@ public class TitleDetailedServlet extends HttpServlet {
             } else {
                 request.setAttribute("timeLeft", "0");
             }
-            
+
             try {
                 request.setAttribute("assets", fs.getAssets(titleName));
                 ArrayList<String> artworks = fs.getArtworks(titleName);
@@ -80,7 +81,6 @@ public class TitleDetailedServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
         List<FileItem> multiparts = null;
-       
 
         //Check if its a file upload.
         if (ServletFileUpload.isMultipartContent(request)) {
@@ -100,22 +100,24 @@ public class TitleDetailedServlet extends HttpServlet {
         switch (action) {
             case "uploadAsset":
                 uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
-                
-                if(uploaded != null)
+
+                if (uploaded != null) {
                     session.setAttribute("goodFeedback", uploaded);
-                else
+                } else {
                     session.setAttribute("badFeedback", "Could not upload asset.");
-                
+                }
+
                 break;
             case "uploadArtwork":
                 //Get File From JSP
                 uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
-                
-                if(uploaded != null)
+
+                if (uploaded != null) {
                     session.setAttribute("goodFeedback", uploaded);
-                else
+                } else {
                     session.setAttribute("badFeedback", "Could not upload artwork.");
-                
+                }
+
                 break;
             case "downloadAllAssets": {
                 try {

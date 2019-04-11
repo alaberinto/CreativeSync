@@ -45,6 +45,9 @@ public class FileService {
     private final long CHUNKED_UPLOAD_CHUNK_SIZE = 8L << 20; // 8 MiB
     private final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
 
+    /**
+     * Starts up the config and Dropbox client.
+     */
     public FileService() {
         config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         client = new DbxClientV2(config, ACCESS_TOKEN);
@@ -396,7 +399,15 @@ public class FileService {
         sharedLinkMetadata.getUrl();
     }
     
-    
+    /**
+     * Downloads all assets from Dropbox as a zip file.
+     * 
+     * @param titleName name of the title.
+     * @return message whether or not the zip was downloaded.
+     * @throws FileNotFoundException if the file was not found.
+     * @throws DbxException if Dropbox connection does not allow for the upload.
+     * @throws IOException if the File could not be accessed.
+     */
     public String downloadAllAssets(String titleName) throws FileNotFoundException, DbxException, IOException {
         DbxDownloader<DownloadZipResult> downloader = client.files().downloadZip("/Title/" + titleName + "/asset");
          try {
@@ -410,5 +421,25 @@ public class FileService {
         }
          
          return "Downloaded file. Please check " + System.getProperty("user.home") + "/Downloads/" + titleName + "-assets.zip";
+    }
+
+    /**
+     * Retrieves backup from Dropbox and creates a local file.
+     * 
+     * @param backupName the name of the backup.
+     * @return bat file to read from.
+     * @throws FileNotFoundException if the File being sent to this method is not found.
+     * @throws DbxException if Dropbox connection does not allow for the upload.
+     * @throws IOException if the File could not be accessed.
+     */
+    public File getBackup(String backupName) throws FileNotFoundException, DbxException, IOException {
+        String home = System.getProperty("user.home");
+        File file = new File(home + "/Downloads/" + backupName);
+        FileOutputStream out = new FileOutputStream(file);
+        client.files().download("/Backups/" + backupName).download(out);
+        
+        out.close();
+        
+        return file;
     }
 }

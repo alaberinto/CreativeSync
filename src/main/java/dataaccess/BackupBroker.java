@@ -14,15 +14,25 @@ import javax.persistence.EntityTransaction;
 import models.Backup;
 
 /**
- *
- * @author 731866
+ * BackupBroker is a data-access class to retrieve Backup information from the
+ * database.
+ * @author Cooper Vasiliou & Alvin Laberinto
  */
 public class BackupBroker {
+    
+    /**
+     * Default constructor.
+     */
     public BackupBroker(){
         
     }
     
-    
+    /**
+     * Inserts backup information into the database.
+     * @param ba backup information to be inserted to the database.
+     * @return a Backup object holding backup information
+     * @throws DBException if there was a problem inserting into the database.
+     */
     public Backup insertBackup(Backup ba) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -41,6 +51,10 @@ public class BackupBroker {
         return ba;
     }
     
+    /**
+     * Gets all backup information.
+     * @return an ArrayList object of all backup information.
+     */
     public ArrayList<Backup> getAllBackups() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -54,6 +68,13 @@ public class BackupBroker {
         
         return null;
     }
+    
+    /**
+     * Gets a backup by its associated ID.
+     * 
+     * @param id the id of the backup.
+     * @return the backup information found by its ID.
+     */
     public Backup getBackupById(Integer id){
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
@@ -64,6 +85,5 @@ public class BackupBroker {
         } finally {
             em.close();
         }
-    }
-    
+    }  
 }

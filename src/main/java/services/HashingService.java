@@ -17,6 +17,12 @@ public class HashingService {
 
     }
 
+    /**
+     * Generates the hash code for the password using SHA-256
+     * 
+     * @param password the password to be hashed.
+     * @return a String object of the hashed password
+     */
     public String generateHash(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

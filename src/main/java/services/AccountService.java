@@ -136,6 +136,11 @@ public class AccountService {
         return views;
     }
 
+    /**
+     * Gets a UsersView object for the specified username.
+     * @param username the username of the Account object to be found.
+     * @return null if there is no acc. otherwise, return a UsersView object.
+     */
     public UsersView getUsersViewMyAccount(String username) {
         Account acc = getUserByName(username);
 
@@ -146,6 +151,11 @@ public class AccountService {
         return new UsersView(acc);
     }
 
+    /**
+     * Gets a list of all active users on the system.
+     * 
+     * @return an ArrayList object of UsersView objects which are defined as active.
+     */
     public ArrayList<UsersView> getAllActiveUsers() {
         ArrayList<Account> allUsers = getAllUsers();
         ArrayList<Account> cleanArray = new ArrayList<>();
@@ -521,6 +531,10 @@ public class AccountService {
 
     }
 
+    /**
+     * Gets a list of active freelancers.
+     * @return an ArrayList object of Account objects of freelancers that are defined as active.
+     */
     public ArrayList<Account> getActiveFreelancers() {
         ArrayList<Account> acc = new ArrayList<>();
         ArrayList<Account> cleanArray = new ArrayList<>();
@@ -536,6 +550,11 @@ public class AccountService {
         return cleanArray;
     }
 
+    /**
+     * Gets a user by their name.
+     * @param name the name of the user whose account is to be found.
+     * @return an Account object that is associated with the name.
+     */
     public Account getUserByName(String name) {
         if (name == null) {
             return null;
@@ -555,6 +574,11 @@ public class AccountService {
         return null;
     }
 
+    /**
+     * Gets the wanted freelancers by the title specified.
+     * @param title the title that is being worked on by the wanted freelancers.
+     * @return an ArrayList object of TitleHasAccount objects that get the Freelancers working on a title.
+     */
     public ArrayList<TitleHasAccount> getFreelancersByTitle(Title title) {
         ArrayList<TitleHasAccount> acc = new ArrayList(title.getTitleHasAccountList());
 
@@ -569,11 +593,32 @@ public class AccountService {
         return acc;
     }
 
+    /**
+     * Gets an account and all of its associated Titles.
+     * 
+     * @param name the name of the user whose account is to be found or located.
+     * @return a UsersView object with the Titles associated with the Account object.
+     */
     public UsersView getTitlesViewByName(String name) {
         Account acc = this.getUserByName(name);
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
     }
 
+    /**
+     * Edits a user based on their account information.
+     * 
+     * @param ac the account object of the user.
+     * @param firstname the first name of the user.
+     * @param lastname the last name of the user.
+     * @param email the email of the user.
+     * @param rate the hourly rate paid to the user.
+     * @param active denotes if the user is active on the system or not.
+     * @param genreIds the IDs of the genres that this user has indicated they work on.
+     * @param location the location where the user is currently at.
+     * @param languageIds the IDs of the languages that this user has indicated they are proficient in.
+     * @param position the position of the user.
+     * @return a String object indicating that the user was updated or not.
+     */
     public String editUser(Account ac, String firstname, String lastname, String email, double rate, String active, String[] genreIds, String location, String[] languageIds, String position) {
 
         try {

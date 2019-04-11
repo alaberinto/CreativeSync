@@ -18,46 +18,48 @@
     </head>
     <body>
         <sync:navbar1></sync:navbar1>
-            <h1>Backups</h1>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Backup name</th>
-                        <th scope="col">Backup date</th>
-                        <th scope="col">Restore backup</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${backups}" var="backup">
-                    <tr>
-                        <td>${backup.backupName}</td>
-                        <td><fmt:formatDate type = "both" value="${backup.backupDate}" /></td>
-                        <td>
-                            <form method="post" action="Backups">
-                                <input type="hidden" name="backupId" value="${backup.backupId}">
-                                <input type="submit" class="btn btn-danger" value="Restore database" onclick="warnUser();">
-                                <script type = "text/javascript">
-                                    function warnUser() {
-                                        var confrimAction = confirm("YOU ARE ABOUT TO RESTORE THE DATABASE! DO YOU WISH TO CONTINTUE?");
-                                        if (confrimAction === false) {
-                                            event.preventDefault();
-                                            return false;
-                                        } else {
-                                            alert("Restoring database");
-                                            return true;
+            <div class="searchBarHeader"></div>
+            <div class="container bg-white">
+                <div class="page-header border-bottom text-center">BACKUPS</div>
+                <form method="get" action="Backups">
+                    <input type="submit" name="backupDatabase" class="btn btn-danger mt-2 mb-2" value="Backup database">
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th scope="col">File Name</th>
+                            <th scope="col">Creation Date</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${backups}" var="backup">
+                        <tr>
+                            <td><b>${backup.backupName}</b></td>
+                            <td><fmt:formatDate type = "both" value="${backup.backupDate}" /></td>
+                            <td class="flex-row-reverse">
+                                <form class="float-right" method="post" action="Backups">
+                                    <input type="hidden" name="backupId" value="${backup.backupId}">
+                                    <input type="submit" class="btn btn-secondary" value="Restore database" onclick="warnUser();">
+                                    <script type = "text/javascript">
+                                        function warnUser() {
+                                            var confrimAction = confirm("YOU ARE ABOUT TO RESTORE THE DATABASE! DO YOU WISH TO CONTINTUE?");
+                                            if (confrimAction === false) {
+                                                event.preventDefault();
+                                                return false;
+                                            } else {
+                                                alert("Restoring database");
+                                                return true;
+                                            }
                                         }
-                                    }
-                                </script>     x
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-        <form method="get" action="Backups">
-            <input type="submit" name="backupDatabase" class="btn btn-primary" value="Backup database">
-        </form>
-
+                                    </script>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
     </body>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

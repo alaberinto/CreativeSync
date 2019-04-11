@@ -50,7 +50,7 @@ h2 {
 
 .page-header {
     font-size: 50px;
-    color: #e50914;
+    color: black;
     font-weight: bolder;
 }
 
@@ -195,6 +195,13 @@ a:hover {
     border-bottom-color: #e50914; 
 }
 
+/*.table-danger {
+    background-color: #e50914 !important;
+}
+
+th {
+    background-color: #e50914 !important;
+}*/
 
 
 /* Artwork Detailed */

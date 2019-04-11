@@ -108,15 +108,19 @@ public class BackupService {
         }
     }
 
-    public String restoreDatabase(String backupId) {
+    public String restoreDatabase(String backupId) throws DbxException, IOException {
         Integer newBackupId = Integer.parseInt(backupId);
         Backup backup = bb.getBackupById(newBackupId);
         String home = System.getProperty("user.home");
+        
+        FileService fs = new FileService();
+        File file = fs.getBackup(backup.getBackupName());
+        
         FileWriter fw = null;
         try {
             String[] restoreBat = {"@echo off",
                 "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin",
-                "mysql.exe -u root -ppassword -h localhost netflixdb < " + home + "/" + backup.getBackupName()};
+                "mysql.exe -u root -ppassword -h localhost netflixdb < " + file.getAbsolutePath()};
             String fileBat = home + "/" + "restoreDB.bat";
             File bat = new File(fileBat);
             fw = new FileWriter(bat);

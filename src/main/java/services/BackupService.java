@@ -48,7 +48,9 @@ public class BackupService {
 
         try {
             bb.insertBackup(backup);
-            String[] cmd = {"C:\\Users\\731866\\OneDrive - Southern Alberta Institute of Technology\\Desktop\\FINAL CAPSTONE\\CreativeSyncCapstoneOOF\\src\\main\\java\\database\\sql.bat"};
+            ClassLoader classLoader = new BackupService().getClass().getClassLoader();
+            String bat = classLoader.getResource("sql.bat").getFile();
+            String[] cmd = {bat};
             Runtime runtime = Runtime.getRuntime();
             Process p;
 

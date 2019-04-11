@@ -57,8 +57,8 @@
 
                     </div>
                     <div class="col-3">
-                        <label for="language"><h3 class="mb-0">Language</h3></label>
-                        <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
+                        <label for="languages"><h3 class="mb-0">Language</h3></label>
+                        <select class="selectpicker form-control" name="languages" id="languages" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
                             <option value="" selected disabled hidden>Choose Language</option>
                             <c:forEach items="${languages}" var="lang">
                                 <option value="${lang.languageId}">${lang.languageName}</option>
@@ -67,12 +67,8 @@
                     </div>
                         
                     <div class="col-3">
-                        <label for="gens"><h3 class="mb-0">Genres</h3></label>
-                        <select class="selectpicker form-control" name="gens" id="gens" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
-                            <option value="" selected disabled hidden>Choose Genres</option>
-                            <c:forEach items="${userGenres}" var="gen">
-                                <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected':''}>${gen.genreDesc}</option>
-                            </c:forEach>
+                        <label for="genres"><h3 class="mb-0">Genres</h3></label>
+                        <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
                             <c:forEach items="${genres}" var="gen">
                                 <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected':''}>${gen.genreDesc}</option>
                             </c:forEach>

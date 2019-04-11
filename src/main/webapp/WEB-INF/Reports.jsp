@@ -147,14 +147,14 @@
                             <c:choose>
                                 <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
                                     <form>
-                                        <input class="btn btn-secondary btn-block" type="button" id="usersreportbutton" value="Download Report " name="download" />
+                                        <input class="btn btn-danger btn-block" type="button" id="usersreportbutton" value="Download Report " name="download" />
                                     </form>
                                     <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
                                 </c:when>
                                     
                                 <c:when test="${reportType == 'activeTitles' || reportType == 'compTitles' || reportType == 'specificTitles'}">
                                     <form>
-                                        <input class="btn btn-secondary btn-block" type="button" id="titlesreportbutton" value="Download Report " name="download" />
+                                        <input class="btn btn-danger btn-block" type="button" id="titlesreportbutton" value="Download Report " name="download" />
                                     </form>
                                     <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
                                 </c:when>

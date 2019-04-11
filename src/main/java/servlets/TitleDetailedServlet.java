@@ -137,7 +137,7 @@ public class TitleDetailedServlet extends HttpServlet {
                 break;
             case "deleteArtwork":
                 try {
-                    fs.deleteAsset(title.getName(), request.getParameter("artworkName"));
+                    fs.deleteArtwork(title.getName(), request.getParameter("artworkName"));
                 } catch (DbxException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }

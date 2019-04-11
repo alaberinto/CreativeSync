@@ -35,6 +35,13 @@ public class GenreBroker {
         return null;
     }
 
+    /**
+     * Gets a genre by its associated ID.
+     * 
+     * @param id the id of the genre.
+     * @return a Genre object holding this type of information.
+     * @throws DBException if the genre could not be retrieved from the database.
+     */
     public Genre getGenreById(Integer id) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 

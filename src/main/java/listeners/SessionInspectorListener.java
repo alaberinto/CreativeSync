@@ -8,7 +8,7 @@ import models.Account;
 
 /**
  *
- * @author MasterPC
+ * @author Mason
  */
 public class SessionInspectorListener implements HttpSessionListener {
 

@@ -12,7 +12,7 @@ import models.Title;
 /**
  * TitleBroker is a data-access class to manage Title information in database.
  * 
- * @author Mason Hill & Alvin Labarinto
+ * @author Mason Hill & Alvin Laberinto
  * @version 1.0
  */
 public class TitleBroker {
@@ -96,6 +96,12 @@ public class TitleBroker {
         }
     }
     
+    /**
+     * Gets a Title object by its Title name.
+     * @param name the name of the title.
+     * @return a Title object holding information on a Title.
+     * @throws DBException if there was a problem retrieving a Title from the database.
+     */
     public Title getTitleByName(String name) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -134,6 +140,11 @@ public class TitleBroker {
         return null;
     }
     
+    /**
+     * Gets a list of titles that have been completed.
+     * @return an ArrayList object of Title objects that have been completed.
+     * @throws DBException if there was a problem retrieving completed Titles from the database.
+     */
     public ArrayList<Title> getCompleteTitles() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -172,6 +183,10 @@ public class TitleBroker {
         }
     }
     
+    /**
+     * Updates the titles in the database.
+     * @param titles an ArrayList object of Title objects to be updated.
+     */
     public void updateTitles(ArrayList<Title> titles) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

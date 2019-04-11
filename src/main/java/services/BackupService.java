@@ -19,20 +19,27 @@ import java.util.logging.Logger;
 import models.Backup;
 
 /**
- *
- * @author 731866
+ * BackupService is a service class to process requests to access or mutate
+ * Backup information.
+ * @author Cooper Vasiliou
  */
 public class BackupService {
 
     private UserBroker ab;
     private BackupBroker bb;
 
+    /**
+     * Constructor that instantiates UserBroker and BackupBroker objects.
+     */
     public BackupService() {
 
         ab = new UserBroker();
         bb = new BackupBroker();
     }
 
+    /**
+     * Runs the process of creating sql backups and the .bat file to run in command line.
+     */
     public void runBackup() {
 
         DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -108,6 +115,14 @@ public class BackupService {
         }
     }
 
+    /**
+     * Restores the database to the specified point in time of the backup file.
+     * 
+     * @param backupId the ID of the backup to be used.
+     * @return a String object indicating whether or not the restoration was successful or not.
+     * @throws DbxException if there was a problem with Dropbox.
+     * @throws IOException if the file could not be accessed properly.
+     */
     public String restoreDatabase(String backupId) throws DbxException, IOException {
         Integer newBackupId = Integer.parseInt(backupId);
         Backup backup = bb.getBackupById(newBackupId);
@@ -146,6 +161,10 @@ public class BackupService {
         return null;
     }
 
+    /**
+     * Gets all Backup information.
+     * @return an ArrayList object of all Backups.
+     */
     public ArrayList<Backup> getAllBackups() {
         return bb.getAllBackups();
     }

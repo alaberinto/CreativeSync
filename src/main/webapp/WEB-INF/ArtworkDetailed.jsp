@@ -29,6 +29,7 @@
                 <h1 align="center">Feedback</h1>
 
                 <div class="hdev">
+
                     <div align="center">
                         <h3>
                         <c:if test="${roundsFilled == 1 || roundsFilled == 0}">
@@ -36,13 +37,38 @@
                         </c:if>                      
                     </h3>    
                 </div>
-                <c:if test="${roundsFilled == 1}">
-                    <h3>Round #</h3>
-                </c:if>
+
+                <!--add/upload artwork-->
+                <table border="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <c:if test="${roundsFilled == 1}">
+                                    <h3>Round #</h3>
+                                </c:if>
+                            </th>
+                            <th>
+                                <div align ="right">
+                                    <div class="col-4">
+                                        <form method="POST" action="ArtworkDetailed" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                                <input type="submit" id="submitAsset" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>
+                                                <input type="hidden" name="action" value="uploadArtwork">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+
                 <hr>
 
-                <br>                
+                <br>    
 
+                <!--rounds-->
                 <c:if test="${roundsFilled == 1}">
                     <c:forEach var="rounds" items="${rounds}">
                         <h3>${rounds.getRound()}</h3>
@@ -91,27 +117,24 @@
                                                         </form>
                                                     </div>
                                                 </c:if>
+                                            </c:if>                                       
+                                            <c:if test="${status == 1}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #4CAF50">APPROVED</h1>
+                                                </div>
                                             </c:if>
-                                            <c:if test="${position == 0 || position == 1}">
-                                                <c:if test="${status == 1}">
-                                                    <div align="center">                         
-                                                        <h1 style="color: #4CAF50">APPROVED</h1>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${status == 2}">
-                                                    <div align="center">                         
-                                                        <h1 style="color: #f44336">DENIED</h1>
-                                                    </div>
-                                                </c:if>
-                                            </c:if>
+                                            <c:if test="${status == 2}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #f44336">DENIED</h1>
+                                                </div>
+                                            </c:if>                                     
                                         </td>  
-                                    </tr>
-
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
                         <br>
-                    </c:forEach>  
+                    </c:forEach>
                 </c:if>
 
                 <c:if test="${roundsFilled == 0}">
@@ -121,6 +144,20 @@
                 </c:if>
 
                 ${comment}
+                ${status}
+
+                <c:if test="${goodFeedback != null}">
+                    <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success</strong> ${goodFeedback}
+                    </div>
+                </c:if>
+                <c:if test="${badFeedback != null}">
+                    <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Error</strong> ${badFeedback}
+                    </div>
+                </c:if> 
 
                 <br>
                 <br>

@@ -574,7 +574,7 @@ public class AccountService {
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
     }
 
-    public String editUser(Account ac, String firstname, String lastname, String email, double rate, String active, String[] genreIds, String location, String[] languageIds, String position) {
+    public String editUser(Account ac, String firstname, String lastname, String email, double rate, String[] genreIds, String location, String[] languageIds, String position) {
 
         try {
 

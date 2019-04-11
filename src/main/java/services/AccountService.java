@@ -266,7 +266,7 @@ public class AccountService {
             Short isActive = 1;
 
             Account ac = new Account(null, hs.generateHash(password), firstname, lastname, email, userRate, isActive);
-            ac.setPosition(pb.getPosition(position));
+            ac.setPosition(pb.getPositionById(position));
             ac.setLocation(lb.getLocation(location));
 
             //Set Genres
@@ -646,7 +646,7 @@ public class AccountService {
             ac.setLastname(lastname);
             ac.setEmail(email);
             ac.setRate(rate);
-            ac.setPosition(pb.getPosition(Integer.parseInt(position)));
+            ac.setPosition(pb.getPositionById(Integer.parseInt(position)));
             ac.setLocation(lb.getLocation(Integer.parseInt(location)));
 
             try {

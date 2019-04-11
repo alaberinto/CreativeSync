@@ -22,7 +22,7 @@ public class PositionBroker {
      * @return null if the Position is not found, Otherwise the Position with the matching ID.
      * @throws DBException When there is a database error.
      */
-    public Position getPosition(int positionId) throws DBException {
+    public Position getPositionById(int positionId) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {

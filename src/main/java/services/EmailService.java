@@ -3,7 +3,6 @@ package services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
@@ -16,14 +15,13 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import models.Account;
 
 
 /**
- *
+ * EmailService is a service class to process requests to access or mutate
+ * Email information.
  * @author Mason
  */
 public class EmailService {

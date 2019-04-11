@@ -41,14 +41,17 @@ public class BackupService {
         
         String home = System.getProperty("user.home");
         String dump = home + "/backupFile.sql";
-        String filename = date + "dump.sql";
+        String filename = date + " dump.sql";
         Backup backup = new Backup();
         backup.setBackupName(filename);
         backup.setBackupDate(newDate);
 
         try {
             bb.insertBackup(backup);
-            String[] cmd = {"C:\\Users\\731866\\OneDrive - Southern Alberta Institute of Technology\\Desktop\\FINAL CAPSTONE\\CreativeSyncCapstoneOOF\\src\\main\\java\\database\\sql.bat"};
+            ClassLoader classLoader = new BackupService().getClass().getClassLoader();
+            String bat = classLoader.getResource("sql.bat").getFile();
+            
+            String[] cmd = {bat};
             Runtime runtime = Runtime.getRuntime();
             Process p;
 

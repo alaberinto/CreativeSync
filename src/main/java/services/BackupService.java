@@ -41,7 +41,7 @@ public class BackupService {
         
         String home = System.getProperty("user.home");
         String dump = home + "/backupFile.sql";
-        String filename = date + "dump.sql";
+        String filename = date + " dump.sql";
         Backup backup = new Backup();
         backup.setBackupName(filename);
         backup.setBackupDate(newDate);

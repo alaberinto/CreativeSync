@@ -182,14 +182,7 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">
-                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <input type="submit" id="submitArtwork" value="Upload Artwork" class="btn btn-block button-red-solid mt-1" disabled>
-                                        <input type="hidden" name="action" value="uploadArtwork"> 
-                                    </div> 
-                                </form>                                
+                            <div class="col-4">                              
                                 <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">

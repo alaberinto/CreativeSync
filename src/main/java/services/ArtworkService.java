@@ -9,6 +9,8 @@ import dataaccess.ArtworkBroker;
 import dataaccess.DBException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Artwork;
 
 /**
@@ -45,7 +47,7 @@ public class ArtworkService {
     public List<Artwork> getAllArtworkByTitleId(int id) throws DBException {
 
         List<Artwork> arts = ab.getAllArtwork();
-        List<Artwork> arts_specific = new ArrayList();
+        List<Artwork> artsSpecific = new ArrayList();
 
         int title_id;
 
@@ -54,11 +56,11 @@ public class ArtworkService {
             title_id = arts.get(i).getTitleHasAccount().getTitle().getTitleId();
 
             if (title_id == id) {
-                arts_specific.add(arts.get(i));
+                artsSpecific.add(arts.get(i));
             }
         }
 
-        return arts_specific;
+        return artsSpecific;
     }
 
     /**
@@ -71,25 +73,25 @@ public class ArtworkService {
 
         List<Artwork> arts = (List<Artwork>) getAllArtworkByTitleId(id_t);
 
-        int round_id;
-        int max_round = 1;
+        int roundId;
+        int maxRound = 1;
 
         for (int i = 0; i < arts.size(); i++) {
 
-            round_id = arts.get(i).getRound();
+            roundId = arts.get(i).getRound();
 
-            if (round_id > max_round) {
-                max_round = round_id;
+            if (roundId > maxRound) {
+                maxRound = roundId;
             }
         }
 
-        return max_round;
+        return maxRound;
     }
 
     public List<Artwork> getAllArtworkByRound(int id_t, int id_r) throws DBException {
 
         List<Artwork> arts = getAllArtworkByTitleId(id_t);
-        List<Artwork> arts_specific = new ArrayList();
+        List<Artwork> artsSpecific = new ArrayList();
 
         int round_id;
 
@@ -98,11 +100,11 @@ public class ArtworkService {
             round_id = arts.get(i).getRound();
 
             if (round_id == id_r) {
-                arts_specific.add(arts.get(i));
+                artsSpecific.add(arts.get(i));
             }
         }
 
-        return arts_specific;
+        return artsSpecific;
     }
 
     //This method does not get all rounds with all information, only the number of rounds in the correct order for a specific title. The other method above will get artwork for any round properly, only for a round.
@@ -114,55 +116,97 @@ public class ArtworkService {
             return arts;
         }
 
-        List<Artwork> arts_specific;
+        List<Artwork> artsSpecific;
 
-        int round_id;
-        int round_id_specific;
-        int max_round = 0;
+        int roundId;
+        int maxRound = 0;
 
         //find max round
         for (int i = 0; i < arts.size(); i++) {
 
-            round_id = arts.get(i).getRound();
+            roundId = arts.get(i).getRound();
 
-            if (round_id > max_round) {
-                max_round = round_id;
+            if (roundId > maxRound) {
+                maxRound = roundId;
             }
 
         }
 
-        arts_specific = new ArrayList(max_round);
+        artsSpecific = new ArrayList(maxRound);
 
         //add highest round artwork to new sorted list
         for (int i = 0; i < arts.size(); i++) {
 
-            round_id = arts.get(i).getRound();
+            roundId = arts.get(i).getRound();
 
-            if (round_id == max_round) { //ignore second if the same, stop loop when it finds what it needs (the max round)
-                arts_specific.add(arts.get(i));
+            if (roundId == maxRound) { //ignore second if the same, stop loop when it finds what it needs (the max round)
+                artsSpecific.add(arts.get(i));
                 break;
             }
         }
 
         //because if there is only one round, there is no need to look for other rounds so just return it here
-        if (max_round == 1) {
-            return arts_specific;
+        if (maxRound == 1) {
+            return artsSpecific;
         }
 
-        //store max round, to be used for comparison with arts list below
-        round_id_specific = arts_specific.get(0).getRound();
-
         //add lower rounds artwork to new sorted list, when there is more than one artwork in the round
-        for (int i = max_round-1; i > 0; i--) {
+        for (int i = maxRound - 1; i > 0; i--) {
 
-            round_id = arts.get(i).getRound();
+            roundId = arts.get(i).getRound();
 
-            if (round_id == i) {
-                arts_specific.add(arts.get(i));
+            if (roundId == i) {
+                artsSpecific.add(arts.get(i));
             }
         }
 
-        return arts_specific;
+        return artsSpecific;
+    }
+
+    //check twice, once for deny and one for approve not finished
+    public int getArtworkStatus(int id, int status) throws DBException {
+
+        List<Artwork> arts = getAllArtworkByTitleId(id);
+
+        int artStatus = 0;
+        int count = 0;
+
+        for (int i = 0; i < arts.size(); i++) {
+
+            artStatus = arts.get(i).getTitleHasAccount().getStatus().getStatusId();
+
+            if (artStatus == status) {
+                count++;
+            }
+        }
+
+        if (count == arts.size()) {
+            return status;
+        }
+
+        return 0;
+
+    }
+
+    //update artwork status
+    public String updateArtworkStatus(int id, int status) {
+        try {
+            Artwork art = ab.getArtworkById(id);
+
+            if (status == 1) {
+                //            art.setStatus(1);    
+            } else if (status == 2) {
+                //            art.setStatus(2);    
+            }
+
+            ab.updateArtwork(art);
+
+            return null;
+
+        } catch (DBException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Update failed!";
+        }
     }
 
 }

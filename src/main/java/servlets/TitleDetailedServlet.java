@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import services.AccountService;
+import services.ArtworkService;
 import services.FileService;
 import services.TitleService;
 import viewModels.TitlesView;
@@ -80,6 +81,7 @@ public class TitleDetailedServlet extends HttpServlet {
         FileService fs = new FileService();
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
+        ArtworkService as = new ArtworkService();
         List<FileItem> multiparts = null;
 
         //Check if its a file upload.
@@ -162,7 +164,7 @@ public class TitleDetailedServlet extends HttpServlet {
         return (100) - ((int) ((e - now) * 100 / (e - s)));
     }
 
-    private String checkValue(List<FileItem> multiparts) {
+    String checkValue(List<FileItem> multiparts) {
         String inputName = null;
         for (FileItem item : multiparts) {
             if (item.isFormField()) {

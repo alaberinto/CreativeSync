@@ -50,6 +50,7 @@ public class BackupService {
             bb.insertBackup(backup);
             ClassLoader classLoader = new BackupService().getClass().getClassLoader();
             String bat = classLoader.getResource("sql.bat").getFile();
+            
             String[] cmd = {bat};
             Runtime runtime = Runtime.getRuntime();
             Process p;

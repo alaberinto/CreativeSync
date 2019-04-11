@@ -8,11 +8,17 @@ import javax.persistence.EntityManager;
 import models.Language;
 
 /**
- *
+ * LanguageBroker is a data-access class to retrieve Language information from the
+ * database.
  * @author Mason
  */
 public class LanguageBroker {
     
+    /**
+     * Gets all language information.
+     * 
+     * @return an ArrayList object holding Language objects.
+     */
     public ArrayList<Language> getAllLanguages() {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -25,6 +31,13 @@ public class LanguageBroker {
         return null;
     }
     
+    /**
+     * Gets a language by its associated ID.
+     * 
+     * @param id the id of the language.
+     * @return a Language object found by its ID.
+     * @throws DBException if the language could not be retrieved from the database.
+     */
     public Language getLanguageById(Integer id) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 

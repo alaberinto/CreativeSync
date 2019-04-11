@@ -17,7 +17,7 @@ body, html {
 }
 
 .searchBar {
-     background-image:url('nimg.PNG');
+    background-image:url('nimg.PNG');
     background-position: bottom right;
     background-size: 5%;
     background-repeat:no-repeat;
@@ -160,23 +160,23 @@ a:hover {
 
 /******USD Icon******/
 .input-icon {
-  position: relative;
+    position: relative;
 }
 
 .input-icon > i {
-  position: absolute;
-  display: block;
-  transform: translate(0, -50%);
-  top: 50%;
-  pointer-events: none;
-  width: 25px;
-  text-align: center;
-	font-style: normal;
+    position: absolute;
+    display: block;
+    transform: translate(0, -50%);
+    top: 50%;
+    pointer-events: none;
+    width: 25px;
+    text-align: center;
+    font-style: normal;
 }
 
 .input-icon > input {
-  padding-left: 25px;
-	padding-right: 0;
+    padding-left: 25px;
+    padding-right: 0;
 }
 
 .button-red-solid {
@@ -268,6 +268,28 @@ a.fancybox:hover img {
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
+    position: relative;
+}
+
+.overlay {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    background: rgba(192,192,192, 0);
+    color: rgba(0, 0, 0, 0);
+    visibility: hidden;
+}
+
+a.link {
+    height: 50px;
+}
+
+.title-asset:hover .overlay {
+   background: rgba(192,192,192, 0.8);
+   color: rgba(0, 0, 0, 1);
+   visibility: visible;
+   -webkit-transition: visibility 0.5s, background-color 0.5s ease-in, color 0.5s ease-in; 
+   transition: visibility 0.5s, background-color 0.5s ease-in, color 0.5s ease-in; 
 }
 
 .asset {

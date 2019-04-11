@@ -143,6 +143,18 @@
                                 <c:forEach items="${assets}" var="asset">
                                     <div class="title-asset m-2">
                                         <div class="asset-image">
+                                            <div class="overlay">
+                                                To download asset:<br/>
+                                                1. Right click "Download Asset"<br/>
+                                                2. Click "Save Link As.."<br/><br/>
+                                                To view asset:<br/>
+                                                1. Left click "Download Asset"<br/>
+                                                <a class="link" href="${asset}" download target="_blank">
+                                                    <button type="button" class="btn btn-block button-red-solid">
+                                                        Download Asset
+                                                    </button>
+                                                </a>
+                                            </div>
                                             <img src="${asset}" class="asset item-h1" alt="BROKEN IMAGE"/>
                                         </div>
                                     </div>
@@ -173,7 +185,7 @@
                                 </form>                                
                                 <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                          <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
+                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
                                         <input type="hidden" name="action" value="uploadArtwork">
                                     </div> 
                                 </form>                             
@@ -186,6 +198,18 @@
                                     <c:forEach items="${artworks}" var="artwork">
                                         <div class="title-asset m-2">
                                             <div class="asset-image">
+                                                <div class="overlay">
+                                                    To download asset:<br/>
+                                                    1. Right click "Download Asset"<br/>
+                                                    2. Click "Save Link As.."<br/><br/>
+                                                    To view asset:<br/>
+                                                    1. Left click "Download Asset"<br/>
+                                                    <a class="link" href="${asset}" download target="_blank">
+                                                        <button type="button" class="btn btn-block button-red-solid">
+                                                            Download Asset
+                                                        </button>
+                                                    </a>
+                                                </div>
                                                 <img src="${artwork}" class="asset item-h1" alt="BROKEN IMAGE"/>
                                             </div>
                                         </div>

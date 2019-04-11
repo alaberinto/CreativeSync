@@ -7,54 +7,57 @@
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-         
-<table id="usersreporttable" class="table table-striped">
+
+<table id="usersreporttable" class="table">
     <thead>
     <div class="text-center w-100">
         <h2 class="text-center">Viewing Users Information</h2>
     </div>
-        
-        <tr class="table-danger">
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Rate</th>
-            <th>Location</th>
-            <th>Language</th>
-            <th>Position</th>
-            <th>Genres</th>
-            <th>Titles</th>
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="acc" items="${list}">
-            <tr>
-                <td><c:out value="${acc.user.firstname}"/></td>
-                <td><c:out value="${acc.user.lastname}"/></td>
-                <td><c:out value="${acc.user.email}"/></td>
-                <td><c:out value="${acc.user.rate}"/></td>
-                <td><c:out value="${acc.user.location.locationDesc}"/></td>
 
-                <td><c:forEach var="lang" items="${acc.user.languageList}">
-                        <c:out value="${lang.languageName}"/>
-                    </c:forEach></td>
+    <tr class="table-danger text-center">
+        <th><b>First Name</b></th>
+        <th><b>Last Name</b></th>
+        <th><b>Email</b></th>
+        <th><b>Rate</b></th>
+        <th><b>Location</b></th>
+        <!--        <th><b>Language</b></th>-->
+        <th><b>Position</b></th>
+        <th><b>Genres</b></th>
+        <th><b>Titles</b></th>
+    </tr>
+</thead>
+<tbody>
+    <c:forEach var="acc" items="${list}">
+        <tr>
+            <td><c:out value="${acc.user.firstname}"/></td>
+            <td><c:out value="${acc.user.lastname}"/></td>
+            <td><c:out value="${acc.user.email}"/></td>
+            <td>$<c:out value="${acc.user.rate}"/></td>
+            <td><c:out value="${acc.user.location.locationDesc}"/></td>
 
-                <td><c:out value="${acc.user.position.positionDesc}"/></td>
+            <!--            <td><c:forEach var="lang" items="${acc.user.languageList}">
+                <c:out value="${lang.languageName}"/>
+            </c:forEach></td>-->
 
-                <td><c:forEach var="genre" items="${acc.user.genreList}">
-                        <c:out value="${genre.genreDesc}"/>
-                    </c:forEach></td>
+            <td><c:out value="${acc.user.position.positionDesc}"/></td>
 
-                <td><c:forEach items="${acc.titles}" var="title">
-                        <c:out value="${title.title.name}"/>
-                    </c:forEach></td>
-            </tr>
-        </c:forEach>
-    </tbody>
+    <ul>
+        <td>
+            <c:forEach var="genre" items="${acc.user.genreList}">
+            <li><c:out value="${genre.genreDesc}"/></li>
+            </c:forEach>
+        </td>
+    </ul>
+    <ul>
+        <td>
+            <c:forEach items="${acc.titles}" var="title">
+            <li><c:out value="${title.title.name}"/></li>
+            </c:forEach>
+        </td>
+    </ul>
+
+
+</tr>
+</c:forEach>
+</tbody>
 </table>
-
-Report generated on: <fmt:formatDate type = "date" value = "${reportgendate}" />
-<br>
-<form>
-    <input type="button" id="usersreportbutton" value="Download Report " name="download" />
-</form>

@@ -152,6 +152,12 @@ a:hover {
 }*/
 
 
+
+/****TABLES****/
+.table-danger {
+    background-color: #e50914;
+}
+
 /******USD Icon******/
 .input-icon {
   position: relative;

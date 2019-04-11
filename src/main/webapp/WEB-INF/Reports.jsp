@@ -56,7 +56,7 @@
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
             <div class="container bg-white" >
-                <div class="page-header border-bottom">REPORTS</div>
+                <div class="page-header border-bottom text-center">REPORTS</div>
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
@@ -85,7 +85,6 @@
                                         <c:otherwise>
                                             Select A Report
                                         </c:otherwise>
-
                                     </c:choose>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -140,14 +139,31 @@
                                 </c:when>
                             </c:choose>
                         </div>
-                        <div class="col-2 mt-2">
+                        <div class="col-8">
 
+                        </div>
+                        <div class="col-2 mt-2">
+                            <c:choose>
+                                <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
+                                    <form>
+                                        <input class="btn btn-secondary btn-block" type="button" id="usersreportbutton" value="Download Report " name="download" />
+                                    </form>
+                                    <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
+                                </c:when>
+
+                                <c:when test="${reportType == 'activeTitles' || reportType == 'compTitles' || reportType == 'specificTitles'}">
+                                    <form>
+                                        <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
+                                    </form>
+                                    <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
+                                </c:when>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-12">
+                <div class="col-12 border-top mt-3">
                     <c:choose>
                         <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
                             <sync:userreport></sync:userreport>

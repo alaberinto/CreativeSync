@@ -38,10 +38,6 @@
         <tr><td></tr>
         <tr><td></tr>
         <tr><td>Report generated on: <fmt:formatDate type = "date" value = "${reportgendate}"/></td></tr>
-
     </tbody>
 </table>
-<form>
-    <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
-</form>
 <br>

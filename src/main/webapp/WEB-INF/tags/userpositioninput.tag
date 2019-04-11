@@ -10,5 +10,5 @@
         <option value="2">Coorinators</option>
         <option value="1">Admins</option>
     </select>
-    <button type="submit" name="reportInput" value="positions" class="btn btn-block button-red-solid mb-2">Generate</button>
+    <button type="submit" name="reportInput" value="userPosition" class="btn btn-block button-red-solid mb-2">Generate</button>
 </form>

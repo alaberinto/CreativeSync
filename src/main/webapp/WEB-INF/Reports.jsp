@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -129,12 +130,12 @@
                                 </c:when>
                                 <c:when test="${name == 'specificTitles'}">
                                     <form method="post" action="Reports">
-                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Titles" id="y" data-header="Select Titles" required>
                                             <c:forEach items="${allTitles}" var="title">
                                                 <option value="${title.titleId}">${title.name}</option>
                                             </c:forEach>
                                         </select>
-                                        <button type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">Generate</button>
+                                        <button type="submit" name="reportInput" value="specificTitles" class="btn btn-block button-red-solid mb-2">Generate</button>
                                     </form>
                                 </c:when>
                             </c:choose>
@@ -150,10 +151,10 @@
                                     </form>
                                     <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
                                 </c:when>
-
+                                    
                                 <c:when test="${reportType == 'activeTitles' || reportType == 'compTitles' || reportType == 'specificTitles'}">
                                     <form>
-                                        <input type="button" id="titlesreportbutton" value="Download Report " name="download" />
+                                        <input class="btn btn-secondary btn-block" type="button" id="titlesreportbutton" value="Download Report " name="download" />
                                     </form>
                                     <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
                                 </c:when>

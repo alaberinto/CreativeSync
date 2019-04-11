@@ -9,7 +9,9 @@ import models.Status;
  * @author Mason
  */
 public class StatusBroker {
+    
     /**
+     * Access method to retrieve a Status by its matching ID.
      * 
      * @param statId the id of the status.
      * @return a Status object found by its ID.

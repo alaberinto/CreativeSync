@@ -17,6 +17,7 @@ public class RecoveryBroker {
 
     /**
      * Access method to retrieve a single RecoverUser from the database with the matching email.
+     * 
      * @param email The email to find.
      * @return The RecoveryAccount from with matching email, Otherwise null.
      * @throws DBException  When a database error occurs.
@@ -35,6 +36,7 @@ public class RecoveryBroker {
 
     /**
      * Mutator method to insert an RecoveryUser into the database.
+     * 
      * @param user The RecoveryUser to insert.
      * @throws DBException When a database error occurs.
      */
@@ -60,6 +62,7 @@ public class RecoveryBroker {
 
     /**
      * Mutator method to remove a RecoveryUser from the database.
+     * 
      * @param user The User to remove.
      * @throws DBException When a database error occurs.
      */

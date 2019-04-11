@@ -17,7 +17,7 @@ import models.Artwork;
 /**
  * ArtworkBroker is a data-access class to retrieve Artwork information from the
  * database.
- * @author Matthew Carmichael & Alvin Laberinto
+ * @author Matthew Carmichael
  */
 public class ArtworkBroker {
 
@@ -29,7 +29,7 @@ public class ArtworkBroker {
     }
 
     /**
-     * Get artwork by an ID.
+     * Access method to retrieve an Artwork by an ID.
      * 
      * @param artworkId the id of the artwork to get.
      * @return the Artwork information.
@@ -53,9 +53,9 @@ public class ArtworkBroker {
     }
 
     /**
-     * Gets a list of all artworks.
+     * Access method to retrieve all Artworks.
      * 
-     * @return a list of all artworks.
+     * @return a List object of all Artwork objects.
      * @throws DBException if there was an error getting artworks.
      */
     public List<Artwork> getAllArtwork() throws DBException {
@@ -95,7 +95,7 @@ public class ArtworkBroker {
     }
 
     /**
-     * Updates the artwork information.
+     * Updates the artwork information in the database.
      * 
      * @param artwork artwork to be updated.
      * @return an int for how many rows were updated.
@@ -118,7 +118,7 @@ public class ArtworkBroker {
     }
 
     /**
-     * Deletes the artwork information.
+     * Deletes the artwork information from the database.
      * 
      * @param artwork artwork to be deleted.
      * @return an int for how many rows were deleted.

@@ -15,7 +15,7 @@ import models.Language;
 public class LanguageBroker {
     
     /**
-     * Gets all language information.
+     * Access method to retrieve all language information.
      * 
      * @return an ArrayList object holding Language objects.
      */
@@ -32,9 +32,9 @@ public class LanguageBroker {
     }
     
     /**
-     * Gets a language by its associated ID.
+     * Access method to retrieve a language by its matching ID.
      * 
-     * @param id the id of the language.
+     * @param id the id of the language to be retrieved.
      * @return a Language object found by its ID.
      * @throws DBException if the language could not be retrieved from the database.
      */

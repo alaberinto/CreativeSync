@@ -36,7 +36,7 @@ public class GenreBroker {
     }
 
     /**
-     * Gets a genre by its associated ID.
+     * Access method to retrieve a genre by its matching ID.
      * 
      * @param id the id of the genre.
      * @return a Genre object holding this type of information.

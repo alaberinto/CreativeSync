@@ -61,7 +61,8 @@ public class UserBroker {
     }
 
     /**
-     *
+     * Access method to retrieve a user by their first name.
+     * 
      * @param firstname The first name of the Account to find.
      * @return The account with the matching ID.
      * @throws DBException When there is an error getting this Account.

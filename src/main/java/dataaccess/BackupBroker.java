@@ -29,6 +29,7 @@ public class BackupBroker {
     
     /**
      * Inserts backup information into the database.
+     * 
      * @param ba backup information to be inserted to the database.
      * @return a Backup object holding backup information
      * @throws DBException if there was a problem inserting into the database.
@@ -52,7 +53,8 @@ public class BackupBroker {
     }
     
     /**
-     * Gets all backup information.
+     * Access method to retrieve all backup information.
+     * 
      * @return an ArrayList object of all backup information.
      */
     public ArrayList<Backup> getAllBackups() {
@@ -70,7 +72,7 @@ public class BackupBroker {
     }
     
     /**
-     * Gets a backup by its associated ID.
+     * Access method to retrieve backup by its matching ID.
      * 
      * @param id the id of the backup.
      * @return the backup information found by its ID.

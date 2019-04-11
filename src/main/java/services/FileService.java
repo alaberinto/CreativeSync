@@ -45,6 +45,9 @@ public class FileService {
     private final long CHUNKED_UPLOAD_CHUNK_SIZE = 8L << 20; // 8 MiB
     private final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
 
+    /**
+     * Starts up the config and Dropbox client.
+     */
     public FileService() {
         config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         client = new DbxClientV2(config, ACCESS_TOKEN);

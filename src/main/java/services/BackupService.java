@@ -161,6 +161,10 @@ public class BackupService {
         return null;
     }
 
+    /**
+     * Gets all Backup information.
+     * @return an ArrayList object of all Backups.
+     */
     public ArrayList<Backup> getAllBackups() {
         return bb.getAllBackups();
     }

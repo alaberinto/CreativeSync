@@ -20,10 +20,18 @@ public class LocationService {
     
     private final LocationBroker lb;
     
+    /**
+     * Constructor that instantiates a LocationBroker.
+     */
     public LocationService() {
         lb = new LocationBroker();
     }
     
+    /**
+     * Gets all locations.
+     * 
+     * @return an ArrayList object of Location objects.
+     */
     public ArrayList<Location> getAllLocations() {
         try {
             return lb.getAllLocations();

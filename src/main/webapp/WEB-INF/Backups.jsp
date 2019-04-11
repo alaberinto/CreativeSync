@@ -47,7 +47,7 @@
                                             return true;
                                         }
                                     }
-                                </script>     x
+                                </script>     
                             </form>
                         </td>
                     </tr>

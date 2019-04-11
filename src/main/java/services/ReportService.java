@@ -135,11 +135,14 @@ public class ReportService {
             }
             ArrayList<Title> title = new ArrayList();
             for (int j = 0; j < titleIds.size(); j++) {
-                title.add(tb.getTitleById(j));
+                title.add(tb.getTitleById(titleIds.get(j)));
             }
             ArrayList<TitlesView> titlesView = new ArrayList<TitlesView>();
             for (int k = 0; k < title.size(); k++) {
                 titlesView.add(new TitlesView(title.get(k), false, null));
+            }
+            if(titlesView == null){
+                return null;
             }
             return titlesView;
         } catch (DBException ex) {

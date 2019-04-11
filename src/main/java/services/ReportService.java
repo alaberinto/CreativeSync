@@ -61,24 +61,26 @@ public class ReportService {
     }
 
     public ArrayList<UsersView> viewUserInfo(String[] userIds) {
-        ArrayList<Integer> acc = new ArrayList();
-        for (int i = 0; i < userIds.length; i++) {
-            Integer.parseInt(userIds[i]);
-        }
-        ArrayList<Account> cleanArray = new ArrayList<>();
-        for (int j = 0; j < acc.size(); j++) {
-            try {
-                cleanArray.add(ab.getUserById(acc.get(j)));
-            } catch (DBException ex) {
-                Logger.getLogger(ReportService.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            ArrayList<Integer> acc = new ArrayList();
+            for (int i = 0; i < userIds.length; i++) {
+                acc.add(Integer.parseInt(userIds[i]));
+                
             }
-        }
-        ArrayList<UsersView> usersView = new ArrayList<UsersView>();
+            ArrayList<Account> cleanArray = new ArrayList<>();
+            for (int j = 0; j < acc.size(); j++) {
+                cleanArray.add(ab.getUserById(acc.get(j)));
+            }
+            ArrayList<UsersView> usersView = new ArrayList<UsersView>();
 
-        for (int i = 0; i < cleanArray.size(); i++) {
-            usersView.add(new UsersView(cleanArray.get(i)));
+            for (int i = 0; i < cleanArray.size(); i++) {
+                usersView.add(new UsersView(cleanArray.get(i)));
+            }
+              return usersView;
+        } catch (DBException ex) {
+            Logger.getLogger(ReportService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return usersView;
+        return null;
 
     }
 
@@ -105,7 +107,7 @@ public class ReportService {
         ArrayList<Title> cleanArray = new ArrayList();
         try {
             allTitles = new ArrayList(tb.getAllTitles());
-            
+
             for (int i = 0; i < allTitles.size(); i++) {
                 if (allTitles.get(i).getCompleted() == 1) {
                     cleanArray.add(allTitles.get(i));
@@ -129,13 +131,13 @@ public class ReportService {
         try {
             ArrayList<Integer> titleIds = new ArrayList();
             for (int i = 0; i < tId.length; i++) {
-                Integer.parseInt(tId[i]);
+                titleIds.add(Integer.parseInt(tId[i]));
             }
             ArrayList<Title> title = new ArrayList();
             for (int j = 0; j < titleIds.size(); j++) {
                 title.add(tb.getTitleById(j));
             }
-             ArrayList<TitlesView> titlesView = new ArrayList<TitlesView>();
+            ArrayList<TitlesView> titlesView = new ArrayList<TitlesView>();
             for (int k = 0; k < title.size(); k++) {
                 titlesView.add(new TitlesView(title.get(k), false, null));
             }
@@ -145,6 +147,6 @@ public class ReportService {
         } catch (InvalidTitlesViewException ex) {
             Logger.getLogger(ReportService.class.getName()).log(Level.SEVERE, null, ex);
         }
-            return null;
-        }
+        return null;
     }
+}

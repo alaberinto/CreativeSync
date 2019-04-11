@@ -130,7 +130,7 @@
                                 </c:when>
                                 <c:when test="${name == 'specificTitles'}">
                                     <form method="post" action="Reports">
-                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Titles" id="y" data-header="Select Titles" required>
                                             <c:forEach items="${allTitles}" var="title">
                                                 <option value="${title.titleId}">${title.name}</option>
                                             </c:forEach>

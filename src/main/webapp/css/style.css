@@ -33,7 +33,7 @@ body, html {
     margin-right: 10%;
 }
 
-
+li.borderless { border: none; }
 /****FONTS*****/
 p {
     font-size: 20px;

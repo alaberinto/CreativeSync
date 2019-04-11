@@ -14,69 +14,70 @@
         <title>My Account</title>
     </head>
     <body class="background-plain">
-        <sync:navbar1>
-        </sync:navbar1>
-        <div class="searchBarHeader">
-            <div class="container">
-            </div>
-        </div>
-        <div class="container fullContainer bg-white">
+        <sync:navbar1></sync:navbar1>
+            <div class="searchBarHeader"></div>
+            <div class="container bg-white">
+                <div class="page-header border-bottom mb-3 text-center">${myUser.user.firstname} ${myUser.user.lastname}</div>
             <div class="row">
-               
-                <div class="col-3">
-                     <div class="row d-flex justify-content-center">
-                    <div id="image-preview-div text-center" style="width:250px; height: 250px; border: 2px solid black; border-radius: 50%;">
-                        <img id="preview-img" src="noimage" style="width: 100%; height: 100%;">
+                <div class="col-3 justify-content-center">
+
+                    <div class="row">
+                        <div class="float-center">
+                            <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
+                        </div>
                     </div>
-                </div>
-                    <form action="UserDetailed" method="post">
-                        <input type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
-                        <c:if test="${user.position.positionId == 1}">
-                            <button type="submit" name="action" value="delete">Delete</button>
+                    <form action="UserDetailed" class="mt-3" method="post">
+                        <c:if test="${user.position.positionId == 1 || user.position.positionId == 2 }">
+                            <input class="btn btn-block bg-secondary" type="hidden" name="thisUser" value="${myUser.user.firstname} ${myUser.user.lastname}">
+                            <button type="submit" name="action" value="delete" class="btn btn-block btn-secondary">Delete</button>
                         </c:if>
+                    </form>
+                    <form method="get" action="EditUser?name=${myUser.user.firstname} ${myUser.user.lastname}" class="mt-1">
                         <c:if test="${user.position.positionId == 1 || (user.position.positionId == 2 && user.position.positionId < myUser.user.position.positionId) || user.userId == myUser.user.userId}">
-                             <a href="EditUser?name=${myUser.user.firstname} ${myUser.user.lastname}"<button type="submit" name="action" value="edit">Edit</button></a>
+                            <button type="submit" name="action" value="edit" class="btn btn-block button-red-solid">Edit</button>
                         </c:if>
                     </form>
                 </div>
-                <div class="col-6">
-                    Name: ${myUser.user.firstname} ${myUser.user.lastname}<br>
-                    Email: ${myUser.user.email}<br>
-                    Hourly rate: ${myUser.user.rate}<br>
-                    Location: ${myUser.user.location.locationDesc}<br>
-                    Position: ${myUser.user.position.positionDesc}<br>
-                    Language: 
-                    <c:forEach items="${myUser.user.languageList}" var="lang">
-                        ${lang.languageName}
-                    </c:forEach>
-                    <br>
-                    Genre:
-                    <c:forEach items="${myUser.user.genreList}" var="genre">
-                        ${genre.genreDesc}
-                    </c:forEach>
+                <div class="col-5 pl-4 align-middle">
+                    <h2 class="list-item-header-n border-bottom">Information</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item borderless"><b>Email: </b>${myUser.user.email}</li>
+                        <li class="list-group-item borderless"><b>Rate: </b>$${myUser.user.rate} USD</li>
+                        <li class="list-group-item borderless"><b>Location: </b>${myUser.user.location.locationDesc}</li>
+                        <li class="list-group-item borderless"><b>Position: </b>${myUser.user.position.positionDesc}</li>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <h2 class="list-item-header-n text-center border-bottom">Languages</h2>
+                    <ul class="list-group list-group-flush text-center">
+                        <c:forEach items="${myUser.user.languageList}" var="lang">
+                            <li class="list-group-item borderless">${lang.languageName}</li>
+                            </c:forEach>
+                    </ul>
+                </div>
+                <div class="col-2">
+                    <h2 class="list-item-header-n text-center border-bottom">Genres</h2>
+                    <ul class="list-group list-group-flush text-center">
+                        <c:forEach items="${myUser.user.genreList}" var="gen">
+                            <li class="list-group-item borderless">${gen.genreDesc}</li>
+                            </c:forEach>
+                    </ul>
                 </div>
             </div>
-            <br>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12">
                     <div class="list-group">
-
-                        <table>
-                            <th colspan="3" scope="colgroup" >Assigned Titles</th>
-                                <c:forEach items="${myUser.titles}" var="tit"  >
-                                    <c:if test="${empty myUser.titles || myUser.titles == null}">
-                                    No Titles Found
-                                </c:if>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>End Date</th>
-                                    <th></th>
-                                </tr>
-
+                        <table class="table text-center">
+                            <tr class="table-secondary">
+                                <th><b>Title Name</b></th>
+                                <th><b>Status</b></th>
+                                <th><b>End Date</b></th>
+                                <th></th>
+                            </tr>
+                            <c:forEach items="${myUser.titles}" var="tit"  >
                                 <tr>
                                     <td>
-                                        ${tit.title.name}
+                                        <b>${tit.title.name}</b>
                                     </td>
                                     <td>
                                         ${tit.status.statusDesc}
@@ -86,26 +87,29 @@
                                     </td>
                                     <td>
                                         <a href="TitleDetailed?name=${tit.title.name}"class=" list-group-item-action">
-                                            <button class="list-group-item">View </button>
+                                            <button class="btn btn-block btn-secondary">View </button>
                                         </a>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </table>
+                        <c:if test="${empty myUser.titles || myUser.titles == null}">
+                            <h3 class="text-center">No Titles Found</h3>
+                        </c:if>
                     </div>
                 </div>
             </div>
+            <c:if test="${goodFeedback != null}">
+                <div class="alert alert-success fixed-bottom ml-2 mr-2">
+                    <strong>Success</strong> ${goodFeedback}
+                </div>
+            </c:if>
+            <c:if test="${badFeedback != null}">
+                <div class="alert alert-danger fixed-bottom ml-2 mr-2">
+                    <strong>Error</strong> ${badFeedback}
+                </div>
+            </c:if>  
         </div>
-        <c:if test="${goodFeedback != null}">
-            <div class="alert alert-success fixed-bottom ml-2 mr-2">
-                <strong>Success</strong> ${goodFeedback}
-            </div>
-        </c:if>
-        <c:if test="${badFeedback != null}">
-            <div class="alert alert-danger fixed-bottom ml-2 mr-2">
-                <strong>Error</strong> ${badFeedback}
-            </div>
-        </c:if>   
     </body>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

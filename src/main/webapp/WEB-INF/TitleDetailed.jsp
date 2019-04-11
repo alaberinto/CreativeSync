@@ -143,7 +143,7 @@
                                 <c:forEach items="${assets}" var="asset">
                                     <div class="title-asset m-2">
                                         <div class="asset-image">
-                                            <img src="${asset}" alt="BROKEN IMAGE"/>
+                                            <img src="${asset}" class="asset item-h1" alt="BROKEN IMAGE"/>
                                         </div>
                                     </div>
                                 </c:forEach>

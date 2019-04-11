@@ -264,7 +264,7 @@ a.fancybox:hover img {
 
 .asset-image{
     width: 100%;
-    height: 80%;
+    height: 100%;
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -273,4 +273,5 @@ a.fancybox:hover img {
 .asset {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }

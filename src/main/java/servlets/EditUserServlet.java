@@ -57,37 +57,10 @@ public class EditUserServlet extends HttpServlet {
             Account ac = uv.getUser();
             request.setAttribute("myUser", ac);
             ArrayList<Genre> genres = gs.getAllGenres();
-            ArrayList<Genre> userGenres = new ArrayList(ac.getGenreList());
-            
-            
-            for(int i = genres.size() - 1; i >= 0; i --) {
-                for(int j = 0; j < userGenres.size(); j++) {
-                    if(userGenres.get(j).getGenreId() == genres.get(i).getGenreId()) {
-                        genres.remove(i);
-                        break;
-                    }
-                }
-            }
-            
-            ArrayList<Location> loc = ls.getAllLocations();
-            
+            ArrayList<Location> loc = ls.getAllLocations();   
             ArrayList<Language> lang = langs.getAllLanguages();
-            ArrayList<Language> userLang = new ArrayList(ac.getLanguageList());
-             for(int i = lang.size() - 1; i >= 0; i --) {
-                for(int j = 0; j < userLang.size(); j++) {
-                    if(userLang.get(j).getLanguageId() == lang.get(i).getLanguageId()){
-                        lang.remove(i);
-                        break;
-                    }
-                }
-            }
-            
             ArrayList<Position> pos = ps.getCreatablePositions(ac);
-            
             request.setAttribute("genres", genres);
-            request.setAttribute("userGenres", userGenres);
-                   
-      
             request.setAttribute("locations", loc);
             request.setAttribute("languages", lang);
             request.setAttribute("positions", pos);

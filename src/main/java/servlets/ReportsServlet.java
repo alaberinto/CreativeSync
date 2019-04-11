@@ -31,8 +31,6 @@ public class ReportsServlet extends HttpServlet {
         AccountService as = new AccountService();
         TitleService ts = new TitleService();
         String reportType = request.getParameter("name");
-        
-        
 
         if (reportType != null) {
             if (reportType.equals("specificUsers")) {
@@ -59,42 +57,37 @@ public class ReportsServlet extends HttpServlet {
 
         try {
             if (reportType.equals("activeUsers")) {
-                    ArrayList<UsersView> users = ac.getAllActiveUsers();
+                ArrayList<UsersView> users = ac.getAllActiveUsers();
                 request.setAttribute("list", users);
-                request.setAttribute("reportgendate", date);
 
-            } else if (reportType.equals("positions")) {
-                String[] positionId = request.getParameterValues("userType");
+            } else if (reportType.equals("userPosition")) {
+                String[] positionId = request.getParameterValues("positions");
                 ArrayList<UsersView> users = rs.viewUserByPosition(positionId);
                 request.setAttribute("list", users);
-                request.setAttribute("reportgendate", date);
 
             } else if (reportType.equals("specificUsers")) {
                 String[] specificUsers = request.getParameterValues("users");
                 ArrayList<UsersView> users = rs.viewUserInfo(specificUsers);
                 request.setAttribute("list", users);
-                request.setAttribute("reportgendate", date);
 
             } else if (reportType.equals("activeTitles")) {
                 ArrayList<TitlesView> title = rs.getAllActiveTitles();
                 request.setAttribute("list", title);
-                request.setAttribute("reportgendate", date);
 
             } else if (reportType.equals("compTitles")) {
                 ArrayList<TitlesView> title = rs.getAllCompletedTitles();
                 request.setAttribute("list", title);
-                request.setAttribute("reportgendate", date);
 
             } else if (reportType.equals("specificTitles")) {
                 String[] tId = request.getParameterValues("titles");
                 ArrayList<TitlesView> title = rs.viewTitleInformation(tId);
                 request.setAttribute("list", title);
-                request.setAttribute("reportgendate", date);
+
             }
         } catch (Exception ex) {
 
         }
-
+        request.setAttribute("reportgendate", date);
         request.setAttribute("reportType", reportType);
         getServletContext().getRequestDispatcher("/WEB-INF/Reports.jsp").forward(request, response);
     }

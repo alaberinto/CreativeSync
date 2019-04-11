@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -56,7 +57,7 @@
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
             <div class="container bg-white" >
-                <div class="page-header border-bottom">REPORTS</div>
+                <div class="page-header border-bottom text-center">REPORTS</div>
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
@@ -68,7 +69,7 @@
                                             Active Users
                                         </c:when>
                                         <c:when test="${name eq 'userPosition'}">
-                                            Find User By Position
+                                            Find By Position
                                         </c:when>
                                         <c:when test="${name == 'specificUsers'}">
                                             Find Users
@@ -85,7 +86,6 @@
                                         <c:otherwise>
                                             Select A Report
                                         </c:otherwise>
-
                                     </c:choose>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -130,24 +130,41 @@
                                 </c:when>
                                 <c:when test="${name == 'specificTitles'}">
                                     <form method="post" action="Reports">
-                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                                        <select class="selectpicker form-control" name="titles" id="titles" multiple data-live-search="true" title="Select Titles" id="y" data-header="Select Titles" required>
                                             <c:forEach items="${allTitles}" var="title">
                                                 <option value="${title.titleId}">${title.name}</option>
                                             </c:forEach>
                                         </select>
-                                        <button type="submit" name="reportInput" value="specificUsers" class="btn btn-block button-red-solid mb-2">Generate</button>
+                                        <button type="submit" name="reportInput" value="specificTitles" class="btn btn-block button-red-solid mb-2">Generate</button>
                                     </form>
                                 </c:when>
                             </c:choose>
                         </div>
-                        <div class="col-2 mt-2">
+                        <div class="col-8">
 
+                        </div>
+                        <div class="col-2 mt-2">
+                            <c:choose>
+                                <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
+                                    <form>
+                                        <input class="btn btn-secondary btn-block" type="button" id="usersreportbutton" value="Download Report " name="download" />
+                                    </form>
+                                    <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
+                                </c:when>
+                                    
+                                <c:when test="${reportType == 'activeTitles' || reportType == 'compTitles' || reportType == 'specificTitles'}">
+                                    <form>
+                                        <input class="btn btn-secondary btn-block" type="button" id="titlesreportbutton" value="Download Report " name="download" />
+                                    </form>
+                                    <b>Report generated on:</b> <fmt:formatDate type = "date" value = "${reportgendate}" />
+                                </c:when>
+                            </c:choose>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-12">
+                <div class="col-12 border-top mt-3">
                     <c:choose>
                         <c:when test="${reportType == 'activeUsers' || reportType == 'userPosition' || reportType == 'specificUsers'}">
                             <sync:userreport></sync:userreport>

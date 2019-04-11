@@ -68,7 +68,7 @@
                                             Active Users
                                         </c:when>
                                         <c:when test="${name eq 'userPosition'}">
-                                            Find User By Position
+                                            Find By Position
                                         </c:when>
                                         <c:when test="${name == 'specificUsers'}">
                                             Find Users

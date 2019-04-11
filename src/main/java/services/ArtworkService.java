@@ -16,6 +16,7 @@ import models.Artwork;
 /**
   * AccountService is a service class to process requests to access or mutate
  * Artwork information.
+ * 
  * @author Matthew
  */
 public class ArtworkService {
@@ -23,14 +24,15 @@ public class ArtworkService {
     private ArtworkBroker ab;
 
     /**
-     * Constructor that instantiates the ArtworkBroker.
+     * Non-default constructor that instantiates the ArtworkBroker.
      */
     public ArtworkService() {
         ab = new ArtworkBroker();
     }
 
     /**
-     * Gets a list of all artworks.
+     * Access method to retrieve a list of all artworks.
+     * 
      * @return an ArrayList object of all Artwork objects.
      * @throws DBException if there was a problem retrieving Artworks from the database.
      */
@@ -39,7 +41,8 @@ public class ArtworkService {
     }
 
     /**
-     * Gets a list of all artworks associated with a title.
+     * Access method to retrieve a list of all artworks associated with a title.
+     * 
      * @param id the id of the Title whose Artworks we want.
      * @return a List object of all Artworks linked to the specified Title.
      * @throws DBException if there was a problem retrieving Artworks from the database.
@@ -64,7 +67,8 @@ public class ArtworkService {
     }
 
     /**
-     * Find the maximum round of a given title.
+     * Method to find the maximum round of a given title.
+     * 
      * @param id_t the id of a title.
      * @return the integer value of the maximum round.
      * @throws DBException if there was a problem retrieving the round number from the database.

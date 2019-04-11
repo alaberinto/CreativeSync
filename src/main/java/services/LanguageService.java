@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import models.Language;
 
 /**
+ * LanguageService is a service class to process requests to access or mutate Language information.
  *
  * @author Mason
  */
@@ -23,7 +24,7 @@ public class LanguageService {
     }
     
     /**
-     * Gets all languages.
+     * Access method to retrieve all languages.
      * 
      * @return an ArrayList object of all Language objects.
      */
@@ -32,7 +33,7 @@ public class LanguageService {
     }
     
     /**
-     * Gets language by its associated ID.
+     * Access method to retrieve language by its associated ID.
      * 
      * @param id the associated ID of the language to be retrieved.
      * @return a Language object containing Language information.

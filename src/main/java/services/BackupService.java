@@ -21,6 +21,7 @@ import models.Backup;
 /**
  * BackupService is a service class to process requests to access or mutate
  * Backup information.
+ * 
  * @author Cooper Vasiliou
  */
 public class BackupService {
@@ -29,7 +30,7 @@ public class BackupService {
     private BackupBroker bb;
 
     /**
-     * Constructor that instantiates UserBroker and BackupBroker objects.
+     * Non-default constructor that instantiates UserBroker and BackupBroker objects.
      */
     public BackupService() {
 
@@ -38,7 +39,7 @@ public class BackupService {
     }
 
     /**
-     * Runs the process of creating sql backups and the .bat file to run in command line.
+     * Method that runs the process of creating sql backups and the .bat file to run in command line.
      */
     public void runBackup() {
 
@@ -116,7 +117,7 @@ public class BackupService {
     }
 
     /**
-     * Restores the database to the specified point in time of the backup file.
+     * Method that restores the database to the specified point in time of the backup file.
      * 
      * @param backupId the ID of the backup to be used.
      * @return a String object indicating whether or not the restoration was successful or not.
@@ -162,7 +163,7 @@ public class BackupService {
     }
 
     /**
-     * Gets all Backup information.
+     * Access method to retrieve all Backup information.
      * @return an ArrayList object of all Backups.
      */
     public ArrayList<Backup> getAllBackups() {

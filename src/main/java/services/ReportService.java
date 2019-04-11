@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package services;
 
 import dataaccess.DBException;
@@ -28,7 +23,7 @@ public class ReportService {
     private TitleBroker tb;
 
     /**
-     * Constructor that instantiates UserBroker and TitleBroker.
+     * Non-default constructor that instantiates UserBroker and TitleBroker.
      */
     public ReportService() {
         ab = new UserBroker();
@@ -36,7 +31,7 @@ public class ReportService {
     }
 
     /**
-     * Gets a list of all users.
+     * Access method to retrieve a list of all users.
      * 
      * @return an ArrayList object of all Account objects.
      */
@@ -45,7 +40,7 @@ public class ReportService {
     }
 
     /**
-     * Allows us to view users by position.
+     * Method that allows us to view users by position.
      * 
      * @param positionId a list of ids of all positions to view.
      * @return an ArrayList object of UsersView objects.
@@ -76,7 +71,7 @@ public class ReportService {
     }
 
     /**
-     * Allows us to view user information.
+     * Method that allows us to view user information.
      * 
      * @param userIds a String array of all userIds whose information we want to view.
      * @return an ArrayList object of UsersView objects.
@@ -106,7 +101,8 @@ public class ReportService {
     }
 
     /**
-     * Get a list of all active titles.
+     * Access method to retrieve a list of all active titles.
+     * 
      * @return an ArrayList object of TitlesView objects that are defined as active.
      */
     public ArrayList<TitlesView> getAllActiveTitles() {
@@ -128,7 +124,8 @@ public class ReportService {
     }
 
     /**
-     * Get a list of all completed titles.
+     * Access method to retrieve a list of all completed titles.
+     * 
      * @return an ArrayList object of TitlesView objects that are defined as completed.
      */
     public ArrayList<TitlesView> getAllCompletedTitles() {
@@ -157,7 +154,7 @@ public class ReportService {
     }
 
     /**
-     * Allows us to view the title information.
+     * Method that allows us to view the title information.
      * 
      * @param tId a String array of title IDs whose title information we want to view.
      * @return an ArrayList object of TitlesView objects to view their information.

@@ -75,7 +75,8 @@ public class AccountService {
     }
 
     /**
-     *
+     * Access method to retrieve user Account by their first name.
+     * 
      * @param name name of User
      * @return User with matching name
      * @throws DBException When a database error occurs
@@ -137,7 +138,8 @@ public class AccountService {
     }
 
     /**
-     * Gets a UsersView object for the specified username.
+     * Access method to retrieve a UsersView object for the specified username.
+     * 
      * @param username the username of the Account object to be found.
      * @return null if there is no acc. otherwise, return a UsersView object.
      */
@@ -152,7 +154,7 @@ public class AccountService {
     }
 
     /**
-     * Gets a list of all active users on the system.
+     * Access method to retrieve a list of all active users on the system.
      * 
      * @return an ArrayList object of UsersView objects which are defined as active.
      */
@@ -532,7 +534,8 @@ public class AccountService {
     }
 
     /**
-     * Gets a list of active freelancers.
+     * Access method to retrieve a list of active freelancers.
+     * 
      * @return an ArrayList object of Account objects of freelancers that are defined as active.
      */
     public ArrayList<Account> getActiveFreelancers() {
@@ -551,7 +554,8 @@ public class AccountService {
     }
 
     /**
-     * Gets a user by their name.
+     * Access method to retrieve a user by their name.
+     * 
      * @param name the name of the user whose account is to be found.
      * @return an Account object that is associated with the name.
      */
@@ -575,7 +579,8 @@ public class AccountService {
     }
 
     /**
-     * Gets the wanted freelancers by the title specified.
+     * Access method to retrieve the wanted freelancers by the title specified.
+     * 
      * @param title the title that is being worked on by the wanted freelancers.
      * @return an ArrayList object of TitleHasAccount objects that get the Freelancers working on a title.
      */
@@ -594,7 +599,7 @@ public class AccountService {
     }
 
     /**
-     * Gets an account and all of its associated Titles.
+     * Access method to retrieve an account and all of its associated Titles.
      * 
      * @param name the name of the user whose account is to be found or located.
      * @return a UsersView object with the Titles associated with the Account object.

@@ -46,7 +46,7 @@ public class FileService {
     private final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
 
     /**
-     * Starts up the config and Dropbox client.
+     * Non-default constructor that starts up the config and Dropbox client.
      */
     public FileService() {
         config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
@@ -54,7 +54,7 @@ public class FileService {
     }
 
     /**
-     * Handles the upload of assets and artworks.
+     * Method that handles the upload of assets and artworks.
      * 
      * @param multiparts list of FileItems submitted from the from.
      * @param titleName the name of the accessed title.
@@ -89,7 +89,7 @@ public class FileService {
     }
 
     /**
-     * Uploads files smaller than 8MB.
+     * Method that uploads files smaller than 8MB.
      * 
      * @param uploadName name of the uploaded file.
      * @param titleName the name of the accessed title.
@@ -113,7 +113,7 @@ public class FileService {
     }
 
     /**
-     * Uploads files larger than 8MB.
+     * Method that uploads files larger than 8MB.
      * 
      * @param uploadName name of the uploaded file.
      * @param titleName the name of the accessed title.
@@ -267,7 +267,7 @@ public class FileService {
     }
 
     /**
-     * Gets all assets associated with the title being accessed.
+     * Access method to retrieve all assets associated with the title being accessed from Dropbox.
      * 
      * @param titleName the name of the accessed title.
      * @return a list of shared link URLs of all assets associated with the title.
@@ -293,7 +293,7 @@ public class FileService {
     }
 
     /**
-     * Gets all artworks associated with the title being accessed.
+     * Access method to retrieve all artworks associated with the title being accessed from Dropbox.
      * 
      * @param titleName the name of the accessed title.
      * @return a list of shared link URLs of all artworks associated with the title.
@@ -319,7 +319,7 @@ public class FileService {
     }
 
     /**
-     * Deletes an asset associated with a title.
+     * Method that deletes an asset associated with a title from Dropbox.
      * 
      * @param titleName the name of the title in which the asset will be deleted.
      * @param url the shared link of the asset to be deleted.
@@ -336,7 +336,7 @@ public class FileService {
     }
 
     /**
-     * Deletes an artwork associated with a title.
+     * Method that deletes an artwork associated with a title from Dropbox.
      * 
      * @param titleName the name of the title in which the artwork will be deleted.
      * @param url the shared link of the artwork to be deleted.
@@ -358,7 +358,7 @@ public class FileService {
     }
     
     /**
-     * Upon creation of a title, creates folders for the title's artworks and assets.
+     * Upon creation of a title, this method creates folders for the title's artworks and assets in Dropbox.
      * 
      * @param titleName the name of the title that has been created.
      * @return true if the title's folders have been created successfully. otherwise, return false.
@@ -373,7 +373,7 @@ public class FileService {
     }
     
     /**
-     * Uploads the SQL backup to Dropbox.
+     * Method that uploads the SQL backup to Dropbox.
      * 
      * @param uploadName the name of the file to be uploaded.
      * @param in FileInputStream of the file to be sent to Dropbox.
@@ -424,7 +424,7 @@ public class FileService {
     }
 
     /**
-     * Retrieves backup from Dropbox and creates a local file.
+     * Method that retrieves backup from Dropbox and creates a local file.
      * 
      * @param backupName the name of the backup.
      * @return bat file to read from.

@@ -16,6 +16,7 @@ import models.Position;
 /**
  * PositionService is a service class to process requests to access or mutate
  * Position information.
+ * 
  * @author Mason, Matthew
  */
 public class PositionService {
@@ -23,14 +24,14 @@ public class PositionService {
     private final PositionBroker pb;
 
     /**
-     * Constructor that instantiates PositionBroker objects.
+     * Non-default constructor that instantiates PositionBroker.
      */
     public PositionService() {
         pb = new PositionBroker();
     }
 
     /**
-     * Gets a list of all positions.
+     * Access method to retrieve a list of all positions.
      * 
      * @return an ArrayList object of all Position objects.
      */
@@ -45,7 +46,7 @@ public class PositionService {
     }
 
     /**
-     * Gets a Position object by its associated id.
+     * Access method to retrieve a Position object by its associated id.
      * 
      * @param id the id of the Position to be retrieved.
      * @return a Position object that contains Position information.
@@ -60,6 +61,12 @@ public class PositionService {
         return null;
     }
 
+    /**
+     * Access method to retrieve all creatable positions.
+     * 
+     * @param user the user account that is currently in use.
+     * @return an ArrayList object of Position objects that can be created.
+     */
     public ArrayList<Position> getCreatablePositions(Account user) {
         ArrayList<Position> pos;
         try {

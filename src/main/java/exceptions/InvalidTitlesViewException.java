@@ -16,6 +16,5 @@ public class InvalidTitlesViewException extends Exception{
      * Default constructor.
      */
     public InvalidTitlesViewException(){
-        //Do Something
     }
 }

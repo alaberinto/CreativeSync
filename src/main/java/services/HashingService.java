@@ -13,6 +13,9 @@ import java.util.logging.Logger;
  */
 public class HashingService {
 
+    /**
+     * Default constructor.
+     */
     public HashingService() {
 
     }

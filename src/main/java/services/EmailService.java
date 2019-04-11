@@ -29,14 +29,14 @@ public class EmailService {
     private AccountService as;
 
     /**
-     * Default constructor.
+     * Non-default constructor that instantiates AccountService class.
      */
     public EmailService() {
         as = new AccountService();
     }
 
     /**
-     * Handles the initial recovery step. If the user exists, send mail to the email specified.
+     * Method that handles the initial recovery step. If the user exists, send mail to the email specified.
      * 
      * @param email the email associated with the user requesting recovery.
      * @param path the filepath of the recovery.html file.
@@ -60,7 +60,7 @@ public class EmailService {
     }
     
     /**
-     * Sends an email for password recovery.
+     * Method that sends an email for password recovery.
      * 
      * @param email the email address where the email will be sent to.
      * @param subject the subject of the email.
@@ -91,7 +91,7 @@ public class EmailService {
     }
     
     /**
-     * Sends mail that will be sent for password recovery.
+     * Method that sends an email for password recovery.
      * 
      * @param to the address that the email will be sent to.
      * @param subject the subject line to be set.
@@ -133,7 +133,7 @@ public class EmailService {
     }
 
     /**
-     * Generates a code to proceed with the password recovery.
+     * Method that generates a code to proceed with the password recovery.
      * 
      * @return a String that is "randomly" generated to be input by the user for password recovery.
      */

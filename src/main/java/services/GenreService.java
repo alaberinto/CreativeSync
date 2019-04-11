@@ -36,7 +36,7 @@ public class GenreService {
     }
     
     /**
-     * Gets a Genre object by its associated ID.
+     * Access method to retrieve a Genre object by its associated ID.
      * 
      * @param id the ID associated with the genre.
      * @return a Genre object with information about the genre. 

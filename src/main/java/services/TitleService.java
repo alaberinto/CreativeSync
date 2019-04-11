@@ -70,7 +70,7 @@ public class TitleService {
     }
     
     /**
-     * Gets a list of all titles.
+     * Access method to retrieve a list of all titles.
      * 
      * @return an ArrayList object of all Title objects.
      */
@@ -109,7 +109,8 @@ public class TitleService {
     }
 
     /**
-     * Gets a TitlesView object by the name of the title.
+     * Access method to retrieve a TitlesView object by the name of the title.
+     * 
      * @param name the name of the title.
      * @return a TitlesView object with the title information to be displayed.
      */
@@ -127,7 +128,7 @@ public class TitleService {
     }
 
     /**
-     * Gets titles that are assigned to a user's account.
+     * Access method to retrieve titles that are assigned to a user's account.
      * 
      * @param user the account of the user whose titles are to be found.
      * @param searchFilter search filter used for the title name.
@@ -158,7 +159,7 @@ public class TitleService {
     }
 
     /**
-     * Gets titles that are not assigned to a user's account.
+     * Access method to retrieve titles that are not assigned to a user's account.
      * 
      * @param user the account of the user whose titles are to be found.
      * @param assigned list of titles assigned to the user's account.
@@ -400,7 +401,8 @@ public class TitleService {
     }
 
     /**
-     * Gets a title by its name.
+     * Access method to retrieve a title by its name.
+     * 
      * @param name the name of the title.
      * @return a Title object retrieved by its name.
      */
@@ -415,7 +417,8 @@ public class TitleService {
     }
 
     /**
-     * Gets titles associated with a user.
+     * Access method to retrieve titles associated with a user.
+     * 
      * @param user the user whose titles to be retrieved.
      * @return an ArrayList object of Title objects associated with a user.
      */
@@ -431,7 +434,7 @@ public class TitleService {
     }
 
     /**
-     * Updates a list of titles.
+     * Method that updates a list of titles.
      * 
      * @param titles an ArrayList object of Title objects to be updated.
      */
@@ -440,7 +443,7 @@ public class TitleService {
     }
     
     /**
-     * Gets a list of completed titles.
+     * Access method to retrieve a list of completed titles.
      * 
      * @return an ArrayList object of TitlesView objects that are defined as completed. 
      */

@@ -14,14 +14,15 @@ public class StatusService {
     private final StatusBroker sb;
     
     /**
-     * Constructor that instantiates the StatusBroker.
+     * Non-default constructor that instantiates the StatusBroker.
      */
     public StatusService() {
         this.sb = new StatusBroker();
     }
     
     /**
-     * Gets a status by its ID.
+     * Access method to retrieve a status by its matching ID.
+     * 
      * @param id the id of the status to be retrieved.
      * @return a Status object containing Status information.
      */

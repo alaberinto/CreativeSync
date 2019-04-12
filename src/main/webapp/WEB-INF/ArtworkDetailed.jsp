@@ -80,7 +80,7 @@
                                                         <c:if test = "${roundArt.getRound() == rounds.getRound()}">
                                                             <!--https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg-->
                                                             <!--<img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>-->
-                                                            <img class="fancybox" title="${roundArt.artworkName}" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>
+                                                            <img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>
                                                         </c:if>                                                       
                                                     </c:forEach>
                                                 </div>                                                                               

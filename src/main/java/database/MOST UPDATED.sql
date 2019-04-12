@@ -194,7 +194,7 @@ DROP TABLE IF EXISTS `NetflixDB`.`ARTWORK` ;
 CREATE TABLE IF NOT EXISTS `NetflixDB`.`ARTWORK` (
   `artwork_id` INT NOT NULL AUTO_INCREMENT,
   `artwork_name` VARCHAR(100) NOT NULL,
-  `artwork_ref` VARCHAR(100) NOT NULL,
+  `artwork_ref` VARCHAR(300) NOT NULL,
   `rating` INT NOT NULL,
   `artwork_status` TINYINT NOT NULL DEFAULT 0,
   `round` INT NOT NULL DEFAULT 1,
@@ -1436,20 +1436,32 @@ insert into TITLE_has_ACCOUNT (ACCOUNT_user_id,TITLE_title_id,STATUS_status_id)
 values (10,9,2);
 
 
-
-
-
+insert into artwork
+values (1,'The first artwork','https://image.shutterstock.com/image-illustration/abstract-painting-art-sale-oil-450w-1163297224.jpg',75,0,1,1,4,2);
 
 insert into artwork
-values (1,'The first artwork','The first artwork reference',75,0,1,1,4,2);
-
-insert into artwork
-values (2,'The second artwork','The second artwork reference',75,0,1,1,6,1);
+values (2,'The second artwork','https://image.shutterstock.com/image-illustration/oil-painting-on-canvas-street-450w-667859491.jpg',75,0,1,1,6,1);
 --
 insert into artwork
-values (3,'The third artwork','The third artwork reference',75,0,1,3,12,1);
+values (3,'The third artwork','https://image.shutterstock.com/image-illustration/view-old-town-prague-acrylic-450w-739130269.jpg',75,0,1,3,12,1);
 
+insert into artwork
+values (4,'The fourth artwork','https://image.shutterstock.com/z/stock-photo-night-scenery-of-a-man-rowing-a-boat-among-many-glowing-moons-floating-on-the-sea-digital-art-1016596177.jpg',75,0,2,1,4,2);
 
+insert into artwork
+values (5,'The fifth artwork','https://image.shutterstock.com/z/stock-vector-california-beach-text-with-waves-and-sun-vector-illustrations-for-t-shirt-prints-and-other-uses-1272173029.jpg',75,0,3,1,6,1);
+-- --
+insert into artwork
+values (6,'The sixth artwork','https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg',75,0,4,1,6,1);
+
+insert into artwork
+values (7,'The seventh artwork','https://image.shutterstock.com/z/stock-photo-rock-guitarists-hands-playing-guitar-with-multicolored-fantasy-background-in-bright-colors-592665278.jpg',75,0,1,2,6,1);
+
+insert into artwork
+values (8,'The eight artwork','https://image.shutterstock.com/z/stock-vector-photo-camera-banner-in-a-digital-painting-746591659.jpg',75,0,3,1,6,1);
+
+insert into artwork
+values (9,'The ninth artwork','https://image.shutterstock.com/z/stock-photo-fantasy-scene-showing-the-young-boy-running-away-from-the-fire-dragon-digital-art-style-1053081902.jpg',75,0,3,1,6,1);
 
 
 -- --ARTWORK STYLE

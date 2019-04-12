@@ -23,8 +23,17 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
- * @author 731866
+ * AssetType.java - Class describing all attributes and operations for a AssetType object.
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "backup")
@@ -50,46 +59,84 @@ public class Backup implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "backup_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date backupDate;
 
     public Backup() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param backupId the backup id
+     */
     public Backup(Integer backupId) {
         this.backupId = backupId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param backupId the backup id
+     * @param backupName the backup name
+     * @param backupDate  the backup date
+     */
     public Backup(Integer backupId, String backupName, Date backupDate) {
         this.backupId = backupId;
         this.backupName = backupName;
         this.backupDate = backupDate;
     }
 
+    /**
+     * Method to get the backup id
+     * @return backup id
+     */
     public Integer getBackupId() {
         return backupId;
     }
 
+    /**
+     * Method to set backup id
+     * @param backupId the backup id
+     */
     public void setBackupId(Integer backupId) {
         this.backupId = backupId;
     }
 
+    /**
+     * Method to get backup name
+     * @return the backup name
+     */
     public String getBackupName() {
         return backupName;
     }
 
+    /**
+     * Method to set backup name 
+     * @param backupName the backup name
+     */
     public void setBackupName(String backupName) {
         this.backupName = backupName;
     }
 
+    /**
+     * Method to get backup date
+     * @return the backup date
+     */
     public Date getBackupDate() {
         return backupDate;
     }
 
+    /**
+     * Method to set backup date
+     * @param backupDate  the backup date
+     */
     public void setBackupDate(Date backupDate) {
         this.backupDate = backupDate;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,6 +144,11 @@ public class Backup implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -110,6 +162,10 @@ public class Backup implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Backup[ backupId=" + backupId + " ]";

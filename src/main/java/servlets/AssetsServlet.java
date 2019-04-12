@@ -7,8 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * AssetsServlet is a class managing the content displayed on the page Assets.JSP.
  *
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class AssetsServlet extends HttpServlet {
 

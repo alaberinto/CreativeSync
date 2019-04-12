@@ -12,7 +12,13 @@ import models.Title;
 /**
  * TitleBroker is a data-access class to manage Title information in database.
  * 
- * @author Mason Hill & Alvin Laberinto
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  * @version 1.0
  */
 public class TitleBroker {

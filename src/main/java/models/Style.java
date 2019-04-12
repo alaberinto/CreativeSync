@@ -21,8 +21,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Style.java - Class describing all attributes and operations for a Style Link object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "style")
@@ -50,40 +60,77 @@ public class Style implements Serializable {
     public Style() {
     }
 
+    /**
+     * COnstructor which takes the below arguments
+     * @param styleId the style id
+     */
     public Style(Integer styleId) {
         this.styleId = styleId;
     }
 
+    /**
+     * COnstructor which takes the below arguments
+     * @param styleId the style id
+     * @param styleDesc  the style description
+     */
     public Style(Integer styleId, String styleDesc) {
         this.styleId = styleId;
         this.styleDesc = styleDesc;
     }
 
+    /**
+     * Method to get style id
+     * @return style id
+     */
     public Integer getStyleId() {
         return styleId;
     }
 
+    /**
+     * Method to set style id
+     * @param styleId the style id
+     */
     public void setStyleId(Integer styleId) {
         this.styleId = styleId;
     }
 
+    /**
+     * Method to get style description
+     * @return style description
+     */
     public String getStyleDesc() {
         return styleDesc;
     }
 
+    /**
+     * Method to set style description
+     * @param styleDesc the style description
+     */
     public void setStyleDesc(String styleDesc) {
         this.styleDesc = styleDesc;
     }
 
+    /**
+     * XML transient method to get list of Artwork
+     * @return List of Artwork
+     */
     @XmlTransient
     public List<Artwork> getArtworkList() {
         return artworkList;
     }
 
+    /**
+     * Method to set list of Artwork
+     * @param artworkList List of Artwork
+     */
     public void setArtworkList(List<Artwork> artworkList) {
         this.artworkList = artworkList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -91,6 +138,11 @@ public class Style implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -104,6 +156,10 @@ public class Style implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Style[ styleId=" + styleId + " ]";

@@ -20,8 +20,15 @@ import services.GenreService;
 import services.TitleService;
 
 /**
+ * AddUserServlet is a class managing the content displayed on the page AddUser.JSP.
  *
- * @author Mason
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class AddUserServlet extends HttpServlet {
 

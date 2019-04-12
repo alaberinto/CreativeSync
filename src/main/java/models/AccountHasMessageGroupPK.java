@@ -12,8 +12,18 @@ import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
 /**
+ * AccountHasMessageGroupPk.java - Class describing all attributes and operations for AccountHasMessageGroupPK object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Embeddable
 public class AccountHasMessageGroupPK implements Serializable {

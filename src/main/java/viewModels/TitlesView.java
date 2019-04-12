@@ -14,7 +14,13 @@ import models.TitleHasAccount;
  * lead and coordinator, the status, and if the a boolean tracking if the user
  * logged in is assigned to this title.
  *
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  * @version 1.0
  */
 public class TitlesView {

@@ -8,9 +8,15 @@ import javax.persistence.EntityManager;
 import models.Language;
 
 /**
- * LanguageBroker is a data-access class to retrieve Language information from the
+ * LanguageBroker is a data-access class to retrieve Artwork Language from the
  * database.
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class LanguageBroker {
     

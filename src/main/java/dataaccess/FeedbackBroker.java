@@ -15,8 +15,15 @@ import javax.persistence.Query;
 import models.Feedback;
 
 /**
- *
- * @author Matthew
+ * 
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class FeedbackBroker {
 

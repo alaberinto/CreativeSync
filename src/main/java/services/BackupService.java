@@ -18,11 +18,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Backup;
 
+
 /**
- * BackupService is a service class to process requests to access or mutate
- * Backup information.
  * 
+ * BackupService is a service class has all the backup information.
+ *
+ * @author Mason Hill
+ * @author Alvin Laberinto
  * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 public class BackupService {
 

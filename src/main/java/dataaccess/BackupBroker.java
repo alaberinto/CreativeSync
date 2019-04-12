@@ -16,7 +16,15 @@ import models.Backup;
 /**
  * BackupBroker is a data-access class to retrieve Backup information from the
  * database.
- * @author Cooper Vasiliou & Alvin Laberinto
+
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class BackupBroker {
     

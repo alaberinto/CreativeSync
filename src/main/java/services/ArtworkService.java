@@ -14,10 +14,17 @@ import java.util.logging.Logger;
 import models.Artwork;
 
 /**
-  * AccountService is a service class to process requests to access or mutate
- * Artwork information.
+ * ArtWorkService class for Art work information.
+ *
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  * 
- * @author Matthew
+ * @version 1.0
  */
 public class ArtworkService {
 

@@ -9,8 +9,13 @@ import models.Language;
 
 /**
  * LanguageService is a service class to process requests to access or mutate Language information.
- *
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class LanguageService {
     

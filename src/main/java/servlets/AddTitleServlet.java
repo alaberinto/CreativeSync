@@ -20,8 +20,15 @@ import services.GenreService;
 import services.TitleService;
 
 /**
+ * AddTitleServlet is a class managing the content displayed on the page AddTitle.JSP.
  *
- * @author 731866
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class AddTitleServlet extends HttpServlet {
 

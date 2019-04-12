@@ -24,8 +24,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
- * @author 731866
+ * AssetType.java - Class describing all attributes and operations for a AssetType object.
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "asset_type")
@@ -53,40 +62,77 @@ public class AssetType implements Serializable {
     public AssetType() {
     }
 
+    /**
+     * Constructor which take the below arguments
+     * @param typeId the typeId
+     */
     public AssetType(Integer typeId) {
         this.typeId = typeId;
     }
 
+    /**
+     * Constructor which take the below arguments
+     * @param typeId the type id
+     * @param typeDesc  the type description
+     */
     public AssetType(Integer typeId, String typeDesc) {
         this.typeId = typeId;
         this.typeDesc = typeDesc;
     }
 
+    /**
+     * Method to get type id
+     * @return typeId
+     */
     public Integer getTypeId() {
         return typeId;
     }
 
+    /**
+     * Method to set type id
+     * @param typeId  the typeId
+     */
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 
+    /**
+     * Method to get type description
+     * @return  the typeDesc
+     */
     public String getTypeDesc() {
         return typeDesc;
     }
 
+    /**
+     * Method to set type description
+     * @param typeDesc  the type description
+     */
     public void setTypeDesc(String typeDesc) {
         this.typeDesc = typeDesc;
     }
 
+    /**
+     * XML transient method to the asset list
+     * @return  List of asset
+     */
     @XmlTransient
     public List<Asset> getAssetList() {
         return assetList;
     }
 
+    /**
+     * Method to set list of asset
+     * @param assetList the List of Asset
+     */
     public void setAssetList(List<Asset> assetList) {
         this.assetList = assetList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -94,6 +140,11 @@ public class AssetType implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -107,6 +158,10 @@ public class AssetType implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.AssetType[ typeId=" + typeId + " ]";

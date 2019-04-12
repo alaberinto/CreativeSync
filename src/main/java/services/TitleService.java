@@ -24,7 +24,13 @@ import viewModels.TitlesView;
  * TitleService is a service class to precess requests and access to Title
  * information.
  *
- * @author Mason Hill & Cooper Vasiliou
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class TitleService {
 

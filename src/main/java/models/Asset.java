@@ -22,8 +22,18 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Asset.java - Class describing all attributes and operations for a Asset object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "asset")
@@ -55,47 +65,92 @@ public class Asset implements Serializable {
     public Asset() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param assetId the asset id
+     */
     public Asset(Integer assetId) {
         this.assetId = assetId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param assetId the asset id
+     * @param typeRef  the type reference
+     */
     public Asset(Integer assetId, String typeRef) {
         this.assetId = assetId;
         this.typeRef = typeRef;
     }
 
+    /**
+     * Method to get the asset id
+     * @return  assetId
+     */
     public Integer getAssetId() {
         return assetId;
     }
 
+    /**
+     * Method to set asset id
+     * @param assetId the assetId
+     */
     public void setAssetId(Integer assetId) {
         this.assetId = assetId;
     }
 
+    /**
+     * Method to get type ref
+     * @return typeRef
+     */
     public String getTypeRef() {
         return typeRef;
     }
 
+    /**
+     * Method to set type ref
+     * @param typeRef the typeRef
+     */
     public void setTypeRef(String typeRef) {
         this.typeRef = typeRef;
     }
 
+    /**
+     * Method to get type id
+     * @return the typeId
+     */
     public AssetType getTypeId() {
         return typeId;
     }
 
+    /**
+     * Method to set type id
+     * @param typeId  the typeId
+     */
     public void setTypeId(AssetType typeId) {
         this.typeId = typeId;
     }
 
+    /**
+     * Method to get title 
+     * @return title
+     */
     public Title getTitleId() {
         return titleId;
     }
 
+    /**
+     * Metgod to set title
+     * @param titleId the title
+     */
     public void setTitleId(Title titleId) {
         this.titleId = titleId;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -103,6 +158,11 @@ public class Asset implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -116,6 +176,10 @@ public class Asset implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Asset[ assetId=" + assetId + " ]";

@@ -24,8 +24,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Location.java - Class describing all attributes and operations for a Location object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "location")
@@ -59,49 +69,95 @@ public class Location implements Serializable {
     public Location() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param locationId the location id
+     */
     public Location(Integer locationId) {
         this.locationId = locationId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param locationId the location id
+     * @param locationCode the location code
+     * @param locationDesc  the location description
+     */
     public Location(Integer locationId, String locationCode, String locationDesc) {
         this.locationId = locationId;
         this.locationCode = locationCode;
         this.locationDesc = locationDesc;
     }
 
+    /**
+     * Method to get location id
+     * @return location id
+     */
     public Integer getLocationId() {
         return locationId;
     }
 
+    /**
+     * Method to set location id
+     * @param locationId the location id
+     */
     public void setLocationId(Integer locationId) {
         this.locationId = locationId;
     }
 
+    /**
+     * Method to get location code
+     * @return location code
+     */
     public String getLocationCode() {
         return locationCode;
     }
 
+    /**
+     * Method to set location code
+     * @param locationCode the location code
+     */
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
     }
 
+    /**
+     * Method to get location description
+     * @return location description
+     */
     public String getLocationDesc() {
         return locationDesc;
     }
 
+    /**
+     * Method to set location description
+     * @param locationDesc the location description
+     */
     public void setLocationDesc(String locationDesc) {
         this.locationDesc = locationDesc;
     }
 
+    /**
+     * XML transient method to get list of accounts
+     * @return List of Account
+     */
     @XmlTransient
     public List<Account> getAccountList() {
         return accountList;
     }
 
+    /**
+     * Method to set list of accounts
+     * @param accountList List of Account
+     */
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +165,11 @@ public class Location implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -122,6 +183,10 @@ public class Location implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Location[ locationId=" + locationId + " ]";

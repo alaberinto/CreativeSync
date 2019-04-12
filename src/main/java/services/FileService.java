@@ -35,7 +35,16 @@ import org.apache.commons.fileupload.FileItem;
 /**
  * FileService is a class to connect to Dropbox and download, upload, retrieve images from the
  * Dropbox.
- * @author Alvin Labarinto
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 public class FileService {
 

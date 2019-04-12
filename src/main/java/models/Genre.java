@@ -25,8 +25,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Genre.java - Class describing all attributes and operations for a Genre object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "genre")
@@ -59,49 +69,94 @@ public class Genre implements Serializable {
     public Genre() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param genreId  the genre id
+     */
     public Genre(Integer genreId) {
         this.genreId = genreId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param genreId the genre id
+     * @param genreDesc  the genre description
+     */
     public Genre(Integer genreId, String genreDesc) {
         this.genreId = genreId;
         this.genreDesc = genreDesc;
     }
 
+    /**
+     * Method to get genre id
+     * @return genre id
+     */
     public Integer getGenreId() {
         return genreId;
     }
 
+    /**
+     * Method to set genre id
+     * @param genreId the genre id
+     */
     public void setGenreId(Integer genreId) {
         this.genreId = genreId;
     }
 
+    /**
+     * Method to get genre description
+     * @return  the genre description
+     */
     public String getGenreDesc() {
         return genreDesc;
     }
 
+    /**
+     * Method to set genre description
+     * @param genreDesc the genre description
+     */
     public void setGenreDesc(String genreDesc) {
         this.genreDesc = genreDesc;
     }
 
+    /**
+     * XML transient method to get list of titles
+     * @return  List of Title
+     */
     @XmlTransient
     public List<Title> getTitleList() {
         return titleList;
     }
 
+    /**
+     * Method to set List of Title
+     * @param titleList List of Title
+     */
     public void setTitleList(List<Title> titleList) {
         this.titleList = titleList;
     }
 
+    /**
+     * XML transient method to get list of accounts
+     * @return  List of Account
+     */
     @XmlTransient
     public List<Account> getAccountList() {
         return accountList;
     }
 
+    /**
+     * Method to set List of accounts
+     * @param accountList List of Account
+     */
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,6 +164,11 @@ public class Genre implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -122,6 +182,10 @@ public class Genre implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Genre[ genreId=" + genreId + " ]";

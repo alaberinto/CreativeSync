@@ -14,10 +14,15 @@ import models.Account;
 import models.Position;
 
 /**
- * PositionService is a service class to process requests to access or mutate
- * Position information.
+ * Constructor for LocationService which gives the LocationBroker object
  * 
- * @author Mason, Matthew
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class PositionService {
 

@@ -11,7 +11,13 @@ import models.Position;
 /**
  * PositionBroker is a data-access class to retrieve Position information from the database.
  * 
- * @author Cooper Vasiliou & Mason Hill
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  * @version 1.0
  */
 public class PositionBroker {

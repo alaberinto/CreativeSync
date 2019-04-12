@@ -9,7 +9,13 @@ import java.util.logging.Logger;
  * See https://crackstation.net/hashing-security.htm for learning hashing. See
  * https://www.baeldung.com/sha-256-hashing-java for where this code came from.
  *
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class HashingService {
 

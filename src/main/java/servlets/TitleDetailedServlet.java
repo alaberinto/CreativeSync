@@ -44,7 +44,8 @@ public class TitleDetailedServlet extends HttpServlet {
         ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
         session.setAttribute("title", title.getTitle());
         session.setAttribute("titleId", title.getTitle().getTitleId());
-
+        session.setAttribute("titleName", title.getTitle().getName());
+        
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
         } else {

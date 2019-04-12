@@ -25,17 +25,15 @@
     </head>
     <body class="background-plain">
         <sync:navbar1></sync:navbar1>
-            <div class="container background-white pb-3">
-                <h1 align="center">Feedback</h1>
+            <div class="container background-white pb-3">              
 
                 <div class="hdev">
-
                     <div align="center">
-                        <h3>
+                        <h1>
                         <c:if test="${roundsFilled == 1 || roundsFilled == 0}">
                             ${title.name}
                         </c:if>                      
-                    </h3>    
+                    </h1>    
                 </div>
 
                 <!--add/upload artwork-->
@@ -44,7 +42,7 @@
                         <tr>
                             <th>
                                 <c:if test="${roundsFilled == 1}">
-                                    <h3>Round #</h3>
+                                    <h2>Rounds</h2>
                                 </c:if>
                             </th>
                             <th>
@@ -53,8 +51,7 @@
                                         <form method="POST" action="ArtworkDetailed" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                                <input type="submit" id="submitAsset" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>
-                                                <input type="hidden" name="action" value="uploadArtwork">
+                                                <input type="submit" id="submitAsset" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1">                                                
                                             </div>
                                         </form>
                                     </div>
@@ -71,8 +68,7 @@
                 <!--rounds-->
                 <c:if test="${roundsFilled == 1}">
                     <c:forEach var="rounds" items="${rounds}">
-                        <h3>${rounds.getRound()}</h3>
-                        <hr>
+                        <h3>${rounds.getRound()}</h3>                        
                         <div style="width:100%; background-color: #f4efed;">
                             <table border="1" cellspacing="5" width="100%">
                                 <tbody>       
@@ -94,16 +90,25 @@
 
                                     <tr>
                                         <c:if test="${position == 1}">
-                                            <td style="width: 70%">
-                                                <div class="form-group">                                                                                 
-                                                    <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
-                                                </div>
-                                            </td>
+                                            <c:if test="${status == 0}">
+                                                <td style="width: 70%">
+                                                    <div class="form-group">                                                                                 
+                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                    </div>
+                                                </td>
+                                            </c:if>
+                                            <c:if test="${status == 1 || status == 2}">
+                                                <td style="width: 70%">
+                                                    <div class="form-group">                                                                                 
+                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="GREAT JOB!" required></textarea>                                         
+                                                    </div>
+                                                </td>
+                                            </c:if>
                                         </c:if>
                                         <c:if test="${position == 0}">
                                             <td style="width: 70%">
                                                 <div class="form-group">                                                                                 
-                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="HERE IS YOUR FEEDBACK"></textarea>                                         
+                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="GREAT JOB!"></textarea>                                         
                                                 </div>
                                             </td>
                                         </c:if>
@@ -146,13 +151,13 @@
                 ${comment}
                 ${status}
 
-                <c:if test="${goodFeedback != null}">
+                <c:if test="${uploaded != null}">
                     <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Success</strong> ${goodFeedback}
                     </div>
                 </c:if>
-                <c:if test="${badFeedback != null}">
+                <c:if test="${failed != null}">
                     <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>Error</strong> ${badFeedback}

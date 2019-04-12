@@ -44,9 +44,9 @@ public class ArtworkDetailedServlet extends HttpServlet {
             int position = user.getPosition().getPositionId();
 
             if (position == 4) { //freelancer       
-                request.setAttribute("position", "0");
+                request.setAttribute("position", "0"); //freelancer
             } else {
-                request.setAttribute("position", "1");
+                request.setAttribute("position", "1"); //design lead, and others
             }
 
             request.setAttribute("status", 0); //0 to see the buttons    
@@ -70,6 +70,13 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 request.setAttribute("rounds", rounds);
             } else {
                 request.setAttribute("roundsFilled", 0);
+            }
+            
+            //check for approve/deny for all rounds
+            if (as.getArtworkStatus(titleId, 1) == 1) {
+                request.setAttribute("status","1");
+            } else if (as.getArtworkStatus(titleId, 2) == 2) {
+                request.setAttribute("status","2");
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
@@ -100,8 +107,9 @@ public class ArtworkDetailedServlet extends HttpServlet {
             request.setAttribute("comment", comment); //gets the commnet
             request.setAttribute("status", status); //gets the number    
 
-            //title id retrieval
+            //title id & name retrieval
             int titleId = (int) session.getAttribute("titleId");
+            String titleName = (String) session.getAttribute("titleName");
 
             //get rounds         
             List<Artwork> rounds;
@@ -121,6 +129,41 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 request.setAttribute("roundsFilled", 0);
             }
 
+            /**
+             * *************Upload artwork***********
+             */
+            String action = null;
+            List<FileItem> multiparts = null;
+            FileService fs = new FileService();
+
+            if (ServletFileUpload.isMultipartContent(request)) {
+                try {
+                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                    // This method grabs the action. Without this part, action will be null.
+                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
+                    action = checkValue(multiparts);
+                } catch (FileUploadException ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
+            String artUpload = request.getParameter("artUpload");
+
+            if (artUpload != null) {
+                //Get File From JSP
+                uploaded = fs.handleUpload(multiparts, titleName, "artwork");
+
+                if (uploaded != null) {
+                    session.setAttribute("uploaded", uploaded);
+                } else {
+                    session.setAttribute("failed", "Could not upload artwork.");
+                }
+            }
+
+            /**
+             * ******Approve or Deny************
+             */
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
             String denied = request.getParameter("deny");
@@ -140,59 +183,23 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 }
                 request.setAttribute("status", 2); //2 if round is denied
             }
-
-            /**
-             * *************Upload artwork***********
-             */
-//            String action = null;
-//            List<FileItem> multiparts = null;
-//            FileService fs = new FileService();
-//
-//            if (ServletFileUpload.isMultipartContent(request)) {
-//                try {
-//                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-//                    // This method grabs the action. Without this part, action will be null.
-//                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
-//                    action = checkValue(multiparts);
-//                } catch (FileUploadException ex) {
-//                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//                action = request.getParameter("action");
-////            }
-//
-//            String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
-//            switch (action) {
-//                case "uploadArtwork":
-//                    //Get File From JSP
-////                    uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
-//
-//                    if (uploaded != null) {
-//                        session.setAttribute("goodFeedback", uploaded);
-//                    } else {
-//                        session.setAttribute("badFeedback", "Could not upload artwork.");
-//                    }
-//                    break;
-//                default:
-//                    break;
-//            }
-
+            
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    String checkValue(List<FileItem> multiparts) {
-//        String inputName = null;
-//        for (FileItem item : multiparts) {
-//            if (item.isFormField()) {
-//                inputName = (String) item.getFieldName();
-//                if (inputName.equalsIgnoreCase("action")) {
-//                    return item.getString();
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    String checkValue(List<FileItem> multiparts) {
+        String inputName = null;
+        for (FileItem item : multiparts) {
+            if (item.isFormField()) {
+                inputName = (String) item.getFieldName();
+                if (inputName.equalsIgnoreCase("action")) {
+                    return item.getString();
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -34,7 +34,7 @@
                     </form>
                     <form method="get" action="EditUser?name=${myUser.user.firstname} ${myUser.user.lastname}" class="mt-1">
                         <c:if test="${user.position.positionId == 1 || (user.position.positionId == 2 && user.position.positionId < myUser.user.position.positionId) || user.userId == myUser.user.userId}">
-                            <button type="submit" name="action" value="edit" class="btn btn-block button-red-solid">Edit</button>
+                            <a href="EditUser?name=${myUser.user.firstname} ${myUser.user.lastname}" <button type="submit" name="action" value="edit" class="btn btn-block button-red-solid">Edit</button></a>
                         </c:if>
                     </form>
                 </div>

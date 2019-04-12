@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -48,50 +48,22 @@ public class EditUserServlet extends HttpServlet {
         LocationService ls = new LocationService();
         PositionService ps = new PositionService();
         LanguageService langs = new LanguageService();
-        
+
         String acc = request.getParameter("name");
-        try 
-        {
-           
+        try {
+
             UsersView uv = as.getUsersViewMyAccount(acc);
             Account ac = uv.getUser();
             request.setAttribute("myUser", ac);
             ArrayList<Genre> genres = gs.getAllGenres();
-            ArrayList<Genre> userGenres = new ArrayList(ac.getGenreList());
-            
-            
-            for(int i = genres.size() - 1; i >= 0; i --) {
-                for(int j = 0; j < userGenres.size(); j++) {
-                    if(userGenres.get(j).getGenreId() == genres.get(i).getGenreId()) {
-                        genres.remove(i);
-                        break;
-                    }
-                }
-            }
-            
             ArrayList<Location> loc = ls.getAllLocations();
-            
             ArrayList<Language> lang = langs.getAllLanguages();
-            ArrayList<Language> userLang = new ArrayList(ac.getLanguageList());
-             for(int i = lang.size() - 1; i >= 0; i --) {
-                for(int j = 0; j < userLang.size(); j++) {
-                    if(userLang.get(j).getLanguageId() == lang.get(i).getLanguageId()){
-                        lang.remove(i);
-                        break;
-                    }
-                }
-            }
-            
             ArrayList<Position> pos = ps.getCreatablePositions(ac);
-            
             request.setAttribute("genres", genres);
-            request.setAttribute("userGenres", userGenres);
-                   
-      
             request.setAttribute("locations", loc);
             request.setAttribute("languages", lang);
             request.setAttribute("positions", pos);
-        
+
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error getting user");
             getServletContext().getRequestDispatcher("/WEB-INF/Users.jsp").forward(request, response);
@@ -99,7 +71,7 @@ public class EditUserServlet extends HttpServlet {
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
-        
+
     }
 
     /**
@@ -115,28 +87,27 @@ public class EditUserServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
-        
-          UsersView uv = as.getUsersViewMyAccount(request.getSession().getAttribute("username").toString());
-           Account ac = uv.getUser();
-
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
+            String acc = request.getParameter("myUser");
+        Integer account = Integer.parseInt(acc);
+        Account ac = as.getUserById(account);
+        String fName = request.getParameter("firstname");
+        String lName = request.getParameter("lastname");
+        String password = request.getParameter("password");
         String email = request.getParameter("email");
         String rate = request.getParameter("rate");
-        String isActive = request.getParameter("isActive");
+        String countryId = request.getParameter("country");
+        String[] languageId = request.getParameterValues("language");
+        String positionId = request.getParameter("position");
         String[] genres = request.getParameterValues("genres");
-        String location = request.getParameter("location");
-        String[] languages = request.getParameterValues("language");
-        String position = request.getParameter("position");
         try {
-            as.editUser(ac,firstname, lastname, email,Double.parseDouble(rate), isActive, genres, location, languages, position);
+            as.editUser(ac, fName, lName, email, rate, genres, countryId, languageId, positionId,password);
+
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error editing user");
-            getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
+            doGet(request,response);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
     }
-
 
 }

@@ -12,8 +12,15 @@ import services.BackupService;
 import services.TitleService;
 
 /**
+ * BackupsServlet is a class managing the content displayed on the page Backups.JSP.
  *
- * @author Mason
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class BackupsServlet extends HttpServlet {
 

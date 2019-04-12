@@ -7,8 +7,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author Mason
+ * A controller servlet to manage actions related to the Title object details. 
+ * It does the request processing, calls the related Service methods and forwards to the view (JSP) 
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class TitleBriefServlet extends HttpServlet {
 

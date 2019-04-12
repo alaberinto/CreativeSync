@@ -14,7 +14,13 @@ import models.TitleHasAccount;
  * on the Users.JSP. For each user, the UsersView contains the user's First and Last name,
  * their position, the titles they are working on, and the status of each title.
  * 
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class UsersView {
     

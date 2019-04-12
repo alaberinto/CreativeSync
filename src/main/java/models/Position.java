@@ -24,8 +24,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Position.java - Class describing all attributes and operations for a Position object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "position")
@@ -53,40 +63,77 @@ public class Position implements Serializable {
     public Position() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param positionId the position id
+     */
     public Position(Integer positionId) {
         this.positionId = positionId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param positionId the position id
+     * @param positionDesc the position description
+     */
     public Position(Integer positionId, String positionDesc) {
         this.positionId = positionId;
         this.positionDesc = positionDesc;
     }
 
+    /**
+     * Method to get position id
+     * @return  position id
+     */
     public Integer getPositionId() {
         return positionId;
     }
 
+    /**
+     * Method to set position id
+     * @param positionId the position id
+     */
     public void setPositionId(Integer positionId) {
         this.positionId = positionId;
     }
 
+    /**
+     * Method to get position description
+     * @return position description
+     */
     public String getPositionDesc() {
         return positionDesc;
     }
 
+    /**
+     * Method to set position description
+     * @param positionDesc 
+     */
     public void setPositionDesc(String positionDesc) {
         this.positionDesc = positionDesc;
     }
 
+    /**
+     * XML transient method to get list of accounts
+     * @return List of Account
+     */
     @XmlTransient
     public List<Account> getAccountList() {
         return accountList;
     }
 
+    /**
+     * Method to set list of accounts
+     * @param accountList List of Account
+     */
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -94,6 +141,11 @@ public class Position implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -107,6 +159,10 @@ public class Position implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Position[ positionId=" + positionId + " ]";

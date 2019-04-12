@@ -9,8 +9,16 @@ import javax.servlet.http.HttpSession;
 import services.AccountService;
 
 /**
- *
- * @author Mason
+ * A controller servlet to manage actions related to the Recover object details. 
+ * It does the request processing, calls the related Service methods and forwards to the view (JSP) 
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class RecoverServlet extends HttpServlet {
 

@@ -21,8 +21,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Genre.java - Class describing all attributes and operations for a Genre object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "language")
@@ -56,49 +66,95 @@ public class Language implements Serializable {
     public Language() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param languageId  the language id
+     */
     public Language(Integer languageId) {
         this.languageId = languageId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param languageId the language id
+     * @param languageName the language name
+     * @param languageCode  the language code
+     */
     public Language(Integer languageId, String languageName, String languageCode) {
         this.languageId = languageId;
         this.languageName = languageName;
         this.languageCode = languageCode;
     }
 
+    /**
+     * Method to get Language id
+     * @return Language id
+     */
     public Integer getLanguageId() {
         return languageId;
     }
 
+    /**
+     * Method to set Language id
+     * @param languageId the Language id
+     */
     public void setLanguageId(Integer languageId) {
         this.languageId = languageId;
     }
 
+    /**
+     * Method to get Language name
+     * @return language name
+     */
     public String getLanguageName() {
         return languageName;
     }
 
+    /**
+     * Method to set language name
+     * @param languageName  the language name
+     */
     public void setLanguageName(String languageName) {
         this.languageName = languageName;
     }
 
+    /**
+     * Method to get language code
+     * @return  language code
+     */
     public String getLanguageCode() {
         return languageCode;
     }
 
+    /**
+     * Method to set language code
+     * @param languageCode  the language code
+     */
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
     }
 
+    /**
+     * XML transient method to get list of accounts
+     * @return List of Account
+     */
     @XmlTransient
     public List<Account> getAccountList() {
         return accountList;
     }
 
+    /**
+     * Method to set list of accounts
+     * @param accountList List of Account
+     */
     public void setAccountList(List<Account> accountList) {
         this.accountList = accountList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -106,6 +162,11 @@ public class Language implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -119,6 +180,10 @@ public class Language implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Language[ languageId=" + languageId + " ]";

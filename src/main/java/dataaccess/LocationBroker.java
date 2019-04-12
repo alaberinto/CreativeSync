@@ -11,7 +11,13 @@ import models.Location;
 /**
  * LocationBroker is a data-access class to retrieve Location information from the database.
  * 
- * @author Mason
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class LocationBroker {
     

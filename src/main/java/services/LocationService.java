@@ -13,9 +13,15 @@ import java.util.logging.Logger;
 import models.Location;
 
 /**
- * LocationService is a service class to process requests to access or mutate Location information.
- *
- * @author Mason
+ * Constructor for LocationService which gives the LocationBroker object
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class LocationService {
     

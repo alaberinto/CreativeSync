@@ -20,9 +20,19 @@ import models.Account;
 
 
 /**
- * EmailService is a service class to process requests to access or mutate
- * Email information.
- * @author Mason
+
+ *
+ * EmailService service class for email of the user 
+ *
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 public class EmailService {
 

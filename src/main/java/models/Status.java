@@ -22,8 +22,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Status.java - Class describing all attributes and operations for a Status Link object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "status")
@@ -51,40 +61,77 @@ public class Status implements Serializable {
     public Status() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param statusId the status id
+     */
     public Status(Integer statusId) {
         this.statusId = statusId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param statusId the status id
+     * @param statusDesc the status description
+     */
     public Status(Integer statusId, String statusDesc) {
         this.statusId = statusId;
         this.statusDesc = statusDesc;
     }
 
+    /**
+     * Method to get status id
+     * @return status id
+     */
     public Integer getStatusId() {
         return statusId;
     }
 
+    /**
+     * Method to set status id
+     * @param statusId the status id
+     */
     public void setStatusId(Integer statusId) {
         this.statusId = statusId;
     }
 
+    /**
+     * Method to get status description
+     * @return status description
+     */
     public String getStatusDesc() {
         return statusDesc;
     }
 
+    /**
+     * Method to set status description
+     * @param statusDesc the status description
+     */
     public void setStatusDesc(String statusDesc) {
         this.statusDesc = statusDesc;
     }
 
+    /**
+     * XML transient method to get list of TitleHasAccount
+     * @return List of TitleHasAccount
+     */
     @XmlTransient
     public List<TitleHasAccount> getTitleHasAccountList() {
         return titleHasAccountList;
     }
 
+    /**
+     * Method to set list of TitleHasAccount
+     * @param titleHasAccountList List of TitleHasAccount
+     */
     public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
         this.titleHasAccountList = titleHasAccountList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -92,6 +139,11 @@ public class Status implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -105,6 +157,10 @@ public class Status implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Status[ statusId=" + statusId + " ]";

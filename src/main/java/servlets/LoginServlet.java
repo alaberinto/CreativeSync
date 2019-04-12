@@ -12,7 +12,13 @@ import services.AccountService;
 /**
  * LoginServlet is a class managing the content displayed on the page Login.JSP.
  *
- * @author Mason Hill
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class LoginServlet extends HttpServlet {
 

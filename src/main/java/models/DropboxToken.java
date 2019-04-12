@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package models;
 
 import java.io.Serializable;
@@ -18,8 +19,18 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * DropboxToken.java - Class describing all attributes and operations for a DropboxToken object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "dropbox_token")
@@ -40,18 +51,34 @@ public class DropboxToken implements Serializable {
     public DropboxToken() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param tokenId  the token id
+     */
     public DropboxToken(String tokenId) {
         this.tokenId = tokenId;
     }
 
+    /**
+     * Method to get token id
+     * @return the token id
+     */
     public String getTokenId() {
         return tokenId;
     }
 
+    /**
+     * Method to set token id
+     * @param tokenId  the token in
+     */
     public void setTokenId(String tokenId) {
         this.tokenId = tokenId;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -59,6 +86,11 @@ public class DropboxToken implements Serializable {
         return hash;
     }
 
+     /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -72,9 +104,13 @@ public class DropboxToken implements Serializable {
         return true;
     }
 
+     /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.DropboxToken[ tokenId=" + tokenId + " ]";
     }
-    
+
 }

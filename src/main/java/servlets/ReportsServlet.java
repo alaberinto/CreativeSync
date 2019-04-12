@@ -17,8 +17,16 @@ import viewModels.TitlesView;
 import viewModels.UsersView;
 
 /**
- *
- * @author Omurbek
+ * A controller servlet to manage actions related to the Reports object details. 
+ * It does the request processing, calls the related Service methods and forwards to the view (JSP) 
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class ReportsServlet extends HttpServlet {
 

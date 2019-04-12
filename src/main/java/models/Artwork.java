@@ -29,9 +29,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Artwork.java - Class describing all attributes and operations for a Artwork object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
+
 @Entity
 @Table(name = "artwork")
 @XmlRootElement
@@ -90,10 +101,23 @@ public class Artwork implements Serializable {
     public Artwork() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param artworkId  the artWorkID
+     */
     public Artwork(Integer artworkId) {
         this.artworkId = artworkId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param artworkId the artWorkId
+     * @param artworkName the artworkName
+     * @param artworkRef the artWorkRef
+     * @param rating the rating
+     * @param artworkStatus the artWorkStatus
+     * @param round  the round
+     */
     public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating, short artworkStatus, int round) {
         this.artworkId = artworkId;
         this.artworkName = artworkName;
@@ -103,80 +127,156 @@ public class Artwork implements Serializable {
         this.round = round;
     }
 
+    /**
+     * Method to get Artwork id
+     * @return artworkId
+     */
     public Integer getArtworkId() {
         return artworkId;
     }
 
+    /**
+     * Method to set artworkId
+     * @param artworkId  the artworkId
+     */
     public void setArtworkId(Integer artworkId) {
         this.artworkId = artworkId;
     }
 
+    /**
+     * Method to get artworkName
+     * @return artworkName
+     */
     public String getArtworkName() {
         return artworkName;
     }
 
+    /**
+     * Method to set artworkName
+     * @param artworkName the artworkName
+     */
     public void setArtworkName(String artworkName) {
         this.artworkName = artworkName;
     }
 
+    /**
+     * Method to get artworkRef
+     * @return artworkRef
+     */
     public String getArtworkRef() {
         return artworkRef;
     }
 
+    /**
+     * Method to set artworkRef
+     * @param artworkRef  the artworkRef
+     */
     public void setArtworkRef(String artworkRef) {
         this.artworkRef = artworkRef;
     }
 
+    /**
+     * Method to get rating
+     * @return rating
+     */
     public int getRating() {
         return rating;
     }
 
+    /**
+     * method to set rating
+     * @param rating the rating
+     */
     public void setRating(int rating) {
         this.rating = rating;
     }
 
+    /**
+     * Method to get artwork status
+     * @return artwrokStatus
+     */
     public short getArtworkStatus() {
         return artworkStatus;
     }
 
+    /**
+     * Method to set art work status
+     * @param artworkStatus  the artworkStatus
+     */
     public void setArtworkStatus(short artworkStatus) {
         this.artworkStatus = artworkStatus;
     }
 
+    /**
+     * Method to get round
+     * @return round
+     */
     public int getRound() {
         return round;
     }
 
+    /**
+     * Method to set round
+     * @param round the round
+     */
     public void setRound(int round) {
         this.round = round;
     }
 
+    /**
+     * XML transient method to get style list
+     * @return List of Style
+     */
     @XmlTransient
     public List<Style> getStyleList() {
         return styleList;
     }
 
+    /**
+     * Method to set list of styles
+     * @param styleList List of Style
+     */
     public void setStyleList(List<Style> styleList) {
         this.styleList = styleList;
     }
 
+    /**
+     * Method to get TitleHasAccount
+     * @return TitleHasAccount
+     */
     public TitleHasAccount getTitleHasAccount() {
         return titleHasAccount;
     }
 
+    /**
+     * Method to set TitleHasAccount
+     * @param titleHasAccount the TitleHasAccount
+     */
     public void setTitleHasAccount(TitleHasAccount titleHasAccount) {
         this.titleHasAccount = titleHasAccount;
     }
 
+    /**
+     * XML transient method to get feedback list
+     * @return List of Feedback
+     */
     @XmlTransient
     public List<Feedback> getFeedbackList() {
         return feedbackList;
     }
 
+    /**
+     * Method to set list of feedback
+     * @param feedbackList the List of Feedback
+     */
     public void setFeedbackList(List<Feedback> feedbackList) {
         this.feedbackList = feedbackList;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -184,6 +284,11 @@ public class Artwork implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -197,6 +302,10 @@ public class Artwork implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Artwork[ artworkId=" + artworkId + " ]";

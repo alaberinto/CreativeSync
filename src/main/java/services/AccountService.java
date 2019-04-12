@@ -23,6 +23,13 @@ import viewModels.UsersView;
  * Account information.
  *
  * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
  * @version 1.0
  */
 public class AccountService {

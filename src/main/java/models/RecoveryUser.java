@@ -21,8 +21,18 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * RecoveryUser.java - Class describing all attributes and operations for a RecoveryUser object.
+ * 
  *
- * @author 731866
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
  */
 @Entity
 @Table(name = "recovery_user")
@@ -56,40 +66,78 @@ public class RecoveryUser implements Serializable {
     public RecoveryUser() {
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param email the email
+     */
     public RecoveryUser(String email) {
         this.email = email;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param email the email
+     * @param timeStamp the timestamp
+     * @param recoveryId  the recovery email id
+     */
     public RecoveryUser(String email, Date timeStamp, String recoveryId) {
         this.email = email;
         this.timeStamp = timeStamp;
         this.recoveryId = recoveryId;
     }
 
+    /**
+     * Method to get email id
+     * @return email id
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Method to set email
+     * @param email the email id
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Method to get timestamp
+     * @return timestamp
+     */
     public Date getTimeStamp() {
         return timeStamp;
     }
 
+    /**
+     * Method to set timestamp
+     * @param timeStamp the timestamp
+     */
     public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
     }
 
+    /**
+     * Method to get recovery email id
+     * @return recovery email id
+     */
     public String getRecoveryId() {
         return recoveryId;
     }
 
+    /**
+     * Method to set recovery email id
+     * @param recoveryId the recovery email id
+     */
     public void setRecoveryId(String recoveryId) {
         this.recoveryId = recoveryId;
     }
 
+    /**
+     * Overridden method of hashCode
+     * @return 
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,6 +145,11 @@ public class RecoveryUser implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -110,6 +163,10 @@ public class RecoveryUser implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.RecoveryUser[ email=" + email + " ]";

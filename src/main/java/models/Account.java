@@ -27,10 +27,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author 731866
- */
+
 @Entity
 @Table(name = "account")
 @XmlRootElement
@@ -43,6 +40,24 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Account.findByEmail", query = "SELECT a FROM Account a WHERE a.email = :email")
     , @NamedQuery(name = "Account.findByRate", query = "SELECT a FROM Account a WHERE a.rate = :rate")
     , @NamedQuery(name = "Account.findByIsactive", query = "SELECT a FROM Account a WHERE a.isactive = :isactive")})
+
+
+
+
+/**
+ * Account.java - Class describing all attributes and operations for a Account object.
+ * 
+ *
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ * 
+ * @version 1.0
+ */
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -106,10 +121,24 @@ public class Account implements Serializable {
     public Account() {
     }
 
+    /**
+     * Constructor which takes the userId as argument
+     * @param userId the userId of the user Account
+     */
     public Account(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     * Constructor which takes the below arguments
+     * @param userId the userId of the Account
+     * @param password the password of the Account
+     * @param firstname the firstName of the Account
+     * @param lastname the lastName of the Account
+     * @param email the email of the Account
+     * @param rate the rate of the Account
+     * @param isactive  the status of the Account
+     */
     public Account(Integer userId, String password, String firstname, String lastname, String email, double rate, short isactive) {
         this.userId = userId;
         this.password = password;
@@ -120,119 +149,231 @@ public class Account implements Serializable {
         this.isactive = isactive;
     }
 
+    /**
+     * Access method to get UserId
+     * @return userId
+     */
     public Integer getUserId() {
         return userId;
     }
 
+    /**
+     * Mutator method to set userId
+     * @param userId the userId of user account
+     */
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
+    /**
+     * Access method to get the password
+     * @return 
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Mutator method to get the password
+     * @param password  the password of user account
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Access method to get the firstName of the user Account
+     * @return firstName of UserAccount
+     */
     public String getFirstname() {
         return firstname;
     }
 
+    /**
+     * Mutator method to set the firstName of user account
+     * @param firstname the firstName of user account
+     */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
+    /**
+     * Access method to get the lastName of the user Account
+     * @return lastName of UserAccount
+     */
     public String getLastname() {
         return lastname;
     }
 
+     /**
+     * Mutator method to set the lastName of user account
+     * @param lastname the lastName of user account
+     */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
+    /**
+     * Access method to get the email of user account
+     * @return 
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Mutator method to set the email
+     * @param email  the email of user account
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * access method to get the rate 
+     * @return rate of the user account
+     */
     public double getRate() {
         return rate;
     }
 
+    /**
+     * Mutator method to set the rate of user account
+     * @param rate the rate of user account
+     */
     public void setRate(double rate) {
         this.rate = rate;
     }
 
+    /**
+     * Access method to get the status of user account
+     * @return status of the user account
+     */
     public short getIsactive() {
         return isactive;
     }
 
+    /**
+     * Mutator method to set the status of the user account
+     * @param isactive the status of user account
+     */
     public void setIsactive(short isactive) {
         this.isactive = isactive;
     }
 
+    /**
+     * XMLTransient method to get the language list
+     * @return List of Language
+     */
     @XmlTransient
     public List<Language> getLanguageList() {
         return languageList;
     }
 
+    /**
+     * Mutator method to set the list of languages
+     * @param languageList the list of Languages
+     */
     public void setLanguageList(List<Language> languageList) {
         this.languageList = languageList;
     }
 
+    /**
+     * XMLTransient method to get the Genre List
+     * @return List of Genre
+     */
     @XmlTransient
     public List<Genre> getGenreList() {
         return genreList;
     }
 
+    /**
+     * Method to set the List of Genre
+     * @param genreList the list of Genre
+     */
     public void setGenreList(List<Genre> genreList) {
         this.genreList = genreList;
     }
 
+    /**
+     * XMLTransient method to get the list of AccountHasMessageGroup
+     * @return List of AccountHasMessageGroup
+     */
     @XmlTransient
     public List<AccountHasMessageGroup> getAccountHasMessageGroupList() {
         return accountHasMessageGroupList;
     }
 
+    /**
+     * Method to set the List of AccountHasMessageGroup
+     * @param accountHasMessageGroupList List of AccountHasMessageGroup
+     */
     public void setAccountHasMessageGroupList(List<AccountHasMessageGroup> accountHasMessageGroupList) {
         this.accountHasMessageGroupList = accountHasMessageGroupList;
     }
 
+    /**
+     * XMLTransient method to get the TitleHasAccount List
+     * @return List of TitleHAsAccount
+     */
     @XmlTransient
     public List<TitleHasAccount> getTitleHasAccountList() {
         return titleHasAccountList;
     }
 
+    /**
+     * Method to set list of TitleHasAccount
+     * @param titleHasAccountList  List of titleHasAccount
+     */
     public void setTitleHasAccountList(List<TitleHasAccount> titleHasAccountList) {
         this.titleHasAccountList = titleHasAccountList;
     }
 
+    /**
+     * XMLTransient method to get List of Reports
+     * @return List of Report
+     */
     @XmlTransient
     public List<Report> getReportList() {
         return reportList;
     }
 
+    /**
+     * Method to set List of Reports
+     * @param reportList  List of Reports
+     */
     public void setReportList(List<Report> reportList) {
         this.reportList = reportList;
     }
 
+    /**
+     * Method to get the Location
+     * @return Location
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Method to get location
+     * @param location the location of user account
+     */
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    /**
+     * method to get position of user account
+     * @return Position
+     */
     public Position getPosition() {
         return position;
     }
 
+    /**
+     * Method to set position of user account
+     * @param position  Position of user account
+     */
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -244,6 +385,11 @@ public class Account implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden method of equals
+     * @param object
+     * @return 
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -257,6 +403,10 @@ public class Account implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden method of toString
+     * @return 
+     */
     @Override
     public String toString() {
         return "models.Account[ userId=" + userId + " ]";

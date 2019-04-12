@@ -7,8 +7,16 @@ import javax.servlet.http.HttpSessionListener;
 import models.Account;
 
 /**
+ *
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  * 
- * @author Mason
+ * @version 1.0
  */
 public class SessionInspectorListener implements HttpSessionListener {
 

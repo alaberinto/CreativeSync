@@ -22,8 +22,15 @@ import services.EmailService;
 import services.FileService;
 
 /**
+ * ArtworkDetailedServlet is a class managing the content displayed on the page ArtworkDetailed.JSP.
  *
- * @author Matthew
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class ArtworkDetailedServlet extends HttpServlet {
 

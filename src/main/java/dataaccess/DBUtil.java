@@ -6,7 +6,13 @@ import javax.persistence.Persistence;
 /**
  * Data-access class creating a static instance of the EntityManagerFactory used as the connection to the database.
  * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
  * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class DBUtil {
     

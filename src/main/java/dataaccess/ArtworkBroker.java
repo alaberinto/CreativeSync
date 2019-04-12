@@ -15,9 +15,18 @@ import javax.persistence.Query;
 import models.Artwork;
 
 /**
- * ArtworkBroker is a data-access class to retrieve Artwork information from the
+
+ *
+ * ArtworkBroke is a data-access class to retrieve Artwork information from the
  * database.
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
  * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class ArtworkBroker {
 

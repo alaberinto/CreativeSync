@@ -13,9 +13,16 @@ import viewModels.TitlesView;
 import viewModels.UsersView;
 
 /**
- * ReportService is a service class to process requests to access or mutate
- * Report information.
+ *
+ * ReportService is a service class that generates reports
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
  * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class ReportService {
 

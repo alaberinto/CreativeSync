@@ -6,7 +6,14 @@ import models.Status;
 /**
  * StatusBroker is a data-access class to retrieve Status information from the
  * database.
- * @author Mason
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class StatusBroker {
     

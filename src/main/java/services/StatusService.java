@@ -5,9 +5,17 @@ import dataaccess.StatusBroker;
 import models.Status;
 
 /**
- * StatusService is a service class to process requests to access or mutate
- * Status information.
- * @author Mason
+ * StatusService is a service class that status of titles or users
+ * 
+ * @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
+ *
+ * 
  */
 public class StatusService {
     

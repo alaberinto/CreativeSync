@@ -25,8 +25,15 @@ import services.PositionService;
 import viewModels.UsersView;
 
 /**
+ * EditUserServlet is a class managing the content displayed on the page EditUser.JSP.
  *
- * @author 759388
+ *  @author Mason Hill
+ * @author Alvin Laberinto
+ * @author Cooper Vasiliou
+ * @author Arsal Butt
+ * @author Brittany Low
+ * @author Matthew Carmichael
+ * @author Omurbek Kadyrov
  */
 public class EditUserServlet extends HttpServlet {
 

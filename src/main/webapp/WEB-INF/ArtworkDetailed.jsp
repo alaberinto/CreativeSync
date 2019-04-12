@@ -25,15 +25,19 @@
     </head>
     <body class="background-plain">
         <sync:navbar1></sync:navbar1>
+            <div class="searchBarHeader"></div>
+
             <div class="container background-white pb-3">              
 
                 <div class="hdev">
-                    <div align="center">
-                        <h1>
-                        <c:if test="${roundsFilled == 1 || roundsFilled == 0}">
-                            ${title.name}
-                        </c:if>                      
-                    </h1>    
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="text-center mt-5 mb-4 text-uppercase font-weight-bold">                    
+                            <c:if test="${roundsFilled == 1 || roundsFilled == 0}">
+                                ${title.name}
+                            </c:if>                      
+                        </h1>    
+                    </div>
                 </div>
 
                 <!--add/upload artwork-->

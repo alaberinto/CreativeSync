@@ -148,9 +148,6 @@
                     </div>
                 </c:if>
 
-                ${comment}
-                ${status}
-
                 <c:if test="${uploaded != null}">
                     <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author 587568
+ * @author 731866
  */
 @Entity
 @Table(name = "feedback")
@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Feedback.findByFeedbackDesc", query = "SELECT f FROM Feedback f WHERE f.feedbackDesc = :feedbackDesc")
     , @NamedQuery(name = "Feedback.findByFeedbackDate", query = "SELECT f FROM Feedback f WHERE f.feedbackDate = :feedbackDate")
     , @NamedQuery(name = "Feedback.findByIsreadDate", query = "SELECT f FROM Feedback f WHERE f.isreadDate = :isreadDate")
-    , @NamedQuery(name = "Feedback.findByIsread", query = "SELECT f FROM Feedback f WHERE f.isread = :isread")})
+    , @NamedQuery(name = "Feedback.findByIsread", query = "SELECT f FROM Feedback f WHERE f.isread = :isread")
+    , @NamedQuery(name = "Feedback.findByRound", query = "SELECT f FROM Feedback f WHERE f.round = :round")})
 public class Feedback implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,6 +66,10 @@ public class Feedback implements Serializable {
     @NotNull
     @Column(name = "isread")
     private short isread;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "round")
+    private int round;
     @JoinColumn(name = "artwork_id", referencedColumnName = "artwork_id")
     @ManyToOne(optional = false)
     private Artwork artworkId;
@@ -76,12 +81,13 @@ public class Feedback implements Serializable {
         this.feedbackId = feedbackId;
     }
 
-    public Feedback(Integer feedbackId, String feedbackDesc, Date feedbackDate, Date isreadDate, short isread) {
+    public Feedback(Integer feedbackId, String feedbackDesc, Date feedbackDate, Date isreadDate, short isread, int round) {
         this.feedbackId = feedbackId;
         this.feedbackDesc = feedbackDesc;
         this.feedbackDate = feedbackDate;
         this.isreadDate = isreadDate;
         this.isread = isread;
+        this.round = round;
     }
 
     public Integer getFeedbackId() {
@@ -122,6 +128,14 @@ public class Feedback implements Serializable {
 
     public void setIsread(short isread) {
         this.isread = isread;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
     }
 
     public Artwork getArtworkId() {

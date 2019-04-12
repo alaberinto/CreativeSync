@@ -87,23 +87,23 @@ public class EditUserServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         AccountService as = new AccountService();
-        String thisUser = request.getParameter("thisUser");
-        UsersView uv = as.getUsersViewMyAccount(thisUser);
-        Account ac = uv.getUser();
-
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
+            String acc = request.getParameter("myUser");
+        Integer account = Integer.parseInt(acc);
+        Account ac = as.getUserById(account);
+        String fName = request.getParameter("firstname");
+        String lName = request.getParameter("lastname");
+        String password = request.getParameter("password");
         String email = request.getParameter("email");
         String rate = request.getParameter("rate");
+        String countryId = request.getParameter("country");
+        String[] languageId = request.getParameterValues("language");
+        String positionId = request.getParameter("position");
         String[] genres = request.getParameterValues("genres");
-        String location = request.getParameter("location");
-        String[] languages = request.getParameterValues("language");
-        String position = request.getParameter("position");
         try {
-            as.editUser(ac, firstname, lastname, email, Double.parseDouble(rate), genres, location, languages, position);
+            as.editUser(ac, fName, lName, email, rate, genres, countryId, languageId, positionId,password);
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error editing user");
-            getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);
+            doGet(request,response);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/EditUser.jsp").forward(request, response);

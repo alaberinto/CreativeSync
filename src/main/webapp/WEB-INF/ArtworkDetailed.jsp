@@ -21,7 +21,7 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js"></script>
-        <title>Artwork Detail</title>
+        <title>Artwork Detailed</title>
     </head>
     <body class="background-plain">
         <sync:navbar1></sync:navbar1>
@@ -29,22 +29,47 @@
                 <h1 align="center">Feedback</h1>
 
                 <div class="hdev">
+
                     <div align="center">
                         <h3>
-                        <c:if test="${rounds_filled == 1 || rounds_filled == 0 || titles_filled == 1}">
-                            ${title.name} - 
-                        </c:if>
-                        ${username_fl}
+                        <c:if test="${roundsFilled == 1 || roundsFilled == 0}">
+                            ${title.name}
+                        </c:if>                      
                     </h3>    
                 </div>
-                <c:if test="${rounds_filled == 1}">
-                    <h3>Round #</h3>
-                </c:if>
+
+                <!--add/upload artwork-->
+                <table border="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>
+                                <c:if test="${roundsFilled == 1}">
+                                    <h3>Round #</h3>
+                                </c:if>
+                            </th>
+                            <th>
+                                <div align ="right">
+                                    <div class="col-4">
+                                        <form method="POST" action="ArtworkDetailed" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                                <input type="submit" id="submitAsset" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>
+                                                <input type="hidden" name="action" value="uploadArtwork">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+
                 <hr>
 
-                <br>                
+                <br>    
 
-                <c:if test="${rounds_filled == 1}">
+                <!--rounds-->
+                <c:if test="${roundsFilled == 1}">
                     <c:forEach var="rounds" items="${rounds}">
                         <h3>${rounds.getRound()}</h3>
                         <hr>
@@ -54,12 +79,12 @@
                                     <tr>
                                         <th colspan="2">        
                                             <div style="padding: 10px;">
-                                                <div align="center" class="img_zoom">    
-                                                    <c:forEach var="round_art" items="${round_art}">                                                       
-                                                        <c:if test = "${round_art.getRound() == rounds.getRound()}">
+                                                <div align="center">    
+                                                    <c:forEach var="roundArt" items="${roundArt}">                                                       
+                                                        <c:if test = "${roundArt.getRound() == rounds.getRound()}">
                                                             <!--https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg-->
-                                                            <!--<img class="fancybox" title="${round_art.artworkName}" src="${round_art.artworkRef}" style="width: 250px; height:205px;" alt="${round_art.artworkName}"/>-->
-                                                            <img class="fancybox" title="${round_art.artworkName}" src="" style="width: 250px; height:205px;" alt="${round_art.artworkName}"/>
+                                                            <!--<img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>-->
+                                                            <img class="fancybox" title="${roundArt.artworkName}" src="https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>
                                                         </c:if>                                                       
                                                     </c:forEach>
                                                 </div>                                                                               
@@ -71,63 +96,68 @@
                                         <c:if test="${position == 1}">
                                             <td style="width: 70%">
                                                 <div class="form-group">                                                                                 
-                                                    <textarea rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                    <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
                                                 </div>
                                             </td>
                                         </c:if>
                                         <c:if test="${position == 0}">
                                             <td style="width: 70%">
                                                 <div class="form-group">                                                                                 
-                                                    <textarea readonly rows="3" cols="50" class="form-control" form="status_ad" rows="5" id="feedback_comment" name="feedback_comment" placeholder="HERE IS YOUR FEEDBACK"></textarea>                                         
+                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="HERE IS YOUR FEEDBACK"></textarea>                                         
                                                 </div>
                                             </td>
                                         </c:if>
                                         <td>
                                             <c:if test="${position == 1}">
-                                                <c:if test="${approve_deny_val == 0}">
+                                                <c:if test="${status == 0}">
                                                     <div align="center">                         
-                                                        <form action="ArtworkDetailed" method="post" id="status_ad">
-                                                            <input type="submit" onclick="confirm_approve()" class="button_approve" name="approve" value="Approve">
-                                                            <input type="submit" onclick="confirm_deny()" class="button_deny" name="deny" value="Deny">       
+                                                        <form action="ArtworkDetailed" method="post" id="statusApproveDeny">
+                                                            <input type="submit" onclick="confirmApprove()" class="buttonApprove" name="approve" value="Approve">
+                                                            <input type="submit" onclick="confirmDeny()" class="buttonDeny" name="deny" value="Deny">       
                                                         </form>
                                                     </div>
                                                 </c:if>
+                                            </c:if>                                       
+                                            <c:if test="${status == 1}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #4CAF50">APPROVED</h1>
+                                                </div>
                                             </c:if>
-                                            <c:if test="${position == 0 || position == 1}">
-                                                <c:if test="${approve_deny_val == 1}">
-                                                    <div align="center">                         
-                                                        <h1 style="color: #4CAF50">APPROVED</h1>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${approve_deny_val == 2}">
-                                                    <div align="center">                         
-                                                        <h1 style="color: #f44336">DENIED</h1>
-                                                    </div>
-                                                </c:if>
-                                            </c:if>
+                                            <c:if test="${status == 2}">
+                                                <div align="center">                         
+                                                    <h1 style="color: #f44336">DENIED</h1>
+                                                </div>
+                                            </c:if>                                     
                                         </td>  
-                                    </tr>
-
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
                         <br>
-                    </c:forEach>  
+                    </c:forEach>
                 </c:if>
 
-                <c:if test="${rounds_filled == 0}">
+                <c:if test="${roundsFilled == 0}">
                     <div align="center">
                         <h1>No artwork exists for this title!</h1>
                     </div>
                 </c:if>
 
-                <c:if test="${titles_filled == 0}">
-                    <div align="center">
-                        <h1>No titles exist for this user!</h1>
+                ${comment}
+                ${status}
+
+                <c:if test="${goodFeedback != null}">
+                    <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Success</strong> ${goodFeedback}
                     </div>
                 </c:if>
-
-                ${comment}
+                <c:if test="${badFeedback != null}">
+                    <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Error</strong> ${badFeedback}
+                    </div>
+                </c:if> 
 
                 <br>
                 <br>

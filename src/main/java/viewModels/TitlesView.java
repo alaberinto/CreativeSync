@@ -191,10 +191,18 @@ public class TitlesView {
         this.isAssigned = isAssigned;
     }
 
+    /**
+     * Accessor method to get Freelancers for this TitleView.
+     * @return an ArrayList object of all Account objects for freelancers.
+     */
     public ArrayList<Account> getFreelancers() {
         return freelancers;
     }
 
+    /**
+     * Mutator method to set Freelancers for this TitleView.
+     * @param freelancers an ArrayList object of all Account objects of freelancers to be set.
+     */
     public void setFreelancers(ArrayList<Account> freelancers) {
         this.freelancers = freelancers;
     }

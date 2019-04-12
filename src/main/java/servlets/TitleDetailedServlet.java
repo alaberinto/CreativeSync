@@ -20,6 +20,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import services.AccountService;
+import services.ArtworkService;
 import services.FileService;
 import services.TitleService;
 import viewModels.TitlesView;
@@ -42,6 +43,7 @@ public class TitleDetailedServlet extends HttpServlet {
         TitlesView title = ts.getTitlesViewByName(titleName);
         ArrayList<TitleHasAccount> tha = new ArrayList(as.getFreelancersByTitle(title.getTitle()));
         session.setAttribute("title", title.getTitle());
+        session.setAttribute("titleId", title.getTitle().getTitleId());
 
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
@@ -58,7 +60,7 @@ public class TitleDetailedServlet extends HttpServlet {
             } else {
                 request.setAttribute("timeLeft", "0");
             }
-            
+
             try {
                 request.setAttribute("assets", fs.getAssets(titleName));
                 ArrayList<String> artworks = fs.getArtworks(titleName);
@@ -79,8 +81,8 @@ public class TitleDetailedServlet extends HttpServlet {
         FileService fs = new FileService();
         HttpSession session = request.getSession();
         Title title = (Title) session.getAttribute("title");
+        ArtworkService as = new ArtworkService();
         List<FileItem> multiparts = null;
-       
 
         //Check if its a file upload.
         if (ServletFileUpload.isMultipartContent(request)) {
@@ -100,22 +102,24 @@ public class TitleDetailedServlet extends HttpServlet {
         switch (action) {
             case "uploadAsset":
                 uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
-                
-                if(uploaded != null)
+
+                if (uploaded != null) {
                     session.setAttribute("goodFeedback", uploaded);
-                else
+                } else {
                     session.setAttribute("badFeedback", "Could not upload asset.");
-                
+                }
+
                 break;
             case "uploadArtwork":
                 //Get File From JSP
                 uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
-                
-                if(uploaded != null)
+
+                if (uploaded != null) {
                     session.setAttribute("goodFeedback", uploaded);
-                else
+                } else {
                     session.setAttribute("badFeedback", "Could not upload artwork.");
-                
+                }
+
                 break;
             case "downloadAllAssets": {
                 try {
@@ -135,7 +139,7 @@ public class TitleDetailedServlet extends HttpServlet {
                 break;
             case "deleteArtwork":
                 try {
-                    fs.deleteAsset(title.getName(), request.getParameter("artworkName"));
+                    fs.deleteArtwork(title.getName(), request.getParameter("artworkName"));
                 } catch (DbxException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -160,7 +164,7 @@ public class TitleDetailedServlet extends HttpServlet {
         return (100) - ((int) ((e - now) * 100 / (e - s)));
     }
 
-    private String checkValue(List<FileItem> multiparts) {
+    String checkValue(List<FileItem> multiparts) {
         String inputName = null;
         for (FileItem item : multiparts) {
             if (item.isFormField()) {

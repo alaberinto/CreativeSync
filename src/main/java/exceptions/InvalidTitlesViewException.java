@@ -6,12 +6,15 @@
 package exceptions;
 
 /**
- *
+ * An exception to be thrown when a TitlesView object is invalid.
+ * 
  * @author Mason
  */
 public class InvalidTitlesViewException extends Exception{
     
+    /**
+     * Default constructor.
+     */
     public InvalidTitlesViewException(){
-        //Do Something
     }
 }

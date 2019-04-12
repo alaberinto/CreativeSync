@@ -143,7 +143,26 @@
                                 <c:forEach items="${assets}" var="asset">
                                     <div class="title-asset m-2">
                                         <div class="asset-image">
-                                            <img src="${asset}" alt="BROKEN IMAGE"/>
+                                            <div class="overlay">
+                                                To download asset:<br/>
+                                                1. Right click "Download Asset"<br/>
+                                                2. Click "Save Link As.."<br/><br/>
+                                                To view asset:<br/>
+                                                1. Left click "Download Asset"<br/>
+                                                <a class="link" href="${asset}" download target="_blank">
+                                                    <button type="button" class="btn btn-block button-red-solid">
+                                                        Download Asset
+                                                    </button>
+                                                </a>
+                                                <c:if test="${user.position.positionId != 4}">
+                                                    <form method="post" action="TitleDetailed">
+                                                        <input type="submit" value="Delete Asset" class="btn btn-block button-red-solid mt-3">
+                                                        <input type="hidden" name="action" value="deleteAsset">
+                                                        <input type="hidden" name="assetName" value="${asset}">
+                                                    </form>
+                                                </c:if>
+                                            </div>
+                                            <img src="${asset}" class="asset item-h1" alt="BROKEN IMAGE"/>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -163,14 +182,13 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">
-                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                            <div class="col-4">                              
+                                <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <input type="submit" id="submitArtwork" value="Upload Artwork" class="btn btn-block button-red-solid mt-1" disabled>
+                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
                                         <input type="hidden" name="action" value="uploadArtwork">
-                                    </div>
-                                </form>
+                                    </div> 
+                                </form>                             
                             </div>
                         </div>
 
@@ -178,12 +196,31 @@
                             <div class="card-body">
                                 <div class="d-flex flex-wrap row-hl">
                                     <c:forEach items="${artworks}" var="artwork">
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <img src="${artwork}" class="asset item-h1" alt="BROKEN IMAGE"/>
+                                        <div class="title-asset m-2">
+                                            <div class="asset-image">
+                                                <div class="overlay">
+                                                    To download artwork:<br/>
+                                                    1. Right click "Download Artwork"<br/>
+                                                    2. Click "Save Link As.."<br/><br/>
+                                                    To view asset:<br/>
+                                                    1. Left click "Download Artwork"<br/>
+                                                    <a class="link" href="${artwork}" download target="_blank">
+                                                        <button type="button" class="btn btn-block button-red-solid">
+                                                            Download Artwork
+                                                        </button>
+                                                    </a>
+                                                    <c:if test="${user.position.positionId != 4}">
+                                                        <form method="post" action="TitleDetailed">
+                                                            <input type="submit" value="Delete Artwork" class="btn btn-block button-red-solid mt-3">
+                                                            <input type="hidden" name="action" value="deleteArtwork">
+                                                            <input type="hidden" name="artworkName" value="${artwork}">
+                                                        </form>
+                                                    </c:if>
+                                                </div>
+                                                <img src="${artwork}" class="asset item-h1" alt="BROKEN IMAGE"/>
+                                            </div>
                                         </div>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>

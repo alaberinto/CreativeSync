@@ -1,5 +1,6 @@
 package servlets;
 
+import com.dropbox.core.DbxException;
 import dataaccess.DBException;
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Artwork;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import services.ArtworkService;
+import services.EmailService;
+import services.FileService;
 
 /**
  *
@@ -27,48 +34,42 @@ public class ArtworkDetailedServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
 
-            if (session.getAttribute("position").equals("freelancer")) { //freelancer
-                Account user_f = (Account) session.getAttribute("user");
-                String owner_s = user_f.getFirstname() + " " + user_f.getLastname();
-                request.setAttribute("username_fl", owner_s);
+            /*
+            1 = admin
+            2 = coordinator
+            3 = design lead
+            4 = freelancer
+             */
+            Account user = (Account) session.getAttribute("user");
+            int position = user.getPosition().getPositionId();
+
+            if (position == 4) { //freelancer       
                 request.setAttribute("position", "0");
             } else {
-                Account user = (Account) session.getAttribute("feedback_select");
-                String owner_s = user.getFirstname() + " " + user.getLastname();
-                request.setAttribute("username_fl", owner_s);
                 request.setAttribute("position", "1");
             }
 
-            request.setAttribute("approve_deny_val", 0); //0 to see the buttons          
-            request.setAttribute("title", session.getAttribute("title_select")); //title name            
+            request.setAttribute("status", 0); //0 to see the buttons    
 
-            //title id retrieval
-            String title_select_id_s = (String) session.getAttribute("title_select_id"); //null
+            //title id retrieval            
+            int titleId = (int) session.getAttribute("titleId");
 
-            //if there are titles
-            if (title_select_id_s != null) {
-                int title_select_id = Integer.parseInt(title_select_id_s);
+            //get rounds
+            ArtworkService as = new ArtworkService();
+            List<Artwork> rounds;
+            rounds = as.getAllRounds(titleId);
 
-                //get rounds
-                ArtworkService as = new ArtworkService();
-                List<Artwork> rounds;
-                rounds = as.getAllRounds(title_select_id);
+            //gets artwork for each round
+            List<Artwork> roundArt;
+            roundArt = as.getAllArtworkByTitleId(titleId);
+            request.setAttribute("roundArt", roundArt);
 
-                //gets artwork for each round
-                List<Artwork> round_art;
-                round_art = as.getAllArtworkByTitleId(title_select_id);
-                request.setAttribute("round_art", round_art);
-
-                //check if there are any rounds
-                if (rounds.isEmpty() == false) {
-                    request.setAttribute("rounds_filled", 1);
-                    request.setAttribute("rounds", rounds);
-                } else {
-                    request.setAttribute("rounds_filled", 0);
-                }
+            //check if there are any rounds & artwork
+            if (rounds.isEmpty() == false) {
+                request.setAttribute("roundsFilled", 1);
+                request.setAttribute("rounds", rounds);
             } else {
-                //if there are no titles     
-                request.setAttribute("titles_filled", 0);
+                request.setAttribute("roundsFilled", 0);
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
@@ -83,40 +84,115 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            Account user = (Account) session.getAttribute("feedback_select");
-            String owner_s = user.getFirstname() + " " + user.getLastname();
-            request.setAttribute("username_fl", owner_s); // may not be needed, or changed
-            request.setAttribute("title", session.getAttribute("title_select"));
+            ArtworkService as = new ArtworkService();
+            EmailService es = new EmailService();
 
-            //get comments
+            //get information from round approval/denial
             String comment = request.getParameter("comment");
-            request.setAttribute("comment", comment);
+
+            //since there is only one status, either approve or deny, one is chosen
+            String statusA = request.getParameter("approve");
+            String statusD = request.getParameter("deny");
+            String status = statusA + statusD;
+//            int statusI = Integer.parseInt(status); //1 for approved, 2 for denied
+
+            //for testing only - works for one round multiple have issues
+            request.setAttribute("comment", comment); //gets the commnet
+            request.setAttribute("status", status); //gets the number    
 
             //title id retrieval
-            String title_select_id_s = (String) session.getAttribute("title_select_id");
-            int title_select_id = Integer.parseInt(title_select_id_s);
+            int titleId = (int) session.getAttribute("titleId");
 
-            //get rounds
-            ArtworkService as = new ArtworkService();
+            //get rounds         
             List<Artwork> rounds;
-            rounds = as.getAllRounds(title_select_id);
+            rounds = as.getAllRounds(titleId);
             request.setAttribute("rounds", rounds);
+
+            //gets artwork for each round
+            List<Artwork> roundArt;
+            roundArt = as.getAllArtworkByTitleId(titleId);
+            request.setAttribute("roundArt", roundArt);
+
+            //check if there are any rounds & artwork
+            if (rounds.isEmpty() == false) {
+                request.setAttribute("roundsFilled", 1);
+                request.setAttribute("rounds", rounds);
+            } else {
+                request.setAttribute("roundsFilled", 0);
+            }
 
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
-            String deny = request.getParameter("deny");
+            String denied = request.getParameter("deny");
 
             if (approved != null) {
-                request.setAttribute("approve_deny_val", 1); //1 if round is approved
+                for (int i = 0; i < roundArt.size(); i++) {
+                    as.updateArtworkStatus(i, 1);
+//            es.sendMail(email, subject, template, tags);
+                }
+                request.setAttribute("status", 1); //1 if round is approved
             }
 
-            if (deny != null) {
-                request.setAttribute("approve_deny_val", 2); //2 if round is denied
+            if (denied != null) {
+                for (int i = 0; i < roundArt.size(); i++) {
+                    as.updateArtworkStatus(i, 2);
+//            es.sendMail(email, subject, template, tags);
+                }
+                request.setAttribute("status", 2); //2 if round is denied
             }
+
+            /**
+             * *************Upload artwork***********
+             */
+//            String action = null;
+//            List<FileItem> multiparts = null;
+//            FileService fs = new FileService();
+//
+//            if (ServletFileUpload.isMultipartContent(request)) {
+//                try {
+//                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+//                    // This method grabs the action. Without this part, action will be null.
+//                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
+//                    action = checkValue(multiparts);
+//                } catch (FileUploadException ex) {
+//                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else {
+//                action = request.getParameter("action");
+////            }
+//
+//            String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
+//            switch (action) {
+//                case "uploadArtwork":
+//                    //Get File From JSP
+////                    uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
+//
+//                    if (uploaded != null) {
+//                        session.setAttribute("goodFeedback", uploaded);
+//                    } else {
+//                        session.setAttribute("badFeedback", "Could not upload artwork.");
+//                    }
+//                    break;
+//                default:
+//                    break;
+//            }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+//    String checkValue(List<FileItem> multiparts) {
+//        String inputName = null;
+//        for (FileItem item : multiparts) {
+//            if (item.isFormField()) {
+//                inputName = (String) item.getFieldName();
+//                if (inputName.equalsIgnoreCase("action")) {
+//                    return item.getString();
+//                }
+//            }
+//        }
+//        return null;
+//    }
 }

@@ -12,13 +12,14 @@ import models.Title;
 /**
  * TitleBroker is a data-access class to manage Title information in database.
  * 
- * @author Mason Hill & Alvin Labarinto
+ * @author Mason Hill & Alvin Laberinto
  * @version 1.0
  */
 public class TitleBroker {
 
     /**
      * Access method to retrieve an ArrayList of all Title objects in the database.
+     * 
      * @return A ArrayList of all Titles.
      * @throws DBException When there is a database error.
      */
@@ -37,6 +38,7 @@ public class TitleBroker {
 
     /**
      * Mutator method to persist any changes to a Title into the database.
+     * 
      * @param title The updated Title to persist.
      * @throws DBException When a database error occurs.
      */
@@ -58,6 +60,7 @@ public class TitleBroker {
 
     /**
      * Mutator method to remove a specified Title from the database.
+     * 
      * @param title The Title to remove.
      * @throws DBException When a database error occurs.
      */
@@ -80,6 +83,7 @@ public class TitleBroker {
 
     /**
      * Access method to retrieve a single Title from the database with a matching ID.
+     * 
      * @param id The id of the Title to find.
      * @return null if the Title is not found, Otherwise the Title with the matching ID.
      * @throws DBException When there is a database error.
@@ -96,6 +100,13 @@ public class TitleBroker {
         }
     }
     
+    /**
+     * Access method to retrieve a Title object by its Title name.
+     * 
+     * @param name the name of the title to be retrieved.
+     * @return a Title object holding information on a Title.
+     * @throws DBException if there was a problem retrieving a Title from the database.
+     */
     public Title getTitleByName(String name) throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -134,6 +145,12 @@ public class TitleBroker {
         return null;
     }
     
+    /**
+     * Access method to retrieve a list of titles that have been completed.
+     * 
+     * @return an ArrayList object of Title objects that have been completed.
+     * @throws DBException if there was a problem retrieving completed Titles from the database.
+     */
     public ArrayList<Title> getCompleteTitles() throws DBException {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
@@ -152,6 +169,7 @@ public class TitleBroker {
     
     /**
      * Mutator method to persist a Title into the database.
+     * 
      * @param title The title to insert.
      * @throws DBException When a database error occurs.
      */
@@ -172,6 +190,11 @@ public class TitleBroker {
         }
     }
     
+    /**
+     * Updates a list of titles in the database.
+     * 
+     * @param titles an ArrayList object of Title objects to be updated.
+     */
     public void updateTitles(ArrayList<Title> titles) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();

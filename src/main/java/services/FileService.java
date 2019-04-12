@@ -45,13 +45,16 @@ public class FileService {
     private final long CHUNKED_UPLOAD_CHUNK_SIZE = 8L << 20; // 8 MiB
     private final int CHUNKED_UPLOAD_MAX_ATTEMPTS = 5;
 
+    /**
+     * Non-default constructor that starts up the config and Dropbox client.
+     */
     public FileService() {
         config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         client = new DbxClientV2(config, ACCESS_TOKEN);
     }
 
     /**
-     * Handles the upload of assets and artworks.
+     * Method that handles the upload of assets and artworks.
      * 
      * @param multiparts list of FileItems submitted from the from.
      * @param titleName the name of the accessed title.
@@ -86,7 +89,7 @@ public class FileService {
     }
 
     /**
-     * Uploads files smaller than 8MB.
+     * Method that uploads files smaller than 8MB.
      * 
      * @param uploadName name of the uploaded file.
      * @param titleName the name of the accessed title.
@@ -110,7 +113,7 @@ public class FileService {
     }
 
     /**
-     * Uploads files larger than 8MB.
+     * Method that uploads files larger than 8MB.
      * 
      * @param uploadName name of the uploaded file.
      * @param titleName the name of the accessed title.
@@ -264,7 +267,7 @@ public class FileService {
     }
 
     /**
-     * Gets all assets associated with the title being accessed.
+     * Access method to retrieve all assets associated with the title being accessed from Dropbox.
      * 
      * @param titleName the name of the accessed title.
      * @return a list of shared link URLs of all assets associated with the title.
@@ -290,7 +293,7 @@ public class FileService {
     }
 
     /**
-     * Gets all artworks associated with the title being accessed.
+     * Access method to retrieve all artworks associated with the title being accessed from Dropbox.
      * 
      * @param titleName the name of the accessed title.
      * @return a list of shared link URLs of all artworks associated with the title.
@@ -316,7 +319,7 @@ public class FileService {
     }
 
     /**
-     * Deletes an asset associated with a title.
+     * Method that deletes an asset associated with a title from Dropbox.
      * 
      * @param titleName the name of the title in which the asset will be deleted.
      * @param url the shared link of the asset to be deleted.
@@ -333,7 +336,7 @@ public class FileService {
     }
 
     /**
-     * Deletes an artwork associated with a title.
+     * Method that deletes an artwork associated with a title from Dropbox.
      * 
      * @param titleName the name of the title in which the artwork will be deleted.
      * @param url the shared link of the artwork to be deleted.
@@ -355,7 +358,7 @@ public class FileService {
     }
     
     /**
-     * Upon creation of a title, creates folders for the title's artworks and assets.
+     * Upon creation of a title, this method creates folders for the title's artworks and assets in Dropbox.
      * 
      * @param titleName the name of the title that has been created.
      * @return true if the title's folders have been created successfully. otherwise, return false.
@@ -370,7 +373,7 @@ public class FileService {
     }
     
     /**
-     * Uploads the SQL backup to Dropbox.
+     * Method that uploads the SQL backup to Dropbox.
      * 
      * @param uploadName the name of the file to be uploaded.
      * @param in FileInputStream of the file to be sent to Dropbox.
@@ -396,7 +399,15 @@ public class FileService {
         sharedLinkMetadata.getUrl();
     }
     
-    
+    /**
+     * Downloads all assets from Dropbox as a zip file.
+     * 
+     * @param titleName name of the title.
+     * @return message whether or not the zip was downloaded.
+     * @throws FileNotFoundException if the file was not found.
+     * @throws DbxException if Dropbox connection does not allow for the upload.
+     * @throws IOException if the File could not be accessed.
+     */
     public String downloadAllAssets(String titleName) throws FileNotFoundException, DbxException, IOException {
         DbxDownloader<DownloadZipResult> downloader = client.files().downloadZip("/Title/" + titleName + "/asset");
          try {
@@ -410,5 +421,25 @@ public class FileService {
         }
          
          return "Downloaded file. Please check " + System.getProperty("user.home") + "/Downloads/" + titleName + "-assets.zip";
+    }
+
+    /**
+     * Method that retrieves backup from Dropbox and creates a local file.
+     * 
+     * @param backupName the name of the backup.
+     * @return bat file to read from.
+     * @throws FileNotFoundException if the File being sent to this method is not found.
+     * @throws DbxException if Dropbox connection does not allow for the upload.
+     * @throws IOException if the File could not be accessed.
+     */
+    public File getBackup(String backupName) throws FileNotFoundException, DbxException, IOException {
+        String home = System.getProperty("user.home");
+        File file = new File(home + "/Downloads/" + backupName);
+        FileOutputStream out = new FileOutputStream(file);
+        client.files().download("/Backups/" + backupName).download(out);
+        
+        out.close();
+        
+        return file;
     }
 }

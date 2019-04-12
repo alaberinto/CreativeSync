@@ -14,7 +14,7 @@
         <h2 class="text-center">Viewing Users Information</h2>
     </div>
 
-    <tr class="table-danger text-center">
+    <tr class="table-secondary text-center">
         <th><b>First Name</b></th>
         <th><b>Last Name</b></th>
         <th><b>Email</b></th>

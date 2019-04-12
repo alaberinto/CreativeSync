@@ -19,20 +19,28 @@ import java.util.logging.Logger;
 import models.Backup;
 
 /**
- *
- * @author 731866
+ * BackupService is a service class to process requests to access or mutate
+ * Backup information.
+ * 
+ * @author Cooper Vasiliou
  */
 public class BackupService {
 
     private UserBroker ab;
     private BackupBroker bb;
 
+    /**
+     * Non-default constructor that instantiates UserBroker and BackupBroker objects.
+     */
     public BackupService() {
 
         ab = new UserBroker();
         bb = new BackupBroker();
     }
 
+    /**
+     * Method that runs the process of creating sql backups and the .bat file to run in command line.
+     */
     public void runBackup() {
 
         DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
@@ -41,7 +49,7 @@ public class BackupService {
         
         String home = System.getProperty("user.home");
         String dump = home + "/backupFile.sql";
-        String filename = date + "dump.sql";
+        String filename = date + " dump.sql";
         Backup backup = new Backup();
         backup.setBackupName(filename);
         backup.setBackupDate(newDate);
@@ -64,6 +72,7 @@ public class BackupService {
                 "CREATE SCHEMA IF NOT EXISTS `NetflixDB` DEFAULT CHARACTER SET utf8 ;\n"
                 + "USE `NetflixDB` ;",};
 
+            //Creates a file in user directory + dump.sql
             File file = new File(home + "/" + filename);
             FileWriter fw4 = new FileWriter(file);
             for (int i = 0; i < append.length; i++) {
@@ -71,6 +80,7 @@ public class BackupService {
             }
             fw4.flush();
 
+            //backupFile.sql
             File toLoop = new File(dump);
             Scanner sc = new Scanner(toLoop);
             while (sc.hasNextLine()) {
@@ -81,7 +91,7 @@ public class BackupService {
             fw4.close();
             
             InputStream in = new FileInputStream(file);
-            
+            //write to Dropbox
             FileService fs = new FileService();
             fs.uploadBackup(filename, in);
             
@@ -106,23 +116,35 @@ public class BackupService {
         }
     }
 
-    public String restoreDatabase(String backupId) {
+    /**
+     * Method that restores the database to the specified point in time of the backup file.
+     * 
+     * @param backupId the ID of the backup to be used.
+     * @return a String object indicating whether or not the restoration was successful or not.
+     * @throws DbxException if there was a problem with Dropbox.
+     * @throws IOException if the file could not be accessed properly.
+     */
+    public String restoreDatabase(String backupId) throws DbxException, IOException {
         Integer newBackupId = Integer.parseInt(backupId);
         Backup backup = bb.getBackupById(newBackupId);
         String home = System.getProperty("user.home");
+        
+        FileService fs = new FileService();
+        File file = fs.getBackup(backup.getBackupName());
+        
         FileWriter fw = null;
         try {
             String[] restoreBat = {"@echo off",
                 "cd C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin",
-                "mysql.exe -u root -ppassword -h localhost netflixdb < " + home + backup.getBackupName()};
-            File bat = new File(home + "restoreDB.bat");
+                "mysql.exe -u root -ppassword -h localhost netflixdb < " + file.getAbsolutePath()};
+            String fileBat = home + "/" + "restoreDB.bat";
+            File bat = new File(fileBat);
             fw = new FileWriter(bat);
             for (int i = 0; i < restoreBat.length; i++) {
                 fw.write(restoreBat[i] + "\r\n");
             }
             fw.close();
 
-            String fileBat = home + "restoreDB.bat";
             Runtime runtime = Runtime.getRuntime();
             Process p;
             //removes entry
@@ -140,6 +162,10 @@ public class BackupService {
         return null;
     }
 
+    /**
+     * Access method to retrieve all Backup information.
+     * @return an ArrayList object of all Backups.
+     */
     public ArrayList<Backup> getAllBackups() {
         return bb.getAllBackups();
     }

@@ -17,7 +17,7 @@ body, html {
 }
 
 .searchBar {
-     background-image:url('nimg.PNG');
+    background-image:url('nimg.PNG');
     background-position: bottom right;
     background-size: 5%;
     background-repeat:no-repeat;
@@ -33,7 +33,7 @@ body, html {
     margin-right: 10%;
 }
 
-
+li.borderless { border: none; }
 /****FONTS*****/
 p {
     font-size: 20px;
@@ -160,23 +160,23 @@ a:hover {
 
 /******USD Icon******/
 .input-icon {
-  position: relative;
+    position: relative;
 }
 
 .input-icon > i {
-  position: absolute;
-  display: block;
-  transform: translate(0, -50%);
-  top: 50%;
-  pointer-events: none;
-  width: 25px;
-  text-align: center;
-	font-style: normal;
+    position: absolute;
+    display: block;
+    transform: translate(0, -50%);
+    top: 50%;
+    pointer-events: none;
+    width: 25px;
+    text-align: center;
+    font-style: normal;
 }
 
 .input-icon > input {
-  padding-left: 25px;
-	padding-right: 0;
+    padding-left: 25px;
+    padding-right: 0;
 }
 
 .button-red-solid {
@@ -205,7 +205,7 @@ th {
 
 
 /* Artwork Detailed */
-.button_approve {
+.buttonApprove {
     background-color: white; 
     border: 2px solid #4CAF50;
     /*color: white;*/
@@ -220,7 +220,7 @@ th {
     cursor: pointer;
 }
 
-.button_deny {
+.buttonDeny {
     background-color: white; /* Green */
     border: 2px solid #f44336;
     /*color: white;*/
@@ -245,17 +245,15 @@ a.fancybox:hover img {
     position: relative; z-index: 999; -o-transform: scale(1.03,1.03); -ms-transform: scale(1.03,1.03); -moz-transform: scale(1.03,1.03); -webkit-transform: scale(1.03,1.03); transform: scale(1.03,1.03);
 }
 
-.button_deny:hover {
+.buttonDeny:hover {
     background-color: #f44336; /* Red */
     color: white;
 }
 
-.button_approve:hover {
+.buttonApprove:hover {
     background-color: #4CAF50; /* Green*/
     color: white;
 }
-
-/******User/Title Select*****/
 
 /******Assets/Artworks*****/
 .title-asset {
@@ -266,13 +264,36 @@ a.fancybox:hover img {
 
 .asset-image{
     width: 100%;
-    height: 80%;
+    height: 100%;
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
+    position: relative;
+}
+
+.overlay {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    background: rgba(192,192,192, 0);
+    color: rgba(0, 0, 0, 0);
+    visibility: hidden;
+}
+
+a.link {
+    height: 50px;
+}
+
+.title-asset:hover .overlay {
+   background: rgba(192,192,192, 0.8);
+   color: rgba(0, 0, 0, 1);
+   visibility: visible;
+   -webkit-transition: visibility 0.5s, background-color 0.5s ease-in, color 0.5s ease-in; 
+   transition: visibility 0.5s, background-color 0.5s ease-in, color 0.5s ease-in; 
 }
 
 .asset {
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }

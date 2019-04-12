@@ -75,7 +75,8 @@ public class AccountService {
     }
 
     /**
-     *
+     * Access method to retrieve user Account by their first name.
+     * 
      * @param name name of User
      * @return User with matching name
      * @throws DBException When a database error occurs
@@ -136,6 +137,12 @@ public class AccountService {
         return views;
     }
 
+    /**
+     * Access method to retrieve a UsersView object for the specified username.
+     * 
+     * @param username the username of the Account object to be found.
+     * @return null if there is no acc. otherwise, return a UsersView object.
+     */
     public UsersView getUsersViewMyAccount(String username) {
         Account acc = getUserByName(username);
 
@@ -146,6 +153,11 @@ public class AccountService {
         return new UsersView(acc);
     }
 
+    /**
+     * Access method to retrieve a list of all active users on the system.
+     * 
+     * @return an ArrayList object of UsersView objects which are defined as active.
+     */
     public ArrayList<UsersView> getAllActiveUsers() {
         ArrayList<Account> allUsers = getAllUsers();
         ArrayList<Account> cleanArray = new ArrayList<>();
@@ -256,7 +268,7 @@ public class AccountService {
             Short isActive = 1;
 
             Account ac = new Account(null, hs.generateHash(password), firstname, lastname, email, userRate, isActive);
-            ac.setPosition(pb.getPosition(position));
+            ac.setPosition(pb.getPositionById(position));
             ac.setLocation(lb.getLocation(location));
 
             //Set Genres
@@ -521,6 +533,11 @@ public class AccountService {
 
     }
 
+    /**
+     * Access method to retrieve a list of active freelancers.
+     * 
+     * @return an ArrayList object of Account objects of freelancers that are defined as active.
+     */
     public ArrayList<Account> getActiveFreelancers() {
         ArrayList<Account> acc = new ArrayList<>();
         ArrayList<Account> cleanArray = new ArrayList<>();
@@ -536,6 +553,12 @@ public class AccountService {
         return cleanArray;
     }
 
+    /**
+     * Access method to retrieve a user by their name.
+     * 
+     * @param name the name of the user whose account is to be found.
+     * @return an Account object that is associated with the name.
+     */
     public Account getUserByName(String name) {
         if (name == null) {
             return null;
@@ -555,6 +578,12 @@ public class AccountService {
         return null;
     }
 
+    /**
+     * Access method to retrieve the wanted freelancers by the title specified.
+     * 
+     * @param title the title that is being worked on by the wanted freelancers.
+     * @return an ArrayList object of TitleHasAccount objects that get the Freelancers working on a title.
+     */
     public ArrayList<TitleHasAccount> getFreelancersByTitle(Title title) {
         ArrayList<TitleHasAccount> acc = new ArrayList(title.getTitleHasAccountList());
 
@@ -569,12 +598,33 @@ public class AccountService {
         return acc;
     }
 
+    /**
+     * Access method to retrieve an account and all of its associated Titles.
+     * 
+     * @param name the name of the user whose account is to be found or located.
+     * @return a UsersView object with the Titles associated with the Account object.
+     */
     public UsersView getTitlesViewByName(String name) {
         Account acc = this.getUserByName(name);
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
     }
 
-    public String editUser(Account ac, String firstname, String lastname, String email, String rate, String[] genreIds, String location, String[] languageIds, String position, String password) {
+    /**
+     * Edits a user based on their account information.
+     * 
+     * @param ac the account object of the user.
+     * @param firstname the first name of the user.
+     * @param lastname the last name of the user.
+     * @param email the email of the user.
+     * @param rate the hourly rate paid to the user.
+     * @param active denotes if the user is active on the system or not.
+     * @param genreIds the IDs of the genres that this user has indicated they work on.
+     * @param location the location where the user is currently at.
+     * @param languageIds the IDs of the languages that this user has indicated they are proficient in.
+     * @param position the position of the user.
+     * @return a String object indicating that the user was updated or not.
+     */
+    public String editUser(Account ac, String firstname, String lastname, String email, String rate, String[] genreIds, String location, String[] languageIds, String position,String password) {
 
         try {
 
@@ -602,7 +652,7 @@ public class AccountService {
                 ac.setPosition(ac.getPosition());
             } else {
                 Integer posId = Integer.parseInt(position);
-                ac.setPosition(pb.getPosition(posId));
+                ac.setPosition(pb.getPositionById(posId));
             }
 
             if (email == null) {
@@ -613,15 +663,13 @@ public class AccountService {
             if (position == null) {
                 ac.setPosition(ac.getPosition());
             } else {
-                ac.setPosition(pb.getPosition(Integer.parseInt(position)));
+                ac.setPosition(pb.getPositionById(Integer.parseInt(position)));
             }
             ac.setGenreList(genres);
             ac.setLanguageList(languages);
-
             ac.setFirstname(firstname);
             ac.setLastname(lastname);
             ac.setLocation(lb.getLocation(Integer.parseInt(location)));
-
             try {
 
                 ab.update(ac);

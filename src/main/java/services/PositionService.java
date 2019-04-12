@@ -14,17 +14,27 @@ import models.Account;
 import models.Position;
 
 /**
- *
+ * PositionService is a service class to process requests to access or mutate
+ * Position information.
+ * 
  * @author Mason, Matthew
  */
 public class PositionService {
 
     private final PositionBroker pb;
 
+    /**
+     * Non-default constructor that instantiates PositionBroker.
+     */
     public PositionService() {
         pb = new PositionBroker();
     }
 
+    /**
+     * Access method to retrieve a list of all positions.
+     * 
+     * @return an ArrayList object of all Position objects.
+     */
     public ArrayList<Position> getAllPositions() {
         try {
             return pb.getAllPositions();
@@ -35,9 +45,15 @@ public class PositionService {
         return null;
     }
 
-    public Position getPosition(int id) {
+    /**
+     * Access method to retrieve a Position object by its associated id.
+     * 
+     * @param id the id of the Position to be retrieved.
+     * @return a Position object that contains Position information.
+     */
+    public Position getPositionById(int id) {
         try {
-            return pb.getPosition(id);
+            return pb.getPositionById(id);
         } catch (DBException ex) {
             Logger.getLogger(PositionService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,6 +61,12 @@ public class PositionService {
         return null;
     }
 
+    /**
+     * Access method to retrieve all creatable positions.
+     * 
+     * @param user the user account that is currently in use.
+     * @return an ArrayList object of Position objects that can be created.
+     */
     public ArrayList<Position> getCreatablePositions(Account user) {
         ArrayList<Position> pos;
         try {

@@ -69,6 +69,11 @@ public class TitleService {
         }
     }
     
+    /**
+     * Access method to retrieve a list of all titles.
+     * 
+     * @return an ArrayList object of all Title objects.
+     */
     public ArrayList<Title> getAllTitles(){
         try {
             return tb.getAllTitles();
@@ -103,7 +108,12 @@ public class TitleService {
         return tv;
     }
 
-    
+    /**
+     * Access method to retrieve a TitlesView object by the name of the title.
+     * 
+     * @param name the name of the title.
+     * @return a TitlesView object with the title information to be displayed.
+     */
     public TitlesView getTitlesViewByName(String name) {
         Title title = this.getTitleByName(name);
 
@@ -117,6 +127,13 @@ public class TitleService {
         return null;
     }
 
+    /**
+     * Access method to retrieve titles that are assigned to a user's account.
+     * 
+     * @param user the account of the user whose titles are to be found.
+     * @param searchFilter search filter used for the title name.
+     * @return an ArrayList object of TitlesView objects that will display assigned titles for a user.
+     */
     public ArrayList<TitlesView> getAssignedTitles(Account user, String searchFilter) {
         ArrayList<TitleHasAccount> tha = new ArrayList(user.getTitleHasAccountList());
         ArrayList<TitlesView> tv = new ArrayList<>();
@@ -141,6 +158,14 @@ public class TitleService {
         return tv;
     }
 
+    /**
+     * Access method to retrieve titles that are not assigned to a user's account.
+     * 
+     * @param user the account of the user whose titles are to be found.
+     * @param assigned list of titles assigned to the user's account.
+     * @param searchFilter search filter used for the title name.
+     * @return an ArrayList object of TitlesView objects that will display unassigned titles for a user.
+     */
     public ArrayList<TitlesView> getUnassignedTitles(Account user, ArrayList<TitlesView> assigned, String searchFilter) {
         ArrayList<TitlesView> tv = getTitlesByUserForTitlesJSP(user);
         ArrayList<TitlesView> fin = new ArrayList<>();
@@ -375,6 +400,12 @@ public class TitleService {
         return "Error adding title";
     }
 
+    /**
+     * Access method to retrieve a title by its name.
+     * 
+     * @param name the name of the title.
+     * @return a Title object retrieved by its name.
+     */
     public Title getTitleByName(String name) {
         try {
             return tb.getTitleByName(name);
@@ -385,6 +416,12 @@ public class TitleService {
         return null;
     }
 
+    /**
+     * Access method to retrieve titles associated with a user.
+     * 
+     * @param user the user whose titles to be retrieved.
+     * @return an ArrayList object of Title objects associated with a user.
+     */
     public ArrayList<Title> getTitlesByUser(Account user) {
         ArrayList<TitleHasAccount> titleHasAccountList = new ArrayList(user.getTitleHasAccountList());
         ArrayList<Title> titles = new ArrayList();
@@ -396,10 +433,20 @@ public class TitleService {
         return titles;
     }
 
+    /**
+     * Method that updates a list of titles.
+     * 
+     * @param titles an ArrayList object of Title objects to be updated.
+     */
     public void updateTitles(ArrayList<Title> titles) {
         tb.updateTitles(titles);
     }
     
+    /**
+     * Access method to retrieve a list of completed titles.
+     * 
+     * @return an ArrayList object of TitlesView objects that are defined as completed. 
+     */
     public ArrayList<TitlesView> getCompleteTitles() {
         ArrayList<TitlesView> completed = new ArrayList<>();
         try {

@@ -35,6 +35,12 @@ public class GenreService {
         return new ArrayList(gb.getAllGenres());
     }
     
+    /**
+     * Access method to retrieve a Genre object by its associated ID.
+     * 
+     * @param id the ID associated with the genre.
+     * @return a Genre object with information about the genre. 
+     */
     public Genre getGenreById(String id) {
         try {
             return gb.getGenreById(Integer.parseInt(id));

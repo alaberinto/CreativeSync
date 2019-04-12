@@ -17,6 +17,7 @@ public class LocationBroker {
     
     /**
      * Access method to retrieve a single Location for the database with the matching ID.
+     * 
      * @param locationId The id of the Location to find.
      * @return null if the Position is not found, Otherwise the Position with the matching ID.
      * @throws DBException When there is a database error.
@@ -35,6 +36,7 @@ public class LocationBroker {
     
     /**
      * Mutator method to remove a specific Location from the database.
+     * 
      * @param loc The Location to remove.
      * @throws DBException When a database error occurs.
      */
@@ -57,6 +59,7 @@ public class LocationBroker {
     
     /**
      * Mutator method to insert a specific Location into the database.
+     * 
      * @param loc The Location to insert.
      * @throws DBException  When a database error occurs.
      */
@@ -76,6 +79,7 @@ public class LocationBroker {
     
     /**
      * Access method to retrieve an ArrayList of all Location objects in the database. 
+     * 
      * @return An ArrayList of Locations.
      * @throws DBException When a database error occurs.
      */

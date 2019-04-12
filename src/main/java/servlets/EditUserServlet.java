@@ -101,6 +101,7 @@ public class EditUserServlet extends HttpServlet {
         String[] genres = request.getParameterValues("genres");
         try {
             as.editUser(ac, fName, lName, email, rate, genres, countryId, languageId, positionId,password);
+
         } catch (Exception ex) {
             request.setAttribute("badFeedback", "Error editing user");
             doGet(request,response);

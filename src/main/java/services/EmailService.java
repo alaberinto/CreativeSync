@@ -3,7 +3,6 @@ package services;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
@@ -16,24 +15,32 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import models.Account;
 
 
 /**
- *
+ * EmailService is a service class to process requests to access or mutate
+ * Email information.
  * @author Mason
  */
 public class EmailService {
 
-    AccountService as = new AccountService();
+    private AccountService as;
 
+    /**
+     * Non-default constructor that instantiates AccountService class.
+     */
     public EmailService() {
-
+        as = new AccountService();
     }
 
+    /**
+     * Method that handles the initial recovery step. If the user exists, send mail to the email specified.
+     * 
+     * @param email the email associated with the user requesting recovery.
+     * @param path the filepath of the recovery.html file.
+     */
     public void recover(String email, String path) {
         //Get Users
         Account user = as.getUserByEmail(email);
@@ -52,6 +59,14 @@ public class EmailService {
         }
     }
     
+    /**
+     * Method that sends an email for password recovery.
+     * 
+     * @param email the email address where the email will be sent to.
+     * @param subject the subject of the email.
+     * @param template the template of the email to be constructed.
+     * @param tags holds the first name, last name, and the code.
+     */
     public void sendMail(String email, String subject, String template, HashMap<String, String> tags) {
         try {
             BufferedReader br = new BufferedReader(new FileReader(new File(template)));
@@ -75,6 +90,16 @@ public class EmailService {
         
     }
     
+    /**
+     * Method that sends an email for password recovery.
+     * 
+     * @param to the address that the email will be sent to.
+     * @param subject the subject line to be set.
+     * @param body sets the content of the body.
+     * @param bodyIsHTML checks if the body is HTML.
+     * @throws NamingException
+     * @throws MessagingException 
+     */
     public void sendMail(String to, String subject, String body, boolean bodyIsHTML) throws NamingException, MessagingException {
         String username = "cprg352@gmail.com";
         String password = "password$!";
@@ -107,6 +132,11 @@ public class EmailService {
         transport.close();
     }
 
+    /**
+     * Method that generates a code to proceed with the password recovery.
+     * 
+     * @return a String that is "randomly" generated to be input by the user for password recovery.
+     */
     public String generateCode() {
         String x = "";
         String list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

@@ -7,14 +7,13 @@ import javax.servlet.http.HttpSessionListener;
 import models.Account;
 
 /**
- *
- * @author MasterPC
+ * 
+ * @author Mason
  */
 public class SessionInspectorListener implements HttpSessionListener {
 
     @Override
-    public void sessionCreated(HttpSessionEvent se) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+    public void sessionCreated(HttpSessionEvent se) {       
     }
 
     @Override

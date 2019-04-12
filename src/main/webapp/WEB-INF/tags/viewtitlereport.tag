@@ -14,7 +14,7 @@
         <h2 class="text-center">Viewing Titles Information</h2>
     </div>
 
-    <tr class="table-danger text-center">
+    <tr class="table-secondary text-center">
         <th>Title Name</th>
         <th>Start Date</th>
         <th>End Date</th>

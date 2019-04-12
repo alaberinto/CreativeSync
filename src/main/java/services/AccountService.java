@@ -574,7 +574,7 @@ public class AccountService {
         return new UsersView(acc, new ArrayList(acc.getTitleHasAccountList()));
     }
 
-    public String editUser(Account ac, String firstname, String lastname, String email, double rate, String[] genreIds, String location, String[] languageIds, String position) {
+    public String editUser(Account ac, String firstname, String lastname, String email, String rate, String[] genreIds, String location, String[] languageIds, String position, String password) {
 
         try {
 
@@ -593,15 +593,33 @@ public class AccountService {
             for (int i = 0; i < languageIds.length; i++) {
                 languages.add(ls.getLanguageById(languageIds[i]));
             }
+            if (rate == null) {
+                ac.setRate(ac.getRate());
+            } else {
+                ac.setRate(Double.parseDouble(rate));
+            }
+            if (position == null) {
+                ac.setPosition(ac.getPosition());
+            } else {
+                Integer posId = Integer.parseInt(position);
+                ac.setPosition(pb.getPosition(posId));
+            }
 
+            if (email == null) {
+                ac.setEmail(ac.getEmail());
+            } else {
+                ac.setEmail(email);
+            }
+            if (position == null) {
+                ac.setPosition(ac.getPosition());
+            } else {
+                ac.setPosition(pb.getPosition(Integer.parseInt(position)));
+            }
             ac.setGenreList(genres);
             ac.setLanguageList(languages);
 
             ac.setFirstname(firstname);
             ac.setLastname(lastname);
-            ac.setEmail(email);
-            ac.setRate(rate);
-            ac.setPosition(pb.getPosition(Integer.parseInt(position)));
             ac.setLocation(lb.getLocation(Integer.parseInt(location)));
 
             try {

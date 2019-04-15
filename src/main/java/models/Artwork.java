@@ -203,8 +203,8 @@ public class Artwork implements Serializable {
      * Method to set art work status
      * @param artworkStatus  the artworkStatus
      */
-    public void setArtworkStatus(short artworkStatus) {
-        this.artworkStatus = artworkStatus;
+    public void setArtworkStatus(int artworkStatus) {
+        this.artworkStatus = (short) artworkStatus;
     }
 
     /**

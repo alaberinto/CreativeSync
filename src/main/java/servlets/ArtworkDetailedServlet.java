@@ -22,9 +22,10 @@ import services.EmailService;
 import services.FileService;
 
 /**
- * ArtworkDetailedServlet is a class managing the content displayed on the page ArtworkDetailed.JSP.
+ * ArtworkDetailedServlet is a class managing the content displayed on the page
+ * ArtworkDetailed.JSP.
  *
- *  @author Mason Hill
+ * @author Mason Hill
  * @author Alvin Laberinto
  * @author Cooper Vasiliou
  * @author Arsal Butt
@@ -78,12 +79,12 @@ public class ArtworkDetailedServlet extends HttpServlet {
             } else {
                 request.setAttribute("roundsFilled", 0);
             }
-            
+
             //check for approve/deny for all rounds
             if (as.getArtworkStatus(titleId, 1) == 1) {
-                request.setAttribute("status","1");
+                request.setAttribute("status", "1");
             } else if (as.getArtworkStatus(titleId, 2) == 2) {
-                request.setAttribute("status","2");
+                request.setAttribute("status", "2");
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
@@ -175,9 +176,11 @@ public class ArtworkDetailedServlet extends HttpServlet {
             String approved = request.getParameter("approve");
             String denied = request.getParameter("deny");
 
+            System.out.print(roundArt.size());
+
             if (approved != null) {
                 for (int i = 0; i < roundArt.size(); i++) {
-                    as.updateArtworkStatus(i, 1);
+                    as.updateArtworkStatus(roundArt.get(i).getArtworkId(), 1);
 //            es.sendMail(email, subject, template, tags);
                 }
                 request.setAttribute("status", 1); //1 if round is approved
@@ -190,7 +193,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 }
                 request.setAttribute("status", 2); //2 if round is denied
             }
-            
+
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -88,7 +88,8 @@ public class AddUserServlet extends HttpServlet {
             doGet(request, response);
         }
         else {
-            request.setAttribute("goodFeedback", "User Created Successfully!");
+            HttpSession session = request.getSession();
+            session.setAttribute("goodFeedback", "User Created Successfully!");
             response.sendRedirect("Users");
         }
         

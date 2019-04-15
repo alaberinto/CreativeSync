@@ -24,7 +24,7 @@
             <div class="container background-white pb-3">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="text-center mt-5 mb-4 text-uppercase font-weight-bold">${view.title.name}</h1>
+                        <div class="page-header border-bottom mb-3 text-center">${view.title.name}</div>
                     <div class="progress mb-1">
                         <div class="progress-bar bg-danger" style="width:${datepercentage}%;"></div>
                     </div>
@@ -46,8 +46,8 @@
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="info"><h3 class="mb-0">${view.title.designInfo}</h3></label>
-                        <textarea class="form-control" id="info" name="info" rows="6" disabled></textarea>
+                        <label for="exampleFormControlTextarea1">Design Info</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" disabled>${view.title.designInfo}</textarea>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
                                             <h3><b>Design Lead</b></h3>
                                             <a href="#">
                                                 <div class="title-user">
-                                                    <img class="prof" src="css/images/User/nicole.jpg" alt="IMAGE"/>
+                                                    <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
                                                 </div>
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
@@ -85,7 +85,7 @@
                                             <h3><b>Coordinator</b></h3>
                                             <a href="#">
                                                 <div class="title-user">
-                                                    <img class="prof" src="css/images/User/kitty.jpg" alt=""/>
+                                                    <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
                                                 </div>
                                             </a>
                                             <h4>${view.coor.firstname} ${view.coor.lastname}</h4>
@@ -97,7 +97,7 @@
                                     <div class="d-flex flex-wrap row-hl">
                                         <c:forEach items="${frees}" var="free">
                                             <div class="p-2 item-hl title-user">
-                                                <img class="prof" src="css/images/User/male20161086693679535.jpg" alt=""/>
+                                                <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
                                                 <h4>${free.account.firstname} ${free.account.lastname}</h4>
                                             </div>
                                         </c:forEach>

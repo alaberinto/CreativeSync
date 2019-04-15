@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-6">
                         <label class="" for="pass"><h3 class="mb-0">Password</h3></label>
-                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
+                        <input type="password" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
                     </div>
                 </div>
                     <div class="row mt-3">
@@ -82,7 +82,6 @@
                         <div class="col-4">
                             <label for="genres"><h3 class="mb-0">Genres</h3></label>
                             <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
-                                <option value="" selected disabled hidden>Choose Genres</option>
                                 <c:forEach items="${genres}" var="gen">
                                     <c:if test="${genreIds != null}">
                                         <c:forEach items="${genreIds}" var="genreId">

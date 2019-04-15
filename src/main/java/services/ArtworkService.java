@@ -23,7 +23,7 @@ import models.Artwork;
  * @author Brittany Low
  * @author Matthew Carmichael
  * @author Omurbek Kadyrov
- * 
+ *
  * @version 1.0
  */
 public class ArtworkService {
@@ -39,9 +39,10 @@ public class ArtworkService {
 
     /**
      * Access method to retrieve a list of all artworks.
-     * 
+     *
      * @return an ArrayList object of all Artwork objects.
-     * @throws DBException if there was a problem retrieving Artworks from the database.
+     * @throws DBException if there was a problem retrieving Artworks from the
+     * database.
      */
     public ArrayList<Artwork> getAllArtwork() throws DBException {
         return new ArrayList(ab.getAllArtwork());
@@ -49,10 +50,11 @@ public class ArtworkService {
 
     /**
      * Access method to retrieve a list of all artworks associated with a title.
-     * 
+     *
      * @param id the id of the Title whose Artworks we want.
      * @return a List object of all Artworks linked to the specified Title.
-     * @throws DBException if there was a problem retrieving Artworks from the database.
+     * @throws DBException if there was a problem retrieving Artworks from the
+     * database.
      */
     public List<Artwork> getAllArtworkByTitleId(int id) throws DBException {
 
@@ -75,10 +77,11 @@ public class ArtworkService {
 
     /**
      * Method to find the maximum round of a given title.
-     * 
+     *
      * @param id_t the id of a title.
      * @return the integer value of the maximum round.
-     * @throws DBException if there was a problem retrieving the round number from the database.
+     * @throws DBException if there was a problem retrieving the round number
+     * from the database.
      */
     public int findMaxRound(int id_t) throws DBException {
 
@@ -184,7 +187,7 @@ public class ArtworkService {
 
         for (int i = 0; i < arts.size(); i++) {
 
-            artStatus = arts.get(i).getTitleHasAccount().getStatus().getStatusId();
+            artStatus = arts.get(i).getArtworkStatus();
 
             if (artStatus == status) {
                 count++;
@@ -205,9 +208,9 @@ public class ArtworkService {
             Artwork art = ab.getArtworkById(id);
 
             if (status == 1) {
-                //            art.setStatus(1);    
+                art.setArtworkStatus(1);
             } else if (status == 2) {
-                //            art.setStatus(2);    
+                art.setArtworkStatus(2);
             }
 
             ab.updateArtwork(art);

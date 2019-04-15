@@ -32,21 +32,21 @@
             </div>
             <div class="row border-danger">
                 <div class="col-4">
-                    <p>Start: <fmt:formatDate type = "date"
+                    <p><b>Start:</b> <fmt:formatDate type = "date"
                                     value = "${view.title.startDate}" /></p>
                 </div>
                 <div class="col-4 text-center" >
                     <p><b>${timeLeft}</b> Days Left!</p>
                 </div>
                 <div class="col-4 text-right" >
-                    <p>End: <fmt:formatDate type = "date"
+                    <p><b>End:</b> <fmt:formatDate type = "date"
                                     value = "${view.title.endDate}" /></p>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Design Info</label>
+                        <label for="exampleFormControlTextarea1"><b>Design Info</b></label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" disabled>${view.title.designInfo}</textarea>
                     </div>
                 </div>
@@ -72,33 +72,33 @@
                             <div class="row mt-2 pl-3 pr-3">
                                 <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6 mb-5">
                                     <div class="row">
-                                        <div class="col-6 text-center lead">
+                                        <div class="col-6 text-center">
                                             <h3><b>Design Lead</b></h3>
-                                            <a href="#">
-                                                <div class="title-user">
-                                                    <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
-                                                </div>
+                                            <a href="UserDetailed?name=${view.lead.firstname} ${view.lead.lastname}">
+                                                <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
+
                                         </div>
-                                        <div class="col-6 text-center coor">
+                                        <div class="col-6 text-center">
                                             <h3><b>Coordinator</b></h3>
-                                            <a href="#">
-                                                <div class="title-user">
-                                                    <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
-                                                </div>
+                                            <a href="UserDetailed?name=${view.coor.firstname} ${view.coor.lastname}">
+                                                <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.coor.firstname} ${view.coor.lastname}</h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center des">
+                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
                                     <h3><b>Designers</b></h3>
-                                    <div class="d-flex flex-wrap row-hl">
+                                    <div class="d-flex justify-content-center">
                                         <c:forEach items="${frees}" var="free">
-                                            <div class="p-2 item-hl title-user">
-                                                <img class="img-fluid rounded-circle" src="css/profile-placeholder.png" alt="">
+                                            <div class="ml-2 mr-2">
+                                                <a href="UserDetailed?name=${free.account.firstname} ${free.account.lastname}">
+                                                    <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
+                                                </a>
                                                 <h4>${free.account.firstname} ${free.account.lastname}</h4>
+
                                             </div>
                                         </c:forEach>
                                     </div>

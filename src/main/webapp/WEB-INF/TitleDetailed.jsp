@@ -118,7 +118,7 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
@@ -127,7 +127,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-2">
+                            <div class="col-3">
                                 <form method="POST" action="TitleDetailed">
                                     <div class="form-group">
                                         <button type="submit" name="action" value="downloadAllAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
@@ -174,7 +174,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -182,13 +182,20 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">                              
+                            <div class="col-3">                              
                                 <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
+                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-2">
                                         <input type="hidden" name="action" value="uploadArtwork">
                                     </div> 
-                                </form>                             
+                                </form> 
+                            </div>
+                            <div class="col-3"> 
+                                <form method="POST" action="TitleDetailed">
+                                    <div class="form-group">
+                                        <button type="submit" name="action" value="downloadAllArtworks" class="btn btn-block button-red-solid mt-2">Download All</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

@@ -48,6 +48,19 @@ public class ArtworkService {
         return new ArrayList(ab.getAllArtwork());
     }
 
+    public int insertArtwork(String artworkName, String artworkRef, int rating, short artworkStatus, int round) throws Exception {
+        Artwork art = new Artwork(0, artworkName, artworkRef, rating, artworkStatus, round);
+
+        art.setArtworkName(artworkName);
+        art.setArtworkRef(artworkRef);
+        art.setRating(rating);
+        art.setArtworkStatus(artworkStatus);
+        art.setRound(round);
+//        art.setTitleHasAccount(titleHasAccount);
+
+        return ab.insertArtwork(art);
+    }
+
     /**
      * Access method to retrieve a list of all artworks associated with a title.
      *

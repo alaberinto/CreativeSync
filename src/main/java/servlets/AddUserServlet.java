@@ -62,8 +62,8 @@ public class AddUserServlet extends HttpServlet {
         AccountService as = new AccountService();
                 
 //      File file = uploadItems.get(0).write(file)
-        String fName = request.getParameter("firstname");
-        String lName = request.getParameter("lastname");
+        String fName = request.getParameter("firstName");
+        String lName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String rate = request.getParameter("rate");

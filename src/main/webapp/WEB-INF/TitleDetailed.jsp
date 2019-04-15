@@ -47,7 +47,7 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="info"><h3 class="mb-0">${view.title.designInfo}</h3></label>
-                        <textarea class="form-control" id="info" name="info" rows="6"></textarea>
+                        <textarea class="form-control" id="info" name="info" rows="6" disabled></textarea>
                     </div>
                 </div>
             </div>

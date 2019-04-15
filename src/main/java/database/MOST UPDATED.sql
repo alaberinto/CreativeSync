@@ -872,7 +872,7 @@ insert into account (user_id,position,password,firstname,lastname,email,rate,isa
 values (21,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Buck','Shot','buck@email.com',10,1);
 
 insert into account (user_id,position,password,firstname,lastname,email,rate,isactive)
-values (22,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Ash','Ashhole','ash@email.com',10,1);
+values (22,2,'5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Ash','Rock','ash@email.com',10,1);
 
 
 --Source for languages table from  

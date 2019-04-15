@@ -1,8 +1,10 @@
 package servlets;
 
 import com.dropbox.core.DbxException;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,9 +28,10 @@ import services.TitleService;
 import viewModels.TitlesView;
 
 /**
- * A controller servlet to manage actions related to the Title object details. 
- * It does the request processing, calls the related Service methods and forwards to the view (JSP) 
- * 
+ * A controller servlet to manage actions related to the Title object details.
+ * It does the request processing, calls the related Service methods and
+ * forwards to the view (JSP)
+ *
  * @author Mason Hill
  * @author Alvin Laberinto
  * @author Cooper Vasiliou
@@ -53,7 +56,7 @@ public class TitleDetailedServlet extends HttpServlet {
         session.setAttribute("title", title.getTitle());
         session.setAttribute("titleId", title.getTitle().getTitleId());
         session.setAttribute("titleName", title.getTitle().getName());
-        
+
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
         } else {
@@ -72,8 +75,6 @@ public class TitleDetailedServlet extends HttpServlet {
 
             try {
                 request.setAttribute("assets", fs.getAssets(titleName));
-                ArrayList<String> artworks = fs.getArtworks(titleName);
-                request.setAttribute("artworks", fs.getArtworks(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -109,36 +110,51 @@ public class TitleDetailedServlet extends HttpServlet {
 
         String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
         switch (action) {
-            case "uploadAsset":
-                uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
-
-                if (uploaded != null) {
-                    session.setAttribute("goodFeedback", uploaded);
-                } else {
-                    session.setAttribute("badFeedback", "Could not upload asset.");
+            case "uploadAsset": {
+                try {
+                    uploaded = fs.handleUpload(multiparts, title.getName(), "asset");
+                } catch (Exception ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            if (uploaded != null) {
+                session.setAttribute("goodFeedback", uploaded);
+            } else {
+                session.setAttribute("badFeedback", "Could not upload asset.");
+            }
 
-                break;
-            case "uploadArtwork":
-                //Get File From JSP
-                uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
-
-                if (uploaded != null) {
-                    session.setAttribute("goodFeedback", uploaded);
-                } else {
-                    session.setAttribute("badFeedback", "Could not upload artwork.");
+            break;
+            case "uploadArtwork": {
+                try {
+                    //Get File From JSP
+                    uploaded = fs.handleUpload(multiparts, title.getName(), "artwork");
+                } catch (Exception ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            if (uploaded != null) {
+                session.setAttribute("goodFeedback", uploaded);
+            } else {
+                session.setAttribute("badFeedback", "Could not upload artwork.");
+            }
 
-                break;
-            case "downloadAllAssets": {
+            break;
+            case "downloadAllAssets":
                 try {
                     uploaded = fs.downloadAllAssets(title.getName());
                     session.setAttribute("goodFeedback", uploaded);
                 } catch (DbxException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
+                break;
+            case "downloadAllArtworks":
+                try {
+                    uploaded = fs.downloadAllArtworks(title.getName());
+                    session.setAttribute("goodFeedback", uploaded);
+                } catch (DbxException ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             case "deleteAsset":
                 try {
                     fs.deleteAsset(title.getName(), request.getParameter("assetName"));
@@ -173,7 +189,7 @@ public class TitleDetailedServlet extends HttpServlet {
         return (100) - ((int) ((e - now) * 100 / (e - s)));
     }
 
-    String checkValue(List<FileItem> multiparts) {
+    private String checkValue(List<FileItem> multiparts) {
         String inputName = null;
         for (FileItem item : multiparts) {
             if (item.isFormField()) {

@@ -60,4 +60,10 @@
             </div>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert-dismissible").slideUp(500);
+        });
+    </script>
 </html>

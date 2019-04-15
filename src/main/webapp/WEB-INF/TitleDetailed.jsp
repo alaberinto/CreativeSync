@@ -70,7 +70,6 @@
                                                 <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
-
                                         </div>
                                         <div class="col-6 text-center border-right">
                                             <h3><b>Coordinator</b></h3>
@@ -141,7 +140,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -149,16 +148,22 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">                              
+                            <div class="col-3">                              
                                 <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
+                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-2">
                                         <input type="hidden" name="action" value="uploadArtwork">
                                     </div> 
-                                </form>                             
+                                </form> 
+                            </div>
+                            <div class="col-3"> 
+                                <form method="POST" action="TitleDetailed">
+                                    <div class="form-group">
+                                        <button type="submit" name="action" value="downloadAllArtworks" class="btn btn-block button-red-solid mt-2">Download All</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-
                         <div id="collapse3" class="collapse ">
                             <div class="card-body">
                                 <div class="d-flex flex-wrap row-hl">
@@ -224,6 +229,10 @@
 
     $('#uploadArtwork').on("change", function () {
         $('#submitArtwork').prop('disabled', !$(this).val());
+    });
+
+    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+        $(".alert-dismissible").slideUp(500);
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

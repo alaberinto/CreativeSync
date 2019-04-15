@@ -115,9 +115,10 @@ public class ArtworkDetailedServlet extends HttpServlet {
             request.setAttribute("comment", comment); //gets the commnet
             request.setAttribute("status", status); //gets the number    
 
-            //title id & name retrieval
+            //title id & name retrieval & max round
             int titleId = (int) session.getAttribute("titleId");
             String titleName = (String) session.getAttribute("titleName");
+            int maxRound = as.findMaxRound(titleId);
 
             //get rounds         
             List<Artwork> rounds;
@@ -138,12 +139,13 @@ public class ArtworkDetailedServlet extends HttpServlet {
             }
 
             /**
-             * *************Upload artwork***********
+             * *************Add/Upload artwork***********
              */
             String action = null;
             List<FileItem> multiparts = null;
             FileService fs = new FileService();
 
+            //Check if its a file upload.
             if (ServletFileUpload.isMultipartContent(request)) {
                 try {
                     multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -153,17 +155,22 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 } catch (FileUploadException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                action = request.getParameter("actionArt");
             }
 
-            String uploaded = null; //if not null, show failure message, hasn't been implemented for notifications yet
-            String artUpload = request.getParameter("artUpload");
+            String uploaded; //if not null, show failure message, hasn't been implemented for notifications yet
+//            String artUpload = request.getParameter("actionArt");
 
-            if (artUpload != null) {
+            if (action != null) {
                 //Get File From JSP
                 uploaded = fs.handleUpload(multiparts, titleName, "artwork");
+                String path = "path";
 
                 if (uploaded != null) {
                     session.setAttribute("uploaded", uploaded);
+                    as.insertArtwork("artwork", path, 75, (short) 0, (maxRound + 1));
+
                 } else {
                     session.setAttribute("failed", "Could not upload artwork.");
                 }
@@ -196,6 +203,8 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
+            Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

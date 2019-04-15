@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <link rel="stylesheet" href="css/navbar.css" type="text/css">
         <link rel="stylesheet" href="css/Artwork.css" type="text/css">
-        <link rel="stylesheet" href="css/Userpage.css" type="text/css">
+        <link rel="stylesheet" href="css/Userpage.css" type="text/css">        
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -55,7 +55,8 @@
                                         <form method="POST" action="ArtworkDetailed" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                                <input type="submit" id="submitAsset" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1">                                                
+                                                <input type="submit" id="submitArtwork" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>                                                
+                                                <input type="hidden" name="actionArt" value="uploadArtwork">
                                             </div>
                                         </form>
                                     </div>
@@ -64,9 +65,7 @@
                         </tr>
                     </thead>
                 </table>
-
                 <hr>
-
                 <br>    
 
                 <!--rounds-->
@@ -90,21 +89,20 @@
                                                 </div>                                                                               
                                             </div>
                                         </th>                                    
-                                    </tr>                             
-
+                                    </tr>       
                                     <tr>
                                         <c:if test="${position == 1}">
                                             <c:if test="${status == 0}">
                                                 <td style="width: 70%">
                                                     <div class="form-group">                                                                                 
-                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="Type your feedback here!" required></textarea>                                         
                                                     </div>
                                                 </td>
                                             </c:if>
                                             <c:if test="${status == 1 || status == 2}">
                                                 <td style="width: 70%">
                                                     <div class="form-group">                                                                                 
-                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="GREAT JOB!" required></textarea>                                         
+                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="GREAT JOB!" required></textarea>                                         
                                                     </div>
                                                 </td>
                                             </c:if>
@@ -170,6 +168,13 @@
                 <br>
                 <br>
                 <br>
+                <script type="text/javascript">
+                    $('#uploadArtwork').on("change", function () {
+                        $('#submitArtwork').prop('disabled', !$(this).val());
+                    });
+                </script>
+
+
                 <script>
                     ;
                     (function ($) {
@@ -232,4 +237,9 @@
             </div>
         </div>
     </body>
+    <script type="text/javascript">
+        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert-dismissible").slideUp(500);
+        });
+    </script>
 </html>

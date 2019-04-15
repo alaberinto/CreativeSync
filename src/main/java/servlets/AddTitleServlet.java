@@ -6,6 +6,7 @@
 package servlets;
 
 
+import java.io.File;
 import models.Account;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -71,7 +72,8 @@ public class AddTitleServlet extends HttpServlet {
         String[] freelancerIds = request.getParameterValues("freelancers");
         String[] genreIds = request.getParameterValues("genres");
         
-        
+        String home = System.getProperty("user.home");
+        boolean dir = new File(home+"\\Desktop\\"+titleName).mkdirs();
         TitleService ts = new TitleService();
         
         String feedback = ts.insert(titleName, startDate, endDate, priority, designInfo , leadId, coordinatorId, maxNumberOfFreelancers, freelancerIds, genreIds);

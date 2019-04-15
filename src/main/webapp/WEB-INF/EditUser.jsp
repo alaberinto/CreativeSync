@@ -1,4 +1,4 @@
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="sync" uri="/WEB-INF/tlds/synctags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
@@ -54,75 +54,75 @@
                         <input type="password" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
                     </div>
                 </div>
-                    <div class="row mt-3">
-                        <div class="col-4">
-                            <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
-                            <select class="form-control text-light-gray-full" id="country" name="country" required>
-                                <option value="" selected disabled hidden>Choose Country</option>
-                                <c:forEach items="${locations}" var="location">                            
-                                    <option value="${location.locationId}" ${location.locationId == selectLocation ? 'selected':''}>${location.locationDesc}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <label for="language"><h3 class="mb-0">Language</h3></label>
-                            <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
-                                <c:forEach items="${languages}" var="lang">
-                                    <c:if test="${langIds != null}">
-                                        <c:forEach items="${langIds}" var="langId">
-                                            <option value="${lang.languageId}" ${lang.languageId == langId ? 'selected' : ''}>${lang.languageName}</option>
-                                        </c:forEach>
-                                    </c:if>
-                                    <c:if test="${langIds == null}">
-                                        <option value="${lang.languageId}">${lang.languageName}</option>
-                                    </c:if>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-4">
-                            <label for="genres"><h3 class="mb-0">Genres</h3></label>
-                            <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
-                                <c:forEach items="${genres}" var="gen">
-                                    <c:if test="${genreIds != null}">
-                                        <c:forEach items="${genreIds}" var="genreId">
-                                            <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected' : ''}>${gen.genreDesc}</option>
-                                        </c:forEach>
-                                    </c:if>
-                                    <c:if test="${genreIds == null}">
-                                        <option value="${gen.genreId}">${gen.genreDesc}</option>
-                                    </c:if>
-                                </c:forEach>
-                            </select>
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
+                        <select class="form-control text-light-gray-full" id="country" name="country" required>
+                            <option value="" selected disabled hidden>Choose Country</option>
+                            <c:forEach items="${locations}" var="location">                            
+                                <option value="${location.locationId}" ${location.locationId == selectLocation ? 'selected':''}>${location.locationDesc}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="language"><h3 class="mb-0">Language</h3></label>
+                        <select class="selectpicker form-control" name="language" id="language" multiple data-live-search="true" title="Select Languages" id="x" data-header="Select Languages" required>
+                            <c:forEach items="${languages}" var="lang">
+                                <c:if test="${langIds != null}">
+                                    <c:forEach items="${langIds}" var="langId">
+                                        <option value="${lang.languageId}" ${lang.languageId == langId ? 'selected' : ''}>${lang.languageName}</option>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${langIds == null}">
+                                    <option value="${lang.languageId}">${lang.languageName}</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="genres"><h3 class="mb-0">Genres</h3></label>
+                        <select class="selectpicker form-control" name="genres" id="genres" multiple data-live-search="true" title="Select Genres" id="y" data-header="Select Genres" required>
+                            <c:forEach items="${genres}" var="gen">
+                                <c:if test="${genreIds != null}">
+                                    <c:forEach items="${genreIds}" var="genreId">
+                                        <option value="${gen.genreId}" ${gen.genreId == genreId ? 'selected' : ''}>${gen.genreDesc}</option>
+                                    </c:forEach>
+                                </c:if>
+                                <c:if test="${genreIds == null}">
+                                    <option value="${gen.genreId}">${gen.genreDesc}</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label class="" for="pos"><h3 class="mb-0">Position</h3></label>
+                        <select class="form-control text-light-gray-full" id="pos" name="position" disabled>
+                            <option value="" selected disabled hidden>Choose Position</option>
+                            <c:forEach items="${positions}" var="pos">
+                                <option value="${pos.positionId}" ${pos.positionId == selectPosition ? 'selected':''}>${pos.positionDesc}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
+                        <div class="input-icon">    
+                            <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" value="${myUser.rate}" min="1" disabled>
+                            <i>$</i>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <label class="" for="pos"><h3 class="mb-0">Position</h3></label>
-                            <select class="form-control text-light-gray-full" id="pos" name="position" disabled>
-                                <option value="" selected disabled hidden>Choose Position</option>
-                                <c:forEach items="${positions}" var="pos">
-                                    <option value="${pos.positionId}" ${pos.positionId == selectPosition ? 'selected':''}>${pos.positionDesc}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                        <div class="col-6">
-                            <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
-                            <div class="input-icon">    
-                                <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" value="${myUser.rate}" min="1" disabled>
-                                <i>$</i>
-                            </div>
-                        </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <input type="submit" class="btn btn-block button-red-solid" placeholder="Create User">
+                        <input type="hidden" name="myUser" value="${myUser.userId}">
+
                     </div>
 
-                    <div class="row mt-5">
-                        <div class="col-12">
-                            <input type="submit" class="btn btn-block button-red-solid" placeholder="Create User">
-                            <input type="hidden" name="myUser" value="${myUser.userId}">
-                                   
-                        </div>
-                        
-                    </div>                              
+                </div>                              
 
             </form>
             <c:if test="${goodFeedback != null}">
@@ -152,4 +152,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="upload-image.js"></script>
+    <script type="text/javascript">
+        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert-dismissible").slideUp(500);
+        });
+    </script>
 </html>

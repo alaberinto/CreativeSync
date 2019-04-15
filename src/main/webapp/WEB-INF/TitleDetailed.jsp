@@ -63,10 +63,8 @@
                                     </button>
                                 </h5>
                             </div>
-
                         </div>
                     </div>
-
                     <div id="collapse1" class="collapse show">
                         <div class="card-body">
                             <div class="row mt-2 pl-3 pr-3">
@@ -78,7 +76,6 @@
                                                 <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
-
                                         </div>
                                         <div class="col-6 text-center">
                                             <h3><b>Coordinator</b></h3>
@@ -198,7 +195,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <div id="collapse3" class="collapse ">
                             <div class="card-body">
                                 <div class="d-flex flex-wrap row-hl">
@@ -264,6 +260,10 @@
 
     $('#uploadArtwork').on("change", function () {
         $('#submitArtwork').prop('disabled', !$(this).val());
+    });
+
+    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+        $(".alert-dismissible").slideUp(500);
     });
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -407,4 +407,9 @@
     crossorigin="anonymous"></script>
     <script>goPageA(1);</script>
     <script>goPageU(1);</script>
+    <script type="text/javascript">
+        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert-dismissible").slideUp(500);
+        });
+    </script>
 </html>

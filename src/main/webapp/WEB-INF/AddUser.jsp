@@ -109,7 +109,7 @@
                         <div class="col-6">
                             <label class="" for="rate"><h3 class="mb-0">Hourly Rate</h3></label>
                             <div class="input-icon">    
-                                <input type="number" class="form-control text-light-gray-full" id="rate" name="rate" value="${rate}" min="1" required>
+                                <input type="number" class="form-control text-light-gray-full" id="rate" step="0.01" name="rate" value="${rate}" min="1" required>
                                 <i>$</i>
                             </div>
                         </div>

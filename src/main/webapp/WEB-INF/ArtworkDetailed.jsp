@@ -94,14 +94,14 @@
                                             <c:if test="${status == 0}">
                                                 <td style="width: 70%">
                                                     <div class="form-group">                                                                                 
-                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="Type your feedback here!" required></textarea>                                         
                                                     </div>
                                                 </td>
                                             </c:if>
                                             <c:if test="${status == 1 || status == 2}">
                                                 <td style="width: 70%">
                                                     <div class="form-group">                                                                                 
-                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="GREAT JOB!" required></textarea>                                         
+                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="GREAT JOB!" required></textarea>                                         
                                                     </div>
                                                 </td>
                                             </c:if>

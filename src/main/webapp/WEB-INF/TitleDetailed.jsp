@@ -24,7 +24,7 @@
             <div class="container background-white pb-3">
                 <div class="row">
                     <div class="col-12">
-                        <h1 class="text-center mt-5 mb-4 text-uppercase font-weight-bold">${view.title.name}</h1>
+                        <div class="page-header border-bottom mb-3 text-center">${view.title.name}</div>
                     <div class="progress mb-1">
                         <div class="progress-bar bg-danger" style="width:${datepercentage}%;"></div>
                     </div>
@@ -32,22 +32,22 @@
             </div>
             <div class="row border-danger">
                 <div class="col-4">
-                    <p>Start: <fmt:formatDate type = "date"
+                    <p><b>Start:</b> <fmt:formatDate type = "date"
                                     value = "${view.title.startDate}" /></p>
                 </div>
                 <div class="col-4 text-center" >
                     <p><b>${timeLeft}</b> Days Left!</p>
                 </div>
                 <div class="col-4 text-right" >
-                    <p>End: <fmt:formatDate type = "date"
+                    <p><b>End:</b> <fmt:formatDate type = "date"
                                     value = "${view.title.endDate}" /></p>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="form-group">
-                        <label for="info"><h3 class="mb-0">${view.title.designInfo}</h3></label>
-                        <textarea class="form-control" id="info" name="info" rows="6" disabled></textarea>
+                        <label for="exampleFormControlTextarea1"><b>Design Info</b></label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" disabled>${view.title.designInfo}</textarea>
                     </div>
                 </div>
             </div>
@@ -72,33 +72,33 @@
                             <div class="row mt-2 pl-3 pr-3">
                                 <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6 mb-5">
                                     <div class="row">
-                                        <div class="col-6 text-center lead">
+                                        <div class="col-6 text-center">
                                             <h3><b>Design Lead</b></h3>
-                                            <a href="#">
-                                                <div class="title-user">
-                                                    <img class="prof" src="css/images/User/nicole.jpg" alt="IMAGE"/>
-                                                </div>
+                                            <a href="UserDetailed?name=${view.lead.firstname} ${view.lead.lastname}">
+                                                <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
+
                                         </div>
-                                        <div class="col-6 text-center coor">
+                                        <div class="col-6 text-center">
                                             <h3><b>Coordinator</b></h3>
-                                            <a href="#">
-                                                <div class="title-user">
-                                                    <img class="prof" src="css/images/User/kitty.jpg" alt=""/>
-                                                </div>
+                                            <a href="UserDetailed?name=${view.coor.firstname} ${view.coor.lastname}">
+                                                <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                             </a>
                                             <h4>${view.coor.firstname} ${view.coor.lastname}</h4>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center des">
+                                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 text-center">
                                     <h3><b>Designers</b></h3>
-                                    <div class="d-flex flex-wrap row-hl">
+                                    <div class="d-flex justify-content-center">
                                         <c:forEach items="${frees}" var="free">
-                                            <div class="p-2 item-hl title-user">
-                                                <img class="prof" src="css/images/User/male20161086693679535.jpg" alt=""/>
+                                            <div class="ml-2 mr-2">
+                                                <a href="UserDetailed?name=${free.account.firstname} ${free.account.lastname}">
+                                                    <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
+                                                </a>
                                                 <h4>${free.account.firstname} ${free.account.lastname}</h4>
+
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -118,7 +118,7 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
@@ -127,7 +127,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="col-2">
+                            <div class="col-3">
                                 <form method="POST" action="TitleDetailed">
                                     <div class="form-group">
                                         <button type="submit" name="action" value="downloadAllAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
@@ -174,7 +174,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <h5>
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                                         <i class="fa" aria-hidden="true" style="color: red;"></i>
@@ -182,13 +182,20 @@
                                     </button>
                                 </h5>
                             </div>
-                            <div class="col-4">                              
+                            <div class="col-3">                              
                                 <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-1">
+                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-2">
                                         <input type="hidden" name="action" value="uploadArtwork">
                                     </div> 
-                                </form>                             
+                                </form> 
+                            </div>
+                            <div class="col-3"> 
+                                <form method="POST" action="TitleDetailed">
+                                    <div class="form-group">
+                                        <button type="submit" name="action" value="downloadAllArtworks" class="btn btn-block button-red-solid mt-2">Download All</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
 

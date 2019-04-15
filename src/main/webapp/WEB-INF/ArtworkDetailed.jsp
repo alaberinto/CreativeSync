@@ -56,6 +56,7 @@
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
                                                 <input type="submit" id="submitArtwork" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>                                                
+                                                <input type="hidden" name="actionArt" value="uploadArtwork">
                                             </div>
                                         </form>
                                     </div>

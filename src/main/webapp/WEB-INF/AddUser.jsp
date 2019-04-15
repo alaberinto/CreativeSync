@@ -51,11 +51,9 @@
                     </div>
                     <div class="col-6">
                         <label class="" for="pass"><h3 class="mb-0">Password</h3></label>
-                        <input type="text" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
+                        <input type="password" class="form-control text-light-gray-full" id="pass" name="password" value="${password}" minlength="8" required>
                     </div>
                 </div>
-                <div class="col-12 pt-4 pb-3 mb-2 ">
-
                     <div class="row mt-3">
                         <div class="col-4">
                             <label class="country" for="country"><h3 class="mb-0">Country</h3></label>
@@ -123,7 +121,6 @@
                             <input type="submit" class="btn btn-block button-red-solid" placeholder="Create User">
                         </div>
                     </div>
-                </div>
 
             </form>
             <c:if test="${goodFeedback != null}">

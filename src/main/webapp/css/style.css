@@ -297,3 +297,15 @@ a.link {
     height: 100%;
     object-fit: contain;
 }
+
+.title-user {
+    width: 100px;
+    height:100px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

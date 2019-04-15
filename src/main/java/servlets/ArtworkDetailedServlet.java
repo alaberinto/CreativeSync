@@ -138,7 +138,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
             }
 
             /**
-             * *************Upload artwork***********
+             * *************Add/Upload artwork***********
              */
             String action = null;
             List<FileItem> multiparts = null;

@@ -26,9 +26,10 @@ import services.TitleService;
 import viewModels.TitlesView;
 
 /**
- * A controller servlet to manage actions related to the Title object details. 
- * It does the request processing, calls the related Service methods and forwards to the view (JSP) 
- * 
+ * A controller servlet to manage actions related to the Title object details.
+ * It does the request processing, calls the related Service methods and
+ * forwards to the view (JSP)
+ *
  * @author Mason Hill
  * @author Alvin Laberinto
  * @author Cooper Vasiliou
@@ -53,7 +54,7 @@ public class TitleDetailedServlet extends HttpServlet {
         session.setAttribute("title", title.getTitle());
         session.setAttribute("titleId", title.getTitle().getTitleId());
         session.setAttribute("titleName", title.getTitle().getName());
-        
+
         if (title == null) {
             request.setAttribute("badFeedback", "Title Not Found!");
         } else {
@@ -72,7 +73,6 @@ public class TitleDetailedServlet extends HttpServlet {
 
             try {
                 request.setAttribute("assets", fs.getAssets(titleName));
-                ArrayList<String> artworks = fs.getArtworks(titleName);
                 request.setAttribute("artworks", fs.getArtworks(titleName));
             } catch (DbxException ex) {
                 Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,15 +130,22 @@ public class TitleDetailedServlet extends HttpServlet {
                 }
 
                 break;
-            case "downloadAllAssets": {
+            case "downloadAllAssets":
                 try {
                     uploaded = fs.downloadAllAssets(title.getName());
                     session.setAttribute("goodFeedback", uploaded);
                 } catch (DbxException ex) {
                     Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }
-            break;
+                break;
+            case "downloadAllArtworks":
+                try {
+                    uploaded = fs.downloadAllArtworks(title.getName());
+                    session.setAttribute("goodFeedback", uploaded);
+                } catch (DbxException ex) {
+                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             case "deleteAsset":
                 try {
                     fs.deleteAsset(title.getName(), request.getParameter("assetName"));

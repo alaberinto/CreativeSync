@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Artwork;
+import models.Title;
 
 /**
  * ArtWorkService class for Art work information.
@@ -48,7 +49,8 @@ public class ArtworkService {
         return new ArrayList(ab.getAllArtwork());
     }
 
-    public int insertArtwork(String artworkName, String artworkRef, int rating, short artworkStatus, int round) throws Exception {
+    //inserts artwork
+    public int insertArtwork(String artworkName, String artworkRef, int rating, short artworkStatus, Title title, int round) throws Exception {
         Artwork art = new Artwork(0, artworkName, artworkRef, rating, artworkStatus, round);
 
         art.setArtworkName(artworkName);
@@ -56,7 +58,7 @@ public class ArtworkService {
         art.setRating(rating);
         art.setArtworkStatus(artworkStatus);
         art.setRound(round);
-//        art.setTitleHasAccount(titleHasAccount);
+        art.getTitleHasAccount().setTitle(title);
 
         return ab.insertArtwork(art);
     }
@@ -86,6 +88,31 @@ public class ArtworkService {
         }
 
         return artsSpecific;
+    }
+
+    //finds the art title
+    public Title getArtTitle(int id_t) {
+        try {
+            List<Artwork> arts = getAllArtworkByTitleId(id_t);
+
+            Title title = null;
+            
+            //this is what will be used
+            if (arts.size() == 1) {
+                title = arts.get(0).getTitleHasAccount().getTitle();
+                return title;
+            }
+
+            for (int i = 0; i <= arts.size(); i++) {
+                title = arts.get(i).getTitleHasAccount().getTitle();
+            }
+
+            return title;
+
+        } catch (DBException ex) {
+            Logger.getLogger(ArtworkService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**

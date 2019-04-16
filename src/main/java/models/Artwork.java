@@ -29,8 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * Artwork.java - Class describing all attributes and operations for a Artwork object.
- * 
+ * Artwork.java - Class describing all attributes and operations for a Artwork
+ * object.
+ *
  *
  * @author Mason Hill
  * @author Alvin Laberinto
@@ -39,10 +40,9 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Brittany Low
  * @author Matthew Carmichael
  * @author Omurbek Kadyrov
- * 
+ *
  * @version 1.0
  */
-
 @Entity
 @Table(name = "artwork")
 @XmlRootElement
@@ -103,7 +103,8 @@ public class Artwork implements Serializable {
 
     /**
      * Constructor which takes the below arguments
-     * @param artworkId  the artWorkID
+     *
+     * @param artworkId the artWorkID
      */
     public Artwork(Integer artworkId) {
         this.artworkId = artworkId;
@@ -111,12 +112,13 @@ public class Artwork implements Serializable {
 
     /**
      * Constructor which takes the below arguments
+     *
      * @param artworkId the artWorkId
      * @param artworkName the artworkName
      * @param artworkRef the artWorkRef
      * @param rating the rating
      * @param artworkStatus the artWorkStatus
-     * @param round  the round
+     * @param round the round
      */
     public Artwork(Integer artworkId, String artworkName, String artworkRef, int rating, short artworkStatus, int round) {
         this.artworkId = artworkId;
@@ -129,6 +131,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get Artwork id
+     *
      * @return artworkId
      */
     public Integer getArtworkId() {
@@ -137,7 +140,8 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set artworkId
-     * @param artworkId  the artworkId
+     *
+     * @param artworkId the artworkId
      */
     public void setArtworkId(Integer artworkId) {
         this.artworkId = artworkId;
@@ -145,6 +149,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get artworkName
+     *
      * @return artworkName
      */
     public String getArtworkName() {
@@ -153,6 +158,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set artworkName
+     *
      * @param artworkName the artworkName
      */
     public void setArtworkName(String artworkName) {
@@ -161,6 +167,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get artworkRef
+     *
      * @return artworkRef
      */
     public String getArtworkRef() {
@@ -169,7 +176,8 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set artworkRef
-     * @param artworkRef  the artworkRef
+     *
+     * @param artworkRef the artworkRef
      */
     public void setArtworkRef(String artworkRef) {
         this.artworkRef = artworkRef;
@@ -177,6 +185,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get rating
+     *
      * @return rating
      */
     public int getRating() {
@@ -185,6 +194,7 @@ public class Artwork implements Serializable {
 
     /**
      * method to set rating
+     *
      * @param rating the rating
      */
     public void setRating(int rating) {
@@ -193,6 +203,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get artwork status
+     *
      * @return artwrokStatus
      */
     public short getArtworkStatus() {
@@ -201,7 +212,8 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set art work status
-     * @param artworkStatus  the artworkStatus
+     *
+     * @param artworkStatus the artworkStatus
      */
     public void setArtworkStatus(int artworkStatus) {
         this.artworkStatus = (short) artworkStatus;
@@ -209,6 +221,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get round
+     *
      * @return round
      */
     public int getRound() {
@@ -217,6 +230,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set round
+     *
      * @param round the round
      */
     public void setRound(int round) {
@@ -225,6 +239,7 @@ public class Artwork implements Serializable {
 
     /**
      * XML transient method to get style list
+     *
      * @return List of Style
      */
     @XmlTransient
@@ -234,6 +249,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set list of styles
+     *
      * @param styleList List of Style
      */
     public void setStyleList(List<Style> styleList) {
@@ -242,6 +258,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to get TitleHasAccount
+     *
      * @return TitleHasAccount
      */
     public TitleHasAccount getTitleHasAccount() {
@@ -250,6 +267,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set TitleHasAccount
+     *
      * @param titleHasAccount the TitleHasAccount
      */
     public void setTitleHasAccount(TitleHasAccount titleHasAccount) {
@@ -258,6 +276,7 @@ public class Artwork implements Serializable {
 
     /**
      * XML transient method to get feedback list
+     *
      * @return List of Feedback
      */
     @XmlTransient
@@ -267,6 +286,7 @@ public class Artwork implements Serializable {
 
     /**
      * Method to set list of feedback
+     *
      * @param feedbackList the List of Feedback
      */
     public void setFeedbackList(List<Feedback> feedbackList) {
@@ -275,7 +295,8 @@ public class Artwork implements Serializable {
 
     /**
      * Overridden method of hashCode
-     * @return 
+     *
+     * @return
      */
     @Override
     public int hashCode() {
@@ -286,8 +307,9 @@ public class Artwork implements Serializable {
 
     /**
      * Overridden method of equals
+     *
      * @param object
-     * @return 
+     * @return
      */
     @Override
     public boolean equals(Object object) {
@@ -304,11 +326,12 @@ public class Artwork implements Serializable {
 
     /**
      * Overridden method of toString
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
         return "models.Artwork[ artworkId=" + artworkId + " ]";
     }
-    
+
 }

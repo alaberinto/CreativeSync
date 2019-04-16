@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Account;
 import models.Artwork;
+import models.Title;
+import models.TitleHasAccount;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -130,6 +132,9 @@ public class ArtworkDetailedServlet extends HttpServlet {
             roundArt = as.getAllArtworkByTitleId(titleId);
             request.setAttribute("roundArt", roundArt);
 
+            //get title object to use for inserting artwork
+            Title title = as.getArtTitle(titleId);
+
             //check if there are any rounds & artwork
             if (rounds.isEmpty() == false) {
                 request.setAttribute("roundsFilled", 1);
@@ -141,23 +146,23 @@ public class ArtworkDetailedServlet extends HttpServlet {
             /**
              * *************Add/Upload artwork***********
              */
-            String action = null;
+            String action = request.getParameter("actionArt");
             List<FileItem> multiparts = null;
             FileService fs = new FileService();
 
             //Check if its a file upload.
-            if (ServletFileUpload.isMultipartContent(request)) {
-                try {
-                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                    // This method grabs the action. Without this part, action will be null.
-                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
-                    action = checkValue(multiparts);
-                } catch (FileUploadException ex) {
-                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                action = request.getParameter("actionArt");
-            }
+//            if (ServletFileUpload.isMultipartContent(request)) {
+//                try {
+//                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+//                    // This method grabs the action. Without this part, action will be null.
+//                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
+//                    action = checkValue(multiparts);
+//                } catch (FileUploadException ex) {
+//                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else {
+//                action = request.getParameter("actionArt");
+//            }
 
             String uploaded; //if not null, show failure message, hasn't been implemented for notifications yet
 //            String artUpload = request.getParameter("actionArt");
@@ -169,8 +174,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
                 if (uploaded != null) {
                     session.setAttribute("uploaded", uploaded);
-                    as.insertArtwork("artwork", path, 75, (short) 0, (maxRound + 1));
-
+                    as.insertArtwork("artwork", path, 75, (short) 0, title, (maxRound + 1));
                 } else {
                     session.setAttribute("failed", "Could not upload artwork.");
                 }

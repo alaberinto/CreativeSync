@@ -70,189 +70,225 @@
                 <br>    
 
                 <!--rounds-->
-                <c:if test="${roundsFilled == 1}">
-                    <c:forEach var="rounds" items="${rounds}">
-                        <h3>${rounds.getRound()}</h3>                        
-                        <div style="width:100%; background-color: #f4efed;">
-                            <table border="1" cellspacing="5" width="100%">
-                                <tbody>       
-                                    <tr>
-                                        <th colspan="2">        
-                                            <div style="padding: 10px;">
-                                                <div align="center">    
-                                                    <c:forEach var="roundArt" items="${roundArt}">                                                       
-                                                        <c:if test = "${roundArt.getRound() == rounds.getRound()}">                                                           
-                                                            <img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>
-                                                        </c:if>                                                       
-                                                    </c:forEach>
-                                                </div>                                                                               
-                                            </div>
-                                        </th>                                    
-                                    </tr>       
-                                    <tr>
-                                        <c:if test="${position == 1}">
-                                            <c:if test="${status == 0}">
-                                                <td style="width: 70%">
-                                                    <div class="form-group">                                                                                 
-                                                        <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="Type your feedback here!" required></textarea>                                         
-                                                    </div>
-                                                </td>
-                                            </c:if>
-                                            <c:if test="${status == 1 || status == 2}">
-                                                <td style="width: 70%">
-                                                    <div class="form-group">                                                                                 
-                                                        <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment${rounds.getRound()}" placeholder="GREAT JOB!" required></textarea>                                         
-                                                    </div>
-                                                </td>
-                                            </c:if>
-                                        </c:if>
-                                        <c:if test="${position == 0}">
-                                            <td style="width: 70%">
-                                                <div class="form-group">                                                                                 
-                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" name="comment" placeholder="GREAT JOB!"></textarea>                                         
+                
+
+
+
+                    <c:if test="${showUpload != null}">
+                        <c:if test="${position == 0}">
+                            <h3>1</h3>   
+                            <div style="width:100%; background-color: #f4efed;">
+                                <table border="1" cellspacing="5" width="100%">
+                                    <tbody>       
+                                        <tr>
+                                            <th colspan="2">        
+                                                <div style="padding: 10px;">
+                                                    <div align="center">                                    
+                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                    </div>                                                                               
+                                                </div>
+                                            </th>                                    
+                                        </tr> 
+                                        <tr>  
+                                            <td>
+                                                <div align="center">                         
+                                                    Waiting for feedback...
                                                 </div>
                                             </td>
-                                        </c:if>
-                                        <td>
-                                            <c:if test="${position == 1}">
-                                                <c:if test="${status == 0}">
-                                                    <div align="center">                         
-                                                        <form action="ArtworkDetailed" method="post" id="statusApproveDeny">
-                                                            <input type="submit" onclick="confirmApprove()" class="buttonApprove" name="approve" value="Approve">
-                                                            <input type="submit" onclick="confirmDeny()" class="buttonDeny" name="deny" value="Deny">       
-                                                        </form>
-                                                    </div>
-                                                </c:if>
-                                            </c:if>                                       
-                                            <c:if test="${status == 1}">
+                                        </tr>
+                                </table>
+                            </div>
+                        </c:if>
+                        <c:if test="${position == 1}">
+                            <h3>1</h3>   
+                            <div style="width:100%; background-color: #f4efed;">
+                                <table border="1" cellspacing="5" width="100%">
+                                    <tbody>       
+                                        <tr>
+                                            <th colspan="2">        
+                                                <div style="padding: 10px;">
+                                                    <div align="center">                                    
+                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                    </div>                                                                               
+                                                </div>
+                                            </th>                                    
+                                        </tr> 
+                                        <tr>  
+                                            <td style="width: 70%">
+                                                <div class="form-group">                                                                                 
+                                                    <textarea rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" placeholder="Type your feedback here!" required></textarea>                                         
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div align="center">                         
+                                                    <form action="ArtworkDetailed" method="post" id="statusApproveDeny">
+                                                        <input type="submit" class="buttonApprove" name="approve" value="Approve">
+                                                        <input type="submit" class="buttonDeny" name="deny" value="Deny">       
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </c:if>   
+                    </c:if>
+                    <c:if test="${approvedCookie != null}">
+                        <c:if test="${position == 0}">
+                            <h3>1</h3>   
+                            <div style="width:100%; background-color: #f4efed;">
+                                <table border="1" cellspacing="5" width="100%">
+                                    <tbody>       
+                                        <tr>
+                                            <th colspan="2">        
+                                                <div style="padding: 10px;">
+                                                    <div align="center">                                    
+                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                    </div>                                                                               
+                                                </div>
+                                            </th>                                    
+                                        </tr> 
+                                        <tr>                                      
+                                            <td style="width: 70%">
+                                                <div class="form-group">                                                                                 
+                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" placeholder="Great job, this was exactly what I was looking for!"></textarea>                                         
+                                                </div>
+                                            </td>
+                                            <td>
                                                 <div align="center">                         
                                                     <h1 style="color: #4CAF50">APPROVED</h1>
                                                 </div>
-                                            </c:if>
-                                            <c:if test="${status == 2}">
-                                                <div align="center">                         
-                                                    <h1 style="color: #f44336">DENIED</h1>
+                                            </td>
+                                        </tr>
+                                </table>
+                            </div>
+                        </c:if>
+                        <c:if test="${position == 1}">
+                            <h3>1</h3>   
+                            <div style="width:100%; background-color: #f4efed;">
+                                <table border="1" cellspacing="5" width="100%">
+                                    <tbody>       
+                                        <tr>
+                                            <th colspan="2">        
+                                                <div style="padding: 10px;">
+                                                    <div align="center">                                    
+                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                    </div>                                                                               
                                                 </div>
-                                            </c:if>                                     
-                                        </td>  
-                                    </tr> 
-                                </tbody>
-                            </table>
-                        </div>
-                        <br>
-                    </c:forEach>
-                </c:if>
-                <c:if test="${showUpload != null}">
-                    <c:if test="${position == 0}">
-                        <h1>freelancer</h1>
-                    </c:if>
-                    <c:if test="${position == 1}">
-                        <h1>others</h1>
-                    </c:if>   
-                </c:if>
-                <c:if test="${approvedCookie != null}">
-                    <c:if test="${position == 0}">
-                        <h1>freelancer</h1>
-                    </c:if>
-                    <c:if test="${position == 1}">
-                        <h1>others</h1>
-                    </c:if> 
-                </c:if>
-                <c:if test="${roundsFilled == 0}">
-                    <div align="center">
-                        <h1>No artwork exists for this title!</h1>
-                    </div>
-                </c:if>
-                <c:if test="${uploaded != null}">
-                    <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Success</strong> ${goodFeedback}
-                    </div>
-                </c:if>
-                <c:if test="${failed != null}">
-                    <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Error</strong> ${badFeedback}
-                    </div>
-                </c:if> 
+                                            </th>                                    
+                                        </tr> 
+                                        <tr>                                      
+                                            <td style="width: 70%">
+                                                <div class="form-group">                                                                                 
+                                                    <textarea readonly rows="3" cols="50" class="form-control" form="statusApproveDeny" rows="5" id="comment" placeholder="Great job, this was exactly what I was looking for!"></textarea>                                         
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div align="center">                         
+                                                    <h1 style="color: #4CAF50">APPROVED</h1>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                </table>
+                                <div>
+                                </c:if> 
+                            </c:if>
+                            <c:if test="${roundsFilled == 0}">
+                                <div align="center">
+                                    <h1>No artwork exists for this title!</h1>
+                                </div>
+                            </c:if>
+                            <c:if test="${uploaded != null}">
+                                <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Success</strong> ${goodFeedback}
+                                </div>
+                            </c:if>
+                            <c:if test="${failed != null}">
+                                <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    <strong>Error</strong> ${badFeedback}
+                                </div>
+                            </c:if> 
 
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <script type="text/javascript">
-                    $('#uploadArtwork').on("change", function () {
-                        $('#submitArtwork').prop('disabled', !$(this).val());
-                    });
-                </script>
-
-
-                <script>
-                    ;
-                    (function ($) {
-
-                        /**
-                         * Store scroll position for and set it after reload
-                         *
-                         * @return {boolean} [loacalStorage is available]
-                         */
-                        $.fn.scrollPosReload = function () {
-                            if (localStorage) {
-                                var posReader = localStorage["posStorage"];
-                                if (posReader) {
-                                    $(window).scrollTop(posReader);
-                                    localStorage.removeItem("posStorage");
-                                }
-                                $(this).click(function (e) {
-                                    localStorage["posStorage"] = $(window).scrollTop();
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <script type="text/javascript">
+                                $('#uploadArtwork').on("change", function () {
+                                    $('#submitArtwork').prop('disabled', !$(this).val());
                                 });
-
-                                return true;
-                            }
-
-                            return false;
-                        }
-
-                        /* ================================================== */
-
-                        $(document).ready(function () {
-                            $('body').scrollPosReload();
-                        });
-
-                    }(jQuery));
-                </script>
+                            </script>
 
 
+                            <script>
+                                ;
+                                (function ($) {
 
-                <script>
-                    $(function ($) {
-                        var addToAll = false;
-                        var gallery = true;
-                        var titlePosition = 'inside';
-                        $(addToAll ? 'img' : 'img.fancybox').each(function () {
-                            var $this = $(this);
-                            var title = $this.attr('title');
-                            var src = $this.attr('data-big') || $this.attr('src');
-                            var a = $('<a href="#" class="fancybox"></a>').attr('href', src).attr('title', title);
-                            $this.wrap(a);
-                        });
-                        if (gallery)
-                            $('a.fancybox').attr('rel', 'fancyboxgallery');
-                        $('a.fancybox').fancybox({
-                            titlePosition: titlePosition
-                        });
-                    });
-                    $.noConflict();
-                </script>
+                                    /**
+                                     * Store scroll position for and set it after reload
+                                     *
+                                     * @return {boolean} [loacalStorage is available]
+                                     */
+                                    $.fn.scrollPosReload = function () {
+                                        if (localStorage) {
+                                            var posReader = localStorage["posStorage"];
+                                            if (posReader) {
+                                                $(window).scrollTop(posReader);
+                                                localStorage.removeItem("posStorage");
+                                            }
+                                            $(this).click(function (e) {
+                                                localStorage["posStorage"] = $(window).scrollTop();
+                                            });
+
+                                            return true;
+                                        }
+
+                                        return false;
+                                    }
+
+                                    /* ================================================== */
+
+                                    $(document).ready(function () {
+                                        $('body').scrollPosReload();
+                                    });
+
+                                }(jQuery));
+                            </script>
 
 
-            </div>
-        </div>
-    </body>
-    <script type="text/javascript">
-        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
-            $(".alert-dismissible").slideUp(500);
-        });
-    </script>
-</html>
+
+                            <script>
+                                $(function ($) {
+                                    var addToAll = false;
+                                    var gallery = true;
+                                    var titlePosition = 'inside';
+                                    $(addToAll ? 'img' : 'img.fancybox').each(function () {
+                                        var $this = $(this);
+                                        var title = $this.attr('title');
+                                        var src = $this.attr('data-big') || $this.attr('src');
+                                        var a = $('<a href="#" class="fancybox"></a>').attr('href', src).attr('title', title);
+                                        $this.wrap(a);
+                                    });
+                                    if (gallery)
+                                        $('a.fancybox').attr('rel', 'fancyboxgallery');
+                                    $('a.fancybox').fancybox({
+                                        titlePosition: titlePosition
+                                    });
+                                });
+                                $.noConflict();
+                            </script>
+
+                            <script type="text/javascript">
+                                $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+                                    $(".alert-dismissible").slideUp(500);
+                                });
+                            </script>
+
+
+                        </div>
+                    </div>
+                    </body>
+
+                    </html>

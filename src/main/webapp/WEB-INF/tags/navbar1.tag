@@ -1,7 +1,7 @@
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<nav id="nav" class="navbar navbar-expand-md navbar-light custom-container ml-5 mr-5">
+<nav id="nav" class="navbar navbar-expand-md navbar-light custom-container pl-5 pr-5 bg-white">
     <a href="Titles" class="navbar-brand">
         <img class="logo" src="css/Netflix_Logo_RGB.png" alt="Netflix"/>
     </a>

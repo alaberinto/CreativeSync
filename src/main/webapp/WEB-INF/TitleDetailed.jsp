@@ -21,7 +21,7 @@
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
 
-            <div class="container background-white pb-3">
+            <div class="container bg-white pb-3">
                 <div class="row">
                     <div class="col-12">
                         <div class="page-header border-bottom mb-3 text-center">${view.title.name}</div>

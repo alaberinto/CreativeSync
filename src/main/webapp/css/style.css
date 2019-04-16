@@ -29,8 +29,8 @@ body, html {
 }
 
 .custom-container {
-    margin-left: 10%;
-    margin-right: 10%;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 li.borderless { border: none; }
@@ -312,4 +312,12 @@ a.link {
 
 .btn-collapse {
     background-color: rgba(0,0,0,.03);
+}
+
+.background-plain {
+    background-color: rgb(245, 245, 241);
+}
+
+.background-white {
+    background-color: white;
 }

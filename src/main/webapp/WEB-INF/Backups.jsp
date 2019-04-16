@@ -16,10 +16,10 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
         <title>Backups</title>
     </head>
-    <body>
+    <body class="background-plain">
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
-            <div class="container bg-white">
+            <div class="container bg-white" style="height: 84vh;">
                 <div class="page-header border-bottom text-center">BACKUPS</div>
                 <form method="get" action="Backups">
                     <input type="submit" name="backupDatabase" class="btn btn-danger mt-2 mb-2" value="Backup database">

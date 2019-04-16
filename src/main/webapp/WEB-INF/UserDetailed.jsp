@@ -16,7 +16,7 @@
     <body class="background-plain">
         <sync:navbar1></sync:navbar1>
             <div class="searchBarHeader"></div>
-            <div class="container bg-white">
+            <div class="container bg-white" style="height: 84vh;">
                 <div class="page-header border-bottom mb-3 text-center">${myUser.user.firstname} ${myUser.user.lastname}</div>
             <div class="row">
                 <div class="col-3 justify-content-center">
@@ -75,7 +75,7 @@
                                 <th></th>
                             </tr>
                             <c:forEach items="${myUser.titles}" var="tit"  >
-                                <tr>
+                                <tr class="border-bottom">
                                     <td>
                                         <b>${tit.title.name}</b>
                                     </td>

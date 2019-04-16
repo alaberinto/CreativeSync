@@ -51,21 +51,15 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-4" id="accordion">
+
+            <div class="accordion mt-4" id="accordion">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-10">
-                                <h5>
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
-                                        <i class="fa" aria-hidden="true" style="color: red;"></i>
-                                        <span class="dropdown-header">Members</span>
-                                    </button>
-                                </h5>
-                            </div>
-                        </div>
+                    <div class="card-header" id="headingOne">
+                        <button class="btn btn-block button-red-solid col-2" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                            Members
+                        </button>
                     </div>
-                    <div id="collapse1" class="collapse show">
+                    <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                         <div class="card-body">
                             <div class="row mt-2 pl-3 pr-3">
                                 <div class="col-sm-12 col-med-12 col-lg-6 col-xl-6 mb-5">
@@ -77,7 +71,7 @@
                                             </a>
                                             <h4>${view.lead.firstname} ${view.lead.lastname}</h4>
                                         </div>
-                                        <div class="col-6 text-center">
+                                        <div class="col-6 text-center border-right">
                                             <h3><b>Coordinator</b></h3>
                                             <a href="UserDetailed?name=${view.coor.firstname} ${view.coor.lastname}">
                                                 <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
@@ -95,7 +89,6 @@
                                                     <img class="img-fluid rounded-circle title-user mb-1" src="css/profile-placeholder.png" alt="">
                                                 </a>
                                                 <h4>${free.account.firstname} ${free.account.lastname}</h4>
-
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -105,34 +98,10 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-6">
-                                <h5>
-                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                        <i class="fa" aria-hidden="true" style="color: red;"></i>
-                                        <span class="dropdown-header">Assets</span>
-                                    </button>
-                                </h5>
-                            </div>
-                            <div class="col-3">
-                                <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mt-1" disabled>
-                                        <input type="hidden" name="action" value="uploadAsset">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-3">
-                                <form method="POST" action="TitleDetailed">
-                                    <div class="form-group">
-                                        <button type="submit" name="action" value="downloadAllAssets" class="btn btn-block button-red-solid mt-2">Download All</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
+                    <div class="card-header" id="headerTwo">
+                        <button class="btn btn-block button-red-solid col-2" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                            Assets
+                        </button>
                     </div>
                     <div id="collapse2" class="collapse">
                         <div class="card-body">

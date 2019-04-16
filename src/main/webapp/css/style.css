@@ -309,3 +309,7 @@ a.link {
   margin-right: auto;
   width: 50%;
 }
+
+.btn-collapse {
+    background-color: rgba(0,0,0,.03);
+}

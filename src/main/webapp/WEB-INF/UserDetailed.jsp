@@ -86,8 +86,8 @@
                                         ${tit.title.endDate}
                                     </td>
                                     <td>
-                                        <a href="TitleDetailed?name=${tit.title.name}"class=" list-group-item-action">
-                                            <button class="btn btn-block btn-secondary">View </button>
+                                        <a href="TitleDetailed?name=${tit.title.name}"class="list-group-item-action">
+                                            <button class="btn btn-block btn-secondary">View</button>
                                         </a>
                                     </td>
                                 </tr>

@@ -55,7 +55,7 @@
             <div class="accordion mt-4" id="accordion">
                 <div class="card">
                     <div class="card-header" id="headingOne">
-                        <button class="btn btn-block button-red-solid col-2" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                        <button class="btn btn-block btn-secondary col-2" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
                             Members
                         </button>
                     </div>
@@ -99,146 +99,110 @@
                 </div>
                 <div class="card">
                     <div class="card-header" id="headerTwo">
-                        <button class="btn btn-block button-red-solid col-2" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        <button class="btn btn-block btn-secondary col-2" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                             Assets
                         </button>
                     </div>
                     <div id="collapse2" class="collapse">
-                        <div class="card-body">
-                            <div class="d-flex flex-wrap row-hl">
-                                <c:forEach items="${assets}" var="asset">
-                                    <div class="title-asset m-2">
-                                        <div class="asset-image">
-                                            <div class="overlay">
-                                                To download asset:<br/>
-                                                1. Right click "Download Asset"<br/>
-                                                2. Click "Save Link As.."<br/><br/>
-                                                To view asset:<br/>
-                                                1. Left click "Download Asset"<br/>
-                                                <a class="link" href="${asset}" download target="_blank">
-                                                    <button type="button" class="btn btn-block button-red-solid">
-                                                        Download Asset
-                                                    </button>
-                                                </a>
-                                                <c:if test="${user.position.positionId != 4}">
-                                                    <form method="post" action="TitleDetailed">
-                                                        <input type="submit" value="Delete Asset" class="btn btn-block button-red-solid mt-3">
-                                                        <input type="hidden" name="action" value="deleteAsset">
-                                                        <input type="hidden" name="assetName" value="${asset}">
-                                                    </form>
-                                                </c:if>
-                                            </div>
-                                            <img src="${asset}" class="asset item-h1" alt="BROKEN IMAGE"/>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <div class="card-body pb-1 pl-3">
+                            <div class="row border-bottom pb-2">
+                                <div class="col-4">
+                                    <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                                        <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mb-1 col-6">
+                                        <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                        <input type="hidden" name="action" value="uploadAsset">
+                                    </form>			
+                                </div>
+                                <div class="col-6">
 
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-6">
-                                <h5>
-                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                                        <i class="fa" aria-hidden="true" style="color: red;"></i>
-                                        <span class="dropdown-header">Artwork</span>
-                                    </button>
-                                </h5>
-                            </div>
-                            <div class="col-3">                              
-                                <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-2">
-                                        <input type="hidden" name="action" value="uploadArtwork">
-                                    </div> 
-                                </form> 
-                            </div>
-                            <div class="col-3"> 
-                                <form method="POST" action="TitleDetailed">
-                                    <div class="form-group">
-                                        <button type="submit" name="action" value="downloadAllArtworks" class="btn btn-block button-red-solid mt-2">Download All</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div id="collapse3" class="collapse ">
-                            <div class="card-body">
-                                <div class="d-flex flex-wrap row-hl">
-                                    <c:forEach items="${artworks}" var="artwork">
-                                        <div class="title-asset m-2">
-                                            <div class="asset-image">
-                                                <div class="overlay">
-                                                    To download artwork:<br/>
-                                                    1. Right click "Download Artwork"<br/>
-                                                    2. Click "Save Link As.."<br/><br/>
-                                                    To view asset:<br/>
-                                                    1. Left click "Download Artwork"<br/>
-                                                    <a class="link" href="${artwork}" download target="_blank">
-                                                        <button type="button" class="btn btn-block button-red-solid">
-                                                            Download Artwork
-                                                        </button>
-                                                    </a>
-                                                    <c:if test="${user.position.positionId != 4}">
-                                                        <form method="post" action="TitleDetailed">
-                                                            <input type="submit" value="Delete Artwork" class="btn btn-block button-red-solid mt-3">
-                                                            <input type="hidden" name="action" value="deleteArtwork">
-                                                            <input type="hidden" name="artworkName" value="${artwork}">
-                                                        </form>
-                                                    </c:if>
-                                                </div>
-                                                <img src="${artwork}" class="asset item-h1" alt="BROKEN IMAGE"/>
-                                            </div>
-                                        </div>
-                                    </c:forEach>
+                                </div>
+                                <div class="col-2">
+                                    <form method="POST" action="TitleDetailed">
+                                        <button type="submit" name="action" value="downloadAllAssets" class="btn btn-block button-red-solid">
+                                            Download All
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
+
+                        </div>
+
+                        <div class="d-flex flex-wrap row-hl">
+                            <c:forEach items="${assets}" var="asset">
+                                <div class="title-asset m-2">
+                                    <div class="asset-image">
+                                        <div class="overlay">
+                                            To download asset:<br/>
+                                            1. Right click "Download Asset"<br/>
+                                            2. Click "Save Link As.."<br/><br/>
+                                            To view asset:<br/>
+                                            1. Left click "Download Asset"<br/>
+                                            <a class="link" href="${asset}" download target="_blank">
+                                                <button type="button" class="btn btn-block button-red-solid">
+                                                    Download Asset
+                                                </button>
+                                            </a>
+                                            <c:if test="${user.position.positionId != 4}">
+                                                <form method="post" action="TitleDetailed">
+                                                    <input type="submit" value="Delete Asset" class="btn btn-block button-red-solid mt-3">
+                                                    <input type="hidden" name="action" value="deleteAsset">
+                                                    <input type="hidden" name="assetName" value="${asset}">
+                                                </form>
+                                            </c:if>
+                                        </div>
+                                        <img src="${asset}" class="asset item-h1" alt="BROKEN IMAGE"/>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
+            </div>                         
+            <form method="GET" action="ArtworkDetailed" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="submit" id="viewArtwork" value="View Artwork" class="btn btn-block button-red-solid mt-2">
+                    <input type="hidden" name="action" value="uploadArtwork">
+                </div> 
+            </form> 
+        </div>
+        <c:if test="${goodFeedback != null}">
+            <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success</strong> ${goodFeedback}
             </div>
-        </div>
-    </div>
-    <c:if test="${goodFeedback != null}">
-        <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Success</strong> ${goodFeedback}
-        </div>
-    </c:if>
-    <c:if test="${badFeedback != null}">
-        <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
-            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            <strong>Error</strong> ${badFeedback}
-        </div>
-    </c:if> 
-</body>
+        </c:if>
+        <c:if test="${badFeedback != null}">
+            <div class="alert alert-danger alert-dismissible fixed-bottom ml-2 mr-2">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error</strong> ${badFeedback}
+            </div>
+        </c:if> 
+    </body>
 
-<script type="text/javascript">
-    $('.collapse').on('shown.bs.collapse', function () {
-        $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    <script type="text/javascript">
+        $('.collapse').on('shown.bs.collapse', function () {
+            $(this).parent().find(".glyphicon-plus").removeClass("glyphicon-plus").addClass("glyphicon-minus");
 
-    }).on('hidden.bs.collapse', function () {
-        $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
-    });
+        }).on('hidden.bs.collapse', function () {
+            $(this).parent().find(".glyphicon-minus").removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        });
 
-    $('#uploadAsset').on("change", function () {
-        $('#submitAsset').prop('disabled', !$(this).val());
-    });
+        $('#uploadAsset').on("change", function () {
+            $('#submitAsset').prop('disabled', !$(this).val());
+        });
 
-    $('#uploadArtwork').on("change", function () {
-        $('#submitArtwork').prop('disabled', !$(this).val());
-    });
+        $('#uploadArtwork').on("change", function () {
+            $('#submitArtwork').prop('disabled', !$(this).val());
+        });
 
-    $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
-        $(".alert-dismissible").slideUp(500);
-    });
-</script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-crossorigin="anonymous"></script>
+        $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function () {
+            $(".alert-dismissible").slideUp(500);
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    crossorigin="anonymous"></script>
 </html>

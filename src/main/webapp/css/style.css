@@ -65,12 +65,12 @@ a.nav-link {
 /******Lists******/
 
 .list-n {
-    border-bottom: 1px solid #7b7676;
+/*    border-bottom: 1px solid #7b7676;*/
 }
 
 .list-item-n {
-    border-left: 1px solid #7b7676;
-    border-right: 1px solid #7b7676;
+/*    border-left: 1px solid #7b7676;
+    border-right: 1px solid #7b7676;*/
 }
 
 h1.list-header-n {
@@ -78,7 +78,11 @@ h1.list-header-n {
     padding: 2px;
     border: none;
     text-align: center;
-    border: 2px solid #7b7676;
+/*    border-top: 2px solid #d8d8d8;
+    border-bottom: 2px solid #7b7676;
+    border-left: 1px solid #7b7676;
+    border-right: 1px solid #7b7676;*/
+    border: 2px solid black;
     margin-bottom: 0px;
 }
 

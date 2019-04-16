@@ -99,6 +99,8 @@
                         <c:set var="start" value="${1}" /> <!--  counter for the first item of a page -->
                         <c:set var="page" value="${1}" /> <!--  counter for the current page -->
                         <c:set var="end" value="${start + 6 }"/> <!--  counter for the last item of a page -->
+                        
+                        <h1 class="list-header-n">Users</h1>
                         <div class="page-active" id="page${page}"> <!--Each page has a unique ID -->
                             <c:forEach items="${users}" var="u">
                                 <c:if test="${start eq end}"> <!--When we create the last row of each page then we create a new div for the new page-->
@@ -108,7 +110,7 @@
 
                                 </c:if>
                                 <!--  start of page -->
-
+                                
                                 <a href="UserDetailed?name=${u.user.firstname} ${u.user.lastname}" class="list-group-item list-group-item-action">
                                     <div class="row">
                                         <div class="col-6">

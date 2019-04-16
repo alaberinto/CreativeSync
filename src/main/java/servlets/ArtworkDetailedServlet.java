@@ -41,20 +41,18 @@ public class ArtworkDetailedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        
-        Cookie[] cookies = request.getCookies();
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals("roundsFilled")) {
-                session.setAttribute("roundsFilled", Integer.parseInt(cookies[i].getValue()));
-            } else if (cookies[i].getName().equals("c1")) {
-                session.setAttribute("showUpload", cookies[i].getValue());
-            } else if (cookies[i].getName().equals("approvedCookie")) {
-                session.setAttribute("approvedCookie", cookies[i].getValue());
-            }
-        }
         try {
-            
+            HttpSession session = request.getSession();
+            Cookie[] cookies = request.getCookies();
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals("roundsFilled")) {
+                    session.setAttribute("roundsFilled", Integer.parseInt(cookies[i].getValue()));
+                } else if (cookies[i].getName().equals("c1")) {
+                    session.setAttribute("showUpload", cookies[i].getValue());
+                } else if (cookies[i].getName().equals("approvedCookie")) {
+                    session.setAttribute("approvedCookie", cookies[i].getValue());
+                }
+            }
             /*
             1 = admin
             2 = coordinator
@@ -63,46 +61,40 @@ public class ArtworkDetailedServlet extends HttpServlet {
              */
             Account user = (Account) session.getAttribute("user");
             int position = user.getPosition().getPositionId();
-
-            if (position == 4) { //freelancer       
+            if (position == 4) { //freelancer
                 request.setAttribute("position", "0"); //freelancer
             } else {
                 request.setAttribute("position", "1"); //design lead, and others
             }
-
-            request.setAttribute("status", 0); //0 to see the buttons    
-
-            //title id retrieval            
+            request.setAttribute("status", 0); //0 to see the buttons
+            //title id retrieval
             int titleId = (int) session.getAttribute("titleId");
-
-            //get rounds
+//            //            //get rounds
             ArtworkService as = new ArtworkService();
             List<Artwork> rounds;
             rounds = as.getAllRounds(titleId);
-
-            //gets artwork for each round
-            List<Artwork> roundArt;
-            roundArt = as.getAllArtworkByTitleId(titleId);
-            request.setAttribute("roundArt", roundArt);
-
-            //check if there are any rounds & artwork
+//            
+//            //gets artwork for each round
+//            List<Artwork> roundArt;
+//            roundArt = as.getAllArtworkByTitleId(titleId);
+//            request.setAttribute("roundArt", roundArt);
+//            
+//            //check if there are any rounds & artwork
             if (rounds.isEmpty() == false) {
                 request.setAttribute("roundsFilled", 1);
                 request.setAttribute("rounds", rounds);
             } else if (session.getAttribute("roundsFilled") != null) {
                 request.setAttribute("roundsFilled", 1);
-            }
-            else {
+            } else {
                 request.setAttribute("roundsFilled", 0);
             }
-
-            //check for approve/deny for all rounds
-            if (as.getArtworkStatus(titleId, 1) == 1) {
-                request.setAttribute("status", "1");
-            } else if (as.getArtworkStatus(titleId, 2) == 2) {
-                request.setAttribute("status", "2");
-            }
-
+//            
+//            //check for approve/deny for all rounds
+//            if (as.getArtworkStatus(titleId, 1) == 1) {
+//                request.setAttribute("status", "1");
+//            } else if (as.getArtworkStatus(titleId, 2) == 2) {
+//                request.setAttribute("status", "2");
+//            }
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
         } catch (DBException ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,20 +125,19 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             //title id & name retrieval & max round
             int titleId = (int) session.getAttribute("titleId");
-            String titleName = (String) session.getAttribute("titleName");
-            
-            int maxRound = as.findMaxRound(titleId);
+//            String titleName = (String) session.getAttribute("titleName");
 
-            //get rounds         
+//            int maxRound = as.findMaxRound(titleId);
+//
+//            //get rounds         
             List<Artwork> rounds;
             rounds = as.getAllRounds(titleId);
             request.setAttribute("rounds", rounds);
-
-            //gets artwork for each round
-            List<Artwork> roundArt;
-            roundArt = as.getAllArtworkByTitleId(titleId);
-            request.setAttribute("roundArt", roundArt);
-
+//
+//            //gets artwork for each round
+//            List<Artwork> roundArt;
+//            roundArt = as.getAllArtworkByTitleId(titleId);
+//            request.setAttribute("roundArt", roundArt);
             //get title object to use for inserting artwork
 //            Title title = as.getArtTitle(titleId);
             //check if there are any rounds & artwork
@@ -156,7 +147,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
             } else {
                 request.setAttribute("roundsFilled", 0);
             }
-
             /**
              * *************Add/Upload artwork***********
              */
@@ -166,9 +156,9 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             if (action.equalsIgnoreCase("uploadArtwork")) {
                 request.setAttribute("showUpload", "show");
-                request.setAttribute("roundsFilled", -1);
+                request.setAttribute("roundsFilled", 1);
                 Cookie c1 = new Cookie("c1", "showUpload");
-                Cookie roundsFilled = new Cookie("roundsFilled", "-1");
+                Cookie roundsFilled = new Cookie("roundsFilled", "1");
                 c1.setMaxAge(60 * 30);
                 c1.setPath("/");
                 response.addCookie(c1);
@@ -190,7 +180,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 response.addCookie(approvedCookie);
                 Cookie[] cookies = request.getCookies();
 
-                
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().equals("showUpload")) {
                         cookies[i].setMaxAge(-1);
@@ -198,12 +187,12 @@ public class ArtworkDetailedServlet extends HttpServlet {
                     }
                 }
             }
-            System.out.print(roundArt.size());
+//            System.out.print(roundArt.size());
 
             if (approved != null) {
-                for (int i = 0; i < roundArt.size(); i++) {
-                    as.updateArtworkStatus(roundArt.get(i).getArtworkId(), 1);
-                }
+//                for (int i = 0; i < roundArt.size(); i++) {
+//                    as.updateArtworkStatus(roundArt.get(i).getArtworkId(), 1);
+//                }
                 request.setAttribute("status", 1); //1 if round is approved
             }
 
@@ -217,8 +206,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
-        } catch (DBException ex) {
-            Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -232,7 +232,6 @@
                             <c:if test="${unassignedTitles != null}">
                                 <c:if test="${user.position.positionId != 1}">
                                     <br>
-                                    <h1 class="list-header-n">Unassigned Titles</h1>
                                 </c:if>
                                 <c:if test="${user.position.positionId == 1}">
                                     <h1 class="list-header-n">All Titles</h1>

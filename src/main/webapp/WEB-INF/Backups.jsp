@@ -43,7 +43,7 @@
                                     <input type="submit" class="btn btn-secondary" value="Restore database" onclick="warnUser();">
                                     <script type = "text/javascript">
                                         function warnUser() {
-                                            var confrimAction = confirm("YOU ARE ABOUT TO RESTORE THE DATABASE! DO YOU WISH TO CONTINTUE?");
+                                            var confrimAction = confirm("YOU ARE ABOUT TO RESTORE THE DATABASE! DO YOU WISH TO CONTINUE?");
                                             if (confrimAction === false) {
                                                 event.preventDefault();
                                                 return false;

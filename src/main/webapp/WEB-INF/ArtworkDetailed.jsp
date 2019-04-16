@@ -19,6 +19,7 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>    
         <link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js"></script>
         <title>Artwork Detailed</title>
@@ -52,11 +53,11 @@
                             <th>
                                 <div align ="right">
                                     <div class="col-4">
-                                        <form method="POST" action="ArtworkDetailed" enctype="multipart/form-data">
+                                        <form method="POST" action="ArtworkDetailed">
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
                                                 <input type="submit" id="submitArtwork" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>                                                
-                                                <input type="hidden" name="actionArt" value="uploadArtwork">
+                                                <input type="hidden" name="action" value="uploadArtwork">
                                             </div>
                                         </form>
                                     </div>
@@ -140,6 +141,14 @@
                         </div>
                         <br>
                     </c:forEach>
+                </c:if>
+                <c:if test="${showUpload != null}">
+                    <c:if test="${position == 0}">
+                        <h1>freelancer</h1>
+                    </c:if>
+                    <c:if test="${position == 1}">
+                        <h1>others</h1>
+                    </c:if>   
                 </c:if>
                 <c:if test="${roundsFilled == 0}">
                     <div align="center">

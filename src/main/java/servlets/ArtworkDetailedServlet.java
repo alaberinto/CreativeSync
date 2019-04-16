@@ -89,7 +89,10 @@ public class ArtworkDetailedServlet extends HttpServlet {
             if (rounds.isEmpty() == false) {
                 request.setAttribute("roundsFilled", 1);
                 request.setAttribute("rounds", rounds);
-            } else {
+            } else if (session.getAttribute("roundsFilled") != null) {
+                request.setAttribute("roundsFilled", 1);
+            }
+            else {
                 request.setAttribute("roundsFilled", 0);
             }
 

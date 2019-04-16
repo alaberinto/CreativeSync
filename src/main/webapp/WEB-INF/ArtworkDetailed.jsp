@@ -57,7 +57,7 @@
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
                                                 <input type="submit" id="submitArtwork" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>                                                
-                                                <input type="hidden" name="action" value="uploadArtwork">
+                                                <input type="hidden" name="action" value="approved">
                                             </div>
                                         </form>
                                     </div>
@@ -123,7 +123,8 @@
                                                 <div align="center">                         
                                                     <form action="ArtworkDetailed" method="post" id="statusApproveDeny">
                                                         <input type="submit" class="buttonApprove" name="approve" value="Approve">
-                                                        <input type="submit" class="buttonDeny" name="deny" value="Deny">       
+                                                        <input type="submit" class="buttonDeny" name="deny" value="Deny"> 
+                                                        <input type="hidden" name="action" value="approved">
                                                     </form>
                                                 </div>
                                             </td>
@@ -142,7 +143,7 @@
                                             <th colspan="2">        
                                                 <div style="padding: 10px;">
                                                     <div align="center">                                    
-                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                        <img class="fancybox" title="Artwork 1" src="css/Sdp_Kimmy_17.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
                                                     </div>                                                                               
                                                 </div>
                                             </th>                                    
@@ -171,7 +172,7 @@
                                             <th colspan="2">        
                                                 <div style="padding: 10px;">
                                                     <div align="center">                                    
-                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                        <img class="fancybox" title="Artwork 1" src="css/Sdp_Kimmy_17.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
                                                     </div>                                                                               
                                                 </div>
                                             </th>                                    
@@ -192,11 +193,11 @@
                                 <div>
                                 </c:if> 
                             </c:if>
-                            <c:if test="${roundsFilled == 0}">
-                                <div align="center">
-                                    <h1>No artwork exists for this title!</h1>
-                                </div>
-                            </c:if>
+                            <%--<c:if test="${roundsFilled == 0}">--%>
+                                <!--<div align="center">-->
+                                    <!--<h1>No artwork exists for this title!</h1>-->
+                                <!--</div>-->
+                            <%--</c:if>--%>
                             <c:if test="${uploaded != null}">
                                 <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

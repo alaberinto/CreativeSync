@@ -144,6 +144,8 @@ public class ArtworkDetailedServlet extends HttpServlet {
             if (rounds.isEmpty() == false) {
                 request.setAttribute("roundsFilled", 1);
                 request.setAttribute("rounds", rounds);
+            }  else if (session.getAttribute("roundsFilled") != null) {
+                request.setAttribute("roundsFilled", 1);
             } else {
                 request.setAttribute("roundsFilled", 0);
             }
@@ -152,9 +154,22 @@ public class ArtworkDetailedServlet extends HttpServlet {
              */
             String action = request.getParameter("action");
 
-            String uploaded;
+            if (action.equalsIgnoreCase("approved")) {
+                request.setAttribute("approvedCookie", "approved");
+                session.setAttribute("roundsFilled", 1);
+                Cookie approvedCookie = new Cookie("approvedCookie", "approved");
+                approvedCookie.setMaxAge(10 * 60);
+                approvedCookie.setPath("/");
+                response.addCookie(approvedCookie);
+                Cookie[] cookies = request.getCookies();
 
-            if (action.equalsIgnoreCase("uploadArtwork")) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("showUpload")) {
+                        cookies[i].setMaxAge(-1);
+                        session.removeAttribute("showUpload");
+                    }
+                }
+            } else if (action.equalsIgnoreCase("uploadArtwork")) {
                 request.setAttribute("showUpload", "show");
                 request.setAttribute("roundsFilled", 1);
                 Cookie c1 = new Cookie("c1", "showUpload");
@@ -172,21 +187,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
              */
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
-            if (approved != null) {
-                request.setAttribute("approved", "approved");
-                Cookie approvedCookie = new Cookie("approved", "approved");
-                approvedCookie.setMaxAge(10 * 60);
-                approvedCookie.setPath("/");
-                response.addCookie(approvedCookie);
-                Cookie[] cookies = request.getCookies();
 
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equals("showUpload")) {
-                        cookies[i].setMaxAge(-1);
-                        session.removeAttribute("showUpload");
-                    }
-                }
-            }
 //            System.out.print(roundArt.size());
 
             if (approved != null) {

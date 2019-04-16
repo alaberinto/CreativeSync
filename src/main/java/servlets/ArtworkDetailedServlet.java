@@ -133,7 +133,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
             request.setAttribute("roundArt", roundArt);
 
             //get title object to use for inserting artwork
-            Title title = as.getArtTitle(titleId);
+//            Title title = as.getArtTitle(titleId);
 
             //check if there are any rounds & artwork
             if (rounds.isEmpty() == false) {
@@ -146,38 +146,12 @@ public class ArtworkDetailedServlet extends HttpServlet {
             /**
              * *************Add/Upload artwork***********
              */
-            String action = request.getParameter("actionArt");
-            List<FileItem> multiparts = null;
-            FileService fs = new FileService();
+            String action = request.getParameter("action");
 
-            //Check if its a file upload.
-//            if (ServletFileUpload.isMultipartContent(request)) {
-//                try {
-//                    multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-//                    // This method grabs the action. Without this part, action will be null.
-//                    // This is needed in order to differentiate whether its an artwork or an asset being uploaded.
-//                    action = checkValue(multiparts);
-//                } catch (FileUploadException ex) {
-//                    Logger.getLogger(TitleDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//                action = request.getParameter("actionArt");
-//            }
+            String uploaded; 
 
-            String uploaded; //if not null, show failure message, hasn't been implemented for notifications yet
-//            String artUpload = request.getParameter("actionArt");
-
-            if (action != null) {
-                //Get File From JSP
-                uploaded = fs.handleUpload(multiparts, titleName, "artwork");
-                String path = "path";
-
-                if (uploaded != null) {
-                    session.setAttribute("uploaded", uploaded);
-                    as.insertArtwork("artwork", path, 75, (short) 0, title, (maxRound + 1));
-                } else {
-                    session.setAttribute("failed", "Could not upload artwork.");
-                }
+            if (action.equalsIgnoreCase("uploadArtwork")) {
+                request.setAttribute("showUpload", "show");
             }
 
             /**
@@ -192,7 +166,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
             if (approved != null) {
                 for (int i = 0; i < roundArt.size(); i++) {
                     as.updateArtworkStatus(roundArt.get(i).getArtworkId(), 1);
-//            es.sendMail(email, subject, template, tags);
                 }
                 request.setAttribute("status", 1); //1 if round is approved
             }
@@ -200,7 +173,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
             if (denied != null) {
                 for (int i = 0; i < roundArt.size(); i++) {
                     as.updateArtworkStatus(i, 2);
-//            es.sendMail(email, subject, template, tags);
                 }
                 request.setAttribute("status", 2); //2 if round is denied
             }

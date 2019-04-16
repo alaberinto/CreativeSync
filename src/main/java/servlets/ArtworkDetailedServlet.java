@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,7 +41,11 @@ public class ArtworkDetailedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        Cookie[] cookies = request.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            String name = cookies[i].getName();
+            String value = cookies[i].getValue();
+        }
         try {
             HttpSession session = request.getSession();
 
@@ -134,7 +139,6 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             //get title object to use for inserting artwork
 //            Title title = as.getArtTitle(titleId);
-
             //check if there are any rounds & artwork
             if (rounds.isEmpty() == false) {
                 request.setAttribute("roundsFilled", 1);
@@ -148,10 +152,15 @@ public class ArtworkDetailedServlet extends HttpServlet {
              */
             String action = request.getParameter("action");
 
-            String uploaded; 
+            String uploaded;
 
             if (action.equalsIgnoreCase("uploadArtwork")) {
                 request.setAttribute("showUpload", "show");
+                request.setAttribute("roundsFilled", -1);
+                Cookie c1 = new Cookie("c1", "showUpload");
+                Cookie roundsFilled = new Cookie("roundsFilled", "-1");
+                c1.setMaxAge(60 * 5);
+                roundsFilled.setMaxAge(60 * 5);
             }
 
             /**

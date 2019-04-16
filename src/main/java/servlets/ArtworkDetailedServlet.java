@@ -43,8 +43,13 @@ public class ArtworkDetailedServlet extends HttpServlet {
             throws ServletException, IOException {
         Cookie[] cookies = request.getCookies();
         for (int i = 0; i < cookies.length; i++) {
-            String name = cookies[i].getName();
-            String value = cookies[i].getValue();
+            if (cookies[i].getName().equals("roundsFilled")) {
+                request.setAttribute("roundsFilled", Integer.parseInt(cookies[i].getValue()));
+            } else if (cookies[i].getName().equals("c1")) {
+                request.setAttribute("showUpload", cookies[i].getValue());
+            } else if (cookies[i].getName().equals("approvedCookie")) {
+                request.setAttribute("approvedCookie", cookies[i].getValue());
+            }
         }
         try {
             HttpSession session = request.getSession();
@@ -156,9 +161,9 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             if (action.equalsIgnoreCase("uploadArtwork")) {
                 request.setAttribute("showUpload", "show");
-                request.setAttribute("roundsFilled", -1);
+                request.setAttribute("roundsFilled", 1);
                 Cookie c1 = new Cookie("c1", "showUpload");
-                Cookie roundsFilled = new Cookie("roundsFilled", "-1");
+                Cookie roundsFilled = new Cookie("roundsFilled", "1");
                 c1.setMaxAge(60 * 5);
                 roundsFilled.setMaxAge(60 * 5);
             }
@@ -168,7 +173,17 @@ public class ArtworkDetailedServlet extends HttpServlet {
              */
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
-            String denied = request.getParameter("deny");
+            if (approved != null) {
+                Cookie approvedCookie = new Cookie("approved", "approved");
+                approvedCookie.setMaxAge(10 * 60);
+
+                Cookie[] cookies = request.getCookies();
+
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("showUpload")) {
+                        cookies[i].setMaxAge(0);
+                }
+            }
 
             System.out.print(roundArt.size());
 

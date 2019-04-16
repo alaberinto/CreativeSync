@@ -107,11 +107,14 @@
                         <div class="card-body pb-1 pl-3">
                             <div class="row border-bottom pb-2">
                                 <div class="col-4">
-                                    <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
-                                        <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mb-1 col-6">
-                                        <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
-                                        <input type="hidden" name="action" value="uploadAsset">
-                                    </form>			
+
+                                    <c:if test="${user.position.positionId != 4}">
+                                        <form method="POST" action="TitleDetailed" enctype="multipart/form-data">
+                                            <input type="submit" id="submitAsset" value="Upload Asset" class="btn btn-block button-red-solid mb-1 col-6">
+                                            <input type="file" id="uploadAsset" name="file" class="form-control-file" accept="image/png, image/jpeg">
+                                            <input type="hidden" name="action" value="uploadAsset">
+                                        </form>
+                                    </c:if>
                                 </div>
                                 <div class="col-6">
 

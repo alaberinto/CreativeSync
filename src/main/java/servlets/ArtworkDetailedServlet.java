@@ -183,7 +183,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
             if (approved != null) {
-                session.setAttribute("approved", "approved");
+                request.setAttribute("approved", "approved");
                 Cookie approvedCookie = new Cookie("approved", "approved");
                 approvedCookie.setMaxAge(10 * 60);
                 approvedCookie.setPath("/");
@@ -193,7 +193,8 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().equals("showUpload")) {
-                        cookies[i].setMaxAge(0);
+                        cookies[i].setMaxAge(-1);
+                        session.removeAttribute("showUpload");
                     }
                 }
             }

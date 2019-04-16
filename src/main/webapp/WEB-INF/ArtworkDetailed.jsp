@@ -150,6 +150,14 @@
                         <h1>others</h1>
                     </c:if>   
                 </c:if>
+                <c:if test="${approvedCookie != null}">
+                    <c:if test="${position == 0}">
+                        <h1>freelancer</h1>
+                    </c:if>
+                    <c:if test="${position == 1}">
+                        <h1>others</h1>
+                    </c:if> 
+                </c:if>
                 <c:if test="${roundsFilled == 0}">
                     <div align="center">
                         <h1>No artwork exists for this title!</h1>

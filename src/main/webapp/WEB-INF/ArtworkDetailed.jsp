@@ -57,7 +57,7 @@
                                             <div class="form-group">
                                                 <input type="file" id="uploadArtwork" name="file" class="form-control-file" accept="image/png, image/jpeg">
                                                 <input type="submit" id="submitArtwork" name="artUpload" value="Add Artwork" class="btn btn-block button-red-solid mt-1" disabled>                                                
-                                                <input type="hidden" name="action" value="approved">
+                                                <input type="hidden" name="action" value="uploadArtwork">
                                             </div>
                                         </form>
                                     </div>
@@ -84,7 +84,7 @@
                                             <th colspan="2">        
                                                 <div style="padding: 10px;">
                                                     <div align="center">                                    
-                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                        <img class="fancybox" title="Artwork 1" src="css/Sdp_Kimmy_17.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
                                                     </div>                                                                               
                                                 </div>
                                             </th>                                    
@@ -108,7 +108,7 @@
                                             <th colspan="2">        
                                                 <div style="padding: 10px;">
                                                     <div align="center">                                    
-                                                        <img class="fancybox" title="Artwork 1" src="https://image.shutterstock.com/z/stock-photo-original-oil-painting-an-urbanistic-artwork-symbolizes-society-problems-like-overpopulation-and-733032778.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
+                                                        <img class="fancybox" title="Artwork 1" src="css/Sdp_Kimmy_17.jpg" style="width: 250px; height:205px;" alt="Artwork 1"/>
                                                     </div>                                                                               
                                                 </div>
                                             </th>                                    

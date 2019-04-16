@@ -41,19 +41,20 @@ public class ArtworkDetailedServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        
         Cookie[] cookies = request.getCookies();
         for (int i = 0; i < cookies.length; i++) {
             if (cookies[i].getName().equals("roundsFilled")) {
-                request.setAttribute("roundsFilled", Integer.parseInt(cookies[i].getValue()));
+                session.setAttribute("roundsFilled", Integer.parseInt(cookies[i].getValue()));
             } else if (cookies[i].getName().equals("c1")) {
-                request.setAttribute("showUpload", cookies[i].getValue());
+                session.setAttribute("showUpload", cookies[i].getValue());
             } else if (cookies[i].getName().equals("approvedCookie")) {
-                request.setAttribute("approvedCookie", cookies[i].getValue());
+                session.setAttribute("approvedCookie", cookies[i].getValue());
             }
         }
         try {
-            HttpSession session = request.getSession();
-
+            
             /*
             1 = admin
             2 = coordinator
@@ -130,6 +131,7 @@ public class ArtworkDetailedServlet extends HttpServlet {
             //title id & name retrieval & max round
             int titleId = (int) session.getAttribute("titleId");
             String titleName = (String) session.getAttribute("titleName");
+            
             int maxRound = as.findMaxRound(titleId);
 
             //get rounds         
@@ -161,11 +163,15 @@ public class ArtworkDetailedServlet extends HttpServlet {
 
             if (action.equalsIgnoreCase("uploadArtwork")) {
                 request.setAttribute("showUpload", "show");
-                request.setAttribute("roundsFilled", 1);
+                request.setAttribute("roundsFilled", -1);
                 Cookie c1 = new Cookie("c1", "showUpload");
-                Cookie roundsFilled = new Cookie("roundsFilled", "1");
-                c1.setMaxAge(60 * 5);
-                roundsFilled.setMaxAge(60 * 5);
+                Cookie roundsFilled = new Cookie("roundsFilled", "-1");
+                c1.setMaxAge(60 * 30);
+                c1.setPath("/");
+                response.addCookie(c1);
+                roundsFilled.setMaxAge(60 * 30);
+                roundsFilled.setPath("/");
+                response.addCookie(roundsFilled);
             }
 
             /**
@@ -174,17 +180,20 @@ public class ArtworkDetailedServlet extends HttpServlet {
             //changes the approve/deny message when the form is posted
             String approved = request.getParameter("approve");
             if (approved != null) {
+                session.setAttribute("approved", "approved");
                 Cookie approvedCookie = new Cookie("approved", "approved");
                 approvedCookie.setMaxAge(10 * 60);
-
+                approvedCookie.setPath("/");
+                response.addCookie(approvedCookie);
                 Cookie[] cookies = request.getCookies();
 
+                
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().equals("showUpload")) {
                         cookies[i].setMaxAge(0);
+                    }
                 }
             }
-
             System.out.print(roundArt.size());
 
             if (approved != null) {
@@ -194,11 +203,13 @@ public class ArtworkDetailedServlet extends HttpServlet {
                 request.setAttribute("status", 1); //1 if round is approved
             }
 
-            if (denied != null) {
-                for (int i = 0; i < roundArt.size(); i++) {
-                    as.updateArtworkStatus(i, 2);
-                }
-                request.setAttribute("status", 2); //2 if round is denied
+            Account user = (Account) session.getAttribute("user");
+            int position = user.getPosition().getPositionId();
+
+            if (position == 4) { //freelancer       
+                request.setAttribute("position", "0"); //freelancer
+            } else {
+                request.setAttribute("position", "1"); //design lead, and others
             }
 
             getServletContext().getRequestDispatcher("/WEB-INF/ArtworkDetailed.jsp").forward(request, response);
@@ -207,18 +218,5 @@ public class ArtworkDetailedServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(ArtworkDetailedServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    String checkValue(List<FileItem> multiparts) {
-        String inputName = null;
-        for (FileItem item : multiparts) {
-            if (item.isFormField()) {
-                inputName = (String) item.getFieldName();
-                if (inputName.equalsIgnoreCase("action")) {
-                    return item.getString();
-                }
-            }
-        }
-        return null;
     }
 }

@@ -80,9 +80,7 @@
                                             <div style="padding: 10px;">
                                                 <div align="center">    
                                                     <c:forEach var="roundArt" items="${roundArt}">                                                       
-                                                        <c:if test = "${roundArt.getRound() == rounds.getRound()}">
-                                                            <!--https://image.shutterstock.com/image-vector/french-bulldog-pop-art-colors-450w-1151676383.jpg-->
-                                                            <!--<img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>-->
+                                                        <c:if test = "${roundArt.getRound() == rounds.getRound()}">                                                           
                                                             <img class="fancybox" title="${roundArt.artworkName}" src="${roundArt.artworkRef}" style="width: 250px; height:205px;" alt="${roundArt.artworkName}"/>
                                                         </c:if>                                                       
                                                     </c:forEach>
@@ -143,13 +141,11 @@
                         <br>
                     </c:forEach>
                 </c:if>
-
                 <c:if test="${roundsFilled == 0}">
                     <div align="center">
                         <h1>No artwork exists for this title!</h1>
                     </div>
                 </c:if>
-
                 <c:if test="${uploaded != null}">
                     <div class="alert alert-success alert-dismissible fixed-bottom ml-2 mr-2">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

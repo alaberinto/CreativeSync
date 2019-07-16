@@ -48,7 +48,7 @@ import org.apache.commons.fileupload.FileItem;
  */
 public class FileService {
 
-    private static final String ACCESS_TOKEN = "tNpg99t4i3AAAAAAAAAAOqycycl78X9LN64VtVGM_7JywiZNaBCIUL0KXpgGr83U";
+    private static final String ACCESS_TOKEN = "notoken";
     private DbxRequestConfig config;
     private DbxClientV2 client;
     private final long CHUNKED_UPLOAD_CHUNK_SIZE = 8L << 20; // 8 MiB
